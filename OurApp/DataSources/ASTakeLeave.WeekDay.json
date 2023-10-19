@@ -33,6 +33,7 @@
       "ID": "ID",
       "Modified": "Modified",
       "OData__ColorTag": "Color Tag",
+      "sort": "sort",
       "status": "status",
       "Title": "Title",
       "weekDay": "weekDay"

@@ -268,7 +268,7 @@
                 gal_us_List_2 As gallery.galleryVertical:
                     AlignInContainer: =AlignInContainer.SetByContainer
                     DelayItemLoading: =true
-                    Items: =Filter('ASTakeLeave.CommonRelationship',active = 1)
+                    Items: =Sort(Filter('ASTakeLeave.CommonRelationship',active = 1),sort,SortOrder.Ascending)
                     Layout: =Layout.Vertical
                     LayoutMinHeight: =287
                     LayoutMinWidth: =0
@@ -302,7 +302,7 @@
                             LayoutMinHeight: =30
                             OnSelect: |-
                                 =UpdateContext({locUpdateUser:true})
-                            Text: =ThisItem.ID
+                            Text: =ThisItem.sort
                             Width: =100
                             Wrap: =false
                             ZIndex: =1
@@ -594,7 +594,7 @@
                 =//Cập nhật cấp phê duyệt thành không hoạt động
                 Patch('ASTakeLeave.CommonRelationship',LookUp('ASTakeLeave.CommonRelationship',ID = locCommon.ID),{active:0});
                 //Tạo mới cấp phê duyệt
-                Patch('ASTakeLeave.CommonRelationship',Defaults('ASTakeLeave.CommonRelationship'),{approveProcessLevel:locCommon.approveProcessLevel,userID:drp_us_Roles_4.Selected.userID,active:1});
+                Patch('ASTakeLeave.CommonRelationship',Defaults('ASTakeLeave.CommonRelationship'),{sort:locCommon.sort,approveProcessLevel:locCommon.approveProcessLevel,userID:drp_us_Roles_4.Selected.userID,active:1});
                 Notify("Sửa thành công",NotificationType.Success,1500);
                 UpdateContext({locUpdateUser:false})
             PressedColor: =RGBA(255,255,255,1)

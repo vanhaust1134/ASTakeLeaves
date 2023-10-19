@@ -946,7 +946,7 @@
                     AddColumns(
                         ShowColumns('ASTakeLeave.Users', "ID", "userID", "fullName", "shortName", "email", "phone", "jobTitle", "departmentID", "divisionID", "OData__x0033_65AccountInfo", "active") As temp, 
                         "roleID", 
-                        LookUp('ASTakeLeave.Users_Roles', userID = temp.userID).roleID
+                        LookUp(Filter('ASTakeLeave.Users_Roles',active = 1), userID = temp.userID).roleID
                     )
                 );
                 //Lấy bảng quản lý người dùng
@@ -1242,7 +1242,7 @@
                         NotificationType.Error,
                         1500
                     ),
-                    IsBlank(txt_us_Phone_2.Text),
+                    IsBlank(txt_us_JobTitle_2.Text),
                     Notify(
                         "Trường chức danh không được để trống",
                         NotificationType.Error,
@@ -1259,7 +1259,7 @@
                             Email: cbo_us_Email_2.Selected.Mail,
                             JobTitle: "",
                             Picture: ""
-                        }});
+                        },active:1});
                     //Sửa quản lý cũ thành không hoạt động
                     Patch('ASTakeLeave.UserRelationship',LookUp('ASTakeLeave.UserRelationship',userID = locUser.userID And active = 1),{active:0});
                     //Sửa vai trò cũ thành không hoạt động
@@ -1284,7 +1284,7 @@
                     AddColumns(
                         ShowColumns('ASTakeLeave.Users', "ID", "userID", "fullName", "shortName", "email", "phone", "jobTitle", "departmentID", "divisionID", "OData__x0033_65AccountInfo", "active") As temp, 
                         "roleID", 
-                        LookUp('ASTakeLeave.Users_Roles', userID = temp.userID).roleID
+                        LookUp(Filter('ASTakeLeave.Users_Roles',active = 1), userID = temp.userID).roleID
                     )
                 );
                 //Lấy bảng quản lý người dùng
@@ -1406,6 +1406,7 @@
         drp_us_Roles_2 As dropdown:
             BorderColor: =RGBA(116, 116, 116, 1)
             BorderThickness: =1
+            Default: =LookUp(gblColRoles,ID = locUser.roleID).name
             Items: =Filter(gblColRoles,name <> "Tất cả")
             X: =548
             Y: =535
@@ -1468,7 +1469,8 @@
         cbo_us_Email_2 As combobox:
             BorderColor: =RGBA(116, 116, 116, 1)
             BorderThickness: =1
-            DefaultSelectedItems: =LookUp(gblColAllUser,userID = locUser.userID)
+            DefaultSelectedItems: |-
+                =Office365Users.SearchUserV2({searchTerm:locUser.email}).value
             DisplayFields: =["DisplayName","Mail"]
             InputTextPlaceholder: ="Tìm người dùng"
             IsSearchable: =false

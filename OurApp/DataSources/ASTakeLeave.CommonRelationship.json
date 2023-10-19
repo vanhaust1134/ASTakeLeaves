@@ -34,6 +34,7 @@
       "ID": "ID",
       "Modified": "Modified",
       "OData__ColorTag": "Color Tag",
+      "sort": "sort",
       "Title": "Title",
       "userID": "userID"
     },
