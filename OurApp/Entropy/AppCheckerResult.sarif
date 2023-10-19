@@ -1154,19 +1154,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'Statistical Screen'.ctn_hs_Navigate_2.ctn_NavigationMenu_10.gal_NavigationMenu_10.AccessibleLabel"
+                  "fullyQualifiedName": "'Statistical Manager Screen'.ctn_hs_Navigate_2.ctn_NavigationMenu_10.gal_NavigationMenu_10.AccessibleLabel"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'Statistical Screen'.ctn_hs_Navigate_2.ctn_NavigationMenu_10.gal_NavigationMenu_10.AccessibleLabel",
+                  "fullyQualifiedName": "'Statistical Manager Screen'.ctn_hs_Navigate_2.ctn_NavigationMenu_10.gal_NavigationMenu_10.AccessibleLabel",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "AccessibleLabel",
-                "module": "Statistical Screen",
-                "type": "'Statistical Screen'.ctn_hs_Navigate_2.ctn_NavigationMenu_10.gal_NavigationMenu_10"
+                "module": "Statistical Manager Screen",
+                "type": "'Statistical Manager Screen'.ctn_hs_Navigate_2.ctn_NavigationMenu_10.gal_NavigationMenu_10"
               }
             }
           ],
@@ -1184,19 +1184,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'Statistical Screen'.ctn_hs_Navigate_2.ctn_NavigationMenu_10.gal_NavigationMenu_10.TabIndex"
+                  "fullyQualifiedName": "'Statistical Manager Screen'.ctn_hs_Navigate_2.ctn_NavigationMenu_10.gal_NavigationMenu_10.TabIndex"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'Statistical Screen'.ctn_hs_Navigate_2.ctn_NavigationMenu_10.gal_NavigationMenu_10.TabIndex",
+                  "fullyQualifiedName": "'Statistical Manager Screen'.ctn_hs_Navigate_2.ctn_NavigationMenu_10.gal_NavigationMenu_10.TabIndex",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "TabIndex",
-                "module": "Statistical Screen",
-                "type": "'Statistical Screen'.ctn_hs_Navigate_2.ctn_NavigationMenu_10.gal_NavigationMenu_10"
+                "module": "Statistical Manager Screen",
+                "type": "'Statistical Manager Screen'.ctn_hs_Navigate_2.ctn_NavigationMenu_10.gal_NavigationMenu_10"
               }
             }
           ],
@@ -1214,19 +1214,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'Statistical Screen'.ctn_ss_Export.ico_ds_Cancel_4.AccessibleLabel"
+                  "fullyQualifiedName": "'Statistical Manager Screen'.ctn_ss_Export.ico_ds_Cancel_4.AccessibleLabel"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'Statistical Screen'.ctn_ss_Export.ico_ds_Cancel_4.AccessibleLabel",
+                  "fullyQualifiedName": "'Statistical Manager Screen'.ctn_ss_Export.ico_ds_Cancel_4.AccessibleLabel",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "AccessibleLabel",
-                "module": "Statistical Screen",
-                "type": "'Statistical Screen'.ctn_ss_Export.ico_ds_Cancel_4"
+                "module": "Statistical Manager Screen",
+                "type": "'Statistical Manager Screen'.ctn_ss_Export.ico_ds_Cancel_4"
               }
             }
           ],
@@ -1244,19 +1244,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'Statistical Screen'.ctn_ss_Export.ico_ds_Cancel_4.TabIndex"
+                  "fullyQualifiedName": "'Statistical Manager Screen'.ctn_ss_Export.ico_ds_Cancel_4.TabIndex"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'Statistical Screen'.ctn_ss_Export.ico_ds_Cancel_4.TabIndex",
+                  "fullyQualifiedName": "'Statistical Manager Screen'.ctn_ss_Export.ico_ds_Cancel_4.TabIndex",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "TabIndex",
-                "module": "Statistical Screen",
-                "type": "'Statistical Screen'.ctn_ss_Export.ico_ds_Cancel_4"
+                "module": "Statistical Manager Screen",
+                "type": "'Statistical Manager Screen'.ctn_ss_Export.ico_ds_Cancel_4"
               }
             }
           ],
@@ -1274,19 +1274,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'Statistical Screen'.ctn_ss_Export.Radio1.AccessibleLabel"
+                  "fullyQualifiedName": "'Statistical Manager Screen'.ctn_ss_Export.Radio1.AccessibleLabel"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'Statistical Screen'.ctn_ss_Export.Radio1.AccessibleLabel",
+                  "fullyQualifiedName": "'Statistical Manager Screen'.ctn_ss_Export.Radio1.AccessibleLabel",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "AccessibleLabel",
-                "module": "Statistical Screen",
-                "type": "'Statistical Screen'.ctn_ss_Export.Radio1"
+                "module": "Statistical Manager Screen",
+                "type": "'Statistical Manager Screen'.ctn_ss_Export.Radio1"
               }
             }
           ],
@@ -1304,19 +1304,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'Statistical Screen'.ctn_hs_MainContent_2.ctn_hs_List_2.ColumnChart1.AccessibleLabel"
+                  "fullyQualifiedName": "'Statistical Manager Screen'.ctn_hs_MainContent_2.ctn_hs_List_2.ColumnChart1.AccessibleLabel"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'Statistical Screen'.ctn_hs_MainContent_2.ctn_hs_List_2.ColumnChart1.AccessibleLabel",
+                  "fullyQualifiedName": "'Statistical Manager Screen'.ctn_hs_MainContent_2.ctn_hs_List_2.ColumnChart1.AccessibleLabel",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "AccessibleLabel",
-                "module": "Statistical Screen",
-                "type": "'Statistical Screen'.ctn_hs_MainContent_2.ctn_hs_List_2.ColumnChart1"
+                "module": "Statistical Manager Screen",
+                "type": "'Statistical Manager Screen'.ctn_hs_MainContent_2.ctn_hs_List_2.ColumnChart1"
               }
             }
           ],
@@ -1334,19 +1334,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'Statistical Screen'.ctn_hs_MainContent_2.ctn_hs_Statistical_2.Gallery4.AccessibleLabel"
+                  "fullyQualifiedName": "'Statistical Manager Screen'.ctn_hs_MainContent_2.ctn_hs_Statistical_2.Gallery4.AccessibleLabel"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'Statistical Screen'.ctn_hs_MainContent_2.ctn_hs_Statistical_2.Gallery4.AccessibleLabel",
+                  "fullyQualifiedName": "'Statistical Manager Screen'.ctn_hs_MainContent_2.ctn_hs_Statistical_2.Gallery4.AccessibleLabel",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "AccessibleLabel",
-                "module": "Statistical Screen",
-                "type": "'Statistical Screen'.ctn_hs_MainContent_2.ctn_hs_Statistical_2.Gallery4"
+                "module": "Statistical Manager Screen",
+                "type": "'Statistical Manager Screen'.ctn_hs_MainContent_2.ctn_hs_Statistical_2.Gallery4"
               }
             }
           ],
@@ -1364,19 +1364,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'Statistical Screen'.ctn_hs_MainContent_2.ctn_hs_Statistical_2.Gallery4.TabIndex"
+                  "fullyQualifiedName": "'Statistical Manager Screen'.ctn_hs_MainContent_2.ctn_hs_Statistical_2.Gallery4.TabIndex"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'Statistical Screen'.ctn_hs_MainContent_2.ctn_hs_Statistical_2.Gallery4.TabIndex",
+                  "fullyQualifiedName": "'Statistical Manager Screen'.ctn_hs_MainContent_2.ctn_hs_Statistical_2.Gallery4.TabIndex",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "TabIndex",
-                "module": "Statistical Screen",
-                "type": "'Statistical Screen'.ctn_hs_MainContent_2.ctn_hs_Statistical_2.Gallery4"
+                "module": "Statistical Manager Screen",
+                "type": "'Statistical Manager Screen'.ctn_hs_MainContent_2.ctn_hs_Statistical_2.Gallery4"
               }
             }
           ],
@@ -1394,19 +1394,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'Statistical Screen'.ctn_hs_MainContent_2.ctn_hs_Statistical_2.Gallery4.Toggle2.ShowLabel"
+                  "fullyQualifiedName": "'Statistical Manager Screen'.ctn_hs_MainContent_2.ctn_hs_Statistical_2.Gallery4.Toggle2.ShowLabel"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'Statistical Screen'.ctn_hs_MainContent_2.ctn_hs_Statistical_2.Gallery4.Toggle2.ShowLabel",
+                  "fullyQualifiedName": "'Statistical Manager Screen'.ctn_hs_MainContent_2.ctn_hs_Statistical_2.Gallery4.Toggle2.ShowLabel",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "ShowLabel",
-                "module": "Statistical Screen",
-                "type": "'Statistical Screen'.ctn_hs_MainContent_2.ctn_hs_Statistical_2.Gallery4.Toggle2"
+                "module": "Statistical Manager Screen",
+                "type": "'Statistical Manager Screen'.ctn_hs_MainContent_2.ctn_hs_Statistical_2.Gallery4.Toggle2"
               }
             }
           ],
@@ -1424,19 +1424,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'Statistical Screen'.ctn_hs_MainContent_2.ctn_hs_Statistical_2.Gallery4.Toggle2.AccessibleLabel"
+                  "fullyQualifiedName": "'Statistical Manager Screen'.ctn_hs_MainContent_2.ctn_hs_Statistical_2.Gallery4.Toggle2.AccessibleLabel"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'Statistical Screen'.ctn_hs_MainContent_2.ctn_hs_Statistical_2.Gallery4.Toggle2.AccessibleLabel",
+                  "fullyQualifiedName": "'Statistical Manager Screen'.ctn_hs_MainContent_2.ctn_hs_Statistical_2.Gallery4.Toggle2.AccessibleLabel",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "AccessibleLabel",
-                "module": "Statistical Screen",
-                "type": "'Statistical Screen'.ctn_hs_MainContent_2.ctn_hs_Statistical_2.Gallery4.Toggle2"
+                "module": "Statistical Manager Screen",
+                "type": "'Statistical Manager Screen'.ctn_hs_MainContent_2.ctn_hs_Statistical_2.Gallery4.Toggle2"
               }
             }
           ],
@@ -1454,19 +1454,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'Statistical Screen'.ctn_hs_MainContent_2.ctn_hs_Statistical_2.Gallery4.Container5_3.Dropdown3_5.AccessibleLabel"
+                  "fullyQualifiedName": "'Statistical Manager Screen'.ctn_hs_MainContent_2.ctn_hs_Statistical_2.Gallery4.Container5_3.Dropdown3_5.AccessibleLabel"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'Statistical Screen'.ctn_hs_MainContent_2.ctn_hs_Statistical_2.Gallery4.Container5_3.Dropdown3_5.AccessibleLabel",
+                  "fullyQualifiedName": "'Statistical Manager Screen'.ctn_hs_MainContent_2.ctn_hs_Statistical_2.Gallery4.Container5_3.Dropdown3_5.AccessibleLabel",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "AccessibleLabel",
-                "module": "Statistical Screen",
-                "type": "'Statistical Screen'.ctn_hs_MainContent_2.ctn_hs_Statistical_2.Gallery4.Container5_3.Dropdown3_5"
+                "module": "Statistical Manager Screen",
+                "type": "'Statistical Manager Screen'.ctn_hs_MainContent_2.ctn_hs_Statistical_2.Gallery4.Container5_3.Dropdown3_5"
               }
             }
           ],
@@ -1484,19 +1484,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'Statistical Screen'.ctn_hs_MainContent_2.ctn_hs_Statistical_2.Gallery4.Container5.Dropdown3.AccessibleLabel"
+                  "fullyQualifiedName": "'Statistical Manager Screen'.ctn_hs_MainContent_2.ctn_hs_Statistical_2.Gallery4.Container5.Dropdown3.AccessibleLabel"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'Statistical Screen'.ctn_hs_MainContent_2.ctn_hs_Statistical_2.Gallery4.Container5.Dropdown3.AccessibleLabel",
+                  "fullyQualifiedName": "'Statistical Manager Screen'.ctn_hs_MainContent_2.ctn_hs_Statistical_2.Gallery4.Container5.Dropdown3.AccessibleLabel",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "AccessibleLabel",
-                "module": "Statistical Screen",
-                "type": "'Statistical Screen'.ctn_hs_MainContent_2.ctn_hs_Statistical_2.Gallery4.Container5.Dropdown3"
+                "module": "Statistical Manager Screen",
+                "type": "'Statistical Manager Screen'.ctn_hs_MainContent_2.ctn_hs_Statistical_2.Gallery4.Container5.Dropdown3"
               }
             }
           ],
@@ -1514,19 +1514,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'Statistical Screen'.ctn_hs_MainContent_2.ctn_hs_Statistical_2.Gallery4.Container5.Dropdown3_1.AccessibleLabel"
+                  "fullyQualifiedName": "'Statistical Manager Screen'.ctn_hs_MainContent_2.ctn_hs_Statistical_2.Gallery4.Container5.Dropdown3_1.AccessibleLabel"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'Statistical Screen'.ctn_hs_MainContent_2.ctn_hs_Statistical_2.Gallery4.Container5.Dropdown3_1.AccessibleLabel",
+                  "fullyQualifiedName": "'Statistical Manager Screen'.ctn_hs_MainContent_2.ctn_hs_Statistical_2.Gallery4.Container5.Dropdown3_1.AccessibleLabel",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "AccessibleLabel",
-                "module": "Statistical Screen",
-                "type": "'Statistical Screen'.ctn_hs_MainContent_2.ctn_hs_Statistical_2.Gallery4.Container5.Dropdown3_1"
+                "module": "Statistical Manager Screen",
+                "type": "'Statistical Manager Screen'.ctn_hs_MainContent_2.ctn_hs_Statistical_2.Gallery4.Container5.Dropdown3_1"
               }
             }
           ],
@@ -1544,19 +1544,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'Statistical Screen'.ctn_hs_MainContent_2.ctn_hs_Statistical_2.Gallery4.Container5_1.Dropdown3_3.AccessibleLabel"
+                  "fullyQualifiedName": "'Statistical Manager Screen'.ctn_hs_MainContent_2.ctn_hs_Statistical_2.Gallery4.Container5_1.Dropdown3_3.AccessibleLabel"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'Statistical Screen'.ctn_hs_MainContent_2.ctn_hs_Statistical_2.Gallery4.Container5_1.Dropdown3_3.AccessibleLabel",
+                  "fullyQualifiedName": "'Statistical Manager Screen'.ctn_hs_MainContent_2.ctn_hs_Statistical_2.Gallery4.Container5_1.Dropdown3_3.AccessibleLabel",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "AccessibleLabel",
-                "module": "Statistical Screen",
-                "type": "'Statistical Screen'.ctn_hs_MainContent_2.ctn_hs_Statistical_2.Gallery4.Container5_1.Dropdown3_3"
+                "module": "Statistical Manager Screen",
+                "type": "'Statistical Manager Screen'.ctn_hs_MainContent_2.ctn_hs_Statistical_2.Gallery4.Container5_1.Dropdown3_3"
               }
             }
           ],
@@ -1574,19 +1574,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'Statistical Screen'.ctn_hs_MainContent_2.ctn_hs_Statistical_2.Gallery4.Container5_2.Dropdown3_4.AccessibleLabel"
+                  "fullyQualifiedName": "'Statistical Manager Screen'.ctn_hs_MainContent_2.ctn_hs_Statistical_2.Gallery4.Container5_2.Dropdown3_4.AccessibleLabel"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'Statistical Screen'.ctn_hs_MainContent_2.ctn_hs_Statistical_2.Gallery4.Container5_2.Dropdown3_4.AccessibleLabel",
+                  "fullyQualifiedName": "'Statistical Manager Screen'.ctn_hs_MainContent_2.ctn_hs_Statistical_2.Gallery4.Container5_2.Dropdown3_4.AccessibleLabel",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "AccessibleLabel",
-                "module": "Statistical Screen",
-                "type": "'Statistical Screen'.ctn_hs_MainContent_2.ctn_hs_Statistical_2.Gallery4.Container5_2.Dropdown3_4"
+                "module": "Statistical Manager Screen",
+                "type": "'Statistical Manager Screen'.ctn_hs_MainContent_2.ctn_hs_Statistical_2.Gallery4.Container5_2.Dropdown3_4"
               }
             }
           ],
@@ -7484,19 +7484,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'Home Manage Screen'.ctn_hs_Navigate_1.ctn_NavigationMenu_1.gal_NavigationMenu_1.AccessibleLabel"
+                  "fullyQualifiedName": "'Home Manager Screen'.ctn_hs_Navigate_1.ctn_NavigationMenu_1.gal_NavigationMenu_1.AccessibleLabel"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'Home Manage Screen'.ctn_hs_Navigate_1.ctn_NavigationMenu_1.gal_NavigationMenu_1.AccessibleLabel",
+                  "fullyQualifiedName": "'Home Manager Screen'.ctn_hs_Navigate_1.ctn_NavigationMenu_1.gal_NavigationMenu_1.AccessibleLabel",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "AccessibleLabel",
-                "module": "Home Manage Screen",
-                "type": "'Home Manage Screen'.ctn_hs_Navigate_1.ctn_NavigationMenu_1.gal_NavigationMenu_1"
+                "module": "Home Manager Screen",
+                "type": "'Home Manager Screen'.ctn_hs_Navigate_1.ctn_NavigationMenu_1.gal_NavigationMenu_1"
               }
             }
           ],
@@ -7514,19 +7514,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'Home Manage Screen'.ctn_hs_Navigate_1.ctn_NavigationMenu_1.gal_NavigationMenu_1.TabIndex"
+                  "fullyQualifiedName": "'Home Manager Screen'.ctn_hs_Navigate_1.ctn_NavigationMenu_1.gal_NavigationMenu_1.TabIndex"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'Home Manage Screen'.ctn_hs_Navigate_1.ctn_NavigationMenu_1.gal_NavigationMenu_1.TabIndex",
+                  "fullyQualifiedName": "'Home Manager Screen'.ctn_hs_Navigate_1.ctn_NavigationMenu_1.gal_NavigationMenu_1.TabIndex",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "TabIndex",
-                "module": "Home Manage Screen",
-                "type": "'Home Manage Screen'.ctn_hs_Navigate_1.ctn_NavigationMenu_1.gal_NavigationMenu_1"
+                "module": "Home Manager Screen",
+                "type": "'Home Manager Screen'.ctn_hs_Navigate_1.ctn_NavigationMenu_1.gal_NavigationMenu_1"
               }
             }
           ],
@@ -7544,19 +7544,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'Home Manage Screen'.ctn_hs_MainContent_1.ctn_hs_List_1.Container6_1.img_hms_PreviousMonth.AccessibleLabel"
+                  "fullyQualifiedName": "'Home Manager Screen'.ctn_hs_MainContent_1.ctn_hs_List_1.Container6_1.img_hms_PreviousMonth.AccessibleLabel"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'Home Manage Screen'.ctn_hs_MainContent_1.ctn_hs_List_1.Container6_1.img_hms_PreviousMonth.AccessibleLabel",
+                  "fullyQualifiedName": "'Home Manager Screen'.ctn_hs_MainContent_1.ctn_hs_List_1.Container6_1.img_hms_PreviousMonth.AccessibleLabel",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "AccessibleLabel",
-                "module": "Home Manage Screen",
-                "type": "'Home Manage Screen'.ctn_hs_MainContent_1.ctn_hs_List_1.Container6_1.img_hms_PreviousMonth"
+                "module": "Home Manager Screen",
+                "type": "'Home Manager Screen'.ctn_hs_MainContent_1.ctn_hs_List_1.Container6_1.img_hms_PreviousMonth"
               }
             }
           ],
@@ -7574,19 +7574,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'Home Manage Screen'.ctn_hs_MainContent_1.ctn_hs_List_1.Container6_1.img_hms_PreviousMonth.TabIndex"
+                  "fullyQualifiedName": "'Home Manager Screen'.ctn_hs_MainContent_1.ctn_hs_List_1.Container6_1.img_hms_PreviousMonth.TabIndex"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'Home Manage Screen'.ctn_hs_MainContent_1.ctn_hs_List_1.Container6_1.img_hms_PreviousMonth.TabIndex",
+                  "fullyQualifiedName": "'Home Manager Screen'.ctn_hs_MainContent_1.ctn_hs_List_1.Container6_1.img_hms_PreviousMonth.TabIndex",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "TabIndex",
-                "module": "Home Manage Screen",
-                "type": "'Home Manage Screen'.ctn_hs_MainContent_1.ctn_hs_List_1.Container6_1.img_hms_PreviousMonth"
+                "module": "Home Manager Screen",
+                "type": "'Home Manager Screen'.ctn_hs_MainContent_1.ctn_hs_List_1.Container6_1.img_hms_PreviousMonth"
               }
             }
           ],
@@ -7604,19 +7604,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'Home Manage Screen'.ctn_hs_MainContent_1.ctn_hs_List_1.Container6_1.img_hms_NextMonth.AccessibleLabel"
+                  "fullyQualifiedName": "'Home Manager Screen'.ctn_hs_MainContent_1.ctn_hs_List_1.Container6_1.img_hms_NextMonth.AccessibleLabel"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'Home Manage Screen'.ctn_hs_MainContent_1.ctn_hs_List_1.Container6_1.img_hms_NextMonth.AccessibleLabel",
+                  "fullyQualifiedName": "'Home Manager Screen'.ctn_hs_MainContent_1.ctn_hs_List_1.Container6_1.img_hms_NextMonth.AccessibleLabel",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "AccessibleLabel",
-                "module": "Home Manage Screen",
-                "type": "'Home Manage Screen'.ctn_hs_MainContent_1.ctn_hs_List_1.Container6_1.img_hms_NextMonth"
+                "module": "Home Manager Screen",
+                "type": "'Home Manager Screen'.ctn_hs_MainContent_1.ctn_hs_List_1.Container6_1.img_hms_NextMonth"
               }
             }
           ],
@@ -7634,19 +7634,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'Home Manage Screen'.ctn_hs_MainContent_1.ctn_hs_List_1.Container6_1.img_hms_NextMonth.TabIndex"
+                  "fullyQualifiedName": "'Home Manager Screen'.ctn_hs_MainContent_1.ctn_hs_List_1.Container6_1.img_hms_NextMonth.TabIndex"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'Home Manage Screen'.ctn_hs_MainContent_1.ctn_hs_List_1.Container6_1.img_hms_NextMonth.TabIndex",
+                  "fullyQualifiedName": "'Home Manager Screen'.ctn_hs_MainContent_1.ctn_hs_List_1.Container6_1.img_hms_NextMonth.TabIndex",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "TabIndex",
-                "module": "Home Manage Screen",
-                "type": "'Home Manage Screen'.ctn_hs_MainContent_1.ctn_hs_List_1.Container6_1.img_hms_NextMonth"
+                "module": "Home Manager Screen",
+                "type": "'Home Manager Screen'.ctn_hs_MainContent_1.ctn_hs_List_1.Container6_1.img_hms_NextMonth"
               }
             }
           ],
@@ -7664,19 +7664,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'Home Manage Screen'.ctn_hs_MainContent_1.ctn_hs_List_1.ctn_hs_DetailList_1.Container9_1.MonthDayGallery1_13.TabIndex"
+                  "fullyQualifiedName": "'Home Manager Screen'.ctn_hs_MainContent_1.ctn_hs_List_1.ctn_hs_DetailList_1.Container9_1.MonthDayGallery1_13.TabIndex"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'Home Manage Screen'.ctn_hs_MainContent_1.ctn_hs_List_1.ctn_hs_DetailList_1.Container9_1.MonthDayGallery1_13.TabIndex",
+                  "fullyQualifiedName": "'Home Manager Screen'.ctn_hs_MainContent_1.ctn_hs_List_1.ctn_hs_DetailList_1.Container9_1.MonthDayGallery1_13.TabIndex",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "TabIndex",
-                "module": "Home Manage Screen",
-                "type": "'Home Manage Screen'.ctn_hs_MainContent_1.ctn_hs_List_1.ctn_hs_DetailList_1.Container9_1.MonthDayGallery1_13"
+                "module": "Home Manager Screen",
+                "type": "'Home Manager Screen'.ctn_hs_MainContent_1.ctn_hs_List_1.ctn_hs_DetailList_1.Container9_1.MonthDayGallery1_13"
               }
             }
           ],
@@ -7694,19 +7694,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'Home Manage Screen'.ctn_hs_MainContent_1.ctn_hs_List_1.ctn_hs_DetailList_1.Container9_1.MonthDayGallery1_13.Gallery8.AccessibleLabel"
+                  "fullyQualifiedName": "'Home Manager Screen'.ctn_hs_MainContent_1.ctn_hs_List_1.ctn_hs_DetailList_1.Container9_1.MonthDayGallery1_13.Gallery8.AccessibleLabel"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'Home Manage Screen'.ctn_hs_MainContent_1.ctn_hs_List_1.ctn_hs_DetailList_1.Container9_1.MonthDayGallery1_13.Gallery8.AccessibleLabel",
+                  "fullyQualifiedName": "'Home Manager Screen'.ctn_hs_MainContent_1.ctn_hs_List_1.ctn_hs_DetailList_1.Container9_1.MonthDayGallery1_13.Gallery8.AccessibleLabel",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "AccessibleLabel",
-                "module": "Home Manage Screen",
-                "type": "'Home Manage Screen'.ctn_hs_MainContent_1.ctn_hs_List_1.ctn_hs_DetailList_1.Container9_1.MonthDayGallery1_13.Gallery8"
+                "module": "Home Manager Screen",
+                "type": "'Home Manager Screen'.ctn_hs_MainContent_1.ctn_hs_List_1.ctn_hs_DetailList_1.Container9_1.MonthDayGallery1_13.Gallery8"
               }
             }
           ],
@@ -7724,19 +7724,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'Home Manage Screen'.ctn_hs_MainContent_1.ctn_hs_List_1.ctn_hs_DetailList_1.Container9_1.MonthDayGallery1_13.Gallery8.TabIndex"
+                  "fullyQualifiedName": "'Home Manager Screen'.ctn_hs_MainContent_1.ctn_hs_List_1.ctn_hs_DetailList_1.Container9_1.MonthDayGallery1_13.Gallery8.TabIndex"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'Home Manage Screen'.ctn_hs_MainContent_1.ctn_hs_List_1.ctn_hs_DetailList_1.Container9_1.MonthDayGallery1_13.Gallery8.TabIndex",
+                  "fullyQualifiedName": "'Home Manager Screen'.ctn_hs_MainContent_1.ctn_hs_List_1.ctn_hs_DetailList_1.Container9_1.MonthDayGallery1_13.Gallery8.TabIndex",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "TabIndex",
-                "module": "Home Manage Screen",
-                "type": "'Home Manage Screen'.ctn_hs_MainContent_1.ctn_hs_List_1.ctn_hs_DetailList_1.Container9_1.MonthDayGallery1_13.Gallery8"
+                "module": "Home Manager Screen",
+                "type": "'Home Manager Screen'.ctn_hs_MainContent_1.ctn_hs_List_1.ctn_hs_DetailList_1.Container9_1.MonthDayGallery1_13.Gallery8"
               }
             }
           ],
@@ -7754,19 +7754,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'Home Manage Screen'.ctn_hs_MainContent_1.ctn_hs_Statistical_1.Container7_1.gal_hs_List_2.AccessibleLabel"
+                  "fullyQualifiedName": "'Home Manager Screen'.ctn_hs_MainContent_1.ctn_hs_Statistical_1.Container7_1.gal_hs_List_2.AccessibleLabel"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'Home Manage Screen'.ctn_hs_MainContent_1.ctn_hs_Statistical_1.Container7_1.gal_hs_List_2.AccessibleLabel",
+                  "fullyQualifiedName": "'Home Manager Screen'.ctn_hs_MainContent_1.ctn_hs_Statistical_1.Container7_1.gal_hs_List_2.AccessibleLabel",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "AccessibleLabel",
-                "module": "Home Manage Screen",
-                "type": "'Home Manage Screen'.ctn_hs_MainContent_1.ctn_hs_Statistical_1.Container7_1.gal_hs_List_2"
+                "module": "Home Manager Screen",
+                "type": "'Home Manager Screen'.ctn_hs_MainContent_1.ctn_hs_Statistical_1.Container7_1.gal_hs_List_2"
               }
             }
           ],
@@ -7784,19 +7784,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'Home Manage Screen'.ctn_hs_MainContent_1.ctn_hs_Statistical_1.Container7_1.gal_hs_List_2.TabIndex"
+                  "fullyQualifiedName": "'Home Manager Screen'.ctn_hs_MainContent_1.ctn_hs_Statistical_1.Container7_1.gal_hs_List_2.TabIndex"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'Home Manage Screen'.ctn_hs_MainContent_1.ctn_hs_Statistical_1.Container7_1.gal_hs_List_2.TabIndex",
+                  "fullyQualifiedName": "'Home Manager Screen'.ctn_hs_MainContent_1.ctn_hs_Statistical_1.Container7_1.gal_hs_List_2.TabIndex",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "TabIndex",
-                "module": "Home Manage Screen",
-                "type": "'Home Manage Screen'.ctn_hs_MainContent_1.ctn_hs_Statistical_1.Container7_1.gal_hs_List_2"
+                "module": "Home Manager Screen",
+                "type": "'Home Manager Screen'.ctn_hs_MainContent_1.ctn_hs_Statistical_1.Container7_1.gal_hs_List_2"
               }
             }
           ],
@@ -7814,19 +7814,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'Home Manage Screen'.ctn_hs_MainContent_1.ctn_hs_Statistical_1.Container7_1.gal_hs_List_2.Container4_1.ctn_hs_ItemList_2.lbl_hs_ItemTime_2.FocusedBorderThickness"
+                  "fullyQualifiedName": "'Home Manager Screen'.ctn_hs_MainContent_1.ctn_hs_Statistical_1.Container7_1.gal_hs_List_2.Container4_1.ctn_hs_ItemList_2.lbl_hs_ItemTime_2.FocusedBorderThickness"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'Home Manage Screen'.ctn_hs_MainContent_1.ctn_hs_Statistical_1.Container7_1.gal_hs_List_2.Container4_1.ctn_hs_ItemList_2.lbl_hs_ItemTime_2.FocusedBorderThickness",
+                  "fullyQualifiedName": "'Home Manager Screen'.ctn_hs_MainContent_1.ctn_hs_Statistical_1.Container7_1.gal_hs_List_2.Container4_1.ctn_hs_ItemList_2.lbl_hs_ItemTime_2.FocusedBorderThickness",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "FocusedBorderThickness",
-                "module": "Home Manage Screen",
-                "type": "'Home Manage Screen'.ctn_hs_MainContent_1.ctn_hs_Statistical_1.Container7_1.gal_hs_List_2.Container4_1.ctn_hs_ItemList_2.lbl_hs_ItemTime_2"
+                "module": "Home Manager Screen",
+                "type": "'Home Manager Screen'.ctn_hs_MainContent_1.ctn_hs_Statistical_1.Container7_1.gal_hs_List_2.Container4_1.ctn_hs_ItemList_2.lbl_hs_ItemTime_2"
               }
             }
           ],
@@ -7844,19 +7844,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'Home Manage Screen'.ctn_hs_MainContent_1.ctn_hs_Statistical_1.Container7_1.gal_hs_List_2.Container4_1.ctn_hs_ItemList_2.lbl_hs_ItemTime_2.TabIndex"
+                  "fullyQualifiedName": "'Home Manager Screen'.ctn_hs_MainContent_1.ctn_hs_Statistical_1.Container7_1.gal_hs_List_2.Container4_1.ctn_hs_ItemList_2.lbl_hs_ItemTime_2.TabIndex"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'Home Manage Screen'.ctn_hs_MainContent_1.ctn_hs_Statistical_1.Container7_1.gal_hs_List_2.Container4_1.ctn_hs_ItemList_2.lbl_hs_ItemTime_2.TabIndex",
+                  "fullyQualifiedName": "'Home Manager Screen'.ctn_hs_MainContent_1.ctn_hs_Statistical_1.Container7_1.gal_hs_List_2.Container4_1.ctn_hs_ItemList_2.lbl_hs_ItemTime_2.TabIndex",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "TabIndex",
-                "module": "Home Manage Screen",
-                "type": "'Home Manage Screen'.ctn_hs_MainContent_1.ctn_hs_Statistical_1.Container7_1.gal_hs_List_2.Container4_1.ctn_hs_ItemList_2.lbl_hs_ItemTime_2"
+                "module": "Home Manager Screen",
+                "type": "'Home Manager Screen'.ctn_hs_MainContent_1.ctn_hs_Statistical_1.Container7_1.gal_hs_List_2.Container4_1.ctn_hs_ItemList_2.lbl_hs_ItemTime_2"
               }
             }
           ],
@@ -7874,19 +7874,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'Home Manage Screen'.ctn_hs_MainContent_1.ctn_hs_Statistical_1.Container7_1.gal_hs_List_2.Container4_1.ctn_hs_ItemList_2.lbl_hs_ItemReason_2.FocusedBorderThickness"
+                  "fullyQualifiedName": "'Home Manager Screen'.ctn_hs_MainContent_1.ctn_hs_Statistical_1.Container7_1.gal_hs_List_2.Container4_1.ctn_hs_ItemList_2.lbl_hs_ItemReason_2.FocusedBorderThickness"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'Home Manage Screen'.ctn_hs_MainContent_1.ctn_hs_Statistical_1.Container7_1.gal_hs_List_2.Container4_1.ctn_hs_ItemList_2.lbl_hs_ItemReason_2.FocusedBorderThickness",
+                  "fullyQualifiedName": "'Home Manager Screen'.ctn_hs_MainContent_1.ctn_hs_Statistical_1.Container7_1.gal_hs_List_2.Container4_1.ctn_hs_ItemList_2.lbl_hs_ItemReason_2.FocusedBorderThickness",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "FocusedBorderThickness",
-                "module": "Home Manage Screen",
-                "type": "'Home Manage Screen'.ctn_hs_MainContent_1.ctn_hs_Statistical_1.Container7_1.gal_hs_List_2.Container4_1.ctn_hs_ItemList_2.lbl_hs_ItemReason_2"
+                "module": "Home Manager Screen",
+                "type": "'Home Manager Screen'.ctn_hs_MainContent_1.ctn_hs_Statistical_1.Container7_1.gal_hs_List_2.Container4_1.ctn_hs_ItemList_2.lbl_hs_ItemReason_2"
               }
             }
           ],
@@ -7904,19 +7904,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'Home Manage Screen'.ctn_hs_MainContent_1.ctn_hs_Statistical_1.Container7_1.gal_hs_List_2.Container4_1.ctn_hs_ItemList_2.lbl_hs_ItemReason_2.TabIndex"
+                  "fullyQualifiedName": "'Home Manager Screen'.ctn_hs_MainContent_1.ctn_hs_Statistical_1.Container7_1.gal_hs_List_2.Container4_1.ctn_hs_ItemList_2.lbl_hs_ItemReason_2.TabIndex"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'Home Manage Screen'.ctn_hs_MainContent_1.ctn_hs_Statistical_1.Container7_1.gal_hs_List_2.Container4_1.ctn_hs_ItemList_2.lbl_hs_ItemReason_2.TabIndex",
+                  "fullyQualifiedName": "'Home Manager Screen'.ctn_hs_MainContent_1.ctn_hs_Statistical_1.Container7_1.gal_hs_List_2.Container4_1.ctn_hs_ItemList_2.lbl_hs_ItemReason_2.TabIndex",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "TabIndex",
-                "module": "Home Manage Screen",
-                "type": "'Home Manage Screen'.ctn_hs_MainContent_1.ctn_hs_Statistical_1.Container7_1.gal_hs_List_2.Container4_1.ctn_hs_ItemList_2.lbl_hs_ItemReason_2"
+                "module": "Home Manager Screen",
+                "type": "'Home Manager Screen'.ctn_hs_MainContent_1.ctn_hs_Statistical_1.Container7_1.gal_hs_List_2.Container4_1.ctn_hs_ItemList_2.lbl_hs_ItemReason_2"
               }
             }
           ],
@@ -7934,19 +7934,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'Home Manage Screen'.ctn_hs_MainContent_1.ctn_hs_Statistical_1.Container7_1.gal_hs_List_2.Container4_1.ctn_hs_ItemList_2.lbl_hs_ItemCreatedBy_2.FocusedBorderThickness"
+                  "fullyQualifiedName": "'Home Manager Screen'.ctn_hs_MainContent_1.ctn_hs_Statistical_1.Container7_1.gal_hs_List_2.Container4_1.ctn_hs_ItemList_2.lbl_hs_ItemCreatedBy_2.FocusedBorderThickness"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'Home Manage Screen'.ctn_hs_MainContent_1.ctn_hs_Statistical_1.Container7_1.gal_hs_List_2.Container4_1.ctn_hs_ItemList_2.lbl_hs_ItemCreatedBy_2.FocusedBorderThickness",
+                  "fullyQualifiedName": "'Home Manager Screen'.ctn_hs_MainContent_1.ctn_hs_Statistical_1.Container7_1.gal_hs_List_2.Container4_1.ctn_hs_ItemList_2.lbl_hs_ItemCreatedBy_2.FocusedBorderThickness",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "FocusedBorderThickness",
-                "module": "Home Manage Screen",
-                "type": "'Home Manage Screen'.ctn_hs_MainContent_1.ctn_hs_Statistical_1.Container7_1.gal_hs_List_2.Container4_1.ctn_hs_ItemList_2.lbl_hs_ItemCreatedBy_2"
+                "module": "Home Manager Screen",
+                "type": "'Home Manager Screen'.ctn_hs_MainContent_1.ctn_hs_Statistical_1.Container7_1.gal_hs_List_2.Container4_1.ctn_hs_ItemList_2.lbl_hs_ItemCreatedBy_2"
               }
             }
           ],
@@ -7964,19 +7964,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'Home Manage Screen'.ctn_hs_MainContent_1.ctn_hs_Statistical_1.Container7_1.gal_hs_List_2.Container4_1.ctn_hs_ItemList_2.lbl_hs_ItemCreatedBy_2.TabIndex"
+                  "fullyQualifiedName": "'Home Manager Screen'.ctn_hs_MainContent_1.ctn_hs_Statistical_1.Container7_1.gal_hs_List_2.Container4_1.ctn_hs_ItemList_2.lbl_hs_ItemCreatedBy_2.TabIndex"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'Home Manage Screen'.ctn_hs_MainContent_1.ctn_hs_Statistical_1.Container7_1.gal_hs_List_2.Container4_1.ctn_hs_ItemList_2.lbl_hs_ItemCreatedBy_2.TabIndex",
+                  "fullyQualifiedName": "'Home Manager Screen'.ctn_hs_MainContent_1.ctn_hs_Statistical_1.Container7_1.gal_hs_List_2.Container4_1.ctn_hs_ItemList_2.lbl_hs_ItemCreatedBy_2.TabIndex",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "TabIndex",
-                "module": "Home Manage Screen",
-                "type": "'Home Manage Screen'.ctn_hs_MainContent_1.ctn_hs_Statistical_1.Container7_1.gal_hs_List_2.Container4_1.ctn_hs_ItemList_2.lbl_hs_ItemCreatedBy_2"
+                "module": "Home Manager Screen",
+                "type": "'Home Manager Screen'.ctn_hs_MainContent_1.ctn_hs_Statistical_1.Container7_1.gal_hs_List_2.Container4_1.ctn_hs_ItemList_2.lbl_hs_ItemCreatedBy_2"
               }
             }
           ],
@@ -7994,19 +7994,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'Home Screen'.ctn_hs_Navigate.ctn_NavigationMenu.gal_NavigationMenu.AccessibleLabel"
+                  "fullyQualifiedName": "'Home User Screen'.ctn_hs_Navigate.ctn_NavigationMenu.gal_NavigationMenu.AccessibleLabel"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'Home Screen'.ctn_hs_Navigate.ctn_NavigationMenu.gal_NavigationMenu.AccessibleLabel",
+                  "fullyQualifiedName": "'Home User Screen'.ctn_hs_Navigate.ctn_NavigationMenu.gal_NavigationMenu.AccessibleLabel",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "AccessibleLabel",
-                "module": "Home Screen",
-                "type": "'Home Screen'.ctn_hs_Navigate.ctn_NavigationMenu.gal_NavigationMenu"
+                "module": "Home User Screen",
+                "type": "'Home User Screen'.ctn_hs_Navigate.ctn_NavigationMenu.gal_NavigationMenu"
               }
             }
           ],
@@ -8024,19 +8024,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'Home Screen'.ctn_hs_Navigate.ctn_NavigationMenu.gal_NavigationMenu.TabIndex"
+                  "fullyQualifiedName": "'Home User Screen'.ctn_hs_Navigate.ctn_NavigationMenu.gal_NavigationMenu.TabIndex"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'Home Screen'.ctn_hs_Navigate.ctn_NavigationMenu.gal_NavigationMenu.TabIndex",
+                  "fullyQualifiedName": "'Home User Screen'.ctn_hs_Navigate.ctn_NavigationMenu.gal_NavigationMenu.TabIndex",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "TabIndex",
-                "module": "Home Screen",
-                "type": "'Home Screen'.ctn_hs_Navigate.ctn_NavigationMenu.gal_NavigationMenu"
+                "module": "Home User Screen",
+                "type": "'Home User Screen'.ctn_hs_Navigate.ctn_NavigationMenu.gal_NavigationMenu"
               }
             }
           ],
@@ -8054,19 +8054,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'Home Screen'.ctn_hs_MainContent.ctn_hs_Statistical.Container7.gal_hs_List_1.AccessibleLabel"
+                  "fullyQualifiedName": "'Home User Screen'.ctn_hs_MainContent.ctn_hs_Statistical.Container7.gal_hs_List_1.AccessibleLabel"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'Home Screen'.ctn_hs_MainContent.ctn_hs_Statistical.Container7.gal_hs_List_1.AccessibleLabel",
+                  "fullyQualifiedName": "'Home User Screen'.ctn_hs_MainContent.ctn_hs_Statistical.Container7.gal_hs_List_1.AccessibleLabel",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "AccessibleLabel",
-                "module": "Home Screen",
-                "type": "'Home Screen'.ctn_hs_MainContent.ctn_hs_Statistical.Container7.gal_hs_List_1"
+                "module": "Home User Screen",
+                "type": "'Home User Screen'.ctn_hs_MainContent.ctn_hs_Statistical.Container7.gal_hs_List_1"
               }
             }
           ],
@@ -8084,19 +8084,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'Home Screen'.ctn_hs_MainContent.ctn_hs_Statistical.Container7.gal_hs_List_1.TabIndex"
+                  "fullyQualifiedName": "'Home User Screen'.ctn_hs_MainContent.ctn_hs_Statistical.Container7.gal_hs_List_1.TabIndex"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'Home Screen'.ctn_hs_MainContent.ctn_hs_Statistical.Container7.gal_hs_List_1.TabIndex",
+                  "fullyQualifiedName": "'Home User Screen'.ctn_hs_MainContent.ctn_hs_Statistical.Container7.gal_hs_List_1.TabIndex",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "TabIndex",
-                "module": "Home Screen",
-                "type": "'Home Screen'.ctn_hs_MainContent.ctn_hs_Statistical.Container7.gal_hs_List_1"
+                "module": "Home User Screen",
+                "type": "'Home User Screen'.ctn_hs_MainContent.ctn_hs_Statistical.Container7.gal_hs_List_1"
               }
             }
           ],
@@ -8114,19 +8114,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'Home Screen'.ctn_hs_MainContent.ctn_hs_Statistical.Container7.gal_hs_List_1.Container4.Image5.AccessibleLabel"
+                  "fullyQualifiedName": "'Home User Screen'.ctn_hs_MainContent.ctn_hs_Statistical.Container7.gal_hs_List_1.Container4.Image5.AccessibleLabel"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'Home Screen'.ctn_hs_MainContent.ctn_hs_Statistical.Container7.gal_hs_List_1.Container4.Image5.AccessibleLabel",
+                  "fullyQualifiedName": "'Home User Screen'.ctn_hs_MainContent.ctn_hs_Statistical.Container7.gal_hs_List_1.Container4.Image5.AccessibleLabel",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "AccessibleLabel",
-                "module": "Home Screen",
-                "type": "'Home Screen'.ctn_hs_MainContent.ctn_hs_Statistical.Container7.gal_hs_List_1.Container4.Image5"
+                "module": "Home User Screen",
+                "type": "'Home User Screen'.ctn_hs_MainContent.ctn_hs_Statistical.Container7.gal_hs_List_1.Container4.Image5"
               }
             }
           ],
@@ -8144,19 +8144,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'Home Screen'.ctn_hs_MainContent.ctn_hs_Statistical.Container7.gal_hs_List_1.Container4.Image5.TabIndex"
+                  "fullyQualifiedName": "'Home User Screen'.ctn_hs_MainContent.ctn_hs_Statistical.Container7.gal_hs_List_1.Container4.Image5.TabIndex"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'Home Screen'.ctn_hs_MainContent.ctn_hs_Statistical.Container7.gal_hs_List_1.Container4.Image5.TabIndex",
+                  "fullyQualifiedName": "'Home User Screen'.ctn_hs_MainContent.ctn_hs_Statistical.Container7.gal_hs_List_1.Container4.Image5.TabIndex",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "TabIndex",
-                "module": "Home Screen",
-                "type": "'Home Screen'.ctn_hs_MainContent.ctn_hs_Statistical.Container7.gal_hs_List_1.Container4.Image5"
+                "module": "Home User Screen",
+                "type": "'Home User Screen'.ctn_hs_MainContent.ctn_hs_Statistical.Container7.gal_hs_List_1.Container4.Image5"
               }
             }
           ],
@@ -8174,19 +8174,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'Home Screen'.ctn_hs_MainContent.ctn_hs_Statistical.Container7.gal_hs_List_1.Container4.ctn_hs_ItemList_1.lbl_hs_ItemTime_1.FocusedBorderThickness"
+                  "fullyQualifiedName": "'Home User Screen'.ctn_hs_MainContent.ctn_hs_Statistical.Container7.gal_hs_List_1.Container4.ctn_hs_ItemList_1.lbl_hs_ItemTime_1.FocusedBorderThickness"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'Home Screen'.ctn_hs_MainContent.ctn_hs_Statistical.Container7.gal_hs_List_1.Container4.ctn_hs_ItemList_1.lbl_hs_ItemTime_1.FocusedBorderThickness",
+                  "fullyQualifiedName": "'Home User Screen'.ctn_hs_MainContent.ctn_hs_Statistical.Container7.gal_hs_List_1.Container4.ctn_hs_ItemList_1.lbl_hs_ItemTime_1.FocusedBorderThickness",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "FocusedBorderThickness",
-                "module": "Home Screen",
-                "type": "'Home Screen'.ctn_hs_MainContent.ctn_hs_Statistical.Container7.gal_hs_List_1.Container4.ctn_hs_ItemList_1.lbl_hs_ItemTime_1"
+                "module": "Home User Screen",
+                "type": "'Home User Screen'.ctn_hs_MainContent.ctn_hs_Statistical.Container7.gal_hs_List_1.Container4.ctn_hs_ItemList_1.lbl_hs_ItemTime_1"
               }
             }
           ],
@@ -8204,19 +8204,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'Home Screen'.ctn_hs_MainContent.ctn_hs_Statistical.Container7.gal_hs_List_1.Container4.ctn_hs_ItemList_1.lbl_hs_ItemTime_1.TabIndex"
+                  "fullyQualifiedName": "'Home User Screen'.ctn_hs_MainContent.ctn_hs_Statistical.Container7.gal_hs_List_1.Container4.ctn_hs_ItemList_1.lbl_hs_ItemTime_1.TabIndex"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'Home Screen'.ctn_hs_MainContent.ctn_hs_Statistical.Container7.gal_hs_List_1.Container4.ctn_hs_ItemList_1.lbl_hs_ItemTime_1.TabIndex",
+                  "fullyQualifiedName": "'Home User Screen'.ctn_hs_MainContent.ctn_hs_Statistical.Container7.gal_hs_List_1.Container4.ctn_hs_ItemList_1.lbl_hs_ItemTime_1.TabIndex",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "TabIndex",
-                "module": "Home Screen",
-                "type": "'Home Screen'.ctn_hs_MainContent.ctn_hs_Statistical.Container7.gal_hs_List_1.Container4.ctn_hs_ItemList_1.lbl_hs_ItemTime_1"
+                "module": "Home User Screen",
+                "type": "'Home User Screen'.ctn_hs_MainContent.ctn_hs_Statistical.Container7.gal_hs_List_1.Container4.ctn_hs_ItemList_1.lbl_hs_ItemTime_1"
               }
             }
           ],
@@ -8234,19 +8234,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'Home Screen'.ctn_hs_MainContent.ctn_hs_Statistical.Container7.gal_hs_List_1.Container4.ctn_hs_ItemList_1.lbl_hs_ItemReason_1.FocusedBorderThickness"
+                  "fullyQualifiedName": "'Home User Screen'.ctn_hs_MainContent.ctn_hs_Statistical.Container7.gal_hs_List_1.Container4.ctn_hs_ItemList_1.lbl_hs_ItemReason_1.FocusedBorderThickness"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'Home Screen'.ctn_hs_MainContent.ctn_hs_Statistical.Container7.gal_hs_List_1.Container4.ctn_hs_ItemList_1.lbl_hs_ItemReason_1.FocusedBorderThickness",
+                  "fullyQualifiedName": "'Home User Screen'.ctn_hs_MainContent.ctn_hs_Statistical.Container7.gal_hs_List_1.Container4.ctn_hs_ItemList_1.lbl_hs_ItemReason_1.FocusedBorderThickness",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "FocusedBorderThickness",
-                "module": "Home Screen",
-                "type": "'Home Screen'.ctn_hs_MainContent.ctn_hs_Statistical.Container7.gal_hs_List_1.Container4.ctn_hs_ItemList_1.lbl_hs_ItemReason_1"
+                "module": "Home User Screen",
+                "type": "'Home User Screen'.ctn_hs_MainContent.ctn_hs_Statistical.Container7.gal_hs_List_1.Container4.ctn_hs_ItemList_1.lbl_hs_ItemReason_1"
               }
             }
           ],
@@ -8264,19 +8264,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'Home Screen'.ctn_hs_MainContent.ctn_hs_Statistical.Container7.gal_hs_List_1.Container4.ctn_hs_ItemList_1.lbl_hs_ItemReason_1.TabIndex"
+                  "fullyQualifiedName": "'Home User Screen'.ctn_hs_MainContent.ctn_hs_Statistical.Container7.gal_hs_List_1.Container4.ctn_hs_ItemList_1.lbl_hs_ItemReason_1.TabIndex"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'Home Screen'.ctn_hs_MainContent.ctn_hs_Statistical.Container7.gal_hs_List_1.Container4.ctn_hs_ItemList_1.lbl_hs_ItemReason_1.TabIndex",
+                  "fullyQualifiedName": "'Home User Screen'.ctn_hs_MainContent.ctn_hs_Statistical.Container7.gal_hs_List_1.Container4.ctn_hs_ItemList_1.lbl_hs_ItemReason_1.TabIndex",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "TabIndex",
-                "module": "Home Screen",
-                "type": "'Home Screen'.ctn_hs_MainContent.ctn_hs_Statistical.Container7.gal_hs_List_1.Container4.ctn_hs_ItemList_1.lbl_hs_ItemReason_1"
+                "module": "Home User Screen",
+                "type": "'Home User Screen'.ctn_hs_MainContent.ctn_hs_Statistical.Container7.gal_hs_List_1.Container4.ctn_hs_ItemList_1.lbl_hs_ItemReason_1"
               }
             }
           ],
@@ -8294,19 +8294,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'Home Screen'.ctn_hs_MainContent.ctn_hs_List.Container6.img_hs_PreviousMonth.AccessibleLabel"
+                  "fullyQualifiedName": "'Home User Screen'.ctn_hs_MainContent.ctn_hs_List.Container6.img_hs_PreviousMonth.AccessibleLabel"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'Home Screen'.ctn_hs_MainContent.ctn_hs_List.Container6.img_hs_PreviousMonth.AccessibleLabel",
+                  "fullyQualifiedName": "'Home User Screen'.ctn_hs_MainContent.ctn_hs_List.Container6.img_hs_PreviousMonth.AccessibleLabel",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "AccessibleLabel",
-                "module": "Home Screen",
-                "type": "'Home Screen'.ctn_hs_MainContent.ctn_hs_List.Container6.img_hs_PreviousMonth"
+                "module": "Home User Screen",
+                "type": "'Home User Screen'.ctn_hs_MainContent.ctn_hs_List.Container6.img_hs_PreviousMonth"
               }
             }
           ],
@@ -8324,19 +8324,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'Home Screen'.ctn_hs_MainContent.ctn_hs_List.Container6.img_hs_PreviousMonth.TabIndex"
+                  "fullyQualifiedName": "'Home User Screen'.ctn_hs_MainContent.ctn_hs_List.Container6.img_hs_PreviousMonth.TabIndex"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'Home Screen'.ctn_hs_MainContent.ctn_hs_List.Container6.img_hs_PreviousMonth.TabIndex",
+                  "fullyQualifiedName": "'Home User Screen'.ctn_hs_MainContent.ctn_hs_List.Container6.img_hs_PreviousMonth.TabIndex",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "TabIndex",
-                "module": "Home Screen",
-                "type": "'Home Screen'.ctn_hs_MainContent.ctn_hs_List.Container6.img_hs_PreviousMonth"
+                "module": "Home User Screen",
+                "type": "'Home User Screen'.ctn_hs_MainContent.ctn_hs_List.Container6.img_hs_PreviousMonth"
               }
             }
           ],
@@ -8354,19 +8354,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'Home Screen'.ctn_hs_MainContent.ctn_hs_List.Container6.img_hs_NextMonth.AccessibleLabel"
+                  "fullyQualifiedName": "'Home User Screen'.ctn_hs_MainContent.ctn_hs_List.Container6.img_hs_NextMonth.AccessibleLabel"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'Home Screen'.ctn_hs_MainContent.ctn_hs_List.Container6.img_hs_NextMonth.AccessibleLabel",
+                  "fullyQualifiedName": "'Home User Screen'.ctn_hs_MainContent.ctn_hs_List.Container6.img_hs_NextMonth.AccessibleLabel",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "AccessibleLabel",
-                "module": "Home Screen",
-                "type": "'Home Screen'.ctn_hs_MainContent.ctn_hs_List.Container6.img_hs_NextMonth"
+                "module": "Home User Screen",
+                "type": "'Home User Screen'.ctn_hs_MainContent.ctn_hs_List.Container6.img_hs_NextMonth"
               }
             }
           ],
@@ -8384,19 +8384,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'Home Screen'.ctn_hs_MainContent.ctn_hs_List.Container6.img_hs_NextMonth.TabIndex"
+                  "fullyQualifiedName": "'Home User Screen'.ctn_hs_MainContent.ctn_hs_List.Container6.img_hs_NextMonth.TabIndex"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'Home Screen'.ctn_hs_MainContent.ctn_hs_List.Container6.img_hs_NextMonth.TabIndex",
+                  "fullyQualifiedName": "'Home User Screen'.ctn_hs_MainContent.ctn_hs_List.Container6.img_hs_NextMonth.TabIndex",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "TabIndex",
-                "module": "Home Screen",
-                "type": "'Home Screen'.ctn_hs_MainContent.ctn_hs_List.Container6.img_hs_NextMonth"
+                "module": "Home User Screen",
+                "type": "'Home User Screen'.ctn_hs_MainContent.ctn_hs_List.Container6.img_hs_NextMonth"
               }
             }
           ],
@@ -8414,19 +8414,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'Home Screen'.ctn_hs_MainContent.ctn_hs_List.ctn_hs_DetailList.Container9.MonthDayGallery1_12.TabIndex"
+                  "fullyQualifiedName": "'Home User Screen'.ctn_hs_MainContent.ctn_hs_List.ctn_hs_DetailList.Container9.MonthDayGallery1_12.TabIndex"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'Home Screen'.ctn_hs_MainContent.ctn_hs_List.ctn_hs_DetailList.Container9.MonthDayGallery1_12.TabIndex",
+                  "fullyQualifiedName": "'Home User Screen'.ctn_hs_MainContent.ctn_hs_List.ctn_hs_DetailList.Container9.MonthDayGallery1_12.TabIndex",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "TabIndex",
-                "module": "Home Screen",
-                "type": "'Home Screen'.ctn_hs_MainContent.ctn_hs_List.ctn_hs_DetailList.Container9.MonthDayGallery1_12"
+                "module": "Home User Screen",
+                "type": "'Home User Screen'.ctn_hs_MainContent.ctn_hs_List.ctn_hs_DetailList.Container9.MonthDayGallery1_12"
               }
             }
           ],

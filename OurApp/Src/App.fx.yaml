@@ -47,7 +47,7 @@ App As appinfo:
             2,
             Collect(gblColUserManager, Filter('ASTakeLeave.UserRelationship', userID = gblRecUser.userID, active = 1))
         )
-    StartScreen: =If(LookUp('ASTakeLeave.Users_Roles',userID = LookUp('ASTakeLeave.Users','365AccountInfo'.Email = User().Email And active = 1).userID And active = 1).roleID = 1,'Home Screen',LookUp('ASTakeLeave.Users_Roles',userID = LookUp('ASTakeLeave.Users','365AccountInfo'.Email = User().Email).userID).roleID = 6,'User Screen','Home Manage Screen')
+    StartScreen: =If(LookUp('ASTakeLeave.Users_Roles',userID = LookUp('ASTakeLeave.Users','365AccountInfo'.Email = User().Email And active = 1).userID And active = 1).roleID = 1,'Home User Screen',LookUp('ASTakeLeave.Users_Roles',userID = LookUp('ASTakeLeave.Users','365AccountInfo'.Email = User().Email).userID).roleID = 6,'User Screen','Home Manager Screen')
     Theme: =PowerAppsTheme
 
     Host As hostControl.DefaultHostControlVariant:
