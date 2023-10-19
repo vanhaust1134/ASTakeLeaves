@@ -1,0 +1,1797 @@
+"'Department Screen' As screen":
+    Fill: =RGBA(224,224,224,1)
+    OnVisible: |-
+        =//Tạo collect cho bảng khối để thêm 1 item "Tất cả"
+        If(CountRows(Filter(gblColDivision,name = "Tất cả")) = 0,Collect(gblColDivision,Table({name:"Tất cả"})));
+        //Tạo collect cho bảng phòng để thêm 1 item "Tất cả"
+        If(CountRows(Filter(gblColDepartment,name = "Tất cả")) = 0,Collect(gblColDepartment,Table({name:"Tất cả"})));
+
+    btn_ds_BackGroundScreen As button:
+        BorderStyle: =BorderStyle.None
+        DisabledFill: =RGBA(241, 244, 250, 1)
+        DisplayMode: =DisplayMode.Disabled
+        Height: =767
+        RadiusBottomLeft: =20
+        RadiusBottomRight: =20
+        RadiusTopLeft: =20
+        RadiusTopRight: =20
+        Text: =""
+        Width: =1366
+        ZIndex: =1
+
+    ctn_Navigate_8 As groupContainer.verticalAutoLayoutContainer:
+        BorderStyle: =BorderStyle.None
+        DropShadow: =DropShadow.None
+        Fill: =RGBA(255, 255, 255, 1)
+        Height: =768
+        LayoutAlignItems: =LayoutAlignItems.Stretch
+        LayoutDirection: =LayoutDirection.Vertical
+        LayoutMode: =LayoutMode.Auto
+        PaddingBottom: =70
+        RadiusBottomLeft: =20
+        RadiusBottomRight: =0
+        RadiusTopLeft: =20
+        RadiusTopRight: =0
+        Width: =196
+        ZIndex: =2
+
+        ctn_HeaderMenu_9 As groupContainer.horizontalAutoLayoutContainer:
+            AlignInContainer: =AlignInContainer.SetByContainer
+            DropShadow: =DropShadow.None
+            FillPortions: =0
+            Height: =100
+            LayoutAlignItems: =LayoutAlignItems.Center
+            LayoutMinHeight: =100
+            LayoutMinWidth: =1
+            LayoutMode: =LayoutMode.Auto
+            PaddingLeft: =20
+            PaddingRight: =20
+            ZIndex: =1
+
+            img_Logo_8 As image:
+                Height: =110
+                Image: =Name
+                Width: =50
+                X: =11
+                Y: =13
+                ZIndex: =1
+
+            lbl_HeaderTitleMenu_9 As label:
+                Color: =RGBA(73, 113, 215, 1)
+                FontWeight: =FontWeight.Bold
+                Size: =15
+                Text: ="Nghỉ phép"
+                Width: =145
+                ZIndex: =2
+
+        ctn_NavigationMenu_8 As groupContainer.verticalAutoLayoutContainer:
+            AlignInContainer: =AlignInContainer.SetByContainer
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(255, 255, 255, 1)
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutMinHeight: =100
+            LayoutMinWidth: =0
+            LayoutMode: =LayoutMode.Auto
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            ZIndex: =3
+
+            gal_NavigationMenu_8 As gallery.galleryVertical:
+                DelayItemLoading: =true
+                Fill: =RGBA(255, 255, 255, 1)
+                Height: =652
+                Items: |-
+                    =If(gblRecUser.roleID = 1,Table({ID:1,Image:Home,Title:"Trang chủ",Navigate:'Home Screen'},{ID:2,Image:Analytics,Title:"Báo cáo",Navigate:'Statistical User Screen'}),Or(gblRecUser.roleID = 2,gblRecUser.roleID = 3,gblRecUser.roleID = 4),Table({ID:1,Image:Home,Title:"Trang chủ",Navigate:'Home Manage Screen'},{ID:2,Image:'Admin Settings Male',Title:"Phê duyệt",Navigate:'Approve Screen'},{ID:3,Image:Analytics,Title:"Báo cáo",Navigate:'Statistical Screen'}),gblRecUser.roleID = 5,Table({ID:1,Image:Home,Title:"Trang chủ",Navigate:'Home Manage Screen'},{ID:2,Image:'Admin Settings Male',Title:"Phê duyệt",Navigate:'Approve Screen'},{ID:3,Image:'Data Recovery',Title:"Thiết lập",Navigate:'User Screen'},{ID:4,Image:Analytics,Title:"Báo cáo",Navigate:'Statistical Screen'}),gblRecUser.roleID = 6,Table({ID:1,Image:'Data Recovery',Title:"Thiết lập",Navigate:'User Screen'}))
+                Layout: =Layout.Vertical
+                LayoutMinHeight: =287
+                LayoutMinWidth: =0
+                LoadingSpinner: =LoadingSpinner.Data
+                OnSelect: =Navigate(ThisItem.Navigate)
+                ShowScrollbar: =false
+                TemplateSize: =50
+                Width: =155
+                X: =251
+                Y: =115
+                ZIndex: =1
+
+                img_MenuImage_8 As image:
+                    Height: =30
+                    Image: =ThisItem.Image
+                    OnSelect: =Select(Parent)
+                    Width: =40
+                    X: =15
+                    Y: =10
+                    ZIndex: =1
+
+                lbl_MenuTitle_8 As label:
+                    Color: =RGBA(149, 149, 149, 1)
+                    FontWeight: =FontWeight.Semibold
+                    Height: =29
+                    OnSelect: =Select(Parent)
+                    Text: =ThisItem.Title
+                    Width: =117
+                    X: =60
+                    Y: =10
+                    ZIndex: =2
+
+                btn_Select_9 As button:
+                    BorderThickness: =0
+                    Fill: =If(ThisItem.ID = gblMenuFunctionSelected,RGBA(149, 149, 149,0.2),RGBA(0, 0, 0, 0))
+                    Height: =50
+                    HoverFill: =ColorFade(RGBA(149, 149, 149,0.4), -20%)
+                    OnSelect: |-
+                        =Select(Parent);
+                        Set(gblMenuFunctionSelected,ThisItem.ID)
+                    PressedFill: =RGBA(149, 149, 149,0.5)
+                    RadiusBottomLeft: =0
+                    RadiusBottomRight: =0
+                    RadiusTopLeft: =0
+                    RadiusTopRight: =0
+                    Text: =""
+                    Width: =195
+                    X: =-5
+                    ZIndex: =3
+
+        btn_Exit_8 As button:
+            AlignInContainer: =AlignInContainer.Center
+            BorderColor: =RGBA(73, 113, 215, 1)
+            Color: =RGBA(116, 116, 116, 1)
+            Fill: =RGBA(255, 255, 255, 1)
+            HoverFill: =ColorFade(RGBA(73, 113, 215, 1), -20%)
+            OnSelect: =Exit()
+            PressedColor: =Color.White
+            PressedFill: =RGBA(73, 113, 215, 1)
+            Text: ="Thoát"
+            X: =18
+            Y: =682
+            ZIndex: =4
+
+    ctn_ds_Title As groupContainer.verticalAutoLayoutContainer:
+        DropShadow: =DropShadow.None
+        Height: =41
+        LayoutDirection: =LayoutDirection.Vertical
+        LayoutMode: =LayoutMode.Auto
+        PaddingLeft: =30
+        PaddingRight: =30
+        Width: =1170
+        X: =196
+        Y: =104
+        ZIndex: =3
+
+        lbl_ds_Title As label:
+            Color: =RGBA(43, 54, 74, 1)
+            FontWeight: =FontWeight.Bold
+            Height: =41
+            Size: =18
+            Text: ="Danh sách Phòng"
+            Width: =281
+            X: =191
+            Y: =101
+            ZIndex: =1
+
+    ctn_ds_Filter As groupContainer.horizontalAutoLayoutContainer:
+        DropShadow: =DropShadow.None
+        Height: =52
+        LayoutMode: =LayoutMode.Auto
+        PaddingLeft: =30
+        PaddingRight: =25
+        Width: =1170
+        X: =196
+        Y: =150
+        ZIndex: =4
+
+        lbt_ds_AddFile As label:
+            Align: =Align.Center
+            Color: =RGBA(174, 174, 177, 1)
+            FontWeight: =FontWeight.Semibold
+            Text: ="Tạo mới"
+            Width: =90
+            X: =191
+            Y: =145
+            ZIndex: =1
+
+        img_ds_File As image:
+            Height: =40
+            Image: =Add
+            LayoutMinHeight: =0
+            OnSelect: |-
+                =UpdateContext({locCreateDP:true});
+                ClearCollect(colUnit,Table({ID:1,Unit:"",Manager:""}))
+            Width: =30
+            ZIndex: =2
+
+        lbt_ds_Employee_2 As label:
+            Align: =Align.Right
+            Color: =RGBA(174, 174, 177, 1)
+            FontWeight: =FontWeight.Semibold
+            Text: ="Khối"
+            Width: =70
+            X: =486
+            Y: =145
+            ZIndex: =3
+
+        drp_ds_Division As dropdown:
+            BorderColor: =RGBA(73, 113, 215, 1)
+            BorderThickness: =1
+            ChevronBackground: =RGBA(73, 113, 215, 1)
+            Items: =gblColDivision
+            OnChange: |-
+                =ClearCollect(gblColDepartment,Table({name:"Tất cả"}));
+                Collect(gblColDepartment,Filter('ASTakeLeave.Department',active = 1 And divisionID = drp_ds_Division.Selected.ID));
+            Width: =200
+            X: =590
+            Y: =145
+            ZIndex: =4
+
+        lbt_ds_Employee_1 As label:
+            Align: =Align.Center
+            Color: =RGBA(174, 174, 177, 1)
+            FontWeight: =FontWeight.Semibold
+            Text: ="Phòng"
+            Width: =70
+            X: =486
+            Y: =145
+            ZIndex: =5
+
+        drp_ds_Department As dropdown:
+            BorderColor: =RGBA(73, 113, 215, 1)
+            BorderThickness: =1
+            ChevronBackground: =RGBA(73, 113, 215, 1)
+            Items: =gblColDepartment
+            Width: =200
+            X: =104
+            Y: =145
+            ZIndex: =6
+
+    ctn_ds_MainContent As groupContainer.horizontalAutoLayoutContainer:
+        DropShadow: =DropShadow.None
+        Height: =571
+        LayoutAlignItems: =LayoutAlignItems.Stretch
+        LayoutGap: =10
+        LayoutMode: =LayoutMode.Auto
+        PaddingBottom: =20
+        PaddingLeft: =35
+        PaddingRight: =35
+        Width: =1170
+        X: =196
+        Y: =197
+        ZIndex: =5
+
+        ctn_ds_List As groupContainer.verticalAutoLayoutContainer:
+            AlignInContainer: =AlignInContainer.SetByContainer
+            DropShadow: =DropShadow.Semilight
+            LayoutAlignItems: =LayoutAlignItems.Stretch
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutMinHeight: =0
+            LayoutMinWidth: =0
+            LayoutMode: =LayoutMode.Auto
+            RadiusBottomLeft: =20
+            RadiusBottomRight: =20
+            RadiusTopLeft: =20
+            RadiusTopRight: =20
+            ZIndex: =4
+
+            ctn_ds_DetailList As groupContainer.verticalAutoLayoutContainer:
+                AlignInContainer: =AlignInContainer.SetByContainer
+                DropShadow: =DropShadow.None
+                Fill: =RGBA(255, 255, 255, 1)
+                LayoutAlignItems: =LayoutAlignItems.Stretch
+                LayoutDirection: =LayoutDirection.Vertical
+                LayoutMinHeight: =100
+                LayoutMinWidth: =250
+                LayoutMode: =LayoutMode.Auto
+                PaddingBottom: =10
+                RadiusTopLeft: =20
+                RadiusTopRight: =20
+                ZIndex: =3
+
+                ctn_ds_ListContent As groupContainer.horizontalAutoLayoutContainer:
+                    AlignInContainer: =AlignInContainer.SetByContainer
+                    DropShadow: =DropShadow.None
+                    Fill: =RGBA(220, 228, 252, 1)
+                    FillPortions: =0
+                    Height: =50
+                    LayoutMinHeight: =100
+                    LayoutMinWidth: =250
+                    LayoutMode: =LayoutMode.Auto
+                    PaddingLeft: =20
+                    PaddingRight: =20
+                    RadiusBottomLeft: =0
+                    RadiusBottomRight: =0
+                    RadiusTopLeft: =20
+                    RadiusTopRight: =20
+                    ZIndex: =1
+
+                    lb_ds_UserName_2 As label:
+                        Align: =Align.Center
+                        AlignInContainer: =AlignInContainer.Center
+                        Color: =RGBA(47, 47, 47, 1)
+                        FillPortions: =2
+                        FontWeight: =FontWeight.Bold
+                        Text: ="Khối"
+                        ZIndex: =1
+
+                    lb_ds_UserName As label:
+                        Align: =Align.Center
+                        AlignInContainer: =AlignInContainer.Center
+                        Color: =RGBA(47, 47, 47, 1)
+                        FillPortions: =3
+                        FontWeight: =FontWeight.Bold
+                        Text: ="Phòng"
+                        ZIndex: =2
+
+                    lb_ds_UserName_1 As label:
+                        Align: =Align.Center
+                        AlignInContainer: =AlignInContainer.Center
+                        Color: =RGBA(47, 47, 47, 1)
+                        FillPortions: =4
+                        FontWeight: =FontWeight.Bold
+                        Text: ="Quản lý"
+                        ZIndex: =3
+
+                    blank_7 As label:
+                        Color: =RGBA(47, 47, 47, 1)
+                        FillPortions: =0.2
+                        FontWeight: =FontWeight.Bold
+                        LayoutMinWidth: =0
+                        Text: =""
+                        ZIndex: =4
+
+                    blank_8 As label:
+                        Color: =RGBA(47, 47, 47, 1)
+                        FillPortions: =0.2
+                        FontWeight: =FontWeight.Bold
+                        LayoutMinWidth: =0
+                        Text: =""
+                        ZIndex: =5
+
+                Gallery1 As gallery.variableTemplateHeightGallery:
+                    DelayItemLoading: =true
+                    Items: |-
+                        =//Bảng khối lọc theo điều kiện
+                        Filter('ASTakeLeave.Division',active = 1 And (ID = drp_ds_Division.Selected.ID || If(IsBlank(drp_ds_Division.Selected.ID),true,false)))
+                    Layout: =Layout.Vertical
+                    LayoutMinHeight: =287
+                    LayoutMinWidth: =320
+                    LoadingSpinner: =LoadingSpinner.Data
+                    TemplateSize: =230
+                    ZIndex: =2
+
+                    Label8 As label:
+                        Align: =Align.Center
+                        FontWeight: =FontWeight.Semibold
+                        OnSelect: |-
+                            =UpdateContext({locDetailDP:true});
+                            UpdateContext({locDivision:ThisItem})
+                        Text: =ThisItem.name
+                        Width: =240
+                        Wrap: =false
+                        X: =7
+                        Y: =5
+                        ZIndex: =1
+
+                    Gallery6 As gallery.galleryVertical:
+                        DelayItemLoading: =true
+                        Height: =185
+                        Items: =Filter('ASTakeLeave.Department',divisionID = ThisItem.ID And active = 1 And (ID = drp_ds_Department.Selected.ID || If(IsBlank(drp_ds_Department.Selected.ID),true,false)))
+                        Layout: =Layout.Vertical
+                        LoadingSpinner: =LoadingSpinner.Data
+                        ShowScrollbar: =false
+                        TemplateSize: =55
+                        Width: =1090
+                        Y: =45
+                        ZIndex: =2
+
+                        Container10 As groupContainer.horizontalAutoLayoutContainer:
+                            Height: =55
+                            LayoutMode: =LayoutMode.Auto
+                            Width: =1080
+                            ZIndex: =1
+
+                            Label9 As label:
+                                Align: =Align.Center
+                                AlignInContainer: =AlignInContainer.Center
+                                FontWeight: =FontWeight.Semibold
+                                PaddingRight: =140
+                                Text: =ThisItem.ID
+                                Width: =370
+                                Wrap: =false
+                                ZIndex: =1
+
+                            Label9_1 As label:
+                                AlignInContainer: =AlignInContainer.Center
+                                FillPortions: =1.27
+                                Text: =ThisItem.name
+                                Wrap: =false
+                                ZIndex: =2
+
+                            Label9_2 As label:
+                                AlignInContainer: =AlignInContainer.Center
+                                FillPortions: =0.72
+                                Text: =
+                                Wrap: =false
+                                ZIndex: =3
+
+                            img_us_Edit_3 As image:
+                                AlignInContainer: =AlignInContainer.Center
+                                Height: =45
+                                Image: =Edit
+                                ImagePosition: =ImagePosition.Center
+                                OnSelect: |-
+                                    =UpdateContext({locUpdateUnit:true});
+                                    UpdateContext({locDivision:ThisItem});
+                                    ClearCollect(colDepartmentByDivision,Filter('ASTakeLeave.Department',divisionID = ThisItem.ID And active = 1))
+                                Width: =44
+                                X: =949
+                                Y: =2
+                                ZIndex: =4
+
+                            img_us_Delete_3 As image:
+                                AlignInContainer: =AlignInContainer.Center
+                                Height: =45
+                                Image: =Delete
+                                ImagePosition: =ImagePosition.Center
+                                OnSelect: |-
+                                    =UpdateContext({locDeleteUnit:true});
+                                    UpdateContext({locDivision:ThisItem});
+                                    UpdateContext({locDepartmentSelected:LookUp('ASTakeLeave.Department',ID = ThisItem.ID And active = 1).ID})
+                                Width: =49
+                                X: =44
+                                Y: =2
+                                ZIndex: =5
+
+                    Label8_1 As label:
+                        Align: =Align.Center
+                        FontWeight: =FontWeight.Semibold
+                        OnSelect: |-
+                            =UpdateContext({locDetailDP:true});
+                            UpdateContext({locDivision:ThisItem})
+                        Text: =LookUp('ASTakeLeave.Users',userID = ThisItem.directorUserID And active = 1).fullName
+                        Width: =240
+                        Wrap: =false
+                        X: =709
+                        Y: =5
+                        ZIndex: =3
+
+                    img_us_Edit_1 As image:
+                        Height: =45
+                        Image: =Edit
+                        ImagePosition: =ImagePosition.Center
+                        OnSelect: |-
+                            =UpdateContext({locUpdateDP:true});
+                            UpdateContext({locDivision:ThisItem});
+                            ClearCollect(colDepartmentByDivision,Filter('ASTakeLeave.Department',divisionID = ThisItem.ID And active = 1))
+                        Width: =44
+                        X: =991
+                        Y: =2
+                        ZIndex: =4
+
+                    img_us_Delete_1 As image:
+                        Height: =45
+                        Image: =Delete
+                        ImagePosition: =ImagePosition.Center
+                        OnSelect: |-
+                            =UpdateContext({locDeleteDP:true});
+                            UpdateContext({locDivision:ThisItem});
+                            ClearCollect(colDepartmentByDivision,Filter('ASTakeLeave.Department',divisionID = ThisItem.ID And active = 1))
+                        Width: =49
+                        X: =1035
+                        Y: =2
+                        ZIndex: =5
+
+    ctn_ds_Header As groupContainer.horizontalAutoLayoutContainer:
+        DropShadow: =DropShadow.None
+        Height: =104
+        LayoutMode: =LayoutMode.Auto
+        Width: =1170
+        X: =196
+        ZIndex: =6
+
+        ctn_lds_Tab_3 As groupContainer.horizontalAutoLayoutContainer:
+            AlignInContainer: =AlignInContainer.SetByContainer
+            DropShadow: =DropShadow.None
+            Height: =101
+            LayoutAlignItems: =LayoutAlignItems.Center
+            LayoutGap: =5
+            LayoutMinHeight: =100
+            LayoutMinWidth: =250
+            LayoutMode: =LayoutMode.Auto
+            PaddingLeft: =35
+            Width: =1229
+            X: =137
+            ZIndex: =1
+
+            btn_lds_ApprovalProcess_3 As button:
+                BorderStyle: =BorderStyle.None
+                Color: =RGBA(94, 94, 94, 1)
+                DisabledFill: =
+                Fill: =RGBA(255, 255, 255, 1)
+                Height: =28
+                HoverFill: =ColorFade(RGBA(73, 113, 215, 1), -20%)
+                OnSelect: =Navigate('User Screen',ScreenTransition.Fade)
+                PressedFill: =RGBA(73, 113, 215, 1)
+                RadiusBottomLeft: =5
+                RadiusBottomRight: =5
+                RadiusTopLeft: =5
+                RadiusTopRight: =5
+                Size: =13
+                Text: ="Người dùng"
+                Width: =110
+                X: =117
+                Y: =36
+                ZIndex: =1
+
+            btn_lds_LeaveDay_3 As button:
+                BorderStyle: =BorderStyle.None
+                Fill: =RGBA(73, 113, 215, 1)
+                Height: =28
+                HoverFill: =ColorFade(Self.Fill, -20%)
+                OnSelect: =Navigate('Department Screen',ScreenTransition.Fade)
+                PressedColor: =Color.White
+                PressedFill: =Self.Fill
+                RadiusBottomLeft: =5
+                RadiusBottomRight: =5
+                RadiusTopLeft: =5
+                RadiusTopRight: =5
+                Size: =13
+                Text: ="Phòng"
+                Width: =104
+                X: =191
+                Y: =36
+                ZIndex: =2
+
+            btn_lds_User_3 As button:
+                BorderStyle: =BorderStyle.None
+                Color: =RGBA(94, 94, 94, 1)
+                DisabledFill: =
+                Fill: =RGBA(255, 255, 255, 1)
+                Height: =28
+                HoverFill: =ColorFade(RGBA(73, 113, 215, 1), -20%)
+                OnSelect: =Navigate('Leave Day Screen',ScreenTransition.Fade)
+                PressedFill: =RGBA(73, 113, 215, 1)
+                RadiusBottomLeft: =5
+                RadiusBottomRight: =5
+                RadiusTopLeft: =5
+                RadiusTopRight: =5
+                Size: =13
+                Text: ="Ngày phép"
+                Width: =104
+                X: =117
+                Y: =36
+                ZIndex: =3
+
+            btn_lds_Rule_3 As button:
+                BorderStyle: =BorderStyle.None
+                Color: =RGBA(94, 94, 94, 1)
+                DisabledFill: =
+                Fill: =RGBA(255, 255, 255, 1)
+                Height: =28
+                HoverFill: =ColorFade(RGBA(73, 113, 215, 1), -20%)
+                OnSelect: =Navigate('Leave Calendar Screen',ScreenTransition.Fade)
+                PressedFill: =RGBA(73, 113, 215, 1)
+                RadiusBottomLeft: =5
+                RadiusBottomRight: =5
+                RadiusTopLeft: =5
+                RadiusTopRight: =5
+                Size: =13
+                Text: ="Lịch nghỉ phép"
+                Width: =150
+                X: =117
+                Y: =36
+                ZIndex: =4
+
+            btn_lds_Department_3 As button:
+                BorderStyle: =BorderStyle.None
+                Color: =RGBA(94, 94, 94, 1)
+                DisabledFill: =
+                Fill: =RGBA(255, 255, 255, 1)
+                Height: =28
+                HoverFill: =ColorFade(RGBA(73, 113, 215, 1), -20%)
+                OnSelect: =Navigate('Approval Process Screen',ScreenTransition.Fade)
+                PressedFill: =RGBA(73, 113, 215, 1)
+                RadiusBottomLeft: =5
+                RadiusBottomRight: =5
+                RadiusTopLeft: =5
+                RadiusTopRight: =5
+                Size: =13
+                Text: ="Phê duyệt cấp cao"
+                Width: =180
+                X: =117
+                Y: =36
+                ZIndex: =5
+
+        ctn_ds_Info As groupContainer.horizontalAutoLayoutContainer:
+            AlignInContainer: =AlignInContainer.SetByContainer
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(220, 228, 252, 1)
+            FillPortions: =0.3
+            Height: =80
+            LayoutMinHeight: =100
+            LayoutMinWidth: =50
+            LayoutMode: =LayoutMode.Auto
+            PaddingLeft: =10
+            PaddingRight: =10
+            RadiusBottomLeft: =20
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =20
+            ZIndex: =2
+
+            img_ds_Avatar As image:
+                AlignInContainer: =AlignInContainer.Center
+                Height: =50
+                Image: =User().Image
+                LayoutMinHeight: =50
+                RadiusBottomLeft: =img_ds_Avatar.Height
+                RadiusBottomRight: =img_ds_Avatar.Height
+                RadiusTopLeft: =img_ds_Avatar.Height
+                RadiusTopRight: =img_ds_Avatar.Height
+                Width: =50
+                ZIndex: =1
+
+            ctn_ds_Info2 As groupContainer.verticalAutoLayoutContainer:
+                DropShadow: =DropShadow.None
+                LayoutDirection: =LayoutDirection.Vertical
+                LayoutMinHeight: =0
+                LayoutMinWidth: =0
+                LayoutMode: =LayoutMode.Auto
+                PaddingLeft: =5
+                ZIndex: =2
+
+                lb_ds_Name As label:
+                    FontWeight: =FontWeight.Bold
+                    PaddingTop: =20
+                    Size: =12
+                    Text: =User().FullName
+                    Wrap: =false
+                    ZIndex: =1
+
+                lbl_ds_Mail As label:
+                    PaddingBottom: =20
+                    Size: =12
+                    Text: =User().Email
+                    Wrap: =false
+                    ZIndex: =2
+
+    ctn_ds_DeleteDP As groupContainer.manualLayoutContainer:
+        Fill: =RGBA(0, 0, 0, 0.5)
+        Height: =768
+        RadiusBottomLeft: =20
+        RadiusBottomRight: =20
+        RadiusTopLeft: =20
+        RadiusTopRight: =20
+        Visible: =locDeleteDP
+        Width: =1366
+        ZIndex: =8
+
+        btn_ds_BackGround_5 As button:
+            BorderStyle: =BorderStyle.None
+            DisabledFill: =RGBA(255, 255, 255, 1)
+            DisplayMode: =DisplayMode.Disabled
+            Height: =205
+            RadiusBottomLeft: =5
+            RadiusBottomRight: =5
+            RadiusTopLeft: =5
+            RadiusTopRight: =5
+            Text: =""
+            Width: =608
+            X: =375
+            Y: =268
+            ZIndex: =1
+
+        lbl_ds_Title_7 As label:
+            FontWeight: =FontWeight.Bold
+            Text: ="Xác nhận"
+            X: =387
+            Y: =280
+            ZIndex: =2
+
+        shp_ds_Deco_10 As rectangle:
+            Fill: =RGBA(202, 202, 202, 1)
+            Height: =1
+            Width: =608
+            X: =375
+            Y: =335
+            ZIndex: =3
+
+        ico_ds_Cancel_5 As icon.Cancel:
+            Color: =RGBA(149, 149, 149, 1)
+            Height: =29
+            Icon: =Icon.Cancel
+            OnSelect: |-
+                =UpdateContext({locDeleteDP:false})
+            Width: =25
+            X: =942
+            Y: =285
+            ZIndex: =4
+
+        lbl_ds_Name_5 As label:
+            FontWeight: =FontWeight.Semibold
+            Text: ="Bạn có chắc chắn muốn xóa ? Tiến trình sẽ xóa tất cả các Phòng thuộc khối này"
+            Width: =580
+            X: =387
+            Y: =348
+            ZIndex: =5
+
+        shp_ds_Deco_11 As rectangle:
+            Fill: =RGBA(202, 202, 202, 1)
+            Height: =1
+            Width: =608
+            X: =375
+            Y: =407
+            ZIndex: =6
+
+        btn_ds_Submit_1 As button:
+            BorderThickness: =1
+            Fill: =RGBA(0, 89, 204, 1)
+            Height: =36
+            HoverFill: =ColorFade(Self.Fill, -20%)
+            OnSelect: |-
+                =//Cập nhật khối đã chọn thành không hoạt động
+                    Patch(
+                        'ASTakeLeave.Division',
+                        LookUp('ASTakeLeave.Division',ID = locDivision.ID),
+                        {
+                            active: 0
+                        }
+                    );
+                    //Cập nhật phòng ban đã chọn thành không hoạt động
+                ForAll(
+                        colDepartmentByDivision As Temp,
+                        Patch(
+                            'ASTakeLeave.Department',
+                            LookUp('ASTakeLeave.Department',divisionID = locDivision.ID),
+                            {
+                                active: 0
+                            }
+                        )
+                    );
+                Notify("Xóa thành công",NotificationType.Success,1500);
+                UpdateContext({locDeleteDP:false})
+            PressedColor: =RGBA(255,255,255,1)
+            PressedFill: =Self.Fill
+            RadiusBottomLeft: =5
+            RadiusBottomRight: =5
+            RadiusTopLeft: =5
+            RadiusTopRight: =5
+            Text: ="Xóa"
+            Width: =87
+            X: =879
+            Y: =422
+            ZIndex: =7
+
+        btn_ds_Cancel_1 As button:
+            BorderThickness: =1
+            Color: =RGBA(0, 0, 0, 1)
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =36
+            HoverFill: =ColorFade(Self.Fill, -20%)
+            OnSelect: |-
+                =UpdateContext({locDeleteDP:false})
+            PressedColor: =RGBA(0,0,0,1)
+            PressedFill: =Self.Fill
+            RadiusBottomLeft: =5
+            RadiusBottomRight: =5
+            RadiusTopLeft: =5
+            RadiusTopRight: =5
+            Text: ="Hủy"
+            Width: =87
+            X: =779
+            Y: =422
+            ZIndex: =8
+
+    ctn_ds_CreateDP As groupContainer.manualLayoutContainer:
+        Fill: =RGBA(0, 0, 0, 0.5)
+        Height: =768
+        RadiusBottomLeft: =20
+        RadiusBottomRight: =20
+        RadiusTopLeft: =20
+        RadiusTopRight: =20
+        Visible: =locCreateDP
+        Width: =1366
+        ZIndex: =9
+
+        btn_ds_BackGround_1 As button:
+            BorderStyle: =BorderStyle.None
+            DisabledFill: =RGBA(255, 255, 255, 1)
+            DisplayMode: =DisplayMode.Disabled
+            Height: =502
+            RadiusBottomLeft: =5
+            RadiusBottomRight: =5
+            RadiusTopLeft: =5
+            RadiusTopRight: =5
+            Text: =""
+            Width: =608
+            X: =375
+            Y: =138
+            ZIndex: =1
+
+        lbl_ds_Title_6 As label:
+            FontWeight: =FontWeight.Bold
+            Text: ="Tạo mới"
+            X: =387
+            Y: =151
+            ZIndex: =2
+
+        shp_ds_Deco_7 As rectangle:
+            Fill: =RGBA(202, 202, 202, 1)
+            Height: =1
+            Width: =608
+            X: =375
+            Y: =199
+            ZIndex: =3
+
+        ico_ds_Cancel_1 As icon.Cancel:
+            Color: =RGBA(149, 149, 149, 1)
+            Height: =29
+            Icon: =Icon.Cancel
+            OnSelect: |-
+                =UpdateContext({locCreateDP:false})
+            Width: =25
+            X: =942
+            Y: =156
+            ZIndex: =4
+
+        lbl_ds_DepartmentName_1 As label:
+            Align: =Align.Right
+            FontWeight: =FontWeight.Semibold
+            Text: ="Tên khối"
+            X: =387
+            Y: =213
+            ZIndex: =5
+
+        shp_ds_Deco_1 As rectangle:
+            Fill: =RGBA(202, 202, 202, 1)
+            Height: =1
+            Width: =608
+            X: =375
+            Y: =587
+            ZIndex: =6
+
+        btn_ds_Submit_2 As button:
+            BorderThickness: =1
+            Fill: =RGBA(0, 89, 204, 1)
+            Height: =36
+            HoverFill: =ColorFade(Self.Fill, -20%)
+            OnSelect: |-
+                =If(
+                    //Kiểm tra trống trường tên khối
+                    IsBlank(txt_ds_Name_1.Text),
+                    Notify(
+                        "Trường tên khối không được bỏ trống",
+                        NotificationType.Error,
+                        1500
+                    ),
+                    //Tạo khối
+                    Set(
+                        gblDivision,
+                        Patch(
+                            'ASTakeLeave.Division',
+                            Defaults('ASTakeLeave.Division'),
+                            {
+                                name: txt_ds_Name_1.Text,
+                                directorUserID: drp_ds_LineManager.Selected.userID,
+                                active: 1
+                            }
+                        )
+                    );
+                    //Tạo phòng ban với mã khối đã tạo
+                    ForAll(
+                        colUnit As Temp,
+                        Patch(
+                            'ASTakeLeave.Department',
+                            Defaults('ASTakeLeave.Department'),
+                            {
+                                name: Temp.Unit,
+                                divisionID: gblDivision.ID,
+                                active: 1
+                            }
+                        )
+                    )
+                );
+                Notify(
+                    "Tạo thành công",
+                    NotificationType.Success,
+                    1500
+                );
+                Reset(txt_ds_Name_1);
+                UpdateContext({locCreateDP: false})
+            PressedColor: =RGBA(255,255,255,1)
+            PressedFill: =Self.Fill
+            RadiusBottomLeft: =5
+            RadiusBottomRight: =5
+            RadiusTopLeft: =5
+            RadiusTopRight: =5
+            Text: ="Tạo"
+            Width: =87
+            X: =879
+            Y: =596
+            ZIndex: =7
+
+        btn_ds_Cancel_2 As button:
+            BorderThickness: =1
+            Color: =RGBA(0, 0, 0, 1)
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =36
+            HoverFill: =ColorFade(Self.Fill, -20%)
+            OnSelect: |-
+                =UpdateContext({locCreateDP:false})
+            PressedColor: =RGBA(0,0,0,1)
+            PressedFill: =Self.Fill
+            RadiusBottomLeft: =5
+            RadiusBottomRight: =5
+            RadiusTopLeft: =5
+            RadiusTopRight: =5
+            Text: ="Hủy"
+            Width: =87
+            X: =779
+            Y: =596
+            ZIndex: =8
+
+        txt_ds_Name_1 As text:
+            BorderColor: =RGBA(116, 116, 116, 1)
+            BorderThickness: =1
+            Default: =""
+            HintText: ="Nhập tên Phòng"
+            Width: =394
+            X: =548
+            Y: =213
+            ZIndex: =14
+
+        lbl_ds_DepartmentName_2 As label:
+            Align: =Align.Right
+            FontWeight: =FontWeight.Semibold
+            Text: ="Quản lý"
+            X: =387
+            Y: =269
+            ZIndex: =15
+
+        drp_ds_LineManager As dropdown:
+            BorderColor: =RGBA(116, 116, 116, 1)
+            BorderThickness: =1
+            Items: =Filter(gblColAllUser,roleID = 3 And active = 1)
+            X: =548
+            Y: =269
+            ZIndex: =16
+
+        lbl_ds_DepartmentName_9 As label:
+            Align: =Align.Right
+            FontWeight: =FontWeight.Semibold
+            Text: ="Phòng"
+            X: =387
+            Y: =323
+            ZIndex: =17
+
+        Button2 As button:
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =0
+            Fill: =RGBA(139, 154, 159, 1)
+            Height: =28
+            OnSelect: |-
+                =Collect(colUnit,Table({ID:Max(colUnit,ID) + 1 ,Unit:"",Manager:""}))
+            RadiusBottomLeft: =5
+            RadiusBottomRight: =5
+            RadiusTopLeft: =5
+            RadiusTopRight: =5
+            Text: ="Thêm"
+            Width: =75
+            X: =546
+            Y: =330
+            ZIndex: =18
+
+        Gallery7 As gallery.galleryVertical:
+            DelayItemLoading: =true
+            Height: =217
+            Items: =colUnit
+            Layout: =Layout.Vertical
+            LoadingSpinner: =LoadingSpinner.Data
+            ShowScrollbar: =false
+            TemplateSize: =65
+            Width: =578
+            X: =390
+            Y: =370
+            ZIndex: =19
+
+            Container11 As groupContainer.horizontalAutoLayoutContainer:
+                Height: =65
+                LayoutGap: =5
+                LayoutMode: =LayoutMode.Auto
+                Width: =568
+                ZIndex: =1
+
+                Label11 As label:
+                    Align: =Align.Center
+                    AlignInContainer: =AlignInContainer.Center
+                    BorderColor: =RGBA(116, 116, 116, 1)
+                    BorderStyle: =BorderStyle.None
+                    BorderThickness: =1
+                    FontWeight: =FontWeight.Bold
+                    OnSelect: =
+                    Text: =ThisItem.ID
+                    Width: =50
+                    X: =4
+                    Y: =4
+                    ZIndex: =1
+
+                TextInput1 As text:
+                    AlignInContainer: =AlignInContainer.Center
+                    BorderColor: =RGBA(116, 116, 116, 1)
+                    BorderThickness: =1
+                    Default: =ThisItem.Unit
+                    HintText: ="Nhập tên Phòng"
+                    OnChange: |-
+                        =//Cập nhật thay đổi trường Phòng trên danh sách phòng
+                        Patch(colUnit,LookUp(colUnit,ID = ThisItem.ID),{Unit:TextInput1.Text})
+                    OnSelect: =
+                    Width: =450
+                    X: =44
+                    Y: =4
+                    ZIndex: =2
+
+                Image1 As image:
+                    AlignInContainer: =AlignInContainer.Center
+                    Height: =40
+                    Image: =Delete
+                    OnSelect: =If(CountRows(colUnit)>1,RemoveIf(colUnit,ID = ThisItem.ID))
+                    Width: =50
+                    X: =513
+                    Y: =4
+                    ZIndex: =4
+
+    ctn_ds_UpdateDP As groupContainer.manualLayoutContainer:
+        Fill: =RGBA(0, 0, 0, 0.5)
+        Height: =768
+        RadiusBottomLeft: =20
+        RadiusBottomRight: =20
+        RadiusTopLeft: =20
+        RadiusTopRight: =20
+        Visible: =locUpdateDP
+        Width: =1366
+        ZIndex: =10
+
+        btn_ds_BackGround_8 As button:
+            BorderStyle: =BorderStyle.None
+            DisabledFill: =RGBA(255, 255, 255, 1)
+            DisplayMode: =DisplayMode.Disabled
+            Height: =502
+            RadiusBottomLeft: =5
+            RadiusBottomRight: =5
+            RadiusTopLeft: =5
+            RadiusTopRight: =5
+            Text: =""
+            Width: =608
+            X: =375
+            Y: =138
+            ZIndex: =1
+
+        lbl_ds_Title_13 As label:
+            FontWeight: =FontWeight.Bold
+            Text: ="Sửa thông tin"
+            X: =387
+            Y: =151
+            ZIndex: =2
+
+        shp_ds_Deco_16 As rectangle:
+            Fill: =RGBA(202, 202, 202, 1)
+            Height: =1
+            Width: =608
+            X: =375
+            Y: =199
+            ZIndex: =3
+
+        ico_ds_Cancel_8 As icon.Cancel:
+            Color: =RGBA(149, 149, 149, 1)
+            Height: =29
+            Icon: =Icon.Cancel
+            OnSelect: |-
+                =UpdateContext({locUpdateDP:false})
+            Width: =25
+            X: =942
+            Y: =156
+            ZIndex: =4
+
+        lbl_ds_DepartmentName_10 As label:
+            Align: =Align.Right
+            FontWeight: =FontWeight.Semibold
+            Text: ="Tên khối"
+            X: =387
+            Y: =213
+            ZIndex: =5
+
+        shp_ds_Deco_6 As rectangle:
+            Fill: =RGBA(202, 202, 202, 1)
+            Height: =1
+            Width: =608
+            X: =375
+            Y: =587
+            ZIndex: =6
+
+        btn_ds_Edit As button:
+            BorderThickness: =1
+            Fill: =RGBA(0, 89, 204, 1)
+            Height: =36
+            HoverFill: =ColorFade(Self.Fill, -20%)
+            OnSelect: |-
+                =If(
+                    //Kiểm tra trống trường tên khối
+                    IsBlank(txt_ds_Name_1.Text),
+                    Notify(
+                        "Trường tên khối không được bỏ trống",
+                        NotificationType.Error,
+                        1500
+                    ),
+                    //Sửa khối cũ thành không hoạt động
+                    Patch(
+                        'ASTakeLeave.Division',
+                        LookUp('ASTakeLeave.Division',ID = locDivision.ID),
+                        {
+                            active: 0
+                        }
+                    );
+                    //Sửa phòng ban cũ thành không hoạt động
+                ForAll(
+                        colDepartmentByDivision As Temp,
+                        Patch(
+                            'ASTakeLeave.Department',
+                            LookUp('ASTakeLeave.Department',divisionID = locDivision.ID),
+                            {
+                                active: 0
+                            }
+                        )
+                    );
+                    //Sửa khối mới
+                    Patch(
+                        'ASTakeLeave.Division',
+                        LookUp('ASTakeLeave.Division',ID = locDivision.ID),
+                        {
+                            name: txt_ds_Name_2.Text,
+                            directorUserID: drp_ds_LineManager_2.Selected.userID,
+                            active: 1
+                        }
+                    );
+                    //Tạo phòng ban với mã khối đã tạo
+                ForAll(
+                        colDepartmentByDivision As Temp,
+                        Patch(
+                            'ASTakeLeave.Department',
+                            LookUp('ASTakeLeave.Department',divisionID = locDivision.ID),
+                            {
+                                name: Temp.name,
+                                active: 1
+                            }
+                        )
+                    )
+                );
+                Notify(
+                    "Sửa thành công",
+                    NotificationType.Success,
+                    1500
+                );
+                UpdateContext({locUpdateDP: false})
+            PressedColor: =RGBA(255,255,255,1)
+            PressedFill: =Self.Fill
+            RadiusBottomLeft: =5
+            RadiusBottomRight: =5
+            RadiusTopLeft: =5
+            RadiusTopRight: =5
+            Text: ="Sửa"
+            Width: =87
+            X: =879
+            Y: =596
+            ZIndex: =7
+
+        btn_ds_Cancel_8 As button:
+            BorderThickness: =1
+            Color: =RGBA(0, 0, 0, 1)
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =36
+            HoverFill: =ColorFade(Self.Fill, -20%)
+            OnSelect: |-
+                =UpdateContext({locUpdateDP:false})
+            PressedColor: =RGBA(0,0,0,1)
+            PressedFill: =Self.Fill
+            RadiusBottomLeft: =5
+            RadiusBottomRight: =5
+            RadiusTopLeft: =5
+            RadiusTopRight: =5
+            Text: ="Hủy"
+            Width: =87
+            X: =779
+            Y: =596
+            ZIndex: =8
+
+        txt_ds_Name_2 As text:
+            BorderColor: =RGBA(116, 116, 116, 1)
+            BorderThickness: =1
+            Default: =locDivision.name
+            HintText: ="Nhập tên Phòng"
+            Width: =394
+            X: =548
+            Y: =213
+            ZIndex: =14
+
+        lbl_ds_DepartmentName_11 As label:
+            Align: =Align.Right
+            FontWeight: =FontWeight.Semibold
+            Text: ="Quản lý"
+            X: =387
+            Y: =269
+            ZIndex: =15
+
+        drp_ds_LineManager_2 As dropdown:
+            BorderColor: =RGBA(116, 116, 116, 1)
+            BorderThickness: =1
+            Items: =LookUp('ASTakeLeave.Users',userID = locDivision.directorUserID)
+            X: =548
+            Y: =269
+            ZIndex: =16
+
+        lbl_ds_DepartmentName_12 As label:
+            Align: =Align.Right
+            FontWeight: =FontWeight.Semibold
+            Text: ="Phòng"
+            X: =387
+            Y: =323
+            ZIndex: =17
+
+        Button2_2 As button:
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =0
+            Fill: =RGBA(139, 154, 159, 1)
+            Height: =28
+            OnSelect: |-
+                =Collect(colUnit,Table({ID:Max(colUnit,ID)+1,Unit:"",Manager:""}))
+            RadiusBottomLeft: =5
+            RadiusBottomRight: =5
+            RadiusTopLeft: =5
+            RadiusTopRight: =5
+            Text: ="Thêm"
+            Width: =75
+            X: =546
+            Y: =330
+            ZIndex: =18
+
+        Gallery7_1 As gallery.galleryVertical:
+            DelayItemLoading: =true
+            Height: =217
+            Items: =colDepartmentByDivision
+            Layout: =Layout.Vertical
+            LoadingSpinner: =LoadingSpinner.Data
+            ShowScrollbar: =false
+            TemplateSize: =65
+            Width: =578
+            X: =390
+            Y: =370
+            ZIndex: =19
+
+            Container11_1 As groupContainer.horizontalAutoLayoutContainer:
+                Height: =65
+                LayoutGap: =5
+                LayoutMode: =LayoutMode.Auto
+                Width: =568
+                ZIndex: =1
+
+                Label11_1 As label:
+                    Align: =Align.Center
+                    AlignInContainer: =AlignInContainer.Center
+                    BorderColor: =RGBA(116, 116, 116, 1)
+                    BorderStyle: =BorderStyle.None
+                    BorderThickness: =1
+                    FontWeight: =FontWeight.Bold
+                    OnSelect: =
+                    Text: =ThisItem.ID
+                    Width: =50
+                    X: =4
+                    Y: =4
+                    ZIndex: =1
+
+                TextInput1_1 As text:
+                    AlignInContainer: =AlignInContainer.Center
+                    BorderColor: =RGBA(116, 116, 116, 1)
+                    BorderThickness: =1
+                    Default: =ThisItem.name
+                    HintText: ="Nhập tên Phòng"
+                    OnChange: |-
+                        =//Cập nhật thay đổi trường Phòng trên danh sách phòng
+                        Patch(colDepartmentByDivision,LookUp(colDepartmentByDivision,ID = ThisItem.ID),{name:TextInput1_1.Text})
+                    OnSelect: =
+                    Width: =450
+                    X: =44
+                    Y: =4
+                    ZIndex: =2
+
+                Image1_1 As image:
+                    AlignInContainer: =AlignInContainer.Center
+                    Height: =40
+                    Image: =Delete
+                    OnSelect: =If(CountRows(colUnit)>1,RemoveIf(colUnit,ID = ThisItem.ID))
+                    Width: =50
+                    X: =513
+                    Y: =4
+                    ZIndex: =4
+
+    ctn_ds_DeleteUnit As groupContainer.manualLayoutContainer:
+        Fill: =RGBA(0, 0, 0, 0.5)
+        Height: =768
+        RadiusBottomLeft: =20
+        RadiusBottomRight: =20
+        RadiusTopLeft: =20
+        RadiusTopRight: =20
+        Visible: =locDeleteUnit
+        Width: =1366
+        ZIndex: =11
+
+        btn_ds_BackGround_9 As button:
+            BorderStyle: =BorderStyle.None
+            DisabledFill: =RGBA(255, 255, 255, 1)
+            DisplayMode: =DisplayMode.Disabled
+            Height: =205
+            RadiusBottomLeft: =5
+            RadiusBottomRight: =5
+            RadiusTopLeft: =5
+            RadiusTopRight: =5
+            Text: =""
+            Width: =608
+            X: =375
+            Y: =268
+            ZIndex: =1
+
+        lbl_ds_Title_14 As label:
+            FontWeight: =FontWeight.Bold
+            Text: ="Xác nhận"
+            X: =387
+            Y: =280
+            ZIndex: =2
+
+        shp_ds_Deco_17 As rectangle:
+            Fill: =RGBA(202, 202, 202, 1)
+            Height: =1
+            Width: =608
+            X: =375
+            Y: =335
+            ZIndex: =3
+
+        ico_ds_Cancel_9 As icon.Cancel:
+            Color: =RGBA(149, 149, 149, 1)
+            Height: =29
+            Icon: =Icon.Cancel
+            OnSelect: |-
+                =UpdateContext({locDeleteUnit:false})
+            Width: =25
+            X: =942
+            Y: =285
+            ZIndex: =4
+
+        lbl_ds_Name_7 As label:
+            FontWeight: =FontWeight.Semibold
+            Text: ="Bạn có chắc chắn muốn xóa ?"
+            Width: =580
+            X: =387
+            Y: =348
+            ZIndex: =5
+
+        shp_ds_Deco_18 As rectangle:
+            Fill: =RGBA(202, 202, 202, 1)
+            Height: =1
+            Width: =608
+            X: =375
+            Y: =407
+            ZIndex: =6
+
+        btn_ds_Submit_11 As button:
+            BorderThickness: =1
+            Fill: =RGBA(0, 89, 204, 1)
+            Height: =36
+            HoverFill: =ColorFade(Self.Fill, -20%)
+            OnSelect: |-
+                =//Sửa phòng ban cũ thành không hoạt động
+                        Patch(
+                            'ASTakeLeave.Department',
+                            LookUp('ASTakeLeave.Department',ID = locDepartmentSelected),
+                            {
+                                active: 0
+                            }
+                        );
+                Notify("Xóa thành công",NotificationType.Success,1500);
+                UpdateContext({locDeleteUnit:false})
+            PressedColor: =RGBA(255,255,255,1)
+            PressedFill: =Self.Fill
+            RadiusBottomLeft: =5
+            RadiusBottomRight: =5
+            RadiusTopLeft: =5
+            RadiusTopRight: =5
+            Text: ="Xóa"
+            Width: =87
+            X: =879
+            Y: =422
+            ZIndex: =7
+
+        btn_ds_Cancel_9 As button:
+            BorderThickness: =1
+            Color: =RGBA(0, 0, 0, 1)
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =36
+            HoverFill: =ColorFade(Self.Fill, -20%)
+            OnSelect: |-
+                =UpdateContext({locDeleteUnit:false})
+            PressedColor: =RGBA(0,0,0,1)
+            PressedFill: =Self.Fill
+            RadiusBottomLeft: =5
+            RadiusBottomRight: =5
+            RadiusTopLeft: =5
+            RadiusTopRight: =5
+            Text: ="Hủy"
+            Width: =87
+            X: =779
+            Y: =422
+            ZIndex: =8
+
+    ctn_ds_UpdateUnit As groupContainer.manualLayoutContainer:
+        Fill: =RGBA(0, 0, 0, 0.5)
+        Height: =768
+        RadiusBottomLeft: =20
+        RadiusBottomRight: =20
+        RadiusTopLeft: =20
+        RadiusTopRight: =20
+        Visible: =locUpdateUnit
+        Width: =1366
+        ZIndex: =12
+
+        btn_ds_BackGround_10 As button:
+            BorderStyle: =BorderStyle.None
+            DisabledFill: =RGBA(255, 255, 255, 1)
+            DisplayMode: =DisplayMode.Disabled
+            Height: =502
+            RadiusBottomLeft: =5
+            RadiusBottomRight: =5
+            RadiusTopLeft: =5
+            RadiusTopRight: =5
+            Text: =""
+            Width: =608
+            X: =375
+            Y: =138
+            ZIndex: =1
+
+        lbl_ds_Title_15 As label:
+            FontWeight: =FontWeight.Bold
+            Text: ="Sửa thông tin"
+            X: =387
+            Y: =151
+            ZIndex: =2
+
+        shp_ds_Deco_19 As rectangle:
+            Fill: =RGBA(202, 202, 202, 1)
+            Height: =1
+            Width: =608
+            X: =375
+            Y: =199
+            ZIndex: =3
+
+        ico_ds_Cancel_10 As icon.Cancel:
+            Color: =RGBA(149, 149, 149, 1)
+            Height: =29
+            Icon: =Icon.Cancel
+            OnSelect: |-
+                =UpdateContext({locUpdateUnit:false})
+            Width: =25
+            X: =942
+            Y: =156
+            ZIndex: =4
+
+        shp_ds_Deco_20 As rectangle:
+            Fill: =RGBA(202, 202, 202, 1)
+            Height: =1
+            Width: =608
+            X: =375
+            Y: =587
+            ZIndex: =6
+
+        btn_ds_Submit_12 As button:
+            BorderThickness: =1
+            Fill: =RGBA(0, 89, 204, 1)
+            Height: =36
+            HoverFill: =ColorFade(Self.Fill, -20%)
+            OnSelect: |-
+                =Notify("Sửa thành công",NotificationType.Success,1500);
+                UpdateContext({locUpdateUnit:false})
+            PressedColor: =RGBA(255,255,255,1)
+            PressedFill: =Self.Fill
+            RadiusBottomLeft: =5
+            RadiusBottomRight: =5
+            RadiusTopLeft: =5
+            RadiusTopRight: =5
+            Text: ="Sửa"
+            Width: =87
+            X: =879
+            Y: =596
+            ZIndex: =7
+
+        btn_ds_Cancel_10 As button:
+            BorderThickness: =1
+            Color: =RGBA(0, 0, 0, 1)
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =36
+            HoverFill: =ColorFade(Self.Fill, -20%)
+            OnSelect: |-
+                =UpdateContext({locUpdateUnit:false})
+            PressedColor: =RGBA(0,0,0,1)
+            PressedFill: =Self.Fill
+            RadiusBottomLeft: =5
+            RadiusBottomRight: =5
+            RadiusTopLeft: =5
+            RadiusTopRight: =5
+            Text: ="Hủy"
+            Width: =87
+            X: =779
+            Y: =596
+            ZIndex: =8
+
+        lbl_ds_DepartmentName_15 As label:
+            Align: =Align.Right
+            FontWeight: =FontWeight.Semibold
+            Text: ="Phòng"
+            X: =387
+            Y: =215
+            ZIndex: =17
+
+        Button2_3 As button:
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =0
+            Fill: =RGBA(139, 154, 159, 1)
+            Height: =28
+            OnSelect: |-
+                =Collect(colUnit,Table({ID:Max(colUnit,ID)+1,Unit:"",Manager:""}))
+            RadiusBottomLeft: =5
+            RadiusBottomRight: =5
+            RadiusTopLeft: =5
+            RadiusTopRight: =5
+            Text: ="Thêm"
+            Width: =75
+            X: =546
+            Y: =222
+            ZIndex: =18
+
+        Gallery7_2 As gallery.galleryVertical:
+            DelayItemLoading: =true
+            Height: =306
+            Items: =colUnit
+            Layout: =Layout.Vertical
+            LoadingSpinner: =LoadingSpinner.Data
+            ShowScrollbar: =false
+            TemplateSize: =65
+            Width: =578
+            X: =390
+            Y: =262
+            ZIndex: =19
+
+            Container11_2 As groupContainer.horizontalAutoLayoutContainer:
+                Height: =65
+                LayoutGap: =5
+                LayoutMode: =LayoutMode.Auto
+                Width: =568
+                ZIndex: =1
+
+                Label11_2 As label:
+                    Align: =Align.Center
+                    AlignInContainer: =AlignInContainer.Center
+                    BorderColor: =RGBA(116, 116, 116, 1)
+                    BorderStyle: =BorderStyle.None
+                    BorderThickness: =1
+                    FontWeight: =FontWeight.Bold
+                    OnSelect: =
+                    Text: =ThisItem.ID
+                    Width: =50
+                    X: =4
+                    Y: =4
+                    ZIndex: =1
+
+                TextInput1_2 As text:
+                    AlignInContainer: =AlignInContainer.Center
+                    BorderColor: =RGBA(116, 116, 116, 1)
+                    BorderThickness: =1
+                    Default: =""
+                    HintText: ="Nhập tên Phòng"
+                    OnSelect: =
+                    Width: =240
+                    X: =44
+                    Y: =4
+                    ZIndex: =2
+
+                Dropdown2_5 As dropdown:
+                    AlignInContainer: =AlignInContainer.Center
+                    BorderColor: =RGBA(116, 116, 116, 1)
+                    BorderThickness: =1
+                    Items: =["Trần Văn Hậu","Võ Đỗ Thi Nhân"]
+                    Width: =200
+                    X: =280
+                    Y: =4
+                    ZIndex: =3
+
+                Image1_2 As image:
+                    AlignInContainer: =AlignInContainer.Center
+                    Height: =40
+                    Image: =Delete
+                    OnSelect: =If(CountRows(colUnit)>1,RemoveIf(colUnit,ID = ThisItem.ID))
+                    Width: =50
+                    X: =513
+                    Y: =4
+                    ZIndex: =4
+
+    ctn_ds_DetailDP As groupContainer.manualLayoutContainer:
+        Fill: =RGBA(0, 0, 0, 0.5)
+        Height: =768
+        RadiusBottomLeft: =20
+        RadiusBottomRight: =20
+        RadiusTopLeft: =20
+        RadiusTopRight: =20
+        Visible: =locDetailDP
+        Width: =1366
+        ZIndex: =13
+
+        btn_ds_BackGround_11 As button:
+            BorderStyle: =BorderStyle.None
+            DisabledFill: =RGBA(255, 255, 255, 1)
+            DisplayMode: =DisplayMode.Disabled
+            Height: =502
+            RadiusBottomLeft: =5
+            RadiusBottomRight: =5
+            RadiusTopLeft: =5
+            RadiusTopRight: =5
+            Text: =""
+            Width: =608
+            X: =375
+            Y: =138
+            ZIndex: =1
+
+        lbl_ds_Title_16 As label:
+            FontWeight: =FontWeight.Bold
+            Text: ="Chi tiết Phòng"
+            X: =387
+            Y: =151
+            ZIndex: =2
+
+        shp_ds_Deco_21 As rectangle:
+            Fill: =RGBA(202, 202, 202, 1)
+            Height: =1
+            Width: =608
+            X: =375
+            Y: =199
+            ZIndex: =3
+
+        ico_ds_Cancel_11 As icon.Cancel:
+            Color: =RGBA(149, 149, 149, 1)
+            Height: =29
+            Icon: =Icon.Cancel
+            OnSelect: |-
+                =UpdateContext({locDetailDP:false})
+            Width: =25
+            X: =942
+            Y: =156
+            ZIndex: =4
+
+        lbl_ds_DepartmentName_13 As label:
+            Align: =Align.Right
+            FontWeight: =FontWeight.Semibold
+            Text: ="Tên khối"
+            X: =387
+            Y: =213
+            ZIndex: =5
+
+        shp_ds_Deco_22 As rectangle:
+            Fill: =RGBA(202, 202, 202, 1)
+            Height: =1
+            Width: =608
+            X: =375
+            Y: =587
+            ZIndex: =6
+
+        btn_ds_Cancel_11 As button:
+            BorderThickness: =1
+            Color: =RGBA(0, 0, 0, 1)
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =36
+            HoverFill: =ColorFade(Self.Fill, -20%)
+            OnSelect: |-
+                =UpdateContext({locDetailDP:false})
+            PressedColor: =RGBA(0,0,0,1)
+            PressedFill: =Self.Fill
+            RadiusBottomLeft: =5
+            RadiusBottomRight: =5
+            RadiusTopLeft: =5
+            RadiusTopRight: =5
+            Text: ="Hủy"
+            Width: =87
+            X: =877
+            Y: =596
+            ZIndex: =8
+
+        txt_ds_Name_5 As text:
+            BorderColor: =RGBA(116, 116, 116, 1)
+            BorderThickness: =1
+            Default: =locDivision.name
+            DisabledColor: =RGBA(0, 0, 0, 1)
+            DisabledFill: =RGBA(255, 255, 255, 1)
+            DisplayMode: =DisplayMode.Disabled
+            HintText: ="Nhập tên Phòng"
+            Width: =394
+            X: =548
+            Y: =213
+            ZIndex: =14
+
+        lbl_ds_DepartmentName_14 As label:
+            Align: =Align.Right
+            FontWeight: =FontWeight.Semibold
+            Text: ="Quản lý"
+            X: =387
+            Y: =269
+            ZIndex: =15
+
+        Dropdown2_4 As dropdown:
+            BorderColor: =RGBA(116, 116, 116, 1)
+            BorderThickness: =1
+            DisabledColor: =RGBA(0, 0, 0, 1)
+            DisabledFill: =RGBA(255, 255, 255, 1)
+            DisplayMode: =DisplayMode.Disabled
+            Items: =LookUp('ASTakeLeave.Users',userID = locDivision.directorUserID)
+            X: =548
+            Y: =269
+            ZIndex: =16
+
+        lbl_ds_DepartmentName_16 As label:
+            FontWeight: =FontWeight.Semibold
+            Text: ="Phòng"
+            X: =394
+            Y: =323
+            ZIndex: =17
+
+        Gallery7_3 As gallery.galleryVertical:
+            DelayItemLoading: =true
+            Height: =217
+            Items: =Filter('ASTakeLeave.Department',divisionID = locDivision.ID And active = 1)
+            Layout: =Layout.Vertical
+            LoadingSpinner: =LoadingSpinner.Data
+            ShowScrollbar: =false
+            TemplateSize: =65
+            Width: =578
+            X: =390
+            Y: =356
+            ZIndex: =19
+
+            Container11_3 As groupContainer.horizontalAutoLayoutContainer:
+                Height: =65
+                LayoutGap: =5
+                LayoutMode: =LayoutMode.Auto
+                Width: =568
+                ZIndex: =1
+
+                Label11_3 As label:
+                    Align: =Align.Center
+                    AlignInContainer: =AlignInContainer.Center
+                    BorderColor: =RGBA(116, 116, 116, 1)
+                    BorderStyle: =BorderStyle.None
+                    BorderThickness: =1
+                    FontWeight: =FontWeight.Bold
+                    OnSelect: =
+                    Text: =ThisItem.ID
+                    Width: =50
+                    X: =4
+                    Y: =4
+                    ZIndex: =1
+
+                TextInput1_3 As text:
+                    AlignInContainer: =AlignInContainer.Center
+                    BorderColor: =RGBA(116, 116, 116, 1)
+                    BorderThickness: =1
+                    Default: =ThisItem.name
+                    DisabledColor: =RGBA(0, 0, 0, 1)
+                    DisabledFill: =RGBA(255, 255, 255, 1)
+                    DisplayMode: =DisplayMode.Disabled
+                    HintText: ="Nhập tên Phòng"
+                    OnSelect: =
+                    Width: =490
+                    X: =44
+                    Y: =4
+                    ZIndex: =2
+
