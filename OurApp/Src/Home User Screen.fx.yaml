@@ -1,12 +1,49 @@
 "'Home User Screen' As screen":
     Fill: =RGBA(224,224,224,1)
-    OnVisible: |-
-        =//Calendar setting
-        Set(_dateSelected, Today());
-        Set(_firstDayOfMonth, DateAdd(Today(), 1 - Day(Today()), TimeUnit.Days));
-        Set(_firstDayInView, DateAdd(_firstDayOfMonth, -(Weekday(_firstDayOfMonth) - 2 + 1), TimeUnit.Days));
-        Set(_lastDayOfMonth, DateAdd(DateAdd(_firstDayOfMonth, 1, TimeUnit.Months), -1, TimeUnit.Days));
-        Set(gblMenuFunctionSelected,1)
+    OnVisible: |
+        =//Calendar setting, default của powerapps
+        UpdateContext({_dateSelected: Today()});
+        UpdateContext({_firstDayOfMonth: DateAdd(Today(), 1 - Day(Today()), TimeUnit.Days)});
+        UpdateContext({_firstDayInView: DateAdd(_firstDayOfMonth, -(Weekday(_firstDayOfMonth) - 2 + 1), TimeUnit.Days)});
+        UpdateContext({_lastDayInView: DateAdd(_firstDayInView, 41, TimeUnit.Days)});
+        UpdateContext({_lastDayOfMonth: DateAdd(DateAdd(_firstDayOfMonth, 1, TimeUnit.Months), -1, TimeUnit.Days)});
+        UpdateContext({locNumCurrentMonth: Month(_firstDayOfMonth)});
+        Set(gblMenuFunctionSelected,1);
+        
+        //Lấy tất cả ngày phép trong tháng xuống
+        If(
+            IsEmpty(locColPersonalLeave),       //Nếu là lần đầu
+            Collect(
+                locColPersonalLeave,
+                Filter(                         //Lấy tất cả các lần phép có khoảng ngày trong view calendar hiện tại
+                    'ASTakeLeave.LeaveRequest', 
+                    userID = gblRecUser.userID, 
+                    startDateValue >= Value(Day(_firstDayInView) & Month(_firstDayInView) & Year(_firstDayInView)),
+                    endDateValue <= Value(Day(_lastDayInView) & Month(_lastDayInView) & Year(_lastDayInView)) 
+                )  
+            );
+        
+            Collect(    //Lưu khoảng ngày hiện tại
+                locColExistCalendarView,
+                {
+                    firstDayInView: _firstDayInView
+                }
+            )
+        );
+        
+        /*If(
+            IsEmpty(locColPersonalCalendar),   //Nếu là lần đầu
+            ForAll(
+                Sequence(41, 0) As temp,
+                Collect(
+                    locColPersonalCalendar,
+                    {
+                        Date: DateAdd(_firstDayInView, temp.Value, TimeUnit.Days)
+                        
+                    }
+                )
+            )
+        );*/
 
     btn_hs_BackGroundScreen As button:
         BorderStyle: =BorderStyle.None
@@ -426,18 +463,45 @@
                     PaddingRight: =10
                     RadiusBottomLeft: =0
                     RadiusBottomRight: =0
-                    Text: =Text(_dateSelected, DateTimeFormat.LongDate)
+                    Text: =$"Tháng {locNumCurrentMonth} năm {Year(_firstDayOfMonth)}"
                     ZIndex: =1
 
                 img_hs_PreviousMonth As image:
                     AlignInContainer: =AlignInContainer.Stretch
                     Image: =Triangle_Left
                     LayoutMinHeight: =0
-                    OnSelect: |
+                    OnSelect: |-
                         =/*changes month view to previous month*/
-                        Set(_firstDayOfMonth, DateAdd(_firstDayOfMonth, -1, TimeUnit.Months));
-                        Set(_firstDayInView, DateAdd(_firstDayOfMonth, -(Weekday(_firstDayOfMonth) - 2 + 1), TimeUnit.Days));
-                        Set(_lastDayOfMonth, DateAdd(DateAdd(_firstDayOfMonth, 1, TimeUnit.Months), -1, TimeUnit.Days));
+                        UpdateContext({_firstDayOfMonth: DateAdd(_firstDayOfMonth, -1, TimeUnit.Months)});
+                        UpdateContext({_firstDayInView: DateAdd(_firstDayOfMonth, -(Weekday(_firstDayOfMonth) - 2 + 1), TimeUnit.Days)});
+                        UpdateContext({_lastDayInView: DateAdd(_firstDayInView, 41, TimeUnit.Days)});
+                        UpdateContext({_lastDayOfMonth: DateAdd(DateAdd(_firstDayOfMonth, 1, TimeUnit.Months), -1, TimeUnit.Days)});
+                        UpdateContext({locNumCurrentMonth: Month(_firstDayOfMonth)});
+                        
+                        //Thêm record vào danh sách phép hiện tại nếu tháng này chưa có
+                        If(
+                            Or(
+                                _firstDayInView < Min(locColExistCalendarView, firstDayInView),
+                                _firstDayInView > Max(locColExistCalendarView, firstDayInView)
+                            ),
+                             Collect(
+                                locColPersonalLeave,
+                                Filter(                         //Lấy tất cả các lần phép có khoảng ngày trong view calendar hiện tại
+                                    'ASTakeLeave.LeaveRequest', 
+                                    userID = gblRecUser.userID, 
+                                    startDateValue >= Value(Day(_firstDayInView) & Month(_firstDayInView) & Year(_firstDayInView)),
+                                    endDateValue <= Value(Day(_lastDayInView) & Month(_lastDayInView) & Year(_lastDayInView)) 
+                                )  
+                            );
+                        
+                            Collect(    //Lưu khoảng ngày hiện tại
+                                locColExistCalendarView,
+                                {
+                                    firstDayInView: _firstDayInView
+                                }
+                            )
+                        
+                        );
                     Width: =30
                     ZIndex: =2
 
@@ -447,9 +511,36 @@
                     LayoutMinHeight: =0
                     OnSelect: |
                         =/*changes month view to previous month*/
-                        Set(_firstDayOfMonth, DateAdd(_firstDayOfMonth, -1, TimeUnit.Months));
-                        Set(_firstDayInView, DateAdd(_firstDayOfMonth, -(Weekday(_firstDayOfMonth) - 2 + 1), TimeUnit.Days));
-                        Set(_lastDayOfMonth, DateAdd(DateAdd(_firstDayOfMonth, 1, TimeUnit.Months), -1, TimeUnit.Days));
+                        UpdateContext({_firstDayOfMonth: DateAdd(_firstDayOfMonth, 1, TimeUnit.Months)});
+                        UpdateContext({_firstDayInView: DateAdd(_firstDayOfMonth, -(Weekday(_firstDayOfMonth) - 2 + 1), TimeUnit.Days)});
+                        UpdateContext({_lastDayInView: DateAdd(_firstDayInView, 41, TimeUnit.Days)});
+                        UpdateContext({_lastDayOfMonth: DateAdd(DateAdd(_firstDayOfMonth, 1, TimeUnit.Months), -1, TimeUnit.Days)});
+                        UpdateContext({locNumCurrentMonth: Month(_firstDayOfMonth)});
+                        
+                        //Thêm record vào danh sách phép hiện tại nếu tháng này chưa có
+                        If(
+                            Or(
+                                _firstDayInView < Min(locColExistCalendarView, firstDayInView),
+                                _firstDayInView > Max(locColExistCalendarView, firstDayInView)
+                            ),
+                             Collect(
+                                locColPersonalLeave,
+                                Filter(                         //Lấy tất cả các lần phép có khoảng ngày trong view calendar hiện tại
+                                    'ASTakeLeave.LeaveRequest', 
+                                    userID = gblRecUser.userID, 
+                                    startDateValue >= Value(Day(_firstDayInView) & Month(_firstDayInView) & Year(_firstDayInView)),
+                                    endDateValue <= Value(Day(_lastDayInView) & Month(_lastDayInView) & Year(_lastDayInView)) 
+                                )  
+                            );
+                        
+                            Collect(    //Lưu khoảng ngày hiện tại
+                                locColExistCalendarView,
+                                {
+                                    firstDayInView: _firstDayInView
+                                }
+                            )
+                        
+                        );
                     Width: =30
                     ZIndex: =3
 
@@ -658,7 +749,14 @@
                             Fill: =RGBA(73, 113, 215, 0.3)
                             Height: =36
                             OnSelect: =Select(Parent)
-                            Visible: =If(ThisItem.Value = 11 Or ThisItem.Value = 24 Or ThisItem.Value = 1,true,false)
+                            Visible: |-
+                                =!IsBlank(
+                                    LookUp(
+                                        locColPersonalLeave, 
+                                        startDate >= DateAdd(_firstDayInView,ThisItem.Value, TimeUnit.Days) &&
+                                        endDate <= DateAdd(_firstDayInView,ThisItem.Value, TimeUnit.Days)
+                                    )
+                                )
                             Width: =37
                             ZIndex: =5
 
