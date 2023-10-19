@@ -938,6 +938,8 @@
                 Reset(txt_us_Name_3);Reset(txt_us_Name_1);Reset(cbo_us_Email);Reset(txt_us_Phone_1);Reset(txt_us_JobTitle_1);Reset(drp_us_Department_3);Reset(drp_us_Department_1);
                 //Làm mới bảng người dùng
                 Refresh('ASTakeLeave.Users');
+                Refresh('ASTakeLeave.Users_Roles');
+                Refresh('ASTakeLeave.UserRelationship');
                 //Thêm trường role vào bảng user
                 ClearCollect(
                     gblColAllUser,
@@ -1247,7 +1249,7 @@
                         1500
                     ),
                     //Sửa nhân viên cũ thành không hoạt động
-                    Patch('ASTakeLeave.Users',LookUp('ASTakeLeave.Users',ID = locUser.ID),{active:0});
+                    Patch('ASTakeLeave.Users',LookUp('ASTakeLeave.Users',ID = locUser.ID And active = 1),{active:0});
                     //Tạo nhân viên mới
                     Patch('ASTakeLeave.Users',Defaults('ASTakeLeave.Users'),{userID:txt_us_Name_6.Text,fullName:txt_us_Name_2.Text,email:cbo_us_Email_2.Selected.Mail,phone:txt_us_Phone_2.Text,jobTitle:txt_us_JobTitle_2.Text,divisionID:drp_us_Department_4.Selected.ID,departmentID:drp_us_Department_2.Selected.ID,'365AccountInfo':{
                             '@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedUser",
@@ -1259,11 +1261,11 @@
                             Picture: ""
                         }});
                     //Sửa quản lý cũ thành không hoạt động
-                    Patch('ASTakeLeave.UserRelationship',LookUp('ASTakeLeave.UserRelationship',userID = locUser.userID),{active:0});
+                    Patch('ASTakeLeave.UserRelationship',LookUp('ASTakeLeave.UserRelationship',userID = locUser.userID And active = 1),{active:0});
                     //Sửa vai trò cũ thành không hoạt động
-                    Patch('ASTakeLeave.Users_Roles',LookUp('ASTakeLeave.Users_Roles',userID = locUser.userID),{active:0});
+                    Patch('ASTakeLeave.Users_Roles',LookUp('ASTakeLeave.Users_Roles',userID = locUser.userID And active = 1),{active:0});
                     //Tạo phân quyền
-                    Patch('ASTakeLeave.Users_Roles',Defaults('ASTakeLeave.Users_Roles'),{userID:txt_us_Name_3.Text,roleID:drp_us_Roles_1.Selected.ID,active:1});
+                    Patch('ASTakeLeave.Users_Roles',Defaults('ASTakeLeave.Users_Roles'),{userID:txt_us_Name_6.Text,roleID:drp_us_Roles_2.Selected.ID,active:1});
                     //Tạo quản lý người dùng
                     Patch('ASTakeLeave.UserRelationship',Defaults('ASTakeLeave.UserRelationship'),{approveUserID:drp_us_Manager_2.Selected.userID,userID:txt_us_Name_3.Text,approveProcessLevel:2,active:1}));
                 Notify(
@@ -1271,9 +1273,11 @@
                     NotificationType.Success,
                     1500
                 );
-                Reset(txt_us_Name_3);Reset(txt_us_Name_1);Reset(cbo_us_Email_2);Reset(txt_us_Phone_1);Reset(txt_us_JobTitle_1);Reset(drp_us_Department_3);Reset(drp_us_Department_1);
+                Reset(cbo_us_Email_2);Reset(drp_us_Roles_2);Reset(drp_us_Manager_2);
                 //Làm mới bảng người dùng
                 Refresh('ASTakeLeave.Users');
+                Refresh('ASTakeLeave.Users_Roles');
+                Refresh('ASTakeLeave.UserRelationship');
                 //Thêm trường role vào bảng user
                 ClearCollect(
                     gblColAllUser,
