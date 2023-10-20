@@ -1569,7 +1569,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "btn_rs_BackGround",
-      "ParentIndex": 5,
+      "ParentIndex": 6,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -4314,7 +4314,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "ctn_hs_Info2_1",
-      "ParentIndex": 1,
+      "ParentIndex": 0,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -6090,7 +6090,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "ctn_rs_FormDetail1",
-      "ParentIndex": 0,
+      "ParentIndex": 1,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -6374,7 +6374,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "ctn_rs_FormDetail2",
-      "ParentIndex": 1,
+      "ParentIndex": 0,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -7779,7 +7779,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "ctn_rs_MainContent",
-      "ParentIndex": 6,
+      "ParentIndex": 7,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -8698,7 +8698,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "ctn_rs_Title",
-      "ParentIndex": 4,
+      "ParentIndex": 5,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -12798,7 +12798,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "img_hs_Avatar_1",
-      "ParentIndex": 0,
+      "ParentIndex": 1,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -16415,7 +16415,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "lbl_rs_DivisionTitle_1",
-      "ParentIndex": 3,
+      "ParentIndex": 2,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -17106,7 +17106,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "lbl_rs_DivisionTitle_3",
-      "ParentIndex": 2,
+      "ParentIndex": 1,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -19708,9 +19708,7 @@
           "InvariantPropertyName": "ShowLabel",
           "IsLockable": false,
           "NameMapSourceSchema": "?"
-        },
-        "Default",
-        "OnSelect"
+        }
       ],
       "DynamicProperties": [
         {
@@ -19767,14 +19765,9 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "Toggle3",
-      "ParentIndex": 1,
+      "ParentIndex": 3,
       "PersistMetaDataIDKey": false,
       "Properties": [
-        {
-          "Category": "Data",
-          "PropertyName": "Default",
-          "RuleProviderType": "Unknown"
-        },
         {
           "Category": "Data",
           "PropertyName": "FalseText",
@@ -19913,11 +19906,6 @@
         {
           "Category": "Design",
           "PropertyName": "ShowLabel",
-          "RuleProviderType": "Unknown"
-        },
-        {
-          "Category": "Behavior",
-          "PropertyName": "OnSelect",
           "RuleProviderType": "Unknown"
         }
       ],
