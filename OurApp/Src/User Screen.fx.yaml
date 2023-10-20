@@ -3,11 +3,21 @@
     OnVisible: |-
         =
         //Tạo collect cho bảng phòng để thêm 1 item "Tất cả"
-        If(CountRows(Filter(gblColDepartment,name = "Tất cả")) = 0,Collect(gblColDepartment,Table({name:"Tất cả"})));
+        If(CountRows(Filter(gblColDepartment,name = "Tất cả")) = 0,Collect(gblColDepartment,Table({name:"Tất cả"}));//Lấy tất cả phòng về
+        Collect(
+            gblColDepartment,
+            ShowColumns('ASTakeLeave.Department', "ID", "name", "divisionID", "active")
+        ));
         //Tạo collect cho bảng vai trò để thêm 1 item "Tất cả"
         ClearCollect(gblColRoles,Table({name:"Tất cả"}));
         Collect(gblColRoles,'ASTakeLeave.Roles');
         
+        
+        //Lấy tất cả khối về
+        Collect(
+            gblColDivision,
+            ShowColumns('ASTakeLeave.Division', "ID", "name", "directorUserID", "active")
+        );
         
         //Thêm trường role vào bảng user
         ClearCollect(gblColUser,AddColumns('ASTakeLeave.Users' As Temp,"Roles",LookUp('ASTakeLeave.Users_Roles',userID = Temp.userID).roleID));
