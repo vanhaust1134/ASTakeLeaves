@@ -495,7 +495,7 @@
                         OnSelect: |-
                             =UpdateContext({locUpdateDP:true});
                             UpdateContext({locDivision:ThisItem});
-                            ClearCollect(colDepartmentByDivision,Filter('ASTakeLeave.Department',divisionID = ThisItem.ID And active = 1))
+                            ClearCollect(colDepartmentByDivision,AddColumns(Filter('ASTakeLeave.Department',divisionID = ThisItem.ID And active = 1),"status",1));
                         Width: =44
                         X: =991
                         Y: =2
@@ -892,13 +892,8 @@
             OnSelect: |-
                 =If(
                     //Kiểm tra trống trường tên khối
-                    IsBlank(txt_ds_Name_1.Text),
-                    Notify(
-                        "Trường tên khối không được bỏ trống",
-                        NotificationType.Error,
-                        1500
-                    ),
-                    //Tạo khối
+                    IsBlank(txt_ds_Name_1.Text),Notify("Trường tên khối không được bỏ trống",NotificationType.Error,1500),
+                //Tạo khối
                     Set(
                         gblDivision,
                         Patch(
@@ -923,8 +918,7 @@
                                 active: 1
                             }
                         )
-                    )
-                );
+                    );
                 //Lấy tất cả phòng về
                 Collect(
                     gblColDepartment,
@@ -942,7 +936,7 @@
                     1500
                 );
                 Reset(txt_ds_Name_1);
-                UpdateContext({locCreateDP: false})
+                UpdateContext({locCreateDP: false}))
             PressedColor: =RGBA(255,255,255,1)
             PressedFill: =Self.Fill
             RadiusBottomLeft: =5
@@ -1155,18 +1149,16 @@
 
         btn_ds_Edit As button:
             BorderThickness: =1
+            DisplayMode: |-
+                =If(
+                    //Kiểm tra trống trường tên khối
+                    IsBlank(txt_ds_Name_2.Text),
+                    DisplayMode.Disabled,DisplayMode.Edit)
             Fill: =RGBA(0, 89, 204, 1)
             Height: =36
             HoverFill: =ColorFade(Self.Fill, -20%)
             OnSelect: |-
-                =If(
-                    //Kiểm tra trống trường tên khối
-                    IsBlank(txt_ds_Name_2.Text),
-                    Notify(
-                        "Trường tên khối không được bỏ trống",
-                        NotificationType.Error,
-                        1500
-                    ),
+                =
                     /*//Sửa khối cũ thành không hoạt động
                     Patch(
                         'ASTakeLeave.Division',
@@ -1197,7 +1189,7 @@
                     );
                     //Tạo phòng ban với mã khối đã tạo
                 ForAll(
-                        Filter(colDepartmentByDivision,!IsBlank(name)) As Temp,
+                        Filter(colDepartmentByDivision,status = 1 And !IsBlank(name)) As Temp,
                         Patch(
                             'ASTakeLeave.Department',
                             LookUp('ASTakeLeave.Department',ID = Temp.ID),
@@ -1205,8 +1197,29 @@
                                 name: Temp.name
                             }
                         )
-                    )
-                );
+                    );
+                ForAll(
+                        Filter(colDepartmentByDivision,status = 2 And !IsBlank(name)) As Temp,
+                        Patch(
+                            'ASTakeLeave.Department',
+                            LookUp('ASTakeLeave.Department',ID = Temp.ID),
+                            {
+                                active:0
+                            }
+                        )
+                    );
+                ForAll(
+                        Filter(colDepartmentByDivision,status = 3 And !IsBlank(name)) As Temp,
+                        Patch(
+                            'ASTakeLeave.Department',
+                            Defaults('ASTakeLeave.Department'),
+                            {
+                                name: Temp.name,
+                                active:1,
+                                divisionID:locDivision.ID
+                            }
+                        )
+                    );
                 Notify(
                     "Sửa thành công",
                     NotificationType.Success,
@@ -1246,7 +1259,11 @@
             ZIndex: =8
 
         txt_ds_Name_2 As text:
-            BorderColor: =RGBA(116, 116, 116, 1)
+            BorderColor: |-
+                =If(
+                    //Kiểm tra trống trường tên khối
+                    IsBlank(txt_ds_Name_2.Text),
+                    Color.Red,RGBA(116, 116, 116, 1))
             BorderThickness: =1
             Default: =locDivision.name
             HintText: ="Nhập tên Phòng"
@@ -1285,7 +1302,7 @@
             Fill: =RGBA(139, 154, 159, 1)
             Height: =28
             OnSelect: |-
-                =Collect(colDepartmentByDivision,Table({ID:Max(colDepartmentByDivision,ID),name:""}))
+                =Collect(colDepartmentByDivision,Table({ID:Max(colDepartmentByDivision,ID) + 1,name:"",status:3}))
             RadiusBottomLeft: =5
             RadiusBottomRight: =5
             RadiusTopLeft: =5
@@ -1310,6 +1327,8 @@
             ZIndex: =19
 
             Container11_1 As groupContainer.horizontalAutoLayoutContainer:
+                BorderColor: =If(ThisItem.status = 1,RGBA(0, 0, 0, 0),ThisItem.status = 2,Color.Red,ThisItem.status = 3,Color.Blue)
+                BorderThickness: =1
                 Height: =65
                 LayoutGap: =5
                 LayoutMode: =LayoutMode.Auto
@@ -1348,8 +1367,9 @@
                 Image1_1 As image:
                     AlignInContainer: =AlignInContainer.Center
                     Height: =40
-                    Image: =Delete
-                    OnSelect: =If(CountRows(colDepartmentByDivision)>1,RemoveIf(colDepartmentByDivision,ID = ThisItem.ID))
+                    Image: =If(ThisItem.status = 2,Undo,Delete)
+                    OnSelect: |-
+                        =If(ThisItem.status <> 3,If(ThisItem.status = 1,Patch(colDepartmentByDivision,LookUp(colDepartmentByDivision,ID = ThisItem.ID),{status:2}),ThisItem.status = 2,Patch(colDepartmentByDivision,LookUp(colDepartmentByDivision,ID = ThisItem.ID),{status:1})),RemoveIf(colDepartmentByDivision,ID = ThisItem.ID))
                     Width: =50
                     X: =513
                     Y: =4

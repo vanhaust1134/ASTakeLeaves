@@ -891,7 +891,7 @@
             Fill: =RGBA(0, 89, 204, 1)
             Height: =36
             HoverFill: =ColorFade(Self.Fill, -20%)
-            OnSelect: |-
+            OnSelect: |
                 =//Kiểm tra các trường mã nhân viên, họ tên, email, chức danh
                 If(
                     CountRows(
@@ -983,9 +983,8 @@
                             approveProcessLevel: 2,
                             active: 1
                         }
-                    )
-                );
-                Notify(
+                    );
+                    Notify(
                     "Tạo thành công",
                     NotificationType.Success,
                     1500
@@ -997,6 +996,7 @@
                 Reset(txt_us_JobTitle_1);
                 Reset(drp_us_Department_3);
                 Reset(drp_us_Department_1);
+                Reset(drp_us_Roles_1);
                 //Làm mới bảng người dùng
                 Refresh('ASTakeLeave.Users');
                 Refresh('ASTakeLeave.Users_Roles');
@@ -1038,6 +1038,7 @@
                     )
                 );
                 UpdateContext({locCreateUser: false})
+                );
             PressedColor: =RGBA(255,255,255,1)
             PressedFill: =Self.Fill
             RadiusBottomLeft: =5
@@ -1368,7 +1369,15 @@
                         'ASTakeLeave.UserRelationship',
                         LookUp(
                             'ASTakeLeave.UserRelationship',
-                            userID = locUser.userID And active = 1
+                            userID = locUser.userID And active = 1 And approveProcessLevel = 1
+                        ),
+                        {active: 0}
+                    );
+                    Patch(
+                        'ASTakeLeave.UserRelationship',
+                        LookUp(
+                            'ASTakeLeave.UserRelationship',
+                            userID = locUser.userID And active = 1 And approveProcessLevel = 2
                         ),
                         {active: 0}
                     );
@@ -1401,8 +1410,7 @@
                             approveProcessLevel: 1,
                             active: 1
                         }
-                    )
-                );
+                    );
                  Patch(
                         'ASTakeLeave.UserRelationship',
                         Defaults('ASTakeLeave.UserRelationship'),
@@ -1461,7 +1469,7 @@
                         active = 1
                     )
                 );
-                UpdateContext({locUpdateUser: false})
+                UpdateContext({locUpdateUser: false}));
             PressedColor: =RGBA(255,255,255,1)
             PressedFill: =Self.Fill
             RadiusBottomLeft: =5
@@ -1579,9 +1587,10 @@
             Align: =Align.Right
             FontWeight: =FontWeight.Semibold
             Text: ="Quản lý trực tiếp"
+            Visible: =If(drp_us_Roles_2.Selected.ID = 1 Or drp_us_Roles_2.Selected.ID = 5,true,false)
             Width: =162
             X: =375
-            Y: =602
+            Y: =611
             ZIndex: =20
 
         lbl_us_Name_5 As label:
@@ -1593,7 +1602,7 @@
             ZIndex: =22
 
         txt_us_Name_6 As text:
-            BorderColor: =RGBA(116, 116, 116, 1)
+            BorderColor: =If(CountRows(Filter(gblColAllUser,active = 1 And userID <> locUser.userID And userID = txt_us_Name_6.Text)) = 1,Color.Red,RGBA(116, 116, 116, 1))
             BorderThickness: =1
             Default: =locUser.userID
             HintText: ="Nhập mã nhân viên"
@@ -1642,6 +1651,7 @@
             SearchFields: =["email"]
             SearchItems: =Search(Filter(gblColAllUser,active = 1 And roleID = 2),cbo_us_Manager_2.SearchText,"email")
             SelectMultiple: =false
+            Visible: =If(drp_us_Roles_2.Selected.ID = 1 Or drp_us_Roles_2.Selected.ID = 5,true,false)
             X: =548
             Y: =607
             ZIndex: =27
@@ -1667,9 +1677,9 @@
             DefaultSelectedItems: =LookUp(gblColDepartment,ID = locUser.departmentID And name <> "Tất cả")
             DisplayFields: =["name"]
             InputTextPlaceholder: ="Chọn bộ phận điều vận"
-            Items: =Filter(gblColDepartment,active = 1 And name <> "Tất cả")
+            Items: =Filter(gblColDepartment,divisionID = cbo_us_Line_4.Selected.ID And active = 1 And name <> "Tất cả")
             SearchFields: =["ComplianceAssetId"]
-            SearchItems: =Search(Filter(gblColDepartment,active = 1 And name <> "Tất cả"),cbo_us_Department_2.SearchText,"ComplianceAssetId")
+            SearchItems: =Search(Filter(gblColDepartment,divisionID = cbo_us_Line_4.Selected.ID And active = 1 And name <> "Tất cả"),cbo_us_Department_2.SearchText,"ComplianceAssetId")
             SelectMultiple: =false
             Width: =260
             X: =551
