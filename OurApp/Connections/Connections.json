@@ -51,6 +51,40 @@
     "dependents": [],
     "id": "1788df75-50d0-4023-8fc6-21646c5e4d76"
   },
+  "51d898db-ccf2-4c94-b1ca-7cda1f06927c": {
+    "connectionRef": {
+      "displayName": "Logic flows",
+      "iconUri": "https://connectoricons-prod.azureedge.net/releases/v1.0.1664/1.0.1664.3477/logicflows/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_logicflows",
+      "parameterHints": {
+        "cf341574-441c-4f2a-a3b6-ead8c294cdc6": {
+          "value": "shared_sharepointonline"
+        },
+        "workflowEntityId": {},
+        "workflowName": {
+          "value": "2499cbb4-c821-4281-acd9-43d91e4c4c2d"
+        }
+      },
+      "parameterHintsV2": {
+        "shared_sharepointonline": {
+          "value": "cf341574-441c-4f2a-a3b6-ead8c294cdc6"
+        },
+        "workflowEntityId": {},
+        "workflowName": {
+          "value": "2499cbb4-c821-4281-acd9-43d91e4c4c2d"
+        }
+      }
+    },
+    "datasets": {},
+    "dataSources": [
+      "ASTakeLeave.UpdateDivision"
+    ],
+    "dependencies": {
+      "shared_sharepointonline": "cf341574-441c-4f2a-a3b6-ead8c294cdc6"
+    },
+    "dependents": [],
+    "id": "51d898db-ccf2-4c94-b1ca-7cda1f06927c"
+  },
   "937af40b-402d-4b6c-9c16-aee134bae008": {
     "connectionRef": {
       "displayName": "Office 365 Users",
@@ -152,7 +186,8 @@
     ],
     "dependencies": {},
     "dependents": [
-      "1788df75-50d0-4023-8fc6-21646c5e4d76"
+      "1788df75-50d0-4023-8fc6-21646c5e4d76",
+      "51d898db-ccf2-4c94-b1ca-7cda1f06927c"
     ],
     "id": "cf341574-441c-4f2a-a3b6-ead8c294cdc6"
   }

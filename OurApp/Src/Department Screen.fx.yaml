@@ -398,7 +398,7 @@
                             =UpdateContext({locDetailDP:true});
                             UpdateContext({locDivision:ThisItem})
                         Text: =ThisItem.name
-                        Width: =240
+                        Width: =245
                         Wrap: =false
                         X: =7
                         Y: =5
@@ -781,6 +781,7 @@
                             }
                         )
                     );
+                'ASTakeLeave.UpdateDivision'.Run(locDivision.ID,0,1);
                 Notify("Xóa thành công",NotificationType.Success,1500);
                 UpdateContext({locDeleteDP:false})
             PressedColor: =RGBA(255,255,255,1)
@@ -1166,15 +1167,15 @@
                         NotificationType.Error,
                         1500
                     ),
-                    //Sửa khối cũ thành không hoạt động
+                    /*//Sửa khối cũ thành không hoạt động
                     Patch(
                         'ASTakeLeave.Division',
                         LookUp('ASTakeLeave.Division',ID = locDivision.ID),
                         {
                             active: 0
                         }
-                    );
-                    //Sửa phòng ban cũ thành không hoạt động
+                    );*/
+                    /*//Sửa phòng ban cũ thành không hoạt động
                 ForAll(
                         colDepartmentByDivision As Temp,
                         Patch(
@@ -1184,27 +1185,24 @@
                                 active: 0
                             }
                         )
-                    );
+                    );*/
                     //Tạo khối mới
-                    Set(gblDivision,Patch(
+                    Patch(
                         'ASTakeLeave.Division',
                         LookUp('ASTakeLeave.Division',ID = locDivision.ID),
                         {
                             name: txt_ds_Name_2.Text,
-                            directorUserID: drp_ds_LineManager_2.Selected.userID,
-                            active: 1
+                            directorUserID: drp_ds_LineManager_2.Selected.userID
                         }
-                    ));
+                    );
                     //Tạo phòng ban với mã khối đã tạo
                 ForAll(
                         Filter(colDepartmentByDivision,!IsBlank(name)) As Temp,
                         Patch(
                             'ASTakeLeave.Department',
-                            Defaults('ASTakeLeave.Department'),
+                            LookUp('ASTakeLeave.Department',ID = Temp.ID),
                             {
-                                name: Temp.name,
-                                divisionID:gblDivision.ID,
-                                active: 1
+                                name: Temp.name
                             }
                         )
                     )
@@ -1439,6 +1437,7 @@
                                 active: 0
                             }
                         );
+                'ASTakeLeave.UpdateDivision'.Run(0,locDepartmentSelected,2);
                 Notify("Xóa thành công",NotificationType.Success,1500);
                 UpdateContext({locDeleteUnit:false})
             PressedColor: =RGBA(255,255,255,1)

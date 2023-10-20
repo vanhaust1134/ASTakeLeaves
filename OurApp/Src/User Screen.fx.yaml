@@ -970,6 +970,16 @@
                         {
                             approveUserID: If(drp_us_Roles_1.Selected.ID = 1 Or drp_us_Roles_1.Selected.ID = 5,drp_us_Manager.Selected.userID,Blank()),
                             userID: txt_us_Name_3.Text,
+                            approveProcessLevel: 1,
+                            active: 1
+                        }
+                    );
+                    Patch(
+                        'ASTakeLeave.UserRelationship',
+                        Defaults('ASTakeLeave.UserRelationship'),
+                        {
+                            approveUserID: LookUp(gblColDivision,ID = drp_us_Department_3.Selected.ID).directorUserID,
+                            userID: txt_us_Name_3.Text,
                             approveProcessLevel: 2,
                             active: 1
                         }
@@ -1321,31 +1331,96 @@
                         1500
                     ),
                     //Sửa nhân viên cũ thành không hoạt động
-                    Patch('ASTakeLeave.Users',LookUp('ASTakeLeave.Users',ID = locUser.ID And active = 1),{active:0});
+                    Patch(
+                        'ASTakeLeave.Users',
+                        LookUp(
+                            'ASTakeLeave.Users',
+                            ID = locUser.ID And active = 1
+                        ),
+                        {active: 0}
+                    );
                     //Tạo nhân viên mới
-                    Patch('ASTakeLeave.Users',Defaults('ASTakeLeave.Users'),{userID:txt_us_Name_6.Text,fullName:txt_us_Name_2.Text,email:cbo_us_Email_2.Selected.Mail,phone:txt_us_Phone_2.Text,jobTitle:txt_us_JobTitle_2.Text,divisionID:cbo_us_Line_4.Selected.ID,departmentID:cbo_us_Department_2.Selected.ID,'365AccountInfo':{
-                            '@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedUser",
-                            Department: "",
-                            Claims: "i:0#.f|membership|" & cbo_us_Email_2.Selected.Mail,
-                            DisplayName: Office365Users.UserProfileV2(cbo_us_Email_2.Selected.Mail).displayName,
-                            Email: cbo_us_Email_2.Selected.Mail,
-                            JobTitle: "",
-                            Picture: ""
-                        },active:1});
+                Patch(
+                        'ASTakeLeave.Users',
+                        Defaults('ASTakeLeave.Users'),
+                        {
+                            userID: txt_us_Name_6.Text,
+                            fullName: txt_us_Name_2.Text,
+                            email: cbo_us_Email_2.Selected.Mail,
+                            phone: txt_us_Phone_2.Text,
+                            jobTitle: txt_us_JobTitle_2.Text,
+                            divisionID: cbo_us_Line_4.Selected.ID,
+                            departmentID: cbo_us_Department_2.Selected.ID,
+                            '365AccountInfo': {
+                                '@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedUser",
+                                Department: "",
+                                Claims: "i:0#.f|membership|" & cbo_us_Email_2.Selected.Mail,
+                                DisplayName: Office365Users.UserProfileV2(cbo_us_Email_2.Selected.Mail).displayName,
+                                Email: cbo_us_Email_2.Selected.Mail,
+                                JobTitle: "",
+                                Picture: ""
+                            },
+                            active: 1
+                        }
+                    );
                     //Sửa quản lý cũ thành không hoạt động
-                    Patch('ASTakeLeave.UserRelationship',LookUp('ASTakeLeave.UserRelationship',userID = locUser.userID And active = 1),{active:0});
+                Patch(
+                        'ASTakeLeave.UserRelationship',
+                        LookUp(
+                            'ASTakeLeave.UserRelationship',
+                            userID = locUser.userID And active = 1
+                        ),
+                        {active: 0}
+                    );
                     //Sửa vai trò cũ thành không hoạt động
-                    Patch('ASTakeLeave.Users_Roles',LookUp('ASTakeLeave.Users_Roles',userID = locUser.userID And active = 1),{active:0});
+                Patch(
+                        'ASTakeLeave.Users_Roles',
+                        LookUp(
+                            'ASTakeLeave.Users_Roles',
+                            userID = locUser.userID And active = 1
+                        ),
+                        {active: 0}
+                    );
                     //Tạo phân quyền
-                    Patch('ASTakeLeave.Users_Roles',Defaults('ASTakeLeave.Users_Roles'),{userID:txt_us_Name_6.Text,roleID:drp_us_Roles_2.Selected.ID,active:1});
+                Patch(
+                        'ASTakeLeave.Users_Roles',
+                        Defaults('ASTakeLeave.Users_Roles'),
+                        {
+                            userID: txt_us_Name_6.Text,
+                            roleID: drp_us_Roles_2.Selected.ID,
+                            active: 1
+                        }
+                    );
                     //Tạo quản lý người dùng
-                    Patch('ASTakeLeave.UserRelationship',Defaults('ASTakeLeave.UserRelationship'),{approveUserID:cbo_us_Manager_2.Selected.userID,userID:txt_us_Name_6.Text,approveProcessLevel:2,active:1}));
+                Patch(
+                        'ASTakeLeave.UserRelationship',
+                        Defaults('ASTakeLeave.UserRelationship'),
+                        {
+                            approveUserID: cbo_us_Manager_2.Selected.userID,
+                            userID: txt_us_Name_6.Text,
+                            approveProcessLevel: 1,
+                            active: 1
+                        }
+                    )
+                );
+                 Patch(
+                        'ASTakeLeave.UserRelationship',
+                        Defaults('ASTakeLeave.UserRelationship'),
+                        {
+                            approveUserID: LookUp(gblColDivision,ID = cbo_us_Department_2.Selected.ID).directorUserID,
+                            userID: txt_us_Name_6.Text,
+                            approveProcessLevel: 2,
+                            active: 1
+                        }
+                    );
                 Notify(
                     "Sửa thành công",
                     NotificationType.Success,
                     1500
                 );
-                Reset(cbo_us_Email_2);Reset(drp_us_Roles_2);Reset(cbo_us_Manager_2);
+                Reset(cbo_us_Email_2);
+                Reset(drp_us_Roles_2);
+                Reset(cbo_us_Manager_2);
                 //Làm mới bảng người dùng
                 Refresh('ASTakeLeave.Users');
                 Refresh('ASTakeLeave.Users_Roles');
@@ -1354,14 +1429,39 @@
                 ClearCollect(
                     gblColAllUser,
                     AddColumns(
-                        ShowColumns('ASTakeLeave.Users', "ID", "userID", "fullName", "shortName", "email", "phone", "jobTitle", "departmentID", "divisionID", "OData__x0033_65AccountInfo", "active") As temp, 
-                        "roleID", 
-                        LookUp(Filter('ASTakeLeave.Users_Roles',active = 1), userID = temp.userID).roleID
+                        ShowColumns(
+                            'ASTakeLeave.Users',
+                            "ID",
+                            "userID",
+                            "fullName",
+                            "shortName",
+                            "email",
+                            "phone",
+                            "jobTitle",
+                            "departmentID",
+                            "divisionID",
+                            "OData__x0033_65AccountInfo",
+                            "active"
+                        ) As temp,
+                        "roleID",
+                        LookUp(
+                            Filter(
+                                'ASTakeLeave.Users_Roles',
+                                active = 1
+                            ),
+                            userID = temp.userID
+                        ).roleID
                     )
                 );
                 //Lấy bảng quản lý người dùng
-                ClearCollect(gblColManagerByUser,Filter('ASTakeLeave.UserRelationship',active = 1));
-                UpdateContext({locUpdateUser:false})
+                ClearCollect(
+                    gblColManagerByUser,
+                    Filter(
+                        'ASTakeLeave.UserRelationship',
+                        active = 1
+                    )
+                );
+                UpdateContext({locUpdateUser: false})
             PressedColor: =RGBA(255,255,255,1)
             PressedFill: =Self.Fill
             RadiusBottomLeft: =5
@@ -1564,12 +1664,12 @@
         cbo_us_Department_2 As combobox:
             BorderColor: =RGBA(116, 116, 116, 1)
             BorderThickness: =1
-            DefaultSelectedItems: =LookUp(gblColDepartment,ID = locUser.departmentID)
+            DefaultSelectedItems: =LookUp(gblColDepartment,ID = locUser.departmentID And name <> "Tất cả")
             DisplayFields: =["name"]
             InputTextPlaceholder: ="Chọn bộ phận điều vận"
-            Items: =Filter(gblColDepartment,active = 1)
+            Items: =Filter(gblColDepartment,active = 1 And name <> "Tất cả")
             SearchFields: =["ComplianceAssetId"]
-            SearchItems: =Search(Filter(gblColDepartment,active = 1),cbo_us_Department_2.SearchText,"ComplianceAssetId")
+            SearchItems: =Search(Filter(gblColDepartment,active = 1 And name <> "Tất cả"),cbo_us_Department_2.SearchText,"ComplianceAssetId")
             SelectMultiple: =false
             Width: =260
             X: =551
