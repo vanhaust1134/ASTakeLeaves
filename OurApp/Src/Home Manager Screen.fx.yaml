@@ -1,0 +1,713 @@
+"'Home Manager Screen' As screen":
+    Fill: =RGBA(224,224,224,1)
+    OnVisible: |-
+        =Set(_dateSelected, Today());
+        Set(_firstDayOfMonth, DateAdd(Today(), 1 - Day(Today()), TimeUnit.Days));
+        Set(_firstDayInView, DateAdd(_firstDayOfMonth, -(Weekday(_firstDayOfMonth) - 2 + 1), TimeUnit.Days));
+        Set(_lastDayOfMonth, DateAdd(DateAdd(_firstDayOfMonth, 1, TimeUnit.Months), -1, TimeUnit.Days));
+        Set(gblMenuFunctionSelected,1)
+
+    btn_hs_BackGroundScreen_1 As button:
+        BorderStyle: =BorderStyle.None
+        DisabledFill: =RGBA(241, 244, 250, 1)
+        DisplayMode: =DisplayMode.Disabled
+        Height: =767
+        RadiusBottomLeft: =20
+        RadiusBottomRight: =20
+        RadiusTopLeft: =20
+        RadiusTopRight: =20
+        Text: =""
+        Width: =1366
+        ZIndex: =1
+
+    ctn_hs_Navigate_1 As groupContainer.verticalAutoLayoutContainer:
+        BorderStyle: =BorderStyle.None
+        DropShadow: =DropShadow.None
+        Fill: =RGBA(255, 255, 255, 1)
+        Height: =768
+        LayoutAlignItems: =LayoutAlignItems.Stretch
+        LayoutDirection: =LayoutDirection.Vertical
+        LayoutMode: =LayoutMode.Auto
+        PaddingBottom: =70
+        RadiusBottomLeft: =20
+        RadiusBottomRight: =0
+        RadiusTopLeft: =20
+        RadiusTopRight: =0
+        Width: =196
+        ZIndex: =18
+
+        ctn_HeaderMenu_2 As groupContainer.horizontalAutoLayoutContainer:
+            AlignInContainer: =AlignInContainer.SetByContainer
+            DropShadow: =DropShadow.None
+            FillPortions: =0
+            Height: =100
+            LayoutAlignItems: =LayoutAlignItems.Center
+            LayoutMinHeight: =100
+            LayoutMinWidth: =1
+            LayoutMode: =LayoutMode.Auto
+            PaddingLeft: =20
+            PaddingRight: =20
+            ZIndex: =1
+
+            img_hs_Logo_2 As image:
+                Height: =110
+                Image: =Name
+                Width: =50
+                X: =11
+                Y: =13
+                ZIndex: =1
+
+            Label1_2 As label:
+                Color: =RGBA(73, 113, 215, 1)
+                FontWeight: =FontWeight.Bold
+                Size: =15
+                Text: ="Nghỉ phép"
+                Width: =145
+                ZIndex: =2
+
+        ctn_NavigationMenu_1 As groupContainer.verticalAutoLayoutContainer:
+            AlignInContainer: =AlignInContainer.SetByContainer
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(255, 255, 255, 1)
+            LayoutAlignItems: =LayoutAlignItems.Stretch
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutMinHeight: =100
+            LayoutMinWidth: =0
+            LayoutMode: =LayoutMode.Auto
+            PaddingBottom: =2
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            ZIndex: =3
+
+            gal_NavigationMenu_1 As gallery.galleryVertical:
+                AlignInContainer: =AlignInContainer.SetByContainer
+                DelayItemLoading: =true
+                Fill: =RGBA(255, 255, 255, 1)
+                Height: =652
+                Items: |-
+                    =If(gblRecUser.roleID = 1,Table({ID:1,Image:Home,Title:"Trang chủ",Navigate:'Home User Screen'},{ID:2,Image:Analytics,Title:"Báo cáo",Navigate:'Statistical User Screen'}),Or(gblRecUser.roleID = 2,gblRecUser.roleID = 3,gblRecUser.roleID = 4),Table({ID:1,Image:Home,Title:"Trang chủ",Navigate:'Home Manager Screen'},{ID:2,Image:'Admin Settings Male',Title:"Phê duyệt",Navigate:'Approve Screen'},{ID:3,Image:Analytics,Title:"Báo cáo",Navigate:'Statistical Manager Screen'}),gblRecUser.roleID = 5,Table({ID:1,Image:Home,Title:"Trang chủ",Navigate:'Home Manager Screen'},{ID:2,Image:'Admin Settings Male',Title:"Phê duyệt",Navigate:'Approve Screen'},{ID:3,Image:'Data Recovery',Title:"Thiết lập",Navigate:'User Screen'},{ID:4,Image:Analytics,Title:"Báo cáo",Navigate:'Statistical Manager Screen'}),gblRecUser.roleID = 6,Table({ID:1,Image:'Data Recovery',Title:"Thiết lập",Navigate:'User Screen'}))
+                Layout: =Layout.Vertical
+                LayoutMinHeight: =287
+                LayoutMinWidth: =0
+                LoadingSpinner: =LoadingSpinner.Data
+                OnSelect: =Navigate(ThisItem.Navigate)
+                ShowScrollbar: =false
+                TemplateSize: =50
+                Width: =155
+                X: =251
+                Y: =115
+                ZIndex: =1
+
+                img_MenuImage_1 As image:
+                    Height: =30
+                    Image: =ThisItem.Image
+                    OnSelect: =Select(Parent)
+                    Width: =40
+                    X: =15
+                    Y: =10
+                    ZIndex: =1
+
+                lbl_MenuTitle_1 As label:
+                    Color: =RGBA(149, 149, 149, 1)
+                    FontWeight: =FontWeight.Semibold
+                    Height: =29
+                    OnSelect: =Select(Parent)
+                    Text: =ThisItem.Title
+                    Width: =117
+                    X: =60
+                    Y: =10
+                    ZIndex: =2
+
+                btn_Select_1 As button:
+                    BorderThickness: =0
+                    Fill: =If(ThisItem.ID = gblMenuFunctionSelected,RGBA(149, 149, 149,0.2),RGBA(0, 0, 0, 0))
+                    Height: =50
+                    HoverFill: =ColorFade(RGBA(149, 149, 149,0.4), -20%)
+                    OnSelect: |-
+                        =Select(Parent);
+                        Set(gblMenuFunctionSelected,ThisItem.ID)
+                    PressedFill: =RGBA(149, 149, 149,0.5)
+                    RadiusBottomLeft: =0
+                    RadiusBottomRight: =0
+                    RadiusTopLeft: =0
+                    RadiusTopRight: =0
+                    Text: =""
+                    Width: =195
+                    X: =-5
+                    ZIndex: =3
+
+            btn_Exit_10 As button:
+                AlignInContainer: =AlignInContainer.Center
+                BorderColor: =RGBA(73, 113, 215, 1)
+                Color: =RGBA(116, 116, 116, 1)
+                Fill: =RGBA(255, 255, 255, 1)
+                HoverFill: =ColorFade(RGBA(73, 113, 215, 1), -20%)
+                OnSelect: =Exit()
+                PressedColor: =Color.White
+                PressedFill: =RGBA(73, 113, 215, 1)
+                Text: ="Thoát"
+                X: =18
+                Y: =682
+                ZIndex: =2
+
+    ctn_hs_Title_1 As groupContainer.verticalAutoLayoutContainer:
+        DropShadow: =DropShadow.None
+        Height: =41
+        LayoutDirection: =LayoutDirection.Vertical
+        LayoutMode: =LayoutMode.Auto
+        PaddingLeft: =30
+        PaddingRight: =30
+        Width: =1170
+        X: =196
+        Y: =104
+        ZIndex: =20
+
+        lbl_hs_Title_1 As label:
+            Color: =RGBA(43, 54, 74, 1)
+            FontWeight: =FontWeight.Bold
+            Height: =41
+            Size: =18
+            Text: ="Danh sách nghỉ phép"
+            Width: =281
+            X: =191
+            Y: =101
+            ZIndex: =1
+
+    ctn_hs_MainContent_1 As groupContainer.horizontalAutoLayoutContainer:
+        DropShadow: =DropShadow.None
+        Height: =618
+        LayoutGap: =10
+        LayoutMode: =LayoutMode.Auto
+        PaddingBottom: =10
+        PaddingLeft: =35
+        PaddingRight: =35
+        PaddingTop: =10
+        Width: =1170
+        X: =196
+        Y: =145
+        ZIndex: =23
+
+        ctn_hs_List_1 As groupContainer.verticalAutoLayoutContainer:
+            DropShadow: =DropShadow.None
+            LayoutAlignItems: =LayoutAlignItems.Stretch
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutMinHeight: =0
+            LayoutMinWidth: =0
+            LayoutMode: =LayoutMode.Auto
+            ZIndex: =1
+
+            Container6_1 As groupContainer.horizontalAutoLayoutContainer:
+                DropShadow: =DropShadow.None
+                Fill: =RGBA(255, 255, 255, 1)
+                FillPortions: =0
+                Height: =50
+                LayoutGap: =10
+                LayoutMinHeight: =50
+                LayoutMinWidth: =250
+                LayoutMode: =LayoutMode.Auto
+                PaddingRight: =30
+                ZIndex: =1
+
+                Button1_1 As button:
+                    Align: =Align.Left
+                    AlignInContainer: =AlignInContainer.Stretch
+                    BorderStyle: =BorderStyle.None
+                    Color: =RGBA(124, 124, 124, 1)
+                    DisabledColor: =RGBA(124, 124, 124, 1)
+                    DisabledFill: =RGBA(255, 255, 255, 1)
+                    DisplayMode: =DisplayMode.Disabled
+                    FillPortions: =1
+                    OnSelect: =
+                    PaddingLeft: =10
+                    PaddingRight: =10
+                    RadiusBottomLeft: =0
+                    RadiusBottomRight: =0
+                    Text: =Text(_dateSelected, DateTimeFormat.LongDate)
+                    ZIndex: =1
+
+                img_hms_PreviousMonth As image:
+                    AlignInContainer: =AlignInContainer.Stretch
+                    Image: =Triangle_Left
+                    LayoutMinHeight: =0
+                    OnSelect: |
+                        =/*changes month view to previous month*/
+                        Set(_firstDayOfMonth, DateAdd(_firstDayOfMonth, -1, TimeUnit.Months));
+                        Set(_firstDayInView, DateAdd(_firstDayOfMonth, -(Weekday(_firstDayOfMonth) - 2 + 1), TimeUnit.Days));
+                        Set(_lastDayOfMonth, DateAdd(DateAdd(_firstDayOfMonth, 1, TimeUnit.Months), -1, TimeUnit.Days));
+                    Width: =30
+                    ZIndex: =2
+
+                img_hms_NextMonth As image:
+                    AlignInContainer: =AlignInContainer.Stretch
+                    Image: =Triangle_Right
+                    LayoutMinHeight: =0
+                    OnSelect: |
+                        =/*changes month view to previous month*/
+                        Set(_firstDayOfMonth, DateAdd(_firstDayOfMonth, -1, TimeUnit.Months));
+                        Set(_firstDayInView, DateAdd(_firstDayOfMonth, -(Weekday(_firstDayOfMonth) - 2 + 1), TimeUnit.Days));
+                        Set(_lastDayOfMonth, DateAdd(DateAdd(_firstDayOfMonth, 1, TimeUnit.Months), -1, TimeUnit.Days));
+                    Width: =30
+                    ZIndex: =3
+
+            ctn_hs_DetailList_1 As groupContainer.verticalAutoLayoutContainer:
+                AlignInContainer: =AlignInContainer.SetByContainer
+                DropShadow: =DropShadow.None
+                LayoutAlignItems: =LayoutAlignItems.Stretch
+                LayoutDirection: =LayoutDirection.Vertical
+                LayoutGap: =10
+                LayoutMinHeight: =100
+                LayoutMinWidth: =250
+                LayoutMode: =LayoutMode.Auto
+                PaddingTop: =10
+                ZIndex: =3
+
+                ctn_hs_ListContent_1 As groupContainer.horizontalAutoLayoutContainer:
+                    AlignInContainer: =AlignInContainer.SetByContainer
+                    DropShadow: =DropShadow.None
+                    FillPortions: =0
+                    Height: =45
+                    LayoutMinHeight: =100
+                    LayoutMinWidth: =250
+                    LayoutMode: =LayoutMode.Auto
+                    PaddingBottom: =5
+                    PaddingLeft: =5
+                    PaddingRight: =5
+                    PaddingTop: =5
+                    RadiusBottomLeft: =0
+                    RadiusBottomRight: =0
+                    RadiusTopLeft: =0
+                    RadiusTopRight: =0
+                    ZIndex: =1
+
+                    lbl_hs_Reason_7 As label:
+                        Align: =Align.Center
+                        AlignInContainer: =AlignInContainer.Center
+                        BorderColor: =RGBA(149, 149, 149, 1)
+                        BorderStyle: =BorderStyle.None
+                        BorderThickness: =1
+                        Color: =RGBA(43, 54, 74, 1)
+                        FillPortions: =0.8
+                        FontWeight: =FontWeight.Bold
+                        LayoutMinWidth: =110
+                        Text: ="CN"
+                        ZIndex: =1
+
+                    lbl_hs_Reason_8 As label:
+                        Align: =Align.Center
+                        AlignInContainer: =AlignInContainer.Center
+                        BorderColor: =RGBA(149, 149, 149, 1)
+                        BorderStyle: =BorderStyle.None
+                        BorderThickness: =1
+                        Color: =RGBA(43, 54, 74, 1)
+                        FillPortions: =0.8
+                        FontWeight: =FontWeight.Bold
+                        LayoutMinWidth: =110
+                        Text: ="T2"
+                        ZIndex: =2
+
+                    lbl_hs_Reason_9 As label:
+                        Align: =Align.Center
+                        AlignInContainer: =AlignInContainer.Center
+                        BorderColor: =RGBA(149, 149, 149, 1)
+                        BorderStyle: =BorderStyle.None
+                        BorderThickness: =1
+                        Color: =RGBA(43, 54, 74, 1)
+                        FillPortions: =0.8
+                        FontWeight: =FontWeight.Bold
+                        LayoutMinWidth: =110
+                        Text: ="T3"
+                        ZIndex: =3
+
+                    lbl_hs_Reason_10 As label:
+                        Align: =Align.Center
+                        AlignInContainer: =AlignInContainer.Center
+                        BorderColor: =RGBA(149, 149, 149, 1)
+                        BorderStyle: =BorderStyle.None
+                        BorderThickness: =1
+                        Color: =RGBA(43, 54, 74, 1)
+                        FillPortions: =0.8
+                        FontWeight: =FontWeight.Bold
+                        LayoutMinWidth: =110
+                        Text: ="T4"
+                        ZIndex: =4
+
+                    lbl_hs_Reason_11 As label:
+                        Align: =Align.Center
+                        AlignInContainer: =AlignInContainer.Center
+                        BorderColor: =RGBA(149, 149, 149, 1)
+                        BorderStyle: =BorderStyle.None
+                        BorderThickness: =1
+                        Color: =RGBA(43, 54, 74, 1)
+                        FillPortions: =0.8
+                        FontWeight: =FontWeight.Bold
+                        LayoutMinWidth: =110
+                        Text: ="T5"
+                        ZIndex: =5
+
+                    lbl_hs_Reason_12 As label:
+                        Align: =Align.Center
+                        AlignInContainer: =AlignInContainer.Center
+                        BorderColor: =RGBA(149, 149, 149, 1)
+                        BorderStyle: =BorderStyle.None
+                        BorderThickness: =1
+                        Color: =RGBA(43, 54, 74, 1)
+                        FillPortions: =0.8
+                        FontWeight: =FontWeight.Bold
+                        LayoutMinWidth: =110
+                        Text: ="T6"
+                        ZIndex: =6
+
+                    lbl_hs_Reason_13 As label:
+                        Align: =Align.Center
+                        AlignInContainer: =AlignInContainer.Center
+                        BorderColor: =RGBA(149, 149, 149, 1)
+                        BorderStyle: =BorderStyle.None
+                        BorderThickness: =1
+                        Color: =RGBA(43, 54, 74, 1)
+                        FillPortions: =0.8
+                        FontWeight: =FontWeight.Bold
+                        LayoutMinWidth: =110
+                        Text: ="T7"
+                        ZIndex: =7
+
+                Container9_1 As groupContainer.verticalAutoLayoutContainer:
+                    DropShadow: =DropShadow.None
+                    Fill: =RGBA(255, 255, 255, 1)
+                    LayoutDirection: =LayoutDirection.Vertical
+                    LayoutMinHeight: =100
+                    LayoutMinWidth: =250
+                    LayoutMode: =LayoutMode.Auto
+                    PaddingBottom: =5
+                    PaddingLeft: =5
+                    PaddingRight: =5
+                    PaddingTop: =5
+                    RadiusBottomLeft: =6
+                    RadiusBottomRight: =6
+                    RadiusTopLeft: =6
+                    RadiusTopRight: =6
+                    ZIndex: =3
+
+                    MonthDayGallery1_13 As gallery.MonthDayGallery:
+                        AccessibleLabel: ="Days of selected month"
+                        BorderColor: =RGBA(237, 237, 237, 1)
+                        BorderStyle: =BorderStyle.None
+                        BorderThickness: =1
+                        Fill: =RGBA(255, 255, 255, 1)
+                        Height: =403
+                        Items: =[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19, 20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41]
+                        Layout: =Layout.Vertical
+                        LayoutMinHeight: =250
+                        LayoutMinWidth: =290
+                        ShowScrollbar: =false
+                        TemplateSize: =MonthDayGallery1_13.Height / 6.7
+                        Visible: =If(App.Width > 600,true,false)
+                        Width: =917
+                        WrapCount: =7
+                        X: =392
+                        Y: =332
+                        ZIndex: =1
+
+                        Subcircle1_13 As circle:
+                            Fill: =RGBA(0, 0, 0, 0)
+                            Height: =1
+                            OnSelect: =Select(Parent)
+                            Visible: =And(DateAdd(_firstDayInView, ThisItem.Value) = _dateSelected, Title2_20.Visible)
+                            Width: =1
+                            ZIndex: =2
+
+                        Title2_20 As label:
+                            BorderColor: =RGBA(0, 121, 187, 1)
+                            BorderStyle: =BorderStyle.None
+                            BorderThickness: =1
+                            Color: =If(DateAdd(_firstDayInView, ThisItem.Value) = _dateSelected, RGBA(73, 113, 215, 1), DateAdd(_firstDayInView, ThisItem.Value) = Today(), RGBA(47, 41, 43, 1), RGBA(0,0,0,1))
+                            Fill: |-
+                                =/*Fill value changes if the gallery item day = today, or if it lies outside of the current month*/             
+                                If(
+                                    /*Date selected is today*/
+                                    DateAdd(_firstDayInView, ThisItem.Value) = Today() && DateAdd(_firstDayInView, ThisItem.Value) = _dateSelected, RGBA(0,0,0,0),
+                                    /*Today when it is not selected*/
+                                    DateAdd(_firstDayInView, ThisItem.Value) = Today(), ColorFade(Subcircle1_13.Fill, 0.67), 
+                                    /*The day is outside the range of the currently selected month*/
+                                    Abs(Self.Text - ThisItem.Value) > 10,RGBA(200, 200, 200, 0.3), RGBA(220, 228, 252, 1))
+                            FocusedBorderColor: =Self.Color
+                            FocusedBorderThickness: =2
+                            FontWeight: =FontWeight.Bold
+                            Height: =MonthDayGallery1_13.TemplateHeight
+                            OnSelect: =Set(_dateSelected, DateAdd(_firstDayInView, ThisItem.Value, TimeUnit.Days))
+                            PaddingLeft: =If(Day(DateAdd(_firstDayInView,ThisItem.Value, TimeUnit.Days)) < 10,13,8)
+                            TabIndex: =0
+                            Text: =Day(DateAdd(_firstDayInView,ThisItem.Value, TimeUnit.Days))
+                            VerticalAlign: =VerticalAlign.Top
+                            Width: =MonthDayGallery1_13.TemplateWidth
+                            Wrap: =false
+                            ZIndex: =3
+
+                        Rectangle6_1 As rectangle:
+                            Fill: =RGBA(73, 113, 215, 1)
+                            Height: =1
+                            OnSelect: =Select(Parent)
+                            Visible: =If(DateAdd(_firstDayInView, ThisItem.Value) = _dateSelected,true,false)
+                            Width: =MonthDayGallery1_13.TemplateWidth
+                            ZIndex: =4
+
+                        Circle1 As circle:
+                            Fill: =RGBA(73, 113, 215, 0.3)
+                            Height: =36
+                            OnSelect: =Select(Parent)
+                            Visible: =If(ThisItem.Value = 11 Or ThisItem.Value = 24 Or ThisItem.Value = 1,true,false)
+                            Width: =37
+                            ZIndex: =5
+
+                        Gallery8 As gallery.galleryHorizontal:
+                            DelayItemLoading: =true
+                            Height: =34
+                            Items: =CustomGallerySample
+                            LoadingSpinner: =LoadingSpinner.Data
+                            ShowScrollbar: =false
+                            TemplateSize: =10
+                            Visible: =If(ThisItem.Value=11 Or ThisItem.Value=1 Or ThisItem.Value=24,true,false)
+                            Width: =112.57142857142856
+                            Y: =36
+                            ZIndex: =6
+
+                            Circle1_2 As circle:
+                                Fill: =RGBA(61, 88, 161, 1)
+                                Height: =10
+                                OnSelect: =Select(Parent)
+                                Width: =10
+                                X: =10
+                                Y: =8
+                                ZIndex: =1
+
+        ctn_hs_Statistical_1 As groupContainer.verticalAutoLayoutContainer:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(255, 255, 255, 1)
+            FillPortions: =0.3
+            LayoutAlignItems: =LayoutAlignItems.Stretch
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutGap: =5
+            LayoutMinHeight: =100
+            LayoutMinWidth: =0
+            LayoutMode: =LayoutMode.Auto
+            PaddingBottom: =5
+            PaddingLeft: =5
+            PaddingRight: =5
+            PaddingTop: =5
+            RadiusBottomLeft: =10
+            RadiusBottomRight: =10
+            RadiusTopLeft: =10
+            RadiusTopRight: =10
+            ZIndex: =2
+
+            lbl_hs_Statistical_3 As label:
+                Color: =RGBA(124, 124, 124, 1)
+                FontWeight: =FontWeight.Semibold
+                PaddingLeft: =10
+                Size: =15
+                Text: ="Danh sách nghỉ phép"
+                ZIndex: =3
+
+            Container7_1 As groupContainer.verticalAutoLayoutContainer:
+                DropShadow: =DropShadow.None
+                Fill: =RGBA(255, 255, 255, 1)
+                LayoutDirection: =LayoutDirection.Vertical
+                LayoutMinHeight: =100
+                LayoutMinWidth: =0
+                LayoutMode: =LayoutMode.Auto
+                PaddingBottom: =2
+                PaddingLeft: =10
+                PaddingRight: =10
+                PaddingTop: =2
+                ZIndex: =4
+
+                gal_hs_List_2 As gallery.galleryVertical:
+                    BorderStyle: =BorderStyle.None
+                    BorderThickness: =1
+                    DelayItemLoading: =true
+                    Fill: =RGBA(255, 255, 255, 1)
+                    FillPortions: =0
+                    Height: =230
+                    Items: |-
+                        =Table({ID:1,Reason:"Nghỉ bệnh",Time:"01/10 - 03/10/2023",Created:"Trần Văn Hậu",Status:"Đã phê duyệt"},{ID:1,Reason:"Nghỉ về quê",Time:"28/09 - 28/09/2023",Created:"Trần Văn Hậu",Status:"Đã phê duyệt"},{ID:1,Reason:"Khám bệnh",Time:"15/09 - 17/09/2023",Created:"Trần Văn Hậu",Status:"Đã phê duyệt"})
+                    Layout: =Layout.Vertical
+                    LayoutMinHeight: =287
+                    LayoutMinWidth: =0
+                    LoadingSpinner: =LoadingSpinner.Data
+                    ShowScrollbar: =false
+                    TemplateSize: =70
+                    ZIndex: =1
+
+                    Container4_1 As groupContainer.horizontalAutoLayoutContainer:
+                        Height: =70
+                        LayoutMode: =LayoutMode.Auto
+                        Width: =Parent.Width-10
+                        ZIndex: =2
+
+                        Image5_1 As image:
+                            AlignInContainer: =AlignInContainer.Stretch
+                            Image: =Calendar
+                            LayoutMinHeight: =50
+                            Width: =50
+                            ZIndex: =1
+
+                        ctn_hs_ItemList_2 As groupContainer.horizontalAutoLayoutContainer:
+                            DropShadow: =DropShadow.None
+                            Height: =70
+                            LayoutAlignItems: =LayoutAlignItems.Stretch
+                            LayoutDirection: =LayoutDirection.Vertical
+                            LayoutMinHeight: =50
+                            LayoutMinWidth: =250
+                            LayoutMode: =LayoutMode.Auto
+                            PaddingBottom: =2
+                            PaddingLeft: =5
+                            PaddingRight: =20
+                            PaddingTop: =2
+                            Width: =Parent.Width
+                            ZIndex: =2
+
+                            lbl_hs_ItemTime_2 As label:
+                                AlignInContainer: =AlignInContainer.Stretch
+                                Color: =RGBA(114, 114, 114, 1)
+                                FontWeight: =FontWeight.Semibold
+                                Height: =22
+                                OnSelect: =Navigate('Request Detail Screen')
+                                Size: =12
+                                Text: =ThisItem.Time
+                                ZIndex: =1
+
+                            lbl_hs_ItemReason_2 As label:
+                                Color: =RGBA(114, 114, 114, 1)
+                                Height: =22
+                                LayoutMinWidth: =0
+                                OnSelect: =Navigate('Request Detail Screen')
+                                Size: =12
+                                Text: =ThisItem.Reason
+                                ZIndex: =2
+
+                            lbl_hs_ItemCreatedBy_2 As label:
+                                Color: =RGBA(114, 114, 114, 1)
+                                FillPortions: =1
+                                LayoutMinHeight: =22
+                                LayoutMinWidth: =200
+                                OnSelect: =Navigate('Request Detail Screen')
+                                Size: =12
+                                Text: =ThisItem.Created
+                                ZIndex: =3
+
+    ctn_hs_Header_1 As groupContainer.horizontalAutoLayoutContainer:
+        DropShadow: =DropShadow.None
+        Height: =104
+        LayoutMode: =LayoutMode.Auto
+        Width: =1170
+        X: =196
+        ZIndex: =24
+
+        ctn_hs_Tab_1 As groupContainer.horizontalAutoLayoutContainer:
+            AlignInContainer: =AlignInContainer.SetByContainer
+            DropShadow: =DropShadow.None
+            Height: =101
+            LayoutAlignItems: =LayoutAlignItems.Center
+            LayoutGap: =5
+            LayoutMinHeight: =100
+            LayoutMinWidth: =250
+            LayoutMode: =LayoutMode.Auto
+            PaddingLeft: =35
+            Width: =1229
+            X: =137
+            ZIndex: =1
+
+            btn_hs_Overview_1 As button:
+                BorderStyle: =BorderStyle.None
+                Fill: |-
+                    =//RGBA(251, 137, 91, 1)
+                    RGBA(73, 113, 215, 1)
+                Height: =28
+                HoverFill: =ColorFade(Self.Fill, -20%)
+                PressedColor: =Color.White
+                PressedFill: =Self.Fill
+                RadiusBottomLeft: =5
+                RadiusBottomRight: =5
+                RadiusTopLeft: =5
+                RadiusTopRight: =5
+                Size: =13
+                Text: ="Tổng quan"
+                Width: =104
+                X: =191
+                Y: =36
+                ZIndex: =1
+
+            btn_hs_Create_1 As button:
+                BorderStyle: =BorderStyle.None
+                Color: =RGBA(94, 94, 94, 1)
+                DisabledFill: =
+                Fill: =RGBA(255, 255, 255, 1)
+                Height: =28
+                HoverFill: =ColorFade(RGBA(251, 137, 91, 1), -20%)
+                OnSelect: =Navigate('Request Screen')
+                PressedFill: =RGBA(251, 137, 91, 1)
+                RadiusBottomLeft: =5
+                RadiusBottomRight: =5
+                RadiusTopLeft: =5
+                RadiusTopRight: =5
+                Size: =13
+                Text: ="Tạo mới"
+                Width: =104
+                X: =117
+                Y: =36
+                ZIndex: =2
+
+        ctn_hs_Info_1 As groupContainer.horizontalAutoLayoutContainer:
+            AlignInContainer: =AlignInContainer.Start
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(220, 228, 252, 1)
+            FillPortions: =0.3
+            Height: =80
+            LayoutMinHeight: =100
+            LayoutMinWidth: =50
+            LayoutMode: =LayoutMode.Auto
+            PaddingLeft: =10
+            PaddingRight: =10
+            RadiusBottomLeft: =20
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =20
+            ZIndex: =2
+
+            img_hs_Avatar_2 As image:
+                AlignInContainer: =AlignInContainer.Center
+                Height: =50
+                Image: =User().Image
+                LayoutMinHeight: =50
+                RadiusBottomLeft: =img_hs_Avatar_2.Height
+                RadiusBottomRight: =img_hs_Avatar_2.Height
+                RadiusTopLeft: =img_hs_Avatar_2.Height
+                RadiusTopRight: =img_hs_Avatar_2.Height
+                Width: =50
+                ZIndex: =1
+
+            ctn_hs_Info2_2 As groupContainer.verticalAutoLayoutContainer:
+                DropShadow: =DropShadow.None
+                LayoutDirection: =LayoutDirection.Vertical
+                LayoutMinHeight: =0
+                LayoutMinWidth: =0
+                LayoutMode: =LayoutMode.Auto
+                PaddingLeft: =5
+                ZIndex: =2
+
+                lbl_hs_Name_2 As label:
+                    FontWeight: =FontWeight.Bold
+                    PaddingTop: =20
+                    Size: =12
+                    Text: =User().FullName
+                    Wrap: =false
+                    ZIndex: =1
+
+                lbl_hs_Mail_2 As label:
+                    PaddingBottom: =20
+                    Size: =12
+                    Text: =User().Email
+                    Wrap: =false
+                    ZIndex: =2
+

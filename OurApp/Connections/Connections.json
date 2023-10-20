@@ -1,0 +1,159 @@
+{
+  "0eb57bc9-f0aa-4596-a1bf-9585afadffa1": {
+    "appActions": [],
+    "connectionRef": {
+      "apiTier": "Standard",
+      "displayName": "Office 365 Outlook",
+      "iconUri": "https://connectoricons-prod.azureedge.net/releases/v1.0.1664/1.0.1664.3477/office365/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_office365",
+      "parameterHints": {},
+      "parameterHintsV2": {}
+    },
+    "datasets": {},
+    "dataSources": [
+      "Office365Outlook"
+    ],
+    "dependencies": {},
+    "dependents": [],
+    "id": "0eb57bc9-f0aa-4596-a1bf-9585afadffa1"
+  },
+  "1788df75-50d0-4023-8fc6-21646c5e4d76": {
+    "connectionRef": {
+      "displayName": "Logic flows",
+      "iconUri": "https://connectoricons-prod.azureedge.net/releases/v1.0.1664/1.0.1664.3477/logicflows/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_logicflows",
+      "parameterHints": {
+        "cf341574-441c-4f2a-a3b6-ead8c294cdc6": {
+          "value": "shared_sharepointonline"
+        },
+        "workflowEntityId": {},
+        "workflowName": {
+          "value": "d19c54a9-5a3f-4ac1-8fb7-6c6c2e204099"
+        }
+      },
+      "parameterHintsV2": {
+        "shared_sharepointonline": {
+          "value": "cf341574-441c-4f2a-a3b6-ead8c294cdc6"
+        },
+        "workflowEntityId": {},
+        "workflowName": {
+          "value": "d19c54a9-5a3f-4ac1-8fb7-6c6c2e204099"
+        }
+      }
+    },
+    "datasets": {},
+    "dataSources": [
+      "ASTakeLeave.AddFile"
+    ],
+    "dependencies": {
+      "shared_sharepointonline": "cf341574-441c-4f2a-a3b6-ead8c294cdc6"
+    },
+    "dependents": [],
+    "id": "1788df75-50d0-4023-8fc6-21646c5e4d76"
+  },
+  "937af40b-402d-4b6c-9c16-aee134bae008": {
+    "connectionRef": {
+      "displayName": "Office 365 Users",
+      "iconUri": "https://connectoricons-prod.azureedge.net/releases/v1.0.1664/1.0.1664.3477/office365users/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_office365users"
+    },
+    "datasets": {},
+    "dataSources": [
+      "Office365Users"
+    ],
+    "dependencies": {},
+    "dependents": [],
+    "id": "937af40b-402d-4b6c-9c16-aee134bae008"
+  },
+  "cf341574-441c-4f2a-a3b6-ead8c294cdc6": {
+    "appActions": [
+      "providers/PowerPlatform.Governance/Operations/Read",
+      "providers/PowerPlatform.Governance/Operations/Write"
+    ],
+    "connectionRef": {
+      "apiTier": "Standard",
+      "displayName": "SharePoint",
+      "iconUri": "https://connectoricons-prod.azureedge.net/releases/v1.0.1664/1.0.1664.3477/sharepointonline/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_sharepointonline",
+      "parameterHints": {},
+      "parameterHintsV2": {}
+    },
+    "datasets": {
+      "https://bhktechcorp.sharepoint.com/sites/daotran": {
+        "dataSources": {
+          "test": {
+            "tableName": "8cd41c9f-8f4e-4454-a343-6ba85a3ae934"
+          }
+        }
+      },
+      "https://bhktechcorp.sharepoint.com/sites/Dev-Powerapp": {
+        "dataSources": {
+          "ASTakeLeave.CommonRelationship": {
+            "tableName": "81eb94c3-bbf1-4b49-a12f-9b0bf526edbf"
+          },
+          "ASTakeLeave.Department": {
+            "tableName": "7f0b07d7-a1e7-407e-82bb-1bf791e46425"
+          },
+          "ASTakeLeave.Division": {
+            "tableName": "cf6056c8-2e3c-4645-a5ec-3d8b6813fb1c"
+          },
+          "ASTakeLeave.HistoryApprove": {
+            "tableName": "31c44c48-559b-4747-a92e-217452bdad6f"
+          },
+          "ASTakeLeave.Holiday": {
+            "tableName": "28a68522-b161-4a40-8627-a0ffb6f219cf"
+          },
+          "ASTakeLeave.LeaveReason": {
+            "tableName": "e4ccec75-f88b-4646-a962-567804c550d1"
+          },
+          "ASTakeLeave.LeaveRequest": {
+            "tableName": "91e3d590-d0f5-4d19-a28f-4833f10d41d5"
+          },
+          "ASTakeLeave.Roles": {
+            "tableName": "1154f6a1-3e5b-45b8-b0f6-e94a2af297a2"
+          },
+          "ASTakeLeave.TotalDayOffInMonth": {
+            "tableName": "093e1f7a-f959-47ad-ba26-f901777ec98b"
+          },
+          "ASTakeLeave.TotalDayOffInYear": {
+            "tableName": "197ac955-8708-4084-a5c9-af15f500cefd"
+          },
+          "ASTakeLeave.UserRelationship": {
+            "tableName": "ed522f78-0766-45d2-aabc-36deb3e96cc3"
+          },
+          "ASTakeLeave.Users": {
+            "tableName": "17931dc0-814b-41d6-913f-223bec9116ab"
+          },
+          "ASTakeLeave.Users_Roles": {
+            "tableName": "85e13a2e-0d47-40f0-a147-28b607f885a5"
+          },
+          "ASTakeLeave.WeekDay": {
+            "tableName": "de8cb8dc-ef8a-43f3-952a-dfe3d44f9be6"
+          }
+        }
+      }
+    },
+    "dataSources": [
+      "test",
+      "ASTakeLeave.CommonRelationship",
+      "ASTakeLeave.Department",
+      "ASTakeLeave.Division",
+      "ASTakeLeave.HistoryApprove",
+      "ASTakeLeave.Roles",
+      "ASTakeLeave.Holiday",
+      "ASTakeLeave.LeaveRequest",
+      "ASTakeLeave.TotalDayOffInMonth",
+      "ASTakeLeave.TotalDayOffInYear",
+      "ASTakeLeave.UserRelationship",
+      "ASTakeLeave.Users_Roles",
+      "ASTakeLeave.Users",
+      "ASTakeLeave.WeekDay",
+      "ASTakeLeave.LeaveReason"
+    ],
+    "dependencies": {},
+    "dependents": [
+      "1788df75-50d0-4023-8fc6-21646c5e4d76"
+    ],
+    "id": "cf341574-441c-4f2a-a3b6-ead8c294cdc6"
+  }
+}

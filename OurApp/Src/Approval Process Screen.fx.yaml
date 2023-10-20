@@ -1,0 +1,972 @@
+"'Approval Process Screen' As screen":
+    Fill: =RGBA(224,224,224,1)
+    OnVisible: =Collect(colCheckRequestCompleted,Filter('ASTakeLeave.LeaveRequest',status = 2))
+
+    btn_us_BackGroundScreen_2 As button:
+        BorderStyle: =BorderStyle.None
+        DisabledFill: =RGBA(241, 244, 250, 1)
+        DisplayMode: =DisplayMode.Disabled
+        Height: =767
+        RadiusBottomLeft: =20
+        RadiusBottomRight: =20
+        RadiusTopLeft: =20
+        RadiusTopRight: =20
+        Text: =""
+        Width: =1366
+        ZIndex: =1
+
+    ctn_Navigate_7 As groupContainer.verticalAutoLayoutContainer:
+        BorderStyle: =BorderStyle.None
+        DropShadow: =DropShadow.None
+        Fill: =RGBA(255, 255, 255, 1)
+        Height: =768
+        LayoutAlignItems: =LayoutAlignItems.Stretch
+        LayoutDirection: =LayoutDirection.Vertical
+        LayoutMode: =LayoutMode.Auto
+        PaddingBottom: =70
+        RadiusBottomLeft: =20
+        RadiusBottomRight: =0
+        RadiusTopLeft: =20
+        RadiusTopRight: =0
+        Width: =196
+        ZIndex: =2
+
+        ctn_HeaderMenu_8 As groupContainer.horizontalAutoLayoutContainer:
+            AlignInContainer: =AlignInContainer.SetByContainer
+            DropShadow: =DropShadow.None
+            FillPortions: =0
+            Height: =100
+            LayoutAlignItems: =LayoutAlignItems.Center
+            LayoutMinHeight: =100
+            LayoutMinWidth: =1
+            LayoutMode: =LayoutMode.Auto
+            PaddingLeft: =20
+            PaddingRight: =20
+            ZIndex: =1
+
+            img_Logo_7 As image:
+                Height: =110
+                Image: =Name
+                Width: =50
+                X: =11
+                Y: =13
+                ZIndex: =1
+
+            lbl_HeaderTitleMenu_8 As label:
+                Color: =RGBA(73, 113, 215, 1)
+                FontWeight: =FontWeight.Bold
+                Size: =15
+                Text: ="Nghỉ phép"
+                Width: =145
+                ZIndex: =2
+
+        ctn_NavigationMenu_7 As groupContainer.verticalAutoLayoutContainer:
+            AlignInContainer: =AlignInContainer.SetByContainer
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(255, 255, 255, 1)
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutMinHeight: =100
+            LayoutMinWidth: =0
+            LayoutMode: =LayoutMode.Auto
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            ZIndex: =3
+
+            gal_NavigationMenu_7 As gallery.galleryVertical:
+                DelayItemLoading: =true
+                Fill: =RGBA(255, 255, 255, 1)
+                Height: =652
+                Items: |-
+                    =If(gblRecUser.roleID = 1,Table({ID:1,Image:Home,Title:"Trang chủ",Navigate:'Home User Screen'},{ID:2,Image:Analytics,Title:"Báo cáo",Navigate:'Statistical User Screen'}),Or(gblRecUser.roleID = 2,gblRecUser.roleID = 3,gblRecUser.roleID = 4),Table({ID:1,Image:Home,Title:"Trang chủ",Navigate:'Home Manager Screen'},{ID:2,Image:'Admin Settings Male',Title:"Phê duyệt",Navigate:'Approve Screen'},{ID:3,Image:Analytics,Title:"Báo cáo",Navigate:'Statistical Manager Screen'}),gblRecUser.roleID = 5,Table({ID:1,Image:Home,Title:"Trang chủ",Navigate:'Home Manager Screen'},{ID:2,Image:'Admin Settings Male',Title:"Phê duyệt",Navigate:'Approve Screen'},{ID:3,Image:'Data Recovery',Title:"Thiết lập",Navigate:'User Screen'},{ID:4,Image:Analytics,Title:"Báo cáo",Navigate:'Statistical Manager Screen'}),gblRecUser.roleID = 6,Table({ID:1,Image:'Data Recovery',Title:"Thiết lập",Navigate:'User Screen'}))
+                Layout: =Layout.Vertical
+                LayoutMinHeight: =287
+                LayoutMinWidth: =0
+                LoadingSpinner: =LoadingSpinner.Data
+                OnSelect: =Navigate(ThisItem.Navigate)
+                ShowScrollbar: =false
+                TemplateSize: =50
+                Width: =155
+                X: =251
+                Y: =115
+                ZIndex: =1
+
+                img_MenuImage_7 As image:
+                    Height: =30
+                    Image: =ThisItem.Image
+                    OnSelect: =Select(Parent)
+                    Width: =40
+                    X: =15
+                    Y: =10
+                    ZIndex: =1
+
+                lbl_MenuTitle_7 As label:
+                    Color: =RGBA(149, 149, 149, 1)
+                    FontWeight: =FontWeight.Semibold
+                    Height: =29
+                    OnSelect: =Select(Parent)
+                    Text: =ThisItem.Title
+                    Width: =117
+                    X: =60
+                    Y: =10
+                    ZIndex: =2
+
+                btn_Select_8 As button:
+                    BorderThickness: =0
+                    Fill: =If(ThisItem.ID = gblMenuFunctionSelected,RGBA(149, 149, 149,0.2),RGBA(0, 0, 0, 0))
+                    Height: =50
+                    HoverFill: =ColorFade(RGBA(149, 149, 149,0.4), -20%)
+                    OnSelect: |-
+                        =Select(Parent);
+                        Set(gblMenuFunctionSelected,ThisItem.ID)
+                    PressedFill: =RGBA(149, 149, 149,0.5)
+                    RadiusBottomLeft: =0
+                    RadiusBottomRight: =0
+                    RadiusTopLeft: =0
+                    RadiusTopRight: =0
+                    Text: =""
+                    Width: =195
+                    X: =-5
+                    ZIndex: =3
+
+        btn_Exit_7 As button:
+            AlignInContainer: =AlignInContainer.Center
+            BorderColor: =RGBA(73, 113, 215, 1)
+            Color: =RGBA(116, 116, 116, 1)
+            Fill: =RGBA(255, 255, 255, 1)
+            HoverFill: =ColorFade(RGBA(73, 113, 215, 1), -20%)
+            OnSelect: =Exit()
+            PressedColor: =Color.White
+            PressedFill: =RGBA(73, 113, 215, 1)
+            Text: ="Thoát"
+            X: =18
+            Y: =682
+            ZIndex: =4
+
+    ctn_us_Title_2 As groupContainer.verticalAutoLayoutContainer:
+        DropShadow: =DropShadow.None
+        Height: =41
+        LayoutDirection: =LayoutDirection.Vertical
+        LayoutMode: =LayoutMode.Auto
+        PaddingLeft: =30
+        PaddingRight: =30
+        Width: =1170
+        X: =196
+        Y: =104
+        ZIndex: =3
+
+        lbl_us_Title_13 As label:
+            Color: =RGBA(43, 54, 74, 1)
+            FontWeight: =FontWeight.Bold
+            Height: =41
+            Size: =18
+            Text: ="Quản lý phê duyệt cấp cao"
+            Width: =400
+            X: =191
+            Y: =101
+            ZIndex: =1
+
+    ctn_us_MainContent_2 As groupContainer.horizontalAutoLayoutContainer:
+        DropShadow: =DropShadow.None
+        Height: =607
+        LayoutAlignItems: =LayoutAlignItems.Stretch
+        LayoutGap: =10
+        LayoutMode: =LayoutMode.Auto
+        PaddingBottom: =20
+        PaddingLeft: =35
+        PaddingRight: =35
+        Width: =1170
+        X: =196
+        Y: =160
+        ZIndex: =4
+
+        ctn_us_List_2 As groupContainer.verticalAutoLayoutContainer:
+            AlignInContainer: =AlignInContainer.SetByContainer
+            DropShadow: =DropShadow.Semilight
+            LayoutAlignItems: =LayoutAlignItems.Stretch
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutMinHeight: =0
+            LayoutMinWidth: =0
+            LayoutMode: =LayoutMode.Auto
+            RadiusBottomLeft: =20
+            RadiusBottomRight: =20
+            RadiusTopLeft: =20
+            RadiusTopRight: =20
+            ZIndex: =4
+
+            ctn_us_DetailList_2 As groupContainer.verticalAutoLayoutContainer:
+                AlignInContainer: =AlignInContainer.SetByContainer
+                DropShadow: =DropShadow.None
+                Fill: =RGBA(255, 255, 255, 1)
+                LayoutAlignItems: =LayoutAlignItems.Stretch
+                LayoutDirection: =LayoutDirection.Vertical
+                LayoutMinHeight: =100
+                LayoutMinWidth: =250
+                LayoutMode: =LayoutMode.Auto
+                PaddingBottom: =10
+                RadiusTopLeft: =20
+                RadiusTopRight: =20
+                ZIndex: =3
+
+                ctn_us_ListContent_2 As groupContainer.horizontalAutoLayoutContainer:
+                    AlignInContainer: =AlignInContainer.SetByContainer
+                    DropShadow: =DropShadow.None
+                    Fill: =RGBA(220, 228, 252, 1)
+                    FillPortions: =0
+                    Height: =50
+                    LayoutMinHeight: =100
+                    LayoutMinWidth: =250
+                    LayoutMode: =LayoutMode.Auto
+                    PaddingLeft: =20
+                    PaddingRight: =20
+                    RadiusBottomLeft: =0
+                    RadiusBottomRight: =0
+                    RadiusTopLeft: =20
+                    RadiusTopRight: =20
+                    ZIndex: =1
+
+                    lbl_us_TimeTotal_3 As label:
+                        AlignInContainer: =AlignInContainer.Center
+                        Color: =RGBA(47, 47, 47, 1)
+                        FontWeight: =FontWeight.Bold
+                        Text: ="STT"
+                        ZIndex: =1
+
+                    lbl_us_LeaveDay_3 As label:
+                        AlignInContainer: =AlignInContainer.Center
+                        Color: =RGBA(47, 47, 47, 1)
+                        FillPortions: =1
+                        FontWeight: =FontWeight.Bold
+                        Text: ="Chức vụ"
+                        ZIndex: =2
+
+                    lbl_us_LeaveDay_2 As label:
+                        AlignInContainer: =AlignInContainer.Center
+                        Color: =RGBA(47, 47, 47, 1)
+                        FillPortions: =1
+                        FontWeight: =FontWeight.Bold
+                        Text: ="Quản lý"
+                        ZIndex: =3
+
+                    blank_11 As label:
+                        Color: =RGBA(47, 47, 47, 1)
+                        FillPortions: =0.2
+                        FontWeight: =FontWeight.Bold
+                        LayoutMinWidth: =0
+                        Text: =""
+                        ZIndex: =4
+
+                    blank_12 As label:
+                        Color: =RGBA(47, 47, 47, 1)
+                        FillPortions: =0.2
+                        FontWeight: =FontWeight.Bold
+                        LayoutMinWidth: =0
+                        Text: =""
+                        ZIndex: =5
+
+                gal_us_List_2 As gallery.galleryVertical:
+                    AlignInContainer: =AlignInContainer.SetByContainer
+                    DelayItemLoading: =true
+                    Items: =Sort(Filter('ASTakeLeave.CommonRelationship',active = 1),sort,SortOrder.Ascending)
+                    Layout: =Layout.Vertical
+                    LayoutMinHeight: =287
+                    LayoutMinWidth: =0
+                    LoadingSpinner: =LoadingSpinner.Data
+                    TemplateSize: =45
+                    ZIndex: =2
+
+                    ctn_us_ItemList_2 As groupContainer.horizontalAutoLayoutContainer:
+                        BorderColor: =RGBA(251, 137, 91, 1)
+                        BorderStyle: =BorderStyle.None
+                        BorderThickness: =1
+                        DropShadow: =DropShadow.None
+                        Fill: =RGBA(255, 255, 255, 1)
+                        Height: =30
+                        LayoutAlignItems: =LayoutAlignItems.Stretch
+                        LayoutMode: =LayoutMode.Auto
+                        PaddingLeft: =15
+                        PaddingRight: =20
+                        RadiusBottomLeft: =15
+                        RadiusBottomRight: =15
+                        RadiusTopLeft: =15
+                        RadiusTopRight: =15
+                        Width: =Parent.Width - 10
+                        Y: =8
+                        ZIndex: =1
+
+                        lbl_us_ItemDivision_2 As label:
+                            Color: =RGBA(114, 114, 114, 1)
+                            FillPortions: =0.3
+                            FontWeight: =FontWeight.Semibold
+                            LayoutMinHeight: =30
+                            OnSelect: |-
+                                =UpdateContext({locUpdateUser:true})
+                            Text: =ThisItem.sort
+                            Width: =100
+                            Wrap: =false
+                            ZIndex: =1
+
+                        lbl_us_ItemDivision_3 As label:
+                            Color: =RGBA(114, 114, 114, 1)
+                            FillPortions: =0.85
+                            FontWeight: =FontWeight.Semibold
+                            LayoutMinHeight: =30
+                            OnSelect: |-
+                                =UpdateContext({locUpdateUser:true})
+                            Text: =If(ThisItem.approveProcessLevel = 3,"Giám đốc điều hành","HR / C&B")
+                            Wrap: =false
+                            ZIndex: =2
+
+                        lbl_us_ItemTimeTotal_2 As label:
+                            Color: =RGBA(114, 114, 114, 1)
+                            FillPortions: =1
+                            FontWeight: =FontWeight.Semibold
+                            LayoutMinHeight: =30
+                            OnSelect: |-
+                                =UpdateContext({locUpdateUser:true})
+                            Text: =LookUp(gblColAllUser,active = 1 And userID = ThisItem.userID).fullName
+                            Wrap: =false
+                            ZIndex: =3
+
+                        img_us_Edit_2 As image:
+                            FillPortions: =0.2
+                            Image: =Edit
+                            ImagePosition: =ImagePosition.Center
+                            LayoutMinHeight: =0
+                            LayoutMinWidth: =0
+                            OnSelect: |-
+                                =//Kiểm tra các yêu cầu chưa hoàn thành còn lại trước khi thực hiện chỉnh sửa
+                                If(CountRows(colCheckRequestCompleted)=0,UpdateContext({locUpdateUser:true});
+                                UpdateContext({locCommon:ThisItem}),Notify("Có nhiều hơn 1 yêu cầu đang chờ phê duyệt",NotificationType.Information,1500))
+                            Width: =50
+                            ZIndex: =4
+
+    ctn_us_Header_2 As groupContainer.horizontalAutoLayoutContainer:
+        DropShadow: =DropShadow.None
+        Height: =104
+        LayoutMode: =LayoutMode.Auto
+        Width: =1170
+        X: =196
+        ZIndex: =5
+
+        ctn_lds_Tab_2 As groupContainer.horizontalAutoLayoutContainer:
+            AlignInContainer: =AlignInContainer.SetByContainer
+            DropShadow: =DropShadow.None
+            Height: =101
+            LayoutAlignItems: =LayoutAlignItems.Center
+            LayoutGap: =5
+            LayoutMinHeight: =100
+            LayoutMinWidth: =250
+            LayoutMode: =LayoutMode.Auto
+            PaddingLeft: =35
+            Width: =1229
+            X: =137
+            ZIndex: =1
+
+            btn_lds_ApprovalProcess_2 As button:
+                BorderStyle: =BorderStyle.None
+                Color: =RGBA(94, 94, 94, 1)
+                DisabledFill: =
+                Fill: =RGBA(255, 255, 255, 1)
+                Height: =28
+                HoverFill: =ColorFade(RGBA(73, 113, 215, 1), -20%)
+                OnSelect: =Navigate('User Screen',ScreenTransition.Fade)
+                PressedFill: =RGBA(73, 113, 215, 1)
+                RadiusBottomLeft: =5
+                RadiusBottomRight: =5
+                RadiusTopLeft: =5
+                RadiusTopRight: =5
+                Size: =13
+                Text: ="Người dùng"
+                Width: =110
+                X: =117
+                Y: =36
+                ZIndex: =1
+
+            btn_lds_Department_2 As button:
+                BorderStyle: =BorderStyle.None
+                Color: =RGBA(94, 94, 94, 1)
+                DisabledFill: =
+                Fill: =RGBA(255, 255, 255, 1)
+                Height: =28
+                HoverFill: =ColorFade(RGBA(73, 113, 215, 1), -20%)
+                OnSelect: =Navigate('Department Screen',ScreenTransition.Fade)
+                PressedFill: =RGBA(73, 113, 215, 1)
+                RadiusBottomLeft: =5
+                RadiusBottomRight: =5
+                RadiusTopLeft: =5
+                RadiusTopRight: =5
+                Size: =13
+                Text: ="Phòng"
+                Width: =104
+                X: =117
+                Y: =36
+                ZIndex: =2
+
+            btn_lds_User_2 As button:
+                BorderStyle: =BorderStyle.None
+                Color: =RGBA(94, 94, 94, 1)
+                DisabledFill: =
+                Fill: =RGBA(255, 255, 255, 1)
+                Height: =28
+                HoverFill: =ColorFade(RGBA(73, 113, 215, 1), -20%)
+                OnSelect: =Navigate('Leave Day Screen',ScreenTransition.Fade)
+                PressedFill: =RGBA(73, 113, 215, 1)
+                RadiusBottomLeft: =5
+                RadiusBottomRight: =5
+                RadiusTopLeft: =5
+                RadiusTopRight: =5
+                Size: =13
+                Text: ="Ngày phép"
+                Width: =104
+                X: =117
+                Y: =36
+                ZIndex: =3
+
+            btn_lds_Rule_2 As button:
+                BorderStyle: =BorderStyle.None
+                Color: =RGBA(94, 94, 94, 1)
+                DisabledFill: =
+                Fill: =RGBA(255, 255, 255, 1)
+                Height: =28
+                HoverFill: =ColorFade(RGBA(73, 113, 215, 1), -20%)
+                OnSelect: =Navigate('Leave Calendar Screen',ScreenTransition.Fade)
+                PressedFill: =RGBA(73, 113, 215, 1)
+                RadiusBottomLeft: =5
+                RadiusBottomRight: =5
+                RadiusTopLeft: =5
+                RadiusTopRight: =5
+                Size: =13
+                Text: ="Lịch nghỉ phép"
+                Width: =150
+                X: =117
+                Y: =36
+                ZIndex: =4
+
+            btn_lds_LeaveDay_2 As button:
+                BorderStyle: =BorderStyle.None
+                Fill: =RGBA(73, 113, 215, 1)
+                Height: =28
+                HoverFill: =ColorFade(Self.Fill, -20%)
+                OnSelect: =Navigate('Approval Process Screen',ScreenTransition.Fade)
+                PressedColor: =Color.White
+                PressedFill: =Self.Fill
+                RadiusBottomLeft: =5
+                RadiusBottomRight: =5
+                RadiusTopLeft: =5
+                RadiusTopRight: =5
+                Size: =13
+                Text: ="Phê duyệt cấp cao"
+                Width: =180
+                X: =191
+                Y: =36
+                ZIndex: =5
+
+        ctn_us_Info_2 As groupContainer.horizontalAutoLayoutContainer:
+            AlignInContainer: =AlignInContainer.SetByContainer
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(220, 228, 252, 1)
+            FillPortions: =0.3
+            Height: =80
+            LayoutMinHeight: =100
+            LayoutMinWidth: =50
+            LayoutMode: =LayoutMode.Auto
+            PaddingLeft: =10
+            PaddingRight: =10
+            RadiusBottomLeft: =20
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =20
+            ZIndex: =2
+
+            img_us_Avatar_2 As image:
+                AlignInContainer: =AlignInContainer.Center
+                Height: =50
+                Image: =User().Image
+                LayoutMinHeight: =50
+                RadiusBottomLeft: =img_us_Avatar_2.Height
+                RadiusBottomRight: =img_us_Avatar_2.Height
+                RadiusTopLeft: =img_us_Avatar_2.Height
+                RadiusTopRight: =img_us_Avatar_2.Height
+                Width: =50
+                ZIndex: =1
+
+            ctn_us_Info2_2 As groupContainer.verticalAutoLayoutContainer:
+                AlignInContainer: =AlignInContainer.SetByContainer
+                DropShadow: =DropShadow.None
+                LayoutDirection: =LayoutDirection.Vertical
+                LayoutMinHeight: =0
+                LayoutMinWidth: =0
+                LayoutMode: =LayoutMode.Auto
+                PaddingLeft: =5
+                ZIndex: =2
+
+                lb_lds_Name_3 As label:
+                    FontWeight: =FontWeight.Bold
+                    PaddingTop: =20
+                    Size: =12
+                    Text: =User().FullName
+                    Wrap: =false
+                    ZIndex: =1
+
+                lbl_lds_Mail_3 As label:
+                    PaddingBottom: =20
+                    Size: =12
+                    Text: =User().Email
+                    Wrap: =false
+                    ZIndex: =2
+
+    ctn_us_UpdateUser_2 As groupContainer.manualLayoutContainer:
+        Fill: =RGBA(0, 0, 0, 0.5)
+        Height: =768
+        RadiusBottomLeft: =20
+        RadiusBottomRight: =20
+        RadiusTopLeft: =20
+        RadiusTopRight: =20
+        Visible: =locUpdateUser
+        Width: =1366
+        ZIndex: =6
+
+        btn_us_BackGround_7 As button:
+            BorderStyle: =BorderStyle.None
+            DisabledFill: =RGBA(255, 255, 255, 1)
+            DisplayMode: =DisplayMode.Disabled
+            Height: =575
+            RadiusBottomLeft: =5
+            RadiusBottomRight: =5
+            RadiusTopLeft: =5
+            RadiusTopRight: =5
+            Text: =""
+            Width: =608
+            X: =375
+            Y: =100
+            ZIndex: =1
+
+        lbl_us_Title_9 As label:
+            FontWeight: =FontWeight.Bold
+            Text: ="Sửa thông tin"
+            X: =387
+            Y: =105
+            ZIndex: =2
+
+        shp_us_Deco_14 As rectangle:
+            Fill: =RGBA(202, 202, 202, 1)
+            Height: =1
+            Width: =608
+            X: =375
+            Y: =150
+            ZIndex: =3
+
+        ico_us_Cancel_7 As icon.Cancel:
+            Color: =RGBA(149, 149, 149, 1)
+            Height: =29
+            Icon: =Icon.Cancel
+            OnSelect: |-
+                =UpdateContext({locUpdateUser:false})
+            Width: =25
+            X: =942
+            Y: =110
+            ZIndex: =4
+
+        lbl_us_Name_6 As label:
+            Align: =Align.Right
+            FontWeight: =FontWeight.Semibold
+            Text: ="Bước"
+            X: =387
+            Y: =172
+            ZIndex: =5
+
+        shp_us_Deco_15 As rectangle:
+            Fill: =RGBA(202, 202, 202, 1)
+            Height: =1
+            Width: =608
+            X: =375
+            Y: =627
+            ZIndex: =6
+
+        btn_us_Submit_7 As button:
+            BorderThickness: =1
+            Fill: =RGBA(0, 89, 204, 1)
+            Height: =36
+            HoverFill: =ColorFade(Self.Fill, -20%)
+            OnSelect: |-
+                =//Cập nhật cấp phê duyệt thành không hoạt động
+                Patch('ASTakeLeave.CommonRelationship',LookUp('ASTakeLeave.CommonRelationship',ID = locCommon.ID),{active:0});
+                //Tạo mới cấp phê duyệt
+                Patch('ASTakeLeave.CommonRelationship',Defaults('ASTakeLeave.CommonRelationship'),{sort:locCommon.sort,approveProcessLevel:locCommon.approveProcessLevel,userID:drp_us_Roles_4.Selected.userID,active:1});
+                Notify("Sửa thành công",NotificationType.Success,1500);
+                UpdateContext({locUpdateUser:false})
+            PressedColor: =RGBA(255,255,255,1)
+            PressedFill: =Self.Fill
+            RadiusBottomLeft: =5
+            RadiusBottomRight: =5
+            RadiusTopLeft: =5
+            RadiusTopRight: =5
+            Text: ="Sửa"
+            Width: =87
+            X: =879
+            Y: =633
+            ZIndex: =7
+
+        btn_us_Cancel_7 As button:
+            BorderThickness: =1
+            Color: =RGBA(0, 0, 0, 1)
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =36
+            HoverFill: =ColorFade(Self.Fill, -20%)
+            OnSelect: |-
+                =UpdateContext({locUpdateUser:false})
+            PressedColor: =RGBA(0,0,0,1)
+            PressedFill: =Self.Fill
+            RadiusBottomLeft: =5
+            RadiusBottomRight: =5
+            RadiusTopLeft: =5
+            RadiusTopRight: =5
+            Text: ="Hủy"
+            Width: =87
+            X: =779
+            Y: =633
+            ZIndex: =8
+
+        lbl_us_Roles_4 As label:
+            Align: =Align.Right
+            FontWeight: =FontWeight.Semibold
+            Text: ="Quản lý"
+            X: =387
+            Y: =236
+            ZIndex: =13
+
+        txt_us_Name_4 As text:
+            BorderColor: =RGBA(116, 116, 116, 1)
+            BorderThickness: =1
+            Default: =If(locCommon.approveProcessLevel = 3,"Giám đốc điều hành","HR / C&B")
+            DisplayMode: =DisplayMode.View
+            HintText: ="Nhập họ tên"
+            Width: =394
+            X: =548
+            Y: =172
+            ZIndex: =14
+
+        drp_us_Roles_4 As dropdown:
+            BorderColor: =RGBA(116, 116, 116, 1)
+            BorderThickness: =1
+            Items: =Filter(gblColAllUser,active = 1 And userID exactin (Filter('ASTakeLeave.Users_Roles',Or(roleID = 4,roleID = 5)).userID))
+            X: =548
+            Y: =236
+            ZIndex: =19
+
+    ctn_us_CreateUser_2 As groupContainer.manualLayoutContainer:
+        Fill: =RGBA(0, 0, 0, 0.5)
+        Height: =768
+        RadiusBottomLeft: =20
+        RadiusBottomRight: =20
+        RadiusTopLeft: =20
+        RadiusTopRight: =20
+        Visible: =locCreateUser
+        Width: =1366
+        ZIndex: =7
+
+        btn_us_BackGround_9 As button:
+            BorderStyle: =BorderStyle.None
+            DisabledFill: =RGBA(255, 255, 255, 1)
+            DisplayMode: =DisplayMode.Disabled
+            Height: =575
+            RadiusBottomLeft: =5
+            RadiusBottomRight: =5
+            RadiusTopLeft: =5
+            RadiusTopRight: =5
+            Text: =""
+            Width: =608
+            X: =375
+            Y: =100
+            ZIndex: =1
+
+        lbl_us_Title_11 As label:
+            FontWeight: =FontWeight.Bold
+            Text: ="Tạo mới"
+            X: =387
+            Y: =105
+            ZIndex: =2
+
+        shp_us_Deco_18 As rectangle:
+            Fill: =RGBA(202, 202, 202, 1)
+            Height: =1
+            Width: =608
+            X: =375
+            Y: =150
+            ZIndex: =3
+
+        ico_us_Cancel_9 As icon.Cancel:
+            Color: =RGBA(149, 149, 149, 1)
+            Height: =29
+            Icon: =Icon.Cancel
+            OnSelect: |-
+                =UpdateContext({locCreateUser:false})
+            Width: =25
+            X: =942
+            Y: =110
+            ZIndex: =4
+
+        lbl_us_Name_7 As label:
+            Align: =Align.Right
+            FontWeight: =FontWeight.Semibold
+            Text: ="Họ tên"
+            X: =387
+            Y: =172
+            ZIndex: =5
+
+        shp_us_Deco_19 As rectangle:
+            Fill: =RGBA(202, 202, 202, 1)
+            Height: =1
+            Width: =608
+            X: =375
+            Y: =627
+            ZIndex: =6
+
+        btn_us_Submit_9 As button:
+            BorderThickness: =1
+            Fill: =RGBA(0, 89, 204, 1)
+            Height: =27
+            HoverFill: =ColorFade(Self.Fill, -20%)
+            OnSelect: |-
+                =Notify("Tạo thành công",NotificationType.Success,1500);
+                UpdateContext({locCreateUser:false})
+            PressedColor: =RGBA(255,255,255,1)
+            PressedFill: =Self.Fill
+            RadiusBottomLeft: =5
+            RadiusBottomRight: =5
+            RadiusTopLeft: =5
+            RadiusTopRight: =5
+            Text: ="Tạo"
+            Width: =87
+            X: =879
+            Y: =636
+            ZIndex: =7
+
+        btn_us_Cancel_9 As button:
+            BorderThickness: =1
+            Color: =RGBA(0, 0, 0, 1)
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =27
+            HoverFill: =ColorFade(Self.Fill, -20%)
+            OnSelect: |-
+                =UpdateContext({locCreateUser:false})
+            PressedColor: =RGBA(0,0,0,1)
+            PressedFill: =Self.Fill
+            RadiusBottomLeft: =5
+            RadiusBottomRight: =5
+            RadiusTopLeft: =5
+            RadiusTopRight: =5
+            Text: ="Hủy"
+            Width: =87
+            X: =779
+            Y: =636
+            ZIndex: =8
+
+        lbl_us_Email_5 As label:
+            Align: =Align.Right
+            FontWeight: =FontWeight.Semibold
+            Text: ="Email"
+            X: =387
+            Y: =236
+            ZIndex: =9
+
+        lbl_us_Phone_5 As label:
+            Align: =Align.Right
+            FontWeight: =FontWeight.Semibold
+            Text: ="SDT"
+            X: =387
+            Y: =300
+            ZIndex: =10
+
+        lbl_us_JobTitle_7 As label:
+            Align: =Align.Right
+            FontWeight: =FontWeight.Semibold
+            Text: ="Chức vụ"
+            X: =387
+            Y: =364
+            ZIndex: =11
+
+        lbl_us_Department_5 As label:
+            Align: =Align.Right
+            FontWeight: =FontWeight.Semibold
+            Text: ="Phòng"
+            X: =387
+            Y: =428
+            ZIndex: =12
+
+        lbl_us_Roles_5 As label:
+            Align: =Align.Right
+            FontWeight: =FontWeight.Semibold
+            Text: ="Vai trò"
+            X: =387
+            Y: =492
+            ZIndex: =13
+
+        txt_us_Name_5 As text:
+            BorderColor: =RGBA(116, 116, 116, 1)
+            BorderThickness: =1
+            Default: =""
+            HintText: ="Nhập họ tên"
+            Width: =394
+            X: =548
+            Y: =172
+            ZIndex: =14
+
+        txt_us_Email_5 As text:
+            BorderColor: =RGBA(116, 116, 116, 1)
+            BorderThickness: =1
+            Default: =""
+            HintText: ="Nhập email"
+            Width: =260
+            X: =548
+            Y: =236
+            ZIndex: =15
+
+        txt_us_Phone_5 As text:
+            BorderColor: =RGBA(116, 116, 116, 1)
+            BorderThickness: =1
+            Default: =""
+            Format: =TextFormat.Number
+            HintText: ="Nhập số"
+            Width: =260
+            X: =548
+            Y: =300
+            ZIndex: =16
+
+        drp_us_Department_5 As dropdown:
+            BorderColor: =RGBA(116, 116, 116, 1)
+            BorderThickness: =1
+            Items: =["Software","IT Service"]
+            X: =548
+            Y: =428
+            ZIndex: =17
+
+        txt_us_JobTitle_5 As text:
+            BorderColor: =RGBA(116, 116, 116, 1)
+            BorderThickness: =1
+            Default: =""
+            Format: =TextFormat.Number
+            HintText: ="Nhập chức vụ"
+            Width: =260
+            X: =548
+            Y: =364
+            ZIndex: =18
+
+        drp_us_Roles_5 As dropdown:
+            BorderColor: =RGBA(116, 116, 116, 1)
+            BorderThickness: =1
+            Items: =["Quản lý","Giám đốc"]
+            X: =548
+            Y: =492
+            ZIndex: =19
+
+    ctn_us_DeleteUser_2 As groupContainer.manualLayoutContainer:
+        Fill: =RGBA(0, 0, 0, 0.5)
+        Height: =768
+        RadiusBottomLeft: =20
+        RadiusBottomRight: =20
+        RadiusTopLeft: =20
+        RadiusTopRight: =20
+        Visible: =locDeleteUser
+        Width: =1366
+        ZIndex: =8
+
+        btn_us_BackGround_10 As button:
+            BorderStyle: =BorderStyle.None
+            DisabledFill: =RGBA(255, 255, 255, 1)
+            DisplayMode: =DisplayMode.Disabled
+            Height: =205
+            RadiusBottomLeft: =5
+            RadiusBottomRight: =5
+            RadiusTopLeft: =5
+            RadiusTopRight: =5
+            Text: =""
+            Width: =608
+            X: =375
+            Y: =268
+            ZIndex: =1
+
+        lbl_us_Title_12 As label:
+            FontWeight: =FontWeight.Bold
+            Text: ="Xác nhận"
+            X: =387
+            Y: =280
+            ZIndex: =2
+
+        shp_us_Deco_20 As rectangle:
+            Fill: =RGBA(202, 202, 202, 1)
+            Height: =1
+            Width: =608
+            X: =375
+            Y: =335
+            ZIndex: =3
+
+        ico_us_Cancel_10 As icon.Cancel:
+            Color: =RGBA(149, 149, 149, 1)
+            Height: =29
+            Icon: =Icon.Cancel
+            OnSelect: |-
+                =UpdateContext({locDeleteUser:false})
+            Width: =25
+            X: =942
+            Y: =285
+            ZIndex: =4
+
+        lbl_us_Name_8 As label:
+            FontWeight: =FontWeight.Semibold
+            Text: ="Bạn có chắc chắn muốn xóa ?"
+            Width: =288
+            X: =387
+            Y: =348
+            ZIndex: =5
+
+        shp_us_Deco_21 As rectangle:
+            Fill: =RGBA(202, 202, 202, 1)
+            Height: =1
+            Width: =608
+            X: =375
+            Y: =407
+            ZIndex: =6
+
+        btn_us_Submit_10 As button:
+            BorderThickness: =1
+            Fill: =RGBA(0, 89, 204, 1)
+            Height: =36
+            HoverFill: =ColorFade(Self.Fill, -20%)
+            OnSelect: |-
+                =Notify("Xóa thành công",NotificationType.Success,1500);
+                UpdateContext({locDeleteUser:false})
+            PressedColor: =RGBA(255,255,255,1)
+            PressedFill: =Self.Fill
+            RadiusBottomLeft: =5
+            RadiusBottomRight: =5
+            RadiusTopLeft: =5
+            RadiusTopRight: =5
+            Text: ="Xóa"
+            Width: =87
+            X: =879
+            Y: =422
+            ZIndex: =7
+
+        btn_us_Cancel_10 As button:
+            BorderThickness: =1
+            Color: =RGBA(0, 0, 0, 1)
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =36
+            HoverFill: =ColorFade(Self.Fill, -20%)
+            OnSelect: |-
+                =UpdateContext({locDeleteUser:false})
+            PressedColor: =RGBA(0,0,0,1)
+            PressedFill: =Self.Fill
+            RadiusBottomLeft: =5
+            RadiusBottomRight: =5
+            RadiusTopLeft: =5
+            RadiusTopRight: =5
+            Text: ="Hủy"
+            Width: =87
+            X: =779
+            Y: =422
+            ZIndex: =8
+
