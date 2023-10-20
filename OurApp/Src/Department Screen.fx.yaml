@@ -1,10 +1,42 @@
 "'Department Screen' As screen":
     Fill: =RGBA(224,224,224,1)
+    OnHidden: |-
+        =//Tạo collect cho bảng khối để thêm 1 item "Tất cả"
+        Refresh('ASTakeLeave.Division');
+        Clear(gblColDivision);Collect(gblColDivision,Table({name:"Tất cả"}));//Lấy tất cả khối về
+        Collect(
+            gblColDivision,
+            ShowColumns('ASTakeLeave.Division', "ID", "name", "directorUserID", "active")
+        );
+        
+        //Tạo collect cho bảng phòng để thêm 1 item "Tất cả"
+        Refresh('ASTakeLeave.Department');
+        Clear(gblColDepartment);Collect(gblColDepartment,Table({name:"Tất cả"}));Collect(
+            gblColDepartment,
+            ShowColumns('ASTakeLeave.Department', "ID", "name", "divisionID", "active")
+        );
+        
+        Refresh('ASTakeLeave.Users');
+        ClearCollect(
+            gblColAllUser,
+            AddColumns(
+                ShowColumns('ASTakeLeave.Users', "ID", "userID", "fullName", "shortName", "email", "phone", "jobTitle", "departmentID", "divisionID", "OData__x0033_65AccountInfo", "active") As temp, 
+                "roleID", 
+                LookUp(Filter('ASTakeLeave.Users_Roles',active = 1), userID = temp.userID).roleID
+            )
+        );
     OnVisible: |-
         =//Tạo collect cho bảng khối để thêm 1 item "Tất cả"
-        If(CountRows(Filter(gblColDivision,name = "Tất cả")) = 0,Collect(gblColDivision,Table({name:"Tất cả"})));
+        If(CountRows(Filter(gblColDivision,name = "Tất cả")) = 0,Clear(gblColDivision);Collect(gblColDivision,Table({name:"Tất cả"}));//Lấy tất cả khối về
+        Collect(
+            gblColDivision,
+            ShowColumns('ASTakeLeave.Division', "ID", "name", "directorUserID", "active")
+        ));
         //Tạo collect cho bảng phòng để thêm 1 item "Tất cả"
-        If(CountRows(Filter(gblColDepartment,name = "Tất cả")) = 0,Collect(gblColDepartment,Table({name:"Tất cả"})));
+        If(CountRows(Filter(gblColDepartment,name = "Tất cả")) = 0,Clear(gblColDepartment);Collect(gblColDepartment,Table({name:"Tất cả"}));Collect(
+            gblColDepartment,
+            ShowColumns('ASTakeLeave.Department', "ID", "name", "divisionID", "active")
+        ));
 
     btn_ds_BackGroundScreen As button:
         BorderStyle: =BorderStyle.None
@@ -165,7 +197,7 @@
             FontWeight: =FontWeight.Bold
             Height: =41
             Size: =18
-            Text: ="Danh sách Phòng"
+            Text: ="Danh sách phòng"
             Width: =281
             X: =191
             Y: =101
@@ -216,7 +248,7 @@
             BorderColor: =RGBA(73, 113, 215, 1)
             BorderThickness: =1
             ChevronBackground: =RGBA(73, 113, 215, 1)
-            Items: =gblColDivision
+            Items: =Filter(gblColDivision,active = 1 Or name = "Tất cả")
             OnChange: |-
                 =ClearCollect(gblColDepartment,Table({name:"Tất cả"}));
                 Collect(gblColDepartment,Filter('ASTakeLeave.Department',active = 1 And divisionID = drp_ds_Division.Selected.ID));
@@ -239,7 +271,7 @@
             BorderColor: =RGBA(73, 113, 215, 1)
             BorderThickness: =1
             ChevronBackground: =RGBA(73, 113, 215, 1)
-            Items: =gblColDepartment
+            Items: =Filter(gblColDepartment,active = 1 Or name = "Tất cả")
             Width: =200
             X: =104
             Y: =145
@@ -423,6 +455,7 @@
                                     =UpdateContext({locUpdateUnit:true});
                                     UpdateContext({locDivision:ThisItem});
                                     ClearCollect(colDepartmentByDivision,Filter('ASTakeLeave.Department',divisionID = ThisItem.divisionID And active = 1))
+                                Visible: =false
                                 Width: =44
                                 X: =949
                                 Y: =2
@@ -742,7 +775,7 @@
                         colDepartmentByDivision As Temp,
                         Patch(
                             'ASTakeLeave.Department',
-                            LookUp('ASTakeLeave.Department',divisionID = locDivision.ID),
+                            LookUp('ASTakeLeave.Department',ID = Temp.ID),
                             {
                                 active: 0
                             }
