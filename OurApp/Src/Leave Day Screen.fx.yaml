@@ -409,6 +409,7 @@
                             FontWeight: =FontWeight.Semibold
                             LayoutMinHeight: =30
                             Text: =LookUp(gblColDepartment,ID = LookUp(gblColUser,userID = ThisItem.userID).departmentID).name
+                            Wrap: =false
                             ZIndex: =2
 
                         lbl_lds_ItemLeaveDay As label:

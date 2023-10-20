@@ -9,9 +9,21 @@
         
         //Thêm trường role vào bảng user
         ClearCollect(gblColUser,AddColumns('ASTakeLeave.Users' As Temp,"Roles",LookUp('ASTakeLeave.Users_Roles',userID = Temp.userID).roleID));
+        //Lấy tất cả phòng về
+        Collect(
+            gblColDepartment,
+            ShowColumns('ASTakeLeave.Department', "ID", "name", "divisionID", "active")
+        );
+        
+        //Lấy tất cả khối về
+        Collect(
+            gblColDivision,
+            ShowColumns('ASTakeLeave.Division', "ID", "name", "directorUserID", "active")
+        );
         
         //Lấy bảng quản lý người dùng
-        ClearCollect(gblColManagerByUser,Filter('ASTakeLeave.UserRelationship',active = 1))
+        ClearCollect(gblColManagerByUser,Filter('ASTakeLeave.UserRelationship',active = 1));
+        Set(gblMenuFunctionSelected,1);
 
     btn_us_BackGroundScreen As button:
         BorderStyle: =BorderStyle.None
@@ -1099,7 +1111,7 @@
             ZIndex: =22
 
         txt_us_Name_3 As text:
-            BorderColor: =RGBA(116, 116, 116, 1)
+            BorderColor: =If(CountRows(Filter(gblColAllUser,active = 1 And userID = txt_us_Name_3.Text)) = 1,Color.Red,RGBA(116, 116, 116, 1))
             BorderThickness: =1
             Default: =""
             HintText: ="Nhập mã nhân viên"
@@ -1218,12 +1230,6 @@
             OnSelect: |-
                 =//Kiểm tra các trường mã nhân viên, họ tên, email, chức danh
                 If(
-                    CountRows(Filter(gblColAllUser,userID = txt_us_Name_6.Text)) = 1,
-                    Notify(
-                        "Trường mã nhân viên bị trùng",
-                        NotificationType.Error,
-                        1500
-                    ),
                     IsBlank(txt_us_Name_6.Text),
                     Notify(
                         "Trường mã nhân viên không được để trống",
@@ -1387,7 +1393,8 @@
         drp_us_Department_2 As dropdown:
             BorderColor: =RGBA(116, 116, 116, 1)
             BorderThickness: =1
-            Items: =LookUp(gblColDepartment,active = 1 And ID = locUser.departmentID)
+            Default: =LookUp(gblColDepartment,active = 1 And ID = locUser.departmentID).name
+            Items: =Filter(gblColDepartment,active = 1)
             Width: =260
             X: =548
             Y: =471
@@ -1424,8 +1431,8 @@
         drp_us_Manager_2 As dropdown:
             BorderColor: =RGBA(116, 116, 116, 1)
             BorderThickness: =1
-            Default: =LookUp(gblColAllUser,active = 1 And userID = LookUp(gblColManagerByUser,userID = locUser.userID).approveUserID).fullName
-            Items: =Filter(gblColAllUser,active = 1 And roleID = 2)
+            Default: =LookUp(gblColAllUser,userID = LookUp(gblColManagerByUser,approveUserID = locUser.userID).approveUserID).fullName
+            Items: =If(!IsBlank(LookUp(gblColAllUser,userID = LookUp(gblColManagerByUser,approveUserID = locUser.userID).approveUserID).fullName),Filter(gblColAllUser,active = 1 And roleID = 2))
             X: =548
             Y: =602
             ZIndex: =21
@@ -1460,7 +1467,8 @@
         drp_us_Department_4 As dropdown:
             BorderColor: =RGBA(116, 116, 116, 1)
             BorderThickness: =1
-            Items: =LookUp(gblColDivision,active = 1 And ID = locUser.divisionID)
+            Default: =LookUp(gblColDivision,active = 1 And ID = locUser.divisionID).name
+            Items: =Filter(gblColDivision,active = 1)
             Width: =260
             X: =548
             Y: =407
@@ -1696,18 +1704,20 @@
         lbl_us_Roles_8 As label:
             Align: =Align.Right
             FontWeight: =FontWeight.Semibold
-            Text: ="Quản lý"
-            X: =387
+            Text: ="Quản lý trực tiếp"
+            Width: =162
+            X: =375
             Y: =602
             ZIndex: =20
 
         drp_us_Roles_8 As dropdown:
             BorderColor: =RGBA(116, 116, 116, 1)
             BorderThickness: =1
+            Default: =LookUp(gblColAllUser,userID = LookUp(gblColManagerByUser,approveUserID = locUser.userID).approveUserID).fullName
             DisabledColor: =RGBA(0, 0, 0, 1)
             DisabledFill: =RGBA(255, 255, 255, 1)
             DisplayMode: =DisplayMode.Disabled
-            Items: =LookUp('ASTakeLeave.Users',userID = LookUp('ASTakeLeave.UserRelationship',userID = locUser.userID).approveUserID)
+            Items: =LookUp(gblColAllUser,userID = LookUp(gblColManagerByUser,approveUserID = locUser.userID).approveUserID)
             X: =548
             Y: =602
             ZIndex: =21
