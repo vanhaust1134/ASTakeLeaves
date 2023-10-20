@@ -3,7 +3,7 @@
     OnVisible: |-
         =
         //Tạo collect cho bảng phòng để thêm 1 item "Tất cả"
-        If(CountRows(Filter(gblColDepartment,name = "Tất cả")) = 0,Collect(gblColDepartment,Table({name:"Tất cả"}));//Lấy tất cả phòng về
+        If(CountRows(Filter(gblColDepartment,name = "Tất cả")) = 0,Clear(gblColDepartment);Collect(gblColDepartment,Table({name:"Tất cả"}));//Lấy tất cả phòng về
         Collect(
             gblColDepartment,
             ShowColumns('ASTakeLeave.Department', "ID", "name", "divisionID", "active")
@@ -12,12 +12,6 @@
         ClearCollect(gblColRoles,Table({name:"Tất cả"}));
         Collect(gblColRoles,'ASTakeLeave.Roles');
         
-        
-        //Lấy tất cả khối về
-        Collect(
-            gblColDivision,
-            ShowColumns('ASTakeLeave.Division', "ID", "name", "directorUserID", "active")
-        );
         
         //Thêm trường role vào bảng user
         ClearCollect(gblColUser,AddColumns('ASTakeLeave.Users' As Temp,"Roles",LookUp('ASTakeLeave.Users_Roles',userID = Temp.userID).roleID));
@@ -237,7 +231,7 @@
             BorderColor: =RGBA(73, 113, 215, 1)
             BorderThickness: =1
             ChevronBackground: =RGBA(73, 113, 215, 1)
-            Items: =gblColDepartment
+            Items: =Filter(gblColDepartment,active = 1 Or name = "Tất cả")
             Width: =200
             X: =590
             Y: =145
@@ -468,7 +462,7 @@
                             OnSelect: |-
                                 =UpdateContext({locDetailUser:true});
                                 UpdateContext({locUser:ThisItem})
-                            Text: =LookUp(gblColDepartment,ID = ThisItem.departmentID).name
+                            Text: =LookUp(gblColDepartment,active = 1 And ID = ThisItem.departmentID).name
                             Wrap: =false
                             ZIndex: =3
 
@@ -1329,7 +1323,7 @@
                     //Sửa nhân viên cũ thành không hoạt động
                     Patch('ASTakeLeave.Users',LookUp('ASTakeLeave.Users',ID = locUser.ID And active = 1),{active:0});
                     //Tạo nhân viên mới
-                    Patch('ASTakeLeave.Users',Defaults('ASTakeLeave.Users'),{userID:txt_us_Name_6.Text,fullName:txt_us_Name_2.Text,email:cbo_us_Email_2.Selected.Mail,phone:txt_us_Phone_2.Text,jobTitle:txt_us_JobTitle_2.Text,divisionID:drp_us_Department_4.Selected.ID,departmentID:drp_us_Department_2.Selected.ID,'365AccountInfo':{
+                    Patch('ASTakeLeave.Users',Defaults('ASTakeLeave.Users'),{userID:txt_us_Name_6.Text,fullName:txt_us_Name_2.Text,email:cbo_us_Email_2.Selected.Mail,phone:txt_us_Phone_2.Text,jobTitle:txt_us_JobTitle_2.Text,divisionID:cbo_us_Line_4.Selected.ID,departmentID:cbo_us_Department_2.Selected.ID,'365AccountInfo':{
                             '@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedUser",
                             Department: "",
                             Claims: "i:0#.f|membership|" & cbo_us_Email_2.Selected.Mail,
@@ -1345,7 +1339,7 @@
                     //Tạo phân quyền
                     Patch('ASTakeLeave.Users_Roles',Defaults('ASTakeLeave.Users_Roles'),{userID:txt_us_Name_6.Text,roleID:drp_us_Roles_2.Selected.ID,active:1});
                     //Tạo quản lý người dùng
-                    Patch('ASTakeLeave.UserRelationship',Defaults('ASTakeLeave.UserRelationship'),{approveUserID:cbo_us_Manager_2.Selected.userID,userID:txt_us_Name_3.Text,approveProcessLevel:2,active:1}));
+                    Patch('ASTakeLeave.UserRelationship',Defaults('ASTakeLeave.UserRelationship'),{approveUserID:cbo_us_Manager_2.Selected.userID,userID:txt_us_Name_6.Text,approveProcessLevel:2,active:1}));
                 Notify(
                     "Sửa thành công",
                     NotificationType.Success,
@@ -1462,16 +1456,6 @@
             Y: =279
             ZIndex: =16
 
-        drp_us_Department_2 As dropdown:
-            BorderColor: =RGBA(116, 116, 116, 1)
-            BorderThickness: =1
-            Default: =LookUp(gblColDepartment,active = 1 And ID = locUser.departmentID).name
-            Items: =Filter(gblColDepartment,active = 1)
-            Width: =260
-            X: =548
-            Y: =471
-            ZIndex: =17
-
         txt_us_JobTitle_2 As text:
             BorderColor: =RGBA(116, 116, 116, 1)
             BorderThickness: =1
@@ -1527,16 +1511,6 @@
             Y: =407
             ZIndex: =24
 
-        drp_us_Department_4 As dropdown:
-            BorderColor: =RGBA(116, 116, 116, 1)
-            BorderThickness: =1
-            Default: =LookUp(gblColDivision,active = 1 And ID = locUser.divisionID).name
-            Items: =Filter(gblColDivision,active = 1)
-            Width: =260
-            X: =548
-            Y: =407
-            ZIndex: =25
-
         cbo_us_Email_2 As combobox:
             BorderColor: =RGBA(116, 116, 116, 1)
             BorderThickness: =1
@@ -1563,12 +1537,44 @@
             BorderThickness: =1
             DefaultSelectedItems: =LookUp(gblColAllUser,userID = LookUp(gblColManagerByUser,approveUserID = locUser.userID).approveUserID)
             DisplayFields: =["fullName"]
+            InputTextPlaceholder: ="Chọn quản lý trực tiếp"
             Items: =Filter(gblColAllUser,active = 1 And roleID = 2)
             SearchFields: =["email"]
             SearchItems: =Search(Filter(gblColAllUser,active = 1 And roleID = 2),cbo_us_Manager_2.SearchText,"email")
+            SelectMultiple: =false
             X: =548
             Y: =607
             ZIndex: =27
+
+        cbo_us_Line_4 As combobox:
+            BorderColor: =RGBA(116, 116, 116, 1)
+            BorderThickness: =1
+            DefaultSelectedItems: =LookUp(gblColDivision,ID = locUser.divisionID)
+            DisplayFields: =["name"]
+            InputTextPlaceholder: ="Chọn khối"
+            Items: =Filter(gblColDivision,active = 1)
+            SearchFields: =["directorUserID"]
+            SearchItems: =Search(Filter(gblColDivision,active = 1),cbo_us_Line_4.SearchText,"directorUserID")
+            SelectMultiple: =false
+            Width: =260
+            X: =549
+            Y: =408
+            ZIndex: =28
+
+        cbo_us_Department_2 As combobox:
+            BorderColor: =RGBA(116, 116, 116, 1)
+            BorderThickness: =1
+            DefaultSelectedItems: =LookUp(gblColDepartment,ID = locUser.departmentID)
+            DisplayFields: =["name"]
+            InputTextPlaceholder: ="Chọn bộ phận điều vận"
+            Items: =Filter(gblColDepartment,active = 1)
+            SearchFields: =["ComplianceAssetId"]
+            SearchItems: =Search(Filter(gblColDepartment,active = 1),cbo_us_Department_2.SearchText,"ComplianceAssetId")
+            SelectMultiple: =false
+            Width: =260
+            X: =551
+            Y: =471
+            ZIndex: =29
 
     ctn_us_DetailUser As groupContainer.manualLayoutContainer:
         Fill: =RGBA(0, 0, 0, 0.5)
