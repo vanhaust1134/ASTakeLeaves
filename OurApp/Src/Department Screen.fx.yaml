@@ -879,7 +879,7 @@
                     );
                     //Tạo phòng ban với mã khối đã tạo
                     ForAll(
-                        colUnit As Temp,
+                        Filter(colUnit,!IsBlank(Unit)) As Temp,
                         Patch(
                             'ASTakeLeave.Department',
                             Defaults('ASTakeLeave.Department'),
@@ -1164,7 +1164,7 @@
                     ));
                     //Tạo phòng ban với mã khối đã tạo
                 ForAll(
-                        colDepartmentByDivision As Temp,
+                        Filter(colDepartmentByDivision,!IsBlank(name)) As Temp,
                         Patch(
                             'ASTakeLeave.Department',
                             Defaults('ASTakeLeave.Department'),
@@ -1519,7 +1519,7 @@
                     );
                     //Tạo phòng ban với mã khối đã tạo
                 ForAll(
-                        colDepartmentByDivision As Temp,
+                        Filter(colDepartmentByDivision,!IsBlank(name)) As Temp,
                         Patch(
                             'ASTakeLeave.Department',
                             Defaults('ASTakeLeave.Department'),

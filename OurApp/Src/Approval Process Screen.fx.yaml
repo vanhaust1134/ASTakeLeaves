@@ -651,7 +651,7 @@
         drp_us_Roles_4 As dropdown:
             BorderColor: =RGBA(116, 116, 116, 1)
             BorderThickness: =1
-            Items: =Filter(gblColAllUser,userID exactin (Filter('ASTakeLeave.Users_Roles',Or(roleID = 4,roleID = 5)).userID))
+            Items: =Filter(gblColAllUser,active = 1 And userID exactin (Filter('ASTakeLeave.Users_Roles',Or(roleID = 4,roleID = 5)).userID))
             X: =548
             Y: =236
             ZIndex: =19

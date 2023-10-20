@@ -869,7 +869,7 @@
             Height: =36
             HoverFill: =ColorFade(Self.Fill, -20%)
             OnSelect: |-
-                =Patch('ASTakeLeave.Holiday',LookUp('ASTakeLeave.Holiday',ID = locHoliday.ID,{active:0}));
+                =Patch('ASTakeLeave.Holiday',LookUp('ASTakeLeave.Holiday',ID = locHoliday.ID),{active:0});
                 Notify("Xóa thành công",NotificationType.Success,1500);
                 UpdateContext({locDeleteDP:false})
             PressedColor: =RGBA(255,255,255,1)
