@@ -10,17 +10,48 @@
         UpdateContext({locNumCurrentMonth: Month(_firstDayOfMonth)});
         Set(gblMenuFunctionSelected,1);
         
-        //Lấy tất cả ngày phép trong tháng xuống
+        //Lấy tất cả ngày phép trong 3 tháng xuống (trước 1 tháng, hiện tại, sau 1 tháng)
         If(
             IsEmpty(locColPersonalLeave),       //Nếu là lần đầu
+        
+            //Tính firstDayInView cho tháng trước và lastDayInView cho tháng sau
+            UpdateContext({
+                _previousFirstDayOfMonth:
+                DateAdd(_firstDayOfMonth, -1, TimeUnit.Months)
+            });
+            UpdateContext({
+                _previousFirstDayInView: 
+                DateAdd(_previousFirstDayOfMonth, -(Weekday(_previousFirstDayOfMonth) - 2 + 1), TimeUnit.Days)
+            });
+            UpdateContext({
+                _nextFirstDayOfMonth:
+                DateAdd(_firstDayOfMonth, 1, TimeUnit.Months)
+            });
+            UpdateContext({
+                _nextFirstDayInView: 
+                DateAdd(_nextFirstDayOfMonth, -(Weekday(_nextFirstDayOfMonth) - 2 + 1), TimeUnit.Days)
+            });
+            UpdateContext({
+                _nextLastDayInView: 
+                DateAdd(_nextFirstDayInView, 41, TimeUnit.Days)
+            });
+        
             Collect(
                 locColPersonalLeave,
                 Filter(                         //Lấy tất cả các lần phép có khoảng ngày trong view calendar hiện tại
                     'ASTakeLeave.LeaveRequest', 
                     userID = gblRecUser.userID, 
-                    startDateValue >= Value(Day(_firstDayInView) & Month(_firstDayInView) & Year(_firstDayInView)),
-                    endDateValue <= Value(Day(_lastDayInView) & Month(_lastDayInView) & Year(_lastDayInView)) 
-                )  
+                    startDateValue >= Value(
+                                            Day(_previousFirstDayInView) &
+                                            Month(_previousFirstDayInView) &
+                                            Year(_previousFirstDayInView)
+                                        ) &&
+                    endDateValue >= Value(
+                                            Day(_nextLastDayInView) &
+                                            Month(_nextLastDayInView) &
+                                            Year(_nextLastDayInView)
+                                        )
+                )
             );
         
             Collect(    //Lưu khoảng ngày hiện tại
@@ -385,7 +416,7 @@
                             ),
                             Filter(
                                 locColPersonalLeave, 
-                                startDate = _dateSelected
+                                startDate >= _dateSelected && endDate <= _dateSelected
                             )
                         )
                     Layout: =Layout.Vertical
@@ -503,13 +534,36 @@
                                 _firstDayInView < Min(locColExistCalendarView, firstDayInView),
                                 _firstDayInView > Max(locColExistCalendarView, firstDayInView)
                             ),
+                        
+                            //Tính firstDayInView và lastDayInView cho tháng sau
+                            UpdateContext({
+                                _previousFirstDayOfMonth:
+                                DateAdd(_firstDayOfMonth, 1, TimeUnit.Months)
+                            });
+                            UpdateContext({
+                                _previousFirstDayInView: 
+                                DateAdd(_previousFirstDayOfMonth, -(Weekday(_previousFirstDayOfMonth) - 2 + 1), TimeUnit.Days)
+                            });
+                            UpdateContext({
+                                _previousLastDayInView: 
+                                DateAdd(_previousFirstDayInView, 41, TimeUnit.Days)
+                            });
+                        
                              Collect(
                                 locColPersonalLeave,
                                 Filter(                         //Lấy tất cả các lần phép có khoảng ngày trong view calendar hiện tại
                                     'ASTakeLeave.LeaveRequest', 
                                     userID = gblRecUser.userID, 
-                                    startDateValue >= Value(Day(_firstDayInView) & Month(_firstDayInView) & Year(_firstDayInView)),
-                                    endDateValue <= Value(Day(_lastDayInView) & Month(_lastDayInView) & Year(_lastDayInView)) 
+                                    startDateValue >= Value(
+                                                        Day(_previousFirstDayInView) & 
+                                                        Month(_previousFirstDayInView) & 
+                                                        Year(_previousFirstDayInView)
+                                                        ),
+                                    endDateValue <= Value(
+                                                        Day(_previousLastDayInView) & 
+                                                        Month(_previousLastDayInView) & 
+                                                        Year(_previousLastDayInView)
+                                                        ) 
                                 )  
                             );
                         
@@ -529,7 +583,7 @@
                     Image: =Triangle_Right
                     LayoutMinHeight: =0
                     OnSelect: |
-                        =/*changes month view to previous month*/
+                        =/*changes month view to next month*/
                         UpdateContext({_firstDayOfMonth: DateAdd(_firstDayOfMonth, 1, TimeUnit.Months)});
                         UpdateContext({_firstDayInView: DateAdd(_firstDayOfMonth, -(Weekday(_firstDayOfMonth) - 2 + 1), TimeUnit.Days)});
                         UpdateContext({_lastDayInView: DateAdd(_firstDayInView, 41, TimeUnit.Days)});
@@ -539,16 +593,39 @@
                         //Thêm record vào danh sách phép hiện tại nếu tháng này chưa có
                         If(
                             Or(
-                                _firstDayInView < Min(locColExistCalendarView, firstDayInView),
+                                _firstDayInView < Min(locColExistCalendarView, firstDayInView), //check xem có firstDayInView tháng này trong list không
                                 _firstDayInView > Max(locColExistCalendarView, firstDayInView)
                             ),
+                        
+                            //Tính firstDayInView và lastDayInView cho tháng sau
+                            UpdateContext({
+                                _nextFirstDayOfMonth:
+                                DateAdd(_firstDayOfMonth, 1, TimeUnit.Months)
+                            });
+                            UpdateContext({
+                                _nextFirstDayInView: 
+                                DateAdd(_nextFirstDayOfMonth, -(Weekday(_nextFirstDayOfMonth) - 2 + 1), TimeUnit.Days)
+                            });
+                            UpdateContext({
+                                _nextLastDayInView: 
+                                DateAdd(_nextFirstDayInView, 41, TimeUnit.Days)
+                            });
+                        
                              Collect(
                                 locColPersonalLeave,
                                 Filter(                         //Lấy tất cả các lần phép có khoảng ngày trong view calendar hiện tại
                                     'ASTakeLeave.LeaveRequest', 
                                     userID = gblRecUser.userID, 
-                                    startDateValue >= Value(Day(_firstDayInView) & Month(_firstDayInView) & Year(_firstDayInView)),
-                                    endDateValue <= Value(Day(_lastDayInView) & Month(_lastDayInView) & Year(_lastDayInView)) 
+                                    startDateValue >= Value(
+                                                        Day(_nextFirstDayInView) & 
+                                                        Month(_nextFirstDayInView) & 
+                                                        Year(_nextFirstDayInView)
+                                                        ),
+                                    endDateValue <= Value(
+                                                        Day(_nextLastDayInView) & 
+                                                        Month(_nextLastDayInView) & 
+                                                        Year(_nextLastDayInView)
+                                                        ) 
                                 )  
                             );
                         
@@ -905,17 +982,4 @@
                     Text: =User().Email
                     Wrap: =false
                     ZIndex: =2
-
-    ButtonCanvas1 As Button:
-        DisplayMode: =DisplayMode.Edit
-        Height: =32
-        OnSelect: |-
-            =Set(
-                    gblRecPersonalTotalDayOff,
-                    LookUp('ASTakeLeave.TotalDayOffInYear', userID = gblRecUser.userID && active = 1)
-                )
-        Width: =96
-        X: =461
-        Y: =36
-        ZIndex: =25
 
