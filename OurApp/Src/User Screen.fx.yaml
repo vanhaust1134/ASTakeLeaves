@@ -1173,7 +1173,7 @@
         drp_us_Manager As dropdown:
             BorderColor: =RGBA(116, 116, 116, 1)
             BorderThickness: =1
-            Items: =Filter(gblColAllUser,active = 1 And roleID = 2)
+            Items: =Filter(gblColAllUser,active = 1 And roleID = 2 And userID <> locUser.userID)
             Visible: =If(drp_us_Roles_1.Selected.ID = 1 Or drp_us_Roles_1.Selected.ID = 5,true,false)
             X: =548
             Y: =602
@@ -1647,9 +1647,9 @@
             DefaultSelectedItems: =LookUp(gblColAllUser,userID = LookUp(gblColManagerByUser,approveUserID = locUser.userID).approveUserID)
             DisplayFields: =["fullName"]
             InputTextPlaceholder: ="Chọn quản lý trực tiếp"
-            Items: =Filter(gblColAllUser,active = 1 And roleID = 2)
+            Items: =Filter(gblColAllUser,active = 1 And roleID = 2 And userID <> locUser.userID)
             SearchFields: =["email"]
-            SearchItems: =Search(Filter(gblColAllUser,active = 1 And roleID = 2),cbo_us_Manager_2.SearchText,"email")
+            SearchItems: =Search(Filter(gblColAllUser,active = 1 And roleID = 2 And userID <> locUser.userID),cbo_us_Manager_2.SearchText,"email")
             SelectMultiple: =false
             Visible: =If(drp_us_Roles_2.Selected.ID = 1 Or drp_us_Roles_2.Selected.ID = 5,true,false)
             X: =548
@@ -1659,12 +1659,12 @@
         cbo_us_Line_4 As combobox:
             BorderColor: =RGBA(116, 116, 116, 1)
             BorderThickness: =1
-            DefaultSelectedItems: =LookUp(gblColDivision,ID = locUser.divisionID)
+            DefaultSelectedItems: =LookUp(gblColDivision,ID = locUser.divisionID And name <> "Tất cả")
             DisplayFields: =["name"]
             InputTextPlaceholder: ="Chọn khối"
-            Items: =Filter(gblColDivision,active = 1)
+            Items: =Filter(gblColDivision,active = 1 And name <> "Tất cả")
             SearchFields: =["directorUserID"]
-            SearchItems: =Search(Filter(gblColDivision,active = 1),cbo_us_Line_4.SearchText,"directorUserID")
+            SearchItems: =Search(Filter(gblColDivision,active = 1 And name <> "Tất cả"),cbo_us_Line_4.SearchText,"directorUserID")
             SelectMultiple: =false
             Width: =260
             X: =549
