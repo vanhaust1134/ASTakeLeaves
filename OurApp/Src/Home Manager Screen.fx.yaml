@@ -1,11 +1,115 @@
 "'Home Manager Screen' As screen":
     Fill: =RGBA(224,224,224,1)
-    OnVisible: |-
-        =Set(_dateSelected, Today());
-        Set(_firstDayOfMonth, DateAdd(Today(), 1 - Day(Today()), TimeUnit.Days));
-        Set(_firstDayInView, DateAdd(_firstDayOfMonth, -(Weekday(_firstDayOfMonth) - 2 + 1), TimeUnit.Days));
-        Set(_lastDayOfMonth, DateAdd(DateAdd(_firstDayOfMonth, 1, TimeUnit.Months), -1, TimeUnit.Days));
-        Set(gblMenuFunctionSelected,1)
+    OnVisible: |+
+        =//Calendar setting, default của powerapps
+        //UpdateContext({_dateSelected: Today()});
+        UpdateContext({_firstDayOfMonth: DateAdd(Today(), 1 - Day(Today()), TimeUnit.Days)});
+        UpdateContext({_firstDayInView: DateAdd(_firstDayOfMonth, -(Weekday(_firstDayOfMonth) - 2 + 1), TimeUnit.Days)});
+        UpdateContext({_lastDayInView: DateAdd(_firstDayInView, 41, TimeUnit.Days)});
+        UpdateContext({_lastDayOfMonth: DateAdd(DateAdd(_firstDayOfMonth, 1, TimeUnit.Months), -1, TimeUnit.Days)});
+        UpdateContext({locNumCurrentMonth: Month(_firstDayOfMonth)});
+        Set(gblMenuFunctionSelected,1);
+        
+        //Lấy tất cả ngày phép trong 3 tháng xuống (trước 1 tháng, hiện tại, sau 1 tháng)
+        If(
+            IsEmpty(locColUserBelongLeave),       //Nếu là lần đầu
+        
+            //Tính firstDayInView cho tháng trước và lastDayInView cho tháng sau
+            UpdateContext({
+                _previousFirstDayOfMonth:
+                DateAdd(_firstDayOfMonth, -1, TimeUnit.Months)
+            });
+            UpdateContext({
+                _previousFirstDayInView: 
+                DateAdd(_previousFirstDayOfMonth, -(Weekday(_previousFirstDayOfMonth) - 2 + 1), TimeUnit.Days)
+            });
+            UpdateContext({
+                _nextFirstDayOfMonth:
+                DateAdd(_firstDayOfMonth, 1, TimeUnit.Months)
+            });
+            UpdateContext({
+                _nextFirstDayInView: 
+                DateAdd(_nextFirstDayOfMonth, -(Weekday(_nextFirstDayOfMonth) - 2 + 1), TimeUnit.Days)
+            });
+            UpdateContext({
+                _nextLastDayInView: 
+                DateAdd(_nextFirstDayInView, 41, TimeUnit.Days)
+            });
+        
+            //Lấy tất cả các lần phép của các user trong phòng/khối theo role
+            Collect(
+                locColDivisionLeave,
+                Filter(                         //Lấy tất cả các lần phép có khoảng ngày trong view calendar hiện tại
+                    'ASTakeLeave.LeaveRequest', 
+                    Switch(
+                        gblRecUser.roleID,
+                        
+                        2,
+                        departmentID = gblRecUser.departmentID
+                    ), 
+                    startDateValue >= Value(
+                                            Day(_previousFirstDayInView) &
+                                            Month(_previousFirstDayInView) &
+                                            Year(_previousFirstDayInView)
+                                        ) &&
+                    endDateValue >= Value(
+                                            Day(_nextLastDayInView) &
+                                            Month(_nextLastDayInView) &
+                                            Year(_nextLastDayInView)
+                                        )
+                )
+            );
+        
+            Collect(
+                locColUserBelongLeave,
+                Filter(                         //Lấy tất cả các lần phép có khoảng ngày trong view calendar hiện tại
+                    'ASTakeLeave.LeaveRequest', 
+                    userID exactin gblColUserBelong[@userID], 
+                    startDateValue >= Value(
+                                            Day(_previousFirstDayInView) &
+                                            Month(_previousFirstDayInView) &
+                                            Year(_previousFirstDayInView)
+                                        ) &&
+                    endDateValue >= Value(
+                                            Day(_nextLastDayInView) &
+                                            Month(_nextLastDayInView) &
+                                            Year(_nextLastDayInView)
+                                        )
+                )
+            );
+        
+            Collect(    //Lưu khoảng ngày hiện tại
+                locColExistCalendarViewManager,
+                {
+                    firstDayInView: _firstDayInView
+                }
+            )
+        );
+        
+        //Lấy thống kê phép cá nhân trong năm
+        If(
+            IsBlank(gblRecPersonalTotalDayOff),
+            Set(
+                gblRecPersonalTotalDayOff,
+                LookUp('ASTakeLeave.TotalDayOffInYear', userID = gblRecUser.userID && active = 1)
+            )
+        );
+        
+        /*If(
+            IsEmpty(locColPersonalCalendar),   //Nếu là lần đầu
+            ForAll(
+                Sequence(41, 0) As temp,
+                Collect(
+                    locColPersonalCalendar,
+                    {
+                        Date: DateAdd(_firstDayInView, temp.Value, TimeUnit.Days)
+                        
+                    }
+                )
+            )
+        );*/
+        
+        
 
     btn_hs_BackGroundScreen_1 As button:
         BorderStyle: =BorderStyle.None
