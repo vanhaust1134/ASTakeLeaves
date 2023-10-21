@@ -65,7 +65,7 @@
                     DateDiff(
                         Today(),
                         dtp_rs_StartDay.SelectedDate
-                    ) < 7,
+                    ) + 1 < 7,
                     UpdateContext({locShowErrorDate: "Phải tạo trước ít nhất 7 ngày làm việc"}),
                     UpdateContext({locShowErrorDate: "Ngày tạo hợp lệ"})
                 ),
@@ -78,7 +78,7 @@
                     DateDiff(
                         Today(),
                         dtp_rs_StartDay.SelectedDate
-                    ) < 14,
+                    ) + 1 < 14,
                     UpdateContext({locShowErrorDate: "Phải tạo trước ít nhất 14 ngày làm việc"}),
                     UpdateContext({locShowErrorDate: "Ngày tạo hợp lệ"})
                 )
@@ -494,7 +494,7 @@
                                             DateDiff(
                                                 Today(),
                                                 dtp_rs_StartDay.SelectedDate
-                                            ) + 1 < 7,
+                                            ) +1 < 7,
                                             UpdateContext({locShowErrorDate: "Phải tạo trước ít nhất 7 ngày làm việc"}),
                                             UpdateContext({locShowErrorDate: "Ngày tạo hợp lệ"})
                                         ),
@@ -707,7 +707,7 @@
                                             DateDiff(
                                                 Today(),
                                                 dtp_rs_StartDay.SelectedDate
-                                            ) < 7,
+                                            ) + 1 < 7,
                                             UpdateContext({locShowErrorDate: "Phải tạo trước ít nhất 7 ngày làm việc"}),
                                             UpdateContext({locShowErrorDate: "Ngày tạo hợp lệ"})
                                         ),
@@ -720,7 +720,7 @@
                                             DateDiff(
                                                 Today(),
                                                 dtp_rs_StartDay.SelectedDate
-                                            ) < 14,
+                                            ) + 1< 14,
                                             UpdateContext({locShowErrorDate: "Phải tạo trước ít nhất 14 ngày làm việc"}),
                                             UpdateContext({locShowErrorDate: "Ngày tạo hợp lệ"})
                                         )
@@ -885,7 +885,7 @@
                         DelayItemLoading: =true
                         FillPortions: =0
                         Height: =100
-                        Items: =colDateRange
+                        Items: =If(dtp_rs_StartDay.SelectedDate = dtp_rs_FinishDay.SelectedDate,Filter(colDateRange,ID = 1),colDateRange)
                         LayoutMinHeight: =287
                         LayoutMinWidth: =320
                         LoadingSpinner: =LoadingSpinner.Data
@@ -1105,6 +1105,7 @@
                             Items: =gblColAllUser365
                             SearchFields: =["Claims"]
                             SearchItems: =Search(gblColAllUser365,drp_rs_HandOver.SearchText,"Claims")
+                            SelectMultiple: =false
                             Template: =ListItemTemplate.Person
                             ZIndex: =3
 
@@ -1136,57 +1137,54 @@
                         LayoutMinWidth: =400
                         ZIndex: =4
 
-                        Attachments_DataCard2 As typedDataCard.attachmentsEditCard:
+                        Attachments_DataCard3 As typedDataCard.attachmentsEditCard:
                             BorderStyle: =BorderStyle.Solid
                             DataField: ="Đính kèm"
                             Default: =ThisItem.Attachments
                             DisplayMode: =Parent.DisplayMode
                             DisplayName: ="Đính kèm"
                             Fill: =RGBA(0, 0, 0, 0)
-                            Height: =208
+                            Height: =100
                             Required: =false
-                            Update: =DataCardValue5.Attachments
+                            Update: =DataCardValue2.Attachments
                             Width: =498
                             X: =0
                             Y: =0
-                            ZIndex: =4
+                            ZIndex: =1
 
-                            DataCardKey6 As label:
+                            DataCardKey2 As label:
                                 AutoHeight: =true
                                 Color: =RGBA(94, 94, 94, 1)
                                 FontWeight: =FontWeight.Semibold
                                 Height: =34
                                 Size: =15
                                 Text: =Parent.DisplayName
-                                Width: =Parent.Width - 60
+                                Width: =146
                                 Wrap: =false
-                                X: =2
-                                Y: =10
+                                X: =1
+                                Y: =3
                                 ZIndex: =1
 
-                            DataCardValue5 As attachments:
-                                AddAttachmentText: ="Đính kèm"
-                                BorderColor: |-
-                                    =//If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
-                                    RGBA(0, 0, 0, 1)
+                            DataCardValue2 As attachments:
+                                AddAttachmentText: ="Nhấn để thêm file"
+                                BorderColor: =RGBA(0, 0, 0, 1)
                                 BorderThickness: =1
-                                DisabledColor: =RGBA(0, 0, 0, 1)
-                                DisabledFill: =RGBA(255, 255, 255, 1)
+                                DisplayMode: =Parent.DisplayMode
                                 Height: =103
                                 IsInDataCard: =true
                                 Items: =Parent.Default
-                                NoAttachmentsText: ="Không có tệp nào."
+                                MaxAttachmentsText: ="Số lượng file đạt tối đa."
+                                NoAttachmentsText: ="Không có tệp được đính kèm."
                                 PaddingBottom: =5
                                 PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
                                 PaddingRight: =5
                                 PaddingTop: =5
                                 Tooltip: =Parent.DisplayName
-                                Width: =495
-                                X: =2
-                                Y: =DataCardKey6.Y + DataCardKey6.Height + 5
+                                Width: =497
+                                Y: =DataCardKey2.Y + DataCardKey2.Height + 5
                                 ZIndex: =2
 
-                            ErrorMessage6 As label:
+                            ErrorMessage2 As label:
                                 AutoHeight: =true
                                 Height: =10
                                 Live: =Live.Assertive
@@ -1198,17 +1196,17 @@
                                 Visible: =Parent.DisplayMode=DisplayMode.Edit
                                 Width: =Parent.Width - 60
                                 X: =30
-                                Y: =DataCardValue5.Y + DataCardValue5.Height
+                                Y: =DataCardValue2.Y + DataCardValue2.Height
                                 ZIndex: =3
 
-                            StarVisible6 As label:
+                            StarVisible2 As label:
                                 Align: =Align.Center
-                                Height: =DataCardKey6.Height
+                                Height: =DataCardKey2.Height
                                 Text: ="*"
                                 Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
                                 Width: =30
                                 Wrap: =false
-                                Y: =DataCardKey6.Y
+                                Y: =DataCardKey2.Y
                                 ZIndex: =4
 
                 btn_rs_Submit As button:
@@ -1219,6 +1217,12 @@
                             IsBlank(txt_rs_Detail.Text),
                             Notify(
                                 "Trường chi tiết nghỉ phép không được bỏ trống",
+                                NotificationType.Error,
+                                1500
+                            ),
+                            Sum(colTotalListDateRange,Total) = 0,
+                            Notify(
+                                "Ngày nghỉ phải lớn hơn hoặc bằng 1 ngày",
                                 NotificationType.Error,
                                 1500
                             ),
@@ -1718,7 +1722,9 @@
                         handOverContent:txt_rs_HandOverContent.Text,
                         currentApproveLevel:1,
                         maxApproveLevel:If(gblRecUser.roleID = 2 And Sum(colTotalListDateRange,Total) <= 12,1,gblRecUser.roleID = 2 And Sum(colTotalListDateRange,Total) >= 12,2,gblRecUser.roleID = 1 And Sum(colTotalListDateRange,Total) <= 12,2,gblRecUser.roleID = 1 And Sum(colTotalListDateRange,Total) > 12,3),
-                        status:1
+                        status:1,
+                        createDayValue:Value(Day(Today()) & Month(Today()) & Year(Today())),
+                        totalLeaveDays:locTotalDayLeave
                     },
                     Form2.Updates
                 );
@@ -1727,6 +1733,7 @@
                     NotificationType.Success,
                     1500
                 );
+                Reset(drp_rs_Reason);Reset(txt_rs_Detail);Reset(dtp_rs_StartDay);Reset(dtp_rs_FinishDay);Reset(drp_rs_HandOver);Reset(txt_rs_HandOverContent);ResetForm(Form2);
                 UpdateContext({locSubmit: false})
             PressedColor: =RGBA(255,255,255,1)
             PressedFill: =Self.Fill
