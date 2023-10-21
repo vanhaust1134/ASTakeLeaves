@@ -51,6 +51,7 @@
       "Title": "Title",
       "totalDayOff": "totalDayOff",
       "totalDayUnpaid": "totalDayUnpaid",
+      "totalLeaveDays": "totalLeaveDays",
       "userID": "userID"
     },
     "DatasetName": "https://bhktechcorp.sharepoint.com/sites/Dev-Powerapp",
