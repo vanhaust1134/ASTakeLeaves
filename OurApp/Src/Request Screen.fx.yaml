@@ -3,7 +3,7 @@
     OnHidden: =
     OnVisible: |-
         =//Tạo collect chứa gồm 2 ngày bắt đầu và kết thúc của kì nghỉ
-        ClearCollect(colDateRange,Table({ID:1,Date:dtp_rs_StartDay.SelectedDate,Status:1},{ID:2,Date:dtp_rs_FinishDay.SelectedDate,Status:1}));
+        ClearCollect(colDateRange,Table({ID:1,Date:dtp_rs_StartDay.SelectedDate,Status:1,WeekDay:Weekday(dtp_rs_StartDay.SelectedDate)},{ID:2,Date:dtp_rs_FinishDay.SelectedDate,Status:1,WeekDay:Weekday(dtp_rs_FinishDay.SelectedDate)}));
         
         UpdateContext({locRequestDayLeaveReverse:false});
         
@@ -327,7 +327,7 @@
                                         colDateRange,
                                         ID = 1
                                     ),
-                                    {Date: dtp_rs_StartDay.SelectedDate}
+                                    {Date: dtp_rs_StartDay.SelectedDate,WeekDay:Weekday(dtp_rs_StartDay.SelectedDate)}
                                 );
                                 If(
                                     locRequestDayLeaveReverse = false,
@@ -424,7 +424,7 @@
                                         colDateRange,
                                         ID = 2
                                     ),
-                                    {Date: dtp_rs_FinishDay.SelectedDate}
+                                    {Date: dtp_rs_FinishDay.SelectedDate,WeekDay:Weekday(dtp_rs_FinishDay.SelectedDate)}
                                 );
                                 If(
                                     locRequestDayLeaveReverse = false,
@@ -521,35 +521,38 @@
                         LayoutMinWidth: =320
                         LoadingSpinner: =LoadingSpinner.Data
                         ShowScrollbar: =false
-                        TemplateSize: =120
+                        TemplateSize: =150
                         ZIndex: =4
 
                         Button9 As button:
                             BorderThickness: =1
+                            Color: =
                             DisabledColor: =RGBA(255, 255, 255, 1)
                             DisabledFill: =RGBA(73, 113, 215, 1)
                             DisplayMode: =DisplayMode.Disabled
                             FontWeight: =FontWeight.Bold
                             Height: =90
                             OnSelect: =Select(Parent)
-                            PaddingBottom: =If(Last(colDateRange).Date = ThisItem.Date Or First(colDateRange).Date = ThisItem.Date,55,0)
+                            PaddingBottom: =If(ThisItem.WeekDay = 1,0,55)
                             RadiusBottomLeft: =5
                             RadiusBottomRight: =5
                             RadiusTopLeft: =5
                             RadiusTopRight: =5
                             Size: =12
-                            Text: =//LookUp(gblColWeekDay,active = 1 And sort = Weekday(DateValue(Text(this)))).status = 1
-                            Width: =120
+                            Text: =ThisItem.Date
+                            Width: =147
                             ZIndex: =1
 
                         Dropdown1 As dropdown:
                             BorderColor: =Color.White
                             BorderThickness: =1
+                            Default: |-
+                                =If(LookUp(gblColWeekDay,active = 1 And sort = ThisItem.WeekDay).status = 1,LookUp(Table({ID:1,Name:"Cả ngày"},{ID:2,Name:"Nửa sáng"},{ID:3,Name:"Nửa chiều"}),ID = ThisItem.Status).Name,LookUp(gblColWeekDay,active = 1 And sort = ThisItem.WeekDay).status = 2,LookUp(Table({ID:1,Name:"Nửa sáng"},{ID:2,Name:"Nửa chiều"}),ID = ThisItem.Status).Name)
                             DisabledColor: =RGBA(0, 0, 0, 1)
                             DisabledFill: =RGBA(255, 255, 255, 1)
                             Height: =31
                             Items: |-
-                                =If(LookUp(gblColWeekDay,active = 1 And sort = Weekday(DateValue(Text(ThisItem.Date,"dd/mm/yyyy")))).status = 1,Table({ID:1,Name:"Cả ngày"},{ID:2,Name:"Nửa sáng"},{ID:3,Name:"Nửa chiều"}),LookUp(gblColWeekDay,active = 1 And sort = Weekday(ThisItem.Date)).status = 2,Table({ID:1,Name:"Nửa sáng"}))
+                                =If(LookUp(gblColWeekDay,active = 1 And sort = ThisItem.WeekDay).status = 1,Table({ID:1,Name:"Cả ngày"},{ID:2,Name:"Nửa sáng"},{ID:3,Name:"Nửa chiều"}),LookUp(gblColWeekDay,active = 1 And sort = ThisItem.WeekDay).status = 2,Table({ID:1,Name:"Nửa sáng"},{ID:2,Name:"Nửa chiều"}))
                             OnChange: |-
                                 =Patch(colDateRange,LookUp(colDateRange,ID = ThisItem.ID),{Status:Dropdown1.Selected.ID})
                             OnSelect: =Select(Parent)
@@ -558,7 +561,8 @@
                             PaddingRight: =5
                             PaddingTop: =5
                             Size: =12
-                            Width: =110
+                            Visible: =If(ThisItem.WeekDay = 1,false,true)
+                            Width: =137
                             X: =5
                             Y: =47
                             ZIndex: =2
