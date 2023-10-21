@@ -2,7 +2,7 @@ App As appinfo:
     BackEnabled: =false
     OnStart: |
         =//Lấy tất cả user và role về
-        //role: 1 employee, 2 quản lý trực tiếp, 3 giàm đốc khối, 4 giám đốc điều hành, 5 HR/C&B, 7 admin
+        //role: 1 employee, 2 quản lý trực tiếp, 3 giàm đốc khối, 4 giám đốc điều hành, 5 HR/C&B, 6 admin , 7 trưởng HR
         Collect(
             gblColAllUser,
             AddColumns(

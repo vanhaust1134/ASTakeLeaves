@@ -5,7 +5,7 @@
         If(CountRows(Filter(gblColDepartment,name = "Tất cả")) = 0,Collect(gblColDepartment,Table({name:"Tất cả"})));
         
         //Thêm trường phòng ban và tên người dùng vào bảng ngày phép
-        ClearCollect(gblColDayOff,AddColumns('ASTakeLeave.TotalDayOffInYear' As Temp,"userName",LookUp('ASTakeLeave.Users',userID = Temp.userID).fullName,"deparmentName",LookUp('ASTakeLeave.Users',userID = Temp.userID).departmentID));
+        ClearCollect(gblColDayOff,AddColumns('ASTakeLeave.TotalDayOffInYear' As Temp,"userName",LookUp(gblColAllUser,active = 1 And userID = Temp.userID).fullName,"deparmentName",LookUp(gblColAllUser,active = 1 And userID = Temp.userID).departmentID));
         Set(gblMenuFunctionSelected,1)
 
     btn_lds_BackGroundScreen As button:
@@ -85,7 +85,7 @@
                 Fill: =RGBA(255, 255, 255, 1)
                 Height: =652
                 Items: |-
-                    =If(gblRecUser.roleID = 1,Table({ID:1,Image:Home,Title:"Trang chủ",Navigate:'Home User Screen'},{ID:2,Image:Analytics,Title:"Báo cáo",Navigate:'Statistical User Screen'}),Or(gblRecUser.roleID = 2,gblRecUser.roleID = 3,gblRecUser.roleID = 4),Table({ID:1,Image:Home,Title:"Trang chủ",Navigate:'Home Manager Screen'},{ID:2,Image:'Admin Settings Male',Title:"Phê duyệt",Navigate:'Approve Screen'},{ID:3,Image:Analytics,Title:"Báo cáo",Navigate:'Statistical Manager Screen'}),gblRecUser.roleID = 5,Table({ID:1,Image:Home,Title:"Trang chủ",Navigate:'Home Manager Screen'},{ID:2,Image:'Admin Settings Male',Title:"Phê duyệt",Navigate:'Approve Screen'},{ID:3,Image:'Data Recovery',Title:"Thiết lập",Navigate:'User Screen'},{ID:4,Image:Analytics,Title:"Báo cáo",Navigate:'Statistical Manager Screen'}),gblRecUser.roleID = 6,Table({ID:1,Image:'Data Recovery',Title:"Thiết lập",Navigate:'User Screen'}))
+                    =If(gblRecUser.roleID = 1,Table({ID:1,Image:Home,Title:"Trang chủ",Navigate:'Home User Screen'},{ID:2,Image:Analytics,Title:"Báo cáo",Navigate:'Statistical User Screen'}),Or(gblRecUser.roleID = 2,gblRecUser.roleID = 3,gblRecUser.roleID = 4),Table({ID:1,Image:Home,Title:"Trang chủ",Navigate:'Home Manager Screen'},{ID:2,Image:'Admin Settings Male',Title:"Phê duyệt",Navigate:'Approve Screen'},{ID:3,Image:Analytics,Title:"Báo cáo",Navigate:'Statistical Manager Screen'}),gblRecUser.roleID = 5 Or gblRecUser.roleID = 7,Table({ID:1,Image:Home,Title:"Trang chủ",Navigate:'Home Manager Screen'},{ID:2,Image:'Data Recovery',Title:"Thiết lập",Navigate:'User Screen'},{ID:3,Image:Analytics,Title:"Báo cáo",Navigate:'Statistical Manager Screen'}),gblRecUser.roleID = 6,Table({ID:1,Image:'Data Recovery',Title:"Thiết lập",Navigate:'User Screen'}))
                 Layout: =Layout.Vertical
                 LayoutMinHeight: =287
                 LayoutMinWidth: =0
@@ -328,7 +328,6 @@
                     lbl_lds_Division As label:
                         AlignInContainer: =AlignInContainer.Center
                         Color: =RGBA(47, 47, 47, 1)
-                        FillPortions: =1
                         FontWeight: =FontWeight.Bold
                         Text: ="Phòng"
                         ZIndex: =2
@@ -408,7 +407,7 @@
                             FillPortions: =1
                             FontWeight: =FontWeight.Semibold
                             LayoutMinHeight: =30
-                            Text: =LookUp(gblColDepartment,ID = LookUp(gblColUser,userID = ThisItem.userID).departmentID).name
+                            Text: =LookUp(gblColDepartment,active = 1 And ID = ThisItem.deparmentName).name
                             Wrap: =false
                             ZIndex: =2
 
