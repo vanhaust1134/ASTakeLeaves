@@ -94,11 +94,10 @@
             ZIndex: =3
 
             gal_NavigationMenu_6 As gallery.galleryVertical:
-                DelayItemLoading: =true
                 Fill: =RGBA(255, 255, 255, 1)
                 Height: =652
                 Items: |-
-                    =If(gblRecUser.roleID = 1,Table({ID:1,Image:Home,Title:"Trang chủ",Navigate:'Home User Screen'},{ID:2,Image:Analytics,Title:"Báo cáo",Navigate:'Statistical User Screen'}),Or(gblRecUser.roleID = 2,gblRecUser.roleID = 3,gblRecUser.roleID = 4),Table({ID:1,Image:Home,Title:"Trang chủ",Navigate:'Home Manager Screen'},{ID:2,Image:'Admin Settings Male',Title:"Phê duyệt",Navigate:'Approve Screen'},{ID:3,Image:Analytics,Title:"Báo cáo",Navigate:'Statistical Manager Screen'}),gblRecUser.roleID = 5,Table({ID:1,Image:Home,Title:"Trang chủ",Navigate:'Home Manager Screen'},{ID:2,Image:'Admin Settings Male',Title:"Phê duyệt",Navigate:'Approve Screen'},{ID:3,Image:'Data Recovery',Title:"Thiết lập",Navigate:'User Screen'},{ID:4,Image:Analytics,Title:"Báo cáo",Navigate:'Statistical Manager Screen'}),gblRecUser.roleID = 6,Table({ID:1,Image:'Data Recovery',Title:"Thiết lập",Navigate:'User Screen'}))
+                    =If(gblRecUser.roleID = 1,Table({ID:1,Image:Home,Title:"Trang chủ",Navigate:'Home User Screen'},{ID:2,Image:Analytics,Title:"Báo cáo",Navigate:'Statistical User Screen'}),Or(gblRecUser.roleID = 2,gblRecUser.roleID = 3,gblRecUser.roleID = 4),Table({ID:1,Image:Home,Title:"Trang chủ",Navigate:'Home Manager Screen'},{ID:2,Image:'Admin Settings Male',Title:"Phê duyệt",Navigate:'Approve Screen'},{ID:3,Image:Analytics,Title:"Báo cáo",Navigate:'Statistical Manager Screen'}),gblRecUser.roleID = 5 Or gblRecUser.roleID = 7,Table({ID:1,Image:Home,Title:"Trang chủ",Navigate:'Home Manager Screen'},{ID:2,Image:'Data Recovery',Title:"Thiết lập",Navigate:'User Screen'},{ID:3,Image:Analytics,Title:"Báo cáo",Navigate:'Statistical Manager Screen'}),gblRecUser.roleID = 6,Table({ID:1,Image:'Data Recovery',Title:"Thiết lập",Navigate:'User Screen'}))
                 Layout: =Layout.Vertical
                 LayoutMinHeight: =287
                 LayoutMinWidth: =0
@@ -782,6 +781,7 @@
                         LookUp('ASTakeLeave.Users_Roles', userID = temp.userID).roleID
                     )
                 );
+                Patch('ASTakeLeave.CommonRelationship',LookUp('ASTakeLeave.CommonRelationship',userID = locUser.userID),{userID:Blank()});
                 //Lấy bảng quản lý người dùng
                 ClearCollect(gblColManagerByUser,Filter('ASTakeLeave.UserRelationship',active = 1));
                 Notify("Xóa thành công",NotificationType.Success,1500);
@@ -1099,6 +1099,7 @@
             Align: =Align.Right
             FontWeight: =FontWeight.Semibold
             Text: ="Phòng"
+            Visible: =If(drp_us_Roles_1.Selected.ID = 3,false,true)
             Width: =97
             X: =439
             Y: =471
@@ -1109,7 +1110,7 @@
             FontWeight: =FontWeight.Semibold
             Text: ="Roles"
             X: =387
-            Y: =535
+            Y: =If(drp_us_Roles_1.Selected.ID = 3,475,535)
             ZIndex: =13
 
         txt_us_Name_1 As text:
@@ -1137,6 +1138,7 @@
             BorderColor: =RGBA(116, 116, 116, 1)
             BorderThickness: =1
             Items: =Filter(gblColDepartment,divisionID = drp_us_Department_3.Selected.ID And active = 1)
+            Visible: =If(drp_us_Roles_1.Selected.ID = 3,false,true)
             Width: =260
             X: =548
             Y: =471
@@ -1155,9 +1157,9 @@
         drp_us_Roles_1 As dropdown:
             BorderColor: =RGBA(116, 116, 116, 1)
             BorderThickness: =1
-            Items: =Filter(gblColRoles,name <> "Tất cả" And name <> "Giám đốc khối")
+            Items: =Filter(gblColRoles,name <> "Tất cả")
             X: =548
-            Y: =535
+            Y: =If(drp_us_Roles_1.Selected.ID = 3,475,535)
             ZIndex: =19
 
         lbl_us_Roles_3 As label:
@@ -1167,7 +1169,7 @@
             Visible: =If(drp_us_Roles_1.Selected.ID = 1 Or drp_us_Roles_1.Selected.ID = 5,true,false)
             Width: =162
             X: =375
-            Y: =602
+            Y: =If(drp_us_Roles_1.Selected.ID = 3,535,595)
             ZIndex: =20
 
         drp_us_Manager As dropdown:
@@ -1176,7 +1178,7 @@
             Items: =Filter(gblColAllUser,active = 1 And roleID = 2 And userID <> locUser.userID)
             Visible: =If(drp_us_Roles_1.Selected.ID = 1 Or drp_us_Roles_1.Selected.ID = 5,true,false)
             X: =548
-            Y: =602
+            Y: =If(drp_us_Roles_1.Selected.ID = 3,535,595)
             ZIndex: =21
 
         lbl_us_Name_4 As label:
@@ -1415,12 +1417,14 @@
                         'ASTakeLeave.UserRelationship',
                         Defaults('ASTakeLeave.UserRelationship'),
                         {
-                            approveUserID: LookUp(gblColDivision,ID = cbo_us_Department_2.Selected.ID).directorUserID,
+                            approveUserID: LookUp(gblColDivision,ID = cbo_us_Line_4.Selected.ID).directorUserID,
                             userID: txt_us_Name_6.Text,
                             approveProcessLevel: 2,
                             active: 1
                         }
                     );
+                //Cập nhật lại mã nhân viên ngày phép
+                Patch('ASTakeLeave.TotalDayOffInYear',LookUp('ASTakeLeave.TotalDayOffInYear',userID = locUser.userID),{userID:txt_us_Name_6.Text});
                 Notify(
                     "Sửa thành công",
                     NotificationType.Success,
@@ -1530,6 +1534,7 @@
             Align: =Align.Right
             FontWeight: =FontWeight.Semibold
             Text: ="Phòng"
+            Visible: =If(drp_us_Roles_2.Selected.ID = 3,false,true)
             Width: =97
             X: =448
             Y: =471
@@ -1540,7 +1545,7 @@
             FontWeight: =FontWeight.Semibold
             Text: ="Roles"
             X: =387
-            Y: =535
+            Y: =If(drp_us_Roles_2.Selected.ID = 3,475,540)
             ZIndex: =13
 
         txt_us_Name_2 As text:
@@ -1580,7 +1585,7 @@
             Default: =LookUp(gblColRoles,ID = locUser.roleID).name
             Items: =Filter(gblColRoles,name <> "Tất cả")
             X: =548
-            Y: =535
+            Y: =If(drp_us_Roles_2.Selected.ID = 3,475,540)
             ZIndex: =19
 
         lbl_us_Roles_6 As label:
@@ -1590,7 +1595,7 @@
             Visible: =If(drp_us_Roles_2.Selected.ID = 1 Or drp_us_Roles_2.Selected.ID = 5,true,false)
             Width: =162
             X: =375
-            Y: =611
+            Y: =If(drp_us_Roles_2.Selected.ID = 3,555,607)
             ZIndex: =20
 
         lbl_us_Name_5 As label:
@@ -1644,7 +1649,7 @@
         cbo_us_Manager_2 As combobox:
             BorderColor: =RGBA(116, 116, 116, 1)
             BorderThickness: =1
-            DefaultSelectedItems: =LookUp(gblColAllUser,userID = LookUp(gblColManagerByUser,approveUserID = locUser.userID).approveUserID)
+            DefaultSelectedItems: =LookUp(gblColAllUser,active = 1 And userID = LookUp(gblColManagerByUser,userID = locUser.userID).approveUserID)
             DisplayFields: =["fullName"]
             InputTextPlaceholder: ="Chọn quản lý trực tiếp"
             Items: =Filter(gblColAllUser,active = 1 And roleID = 2 And userID <> locUser.userID)
@@ -1653,7 +1658,7 @@
             SelectMultiple: =false
             Visible: =If(drp_us_Roles_2.Selected.ID = 1 Or drp_us_Roles_2.Selected.ID = 5,true,false)
             X: =548
-            Y: =607
+            Y: =If(drp_us_Roles_2.Selected.ID = 3,555,607)
             ZIndex: =27
 
         cbo_us_Line_4 As combobox:
@@ -1681,6 +1686,7 @@
             SearchFields: =["ComplianceAssetId"]
             SearchItems: =Search(Filter(gblColDepartment,divisionID = cbo_us_Line_4.Selected.ID And active = 1 And name <> "Tất cả"),cbo_us_Department_2.SearchText,"ComplianceAssetId")
             SelectMultiple: =false
+            Visible: =If(drp_us_Roles_2.Selected.ID = 3,false,true)
             Width: =260
             X: =551
             Y: =471
@@ -1908,7 +1914,7 @@
             DisabledColor: =RGBA(0, 0, 0, 1)
             DisabledFill: =RGBA(255, 255, 255, 1)
             DisplayMode: =DisplayMode.Disabled
-            Items: =LookUp(gblColAllUser,userID = LookUp(gblColManagerByUser,approveUserID = locUser.userID).approveUserID)
+            Items: =LookUp(gblColAllUser,active = 1 And userID = LookUp(gblColManagerByUser,userID = locUser.userID).approveUserID)
             X: =548
             Y: =602
             ZIndex: =21

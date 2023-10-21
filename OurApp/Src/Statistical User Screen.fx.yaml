@@ -79,7 +79,6 @@
 
             gal_NavigationMenu_11 As gallery.galleryVertical:
                 AlignInContainer: =AlignInContainer.SetByContainer
-                DelayItemLoading: =true
                 Fill: =RGBA(255, 255, 255, 1)
                 Height: =652
                 Items: |-
@@ -101,6 +100,7 @@
                     Image: =ThisItem.Image
                     OnSelect: =Select(Parent)
                     Width: =40
+                    X: =15
                     Y: =10
                     ZIndex: =1
 
@@ -111,6 +111,7 @@
                     OnSelect: =Select(Parent)
                     Text: =ThisItem.Title
                     Width: =117
+                    X: =60
                     Y: =10
                     ZIndex: =2
 
@@ -128,7 +129,8 @@
                     RadiusTopLeft: =0
                     RadiusTopRight: =0
                     Text: =""
-                    Width: =186
+                    Width: =195
+                    X: =-5
                     ZIndex: =3
 
             btn_Exit_12 As button:
