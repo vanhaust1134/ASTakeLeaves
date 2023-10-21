@@ -8419,7 +8419,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "cbo_us_Manager_2",
-      "ParentIndex": 21,
+      "ParentIndex": 20,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -31144,7 +31144,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "lbl_us_Roles_6",
-      "ParentIndex": 20,
+      "ParentIndex": 21,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {

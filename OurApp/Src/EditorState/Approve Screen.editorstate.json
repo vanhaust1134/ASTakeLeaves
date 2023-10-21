@@ -5894,7 +5894,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "ctn_as_Info2",
-      "ParentIndex": 0,
+      "ParentIndex": 1,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -9972,7 +9972,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "img_as_Avatar",
-      "ParentIndex": 1,
+      "ParentIndex": 0,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {

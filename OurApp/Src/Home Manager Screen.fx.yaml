@@ -12,7 +12,7 @@
         
         //Lấy tất cả ngày phép trong 3 tháng xuống (trước 1 tháng, hiện tại, sau 1 tháng)
         If(
-            IsEmpty(locColUserBelongLeave),       //Nếu là lần đầu
+            IsEmpty(locColCalendarTotalLeave),       //Nếu là lần đầu
         
             //Tính firstDayInView cho tháng trước và lastDayInView cho tháng sau
             UpdateContext({
@@ -36,48 +36,9 @@
                 DateAdd(_nextFirstDayInView, 41, TimeUnit.Days)
             });
         
-            //Lấy tất cả các lần phép của các user trong phòng/khối theo role
-            Collect(
-                locColDivisionLeave,
-                Filter(                         //Lấy tất cả các lần phép có khoảng ngày trong view calendar hiện tại
-                    'ASTakeLeave.LeaveRequest', 
-                    Switch(
-                        gblRecUser.roleID,
-                        
-                        2,
-                        departmentID = gblRecUser.departmentID
-                    ), 
-                    startDateValue >= Value(
-                                            Day(_previousFirstDayInView) &
-                                            Month(_previousFirstDayInView) &
-                                            Year(_previousFirstDayInView)
-                                        ) &&
-                    endDateValue >= Value(
-                                            Day(_nextLastDayInView) &
-                                            Month(_nextLastDayInView) &
-                                            Year(_nextLastDayInView)
-                                        )
-                )
-            );
-        
-            Collect(
-                locColUserBelongLeave,
-                Filter(                         //Lấy tất cả các lần phép có khoảng ngày trong view calendar hiện tại
-                    'ASTakeLeave.LeaveRequest', 
-                    userID exactin gblColUserBelong[@userID], 
-                    startDateValue >= Value(
-                                            Day(_previousFirstDayInView) &
-                                            Month(_previousFirstDayInView) &
-                                            Year(_previousFirstDayInView)
-                                        ) &&
-                    endDateValue >= Value(
-                                            Day(_nextLastDayInView) &
-                                            Month(_nextLastDayInView) &
-                                            Year(_nextLastDayInView)
-                                        )
-                )
-            );
-        
+            //Chạy code trong button, tạo các collection phục vụ cho calendar
+            Select(btn_hms_CreateCalendarLeaveCollection);
+            
             Collect(    //Lưu khoảng ngày hiện tại
                 locColExistCalendarViewManager,
                 {
@@ -85,29 +46,6 @@
                 }
             )
         );
-        
-        //Lấy thống kê phép cá nhân trong năm
-        If(
-            IsBlank(gblRecPersonalTotalDayOff),
-            Set(
-                gblRecPersonalTotalDayOff,
-                LookUp('ASTakeLeave.TotalDayOffInYear', userID = gblRecUser.userID && active = 1)
-            )
-        );
-        
-        /*If(
-            IsEmpty(locColPersonalCalendar),   //Nếu là lần đầu
-            ForAll(
-                Sequence(41, 0) As temp,
-                Collect(
-                    locColPersonalCalendar,
-                    {
-                        Date: DateAdd(_firstDayInView, temp.Value, TimeUnit.Days)
-                        
-                    }
-                )
-            )
-        );*/
         
         
 
@@ -327,18 +265,50 @@
                     PaddingRight: =10
                     RadiusBottomLeft: =0
                     RadiusBottomRight: =0
-                    Text: =Text(_dateSelected, DateTimeFormat.LongDate)
+                    Text: =$"Tháng {locNumCurrentMonth} năm {Year(_firstDayOfMonth)}"
                     ZIndex: =1
 
                 img_hms_PreviousMonth As image:
                     AlignInContainer: =AlignInContainer.Stretch
                     Image: =Triangle_Left
                     LayoutMinHeight: =0
-                    OnSelect: |
+                    OnSelect: |-
                         =/*changes month view to previous month*/
-                        Set(_firstDayOfMonth, DateAdd(_firstDayOfMonth, -1, TimeUnit.Months));
-                        Set(_firstDayInView, DateAdd(_firstDayOfMonth, -(Weekday(_firstDayOfMonth) - 2 + 1), TimeUnit.Days));
-                        Set(_lastDayOfMonth, DateAdd(DateAdd(_firstDayOfMonth, 1, TimeUnit.Months), -1, TimeUnit.Days));
+                        UpdateContext({_firstDayOfMonth: DateAdd(_firstDayOfMonth, -1, TimeUnit.Months)});
+                        UpdateContext({_firstDayInView: DateAdd(_firstDayOfMonth, -(Weekday(_firstDayOfMonth) - 2 + 1), TimeUnit.Days)});
+                        UpdateContext({_lastDayInView: DateAdd(_firstDayInView, 41, TimeUnit.Days)});
+                        UpdateContext({_lastDayOfMonth: DateAdd(DateAdd(_firstDayOfMonth, 1, TimeUnit.Months), -1, TimeUnit.Days)});
+                        UpdateContext({locNumCurrentMonth: Month(_firstDayOfMonth)});
+                        
+                        //Thêm record vào danh sách phép hiện tại nếu tháng này chưa có
+                        If(
+                             _firstDayInView < Min(locColExistCalendarView, firstDayInView),
+                        
+                            //Tính firstDayInView và lastDayInView cho tháng sau
+                            UpdateContext({
+                                _previousFirstDayOfMonth:
+                                DateAdd(_firstDayOfMonth, 1, TimeUnit.Months)
+                            });
+                            UpdateContext({
+                                _previousFirstDayInView: 
+                                DateAdd(_previousFirstDayOfMonth, -(Weekday(_previousFirstDayOfMonth) - 2 + 1), TimeUnit.Days)
+                            });
+                            UpdateContext({
+                                _previousLastDayInView: 
+                                DateAdd(_previousFirstDayInView, 41, TimeUnit.Days)
+                            });
+                        
+                            //Chạy code trong button, collect thêm các record cho tháng tiếp theo
+                            Select(btn_hms_CollectLeaveCalendarPreviousMonth);
+                        
+                            Collect(    //Lưu khoảng ngày hiện tại
+                                locColExistCalendarViewManager,
+                                {
+                                    firstDayInView: _firstDayInView
+                                }
+                            )
+                        
+                        );
                     Width: =30
                     ZIndex: =2
 
@@ -347,10 +317,43 @@
                     Image: =Triangle_Right
                     LayoutMinHeight: =0
                     OnSelect: |
-                        =/*changes month view to previous month*/
-                        Set(_firstDayOfMonth, DateAdd(_firstDayOfMonth, -1, TimeUnit.Months));
-                        Set(_firstDayInView, DateAdd(_firstDayOfMonth, -(Weekday(_firstDayOfMonth) - 2 + 1), TimeUnit.Days));
-                        Set(_lastDayOfMonth, DateAdd(DateAdd(_firstDayOfMonth, 1, TimeUnit.Months), -1, TimeUnit.Days));
+                        =/*changes month view to next month*/
+                        UpdateContext({_firstDayOfMonth: DateAdd(_firstDayOfMonth, 1, TimeUnit.Months)});
+                        UpdateContext({_firstDayInView: DateAdd(_firstDayOfMonth, -(Weekday(_firstDayOfMonth) - 2 + 1), TimeUnit.Days)});
+                        UpdateContext({_lastDayInView: DateAdd(_firstDayInView, 41, TimeUnit.Days)});
+                        UpdateContext({_lastDayOfMonth: DateAdd(DateAdd(_firstDayOfMonth, 1, TimeUnit.Months), -1, TimeUnit.Days)});
+                        UpdateContext({locNumCurrentMonth: Month(_firstDayOfMonth)});
+                        
+                        //Thêm record vào danh sách phép hiện tại nếu tháng này chưa có
+                        If(
+                            //check xem có firstDayInView tháng này trong list không
+                            _firstDayInView > Max(locColExistCalendarViewManager, firstDayInView),
+                        
+                            //Tính firstDayInView và lastDayInView cho tháng sau
+                            UpdateContext({
+                                _nextFirstDayOfMonth:
+                                DateAdd(_firstDayOfMonth, 1, TimeUnit.Months)
+                            });
+                            UpdateContext({
+                                _nextFirstDayInView: 
+                                DateAdd(_nextFirstDayOfMonth, -(Weekday(_nextFirstDayOfMonth) - 2 + 1), TimeUnit.Days)
+                            });
+                            UpdateContext({
+                                _nextLastDayInView: 
+                                DateAdd(_nextFirstDayInView, 41, TimeUnit.Days)
+                            });
+                        
+                            //Chạy code trong button, collect thêm các record cho tháng tiếp theo
+                            Select(btn_hms_CollectLeaveCalendarNextMonth);
+                        
+                            Collect(    //Lưu khoảng ngày hiện tại
+                                locColExistCalendarViewManager,
+                                {
+                                    firstDayInView: _firstDayInView
+                                }
+                            )
+                        
+                        );
                     Width: =30
                     ZIndex: =3
 
@@ -538,7 +541,12 @@
                             FocusedBorderThickness: =2
                             FontWeight: =FontWeight.Bold
                             Height: =MonthDayGallery1_13.TemplateHeight
-                            OnSelect: =Set(_dateSelected, DateAdd(_firstDayInView, ThisItem.Value, TimeUnit.Days))
+                            OnSelect: |-
+                                =If(
+                                    DateAdd(_firstDayInView, ThisItem.Value, TimeUnit.Days) = _dateSelected,
+                                    UpdateContext({_dateSelected: Blank()}),
+                                    UpdateContext({_dateSelected: DateAdd(_firstDayInView, ThisItem.Value, TimeUnit.Days)})
+                                )
                             PaddingLeft: =If(Day(DateAdd(_firstDayInView,ThisItem.Value, TimeUnit.Days)) < 10,13,8)
                             TabIndex: =0
                             Text: =Day(DateAdd(_firstDayInView,ThisItem.Value, TimeUnit.Days))
@@ -559,30 +567,29 @@
                             Fill: =RGBA(73, 113, 215, 0.3)
                             Height: =36
                             OnSelect: =Select(Parent)
-                            Visible: =If(ThisItem.Value = 11 Or ThisItem.Value = 24 Or ThisItem.Value = 1,true,false)
+                            Visible: =Value(lb_hms_CalendarLeaveCount.Text) >= 1
                             Width: =37
                             ZIndex: =5
 
-                        Gallery8 As gallery.galleryHorizontal:
-                            DelayItemLoading: =true
-                            Height: =34
-                            Items: =CustomGallerySample
-                            LoadingSpinner: =LoadingSpinner.Data
-                            ShowScrollbar: =false
-                            TemplateSize: =10
-                            Visible: =If(ThisItem.Value=11 Or ThisItem.Value=1 Or ThisItem.Value=24,true,false)
-                            Width: =112.57142857142856
-                            Y: =36
+                        lb_hms_CalendarLeaveCount As label:
+                            Align: =Align.Center
+                            Color: =RGBA(255, 255, 255, 1)
+                            Fill: =RGBA(73, 113, 215, 0.3)
+                            FontWeight: =FontWeight.Semibold
+                            Height: =36
+                            Text: |-
+                                =CountRows(
+                                    Filter(
+                                        locColCalendarTotalLeave,
+                                        startDate >= DateAdd(_firstDayInView,ThisItem.Value, TimeUnit.Days) &&
+                                        endDate <= DateAdd(_firstDayInView,ThisItem.Value, TimeUnit.Days)
+                                    )
+                                )
+                            Visible: =If(Value(Self.Text) = 0, false, true)
+                            Width: =36
+                            X: =76
+                            Y: =34
                             ZIndex: =6
-
-                            Circle1_2 As circle:
-                                Fill: =RGBA(61, 88, 161, 1)
-                                Height: =10
-                                OnSelect: =Select(Parent)
-                                Width: =10
-                                X: =10
-                                Y: =8
-                                ZIndex: =1
 
         ctn_hs_Statistical_1 As groupContainer.verticalAutoLayoutContainer:
             DropShadow: =DropShadow.None
@@ -609,7 +616,7 @@
                 FontWeight: =FontWeight.Semibold
                 PaddingLeft: =10
                 Size: =15
-                Text: ="Danh sách nghỉ phép"
+                Text: ="Lịch sử tạo phép"
                 ZIndex: =3
 
             Container7_1 As groupContainer.verticalAutoLayoutContainer:
@@ -633,7 +640,17 @@
                     FillPortions: =0
                     Height: =230
                     Items: |-
-                        =Table({ID:1,Reason:"Nghỉ bệnh",Time:"01/10 - 03/10/2023",Created:"Trần Văn Hậu",Status:"Đã phê duyệt"},{ID:1,Reason:"Nghỉ về quê",Time:"28/09 - 28/09/2023",Created:"Trần Văn Hậu",Status:"Đã phê duyệt"},{ID:1,Reason:"Khám bệnh",Time:"15/09 - 17/09/2023",Created:"Trần Văn Hậu",Status:"Đã phê duyệt"})
+                        =If(
+                            IsBlank(_dateSelected),
+                            Filter(
+                                locColCalendarTotalLeave, 
+                                Month(startDate) = locNumCurrentMonth
+                            ),
+                            Filter(
+                                locColCalendarTotalLeave, 
+                                startDate >= _dateSelected && endDate <= _dateSelected
+                            )
+                        )
                     Layout: =Layout.Vertical
                     LayoutMinHeight: =287
                     LayoutMinWidth: =0
@@ -677,7 +694,7 @@
                                 Height: =22
                                 OnSelect: =Navigate('Request Detail Screen')
                                 Size: =12
-                                Text: =ThisItem.Time
+                                Text: =$"{Text(ThisItem.startDate, "dd/mm")} - {Text(ThisItem.endDate, "dd/mm")}"
                                 ZIndex: =1
 
                             lbl_hs_ItemReason_2 As label:
@@ -686,7 +703,7 @@
                                 LayoutMinWidth: =0
                                 OnSelect: =Navigate('Request Detail Screen')
                                 Size: =12
-                                Text: =ThisItem.Reason
+                                Text: =ThisItem.reason
                                 ZIndex: =2
 
                             lbl_hs_ItemCreatedBy_2 As label:
@@ -696,7 +713,8 @@
                                 LayoutMinWidth: =200
                                 OnSelect: =Navigate('Request Detail Screen')
                                 Size: =12
-                                Text: =ThisItem.Created
+                                Text: |-
+                                    =Text(ThisItem.Created, "dd/mm/yyyy hh:mm")
                                 ZIndex: =3
 
     ctn_hs_Header_1 As groupContainer.horizontalAutoLayoutContainer:
@@ -813,4 +831,280 @@
                     Text: =User().Email
                     Wrap: =false
                     ZIndex: =2
+
+    ctn_hms_CodeButton As groupContainer.manualLayoutContainer:
+        Height: =63
+        Visible: =false
+        Width: =270
+        X: =548
+        Y: =20
+        ZIndex: =25
+
+        btn_hms_CreateCalendarLeaveCollection As button:
+            OnSelect: |
+                =//Lấy tất cả các lần phép của các user thuộc quản lý theo từng role
+                //Manager chỉ thấy các user có quản lý trực tiếp là mình, giám đốc khối thấy user trong khối, còn lại thấy tất cả
+                    If(
+                        gblRecUser.roleID = 2, //Nếu là manager
+                
+                        Collect(
+                            locColTempCalendarDepartmentLeave,  //Collection tạm lấy tất cả phép trong phòng
+                            Filter(                         //Lấy tất cả các lần phép có khoảng ngày trong view calendar hiện tại
+                                'ASTakeLeave.LeaveRequest', 
+                                departmentID = gblRecUser.departmentID,
+                                startDateValue >= Value(
+                                                        Day(_previousFirstDayInView) &
+                                                        Month(_previousFirstDayInView) &
+                                                        Year(_previousFirstDayInView)
+                                                    ) &&
+                                endDateValue >= Value(
+                                                        Day(_nextLastDayInView) &
+                                                        Month(_nextLastDayInView) &
+                                                        Year(_nextLastDayInView)
+                                                    )
+                            )
+                        );
+                        
+                        Collect(
+                            locColCalendarTotalLeave,
+                            Filter(                         //Lấy tất cả các lần phép có khoảng ngày trong view calendar hiện tại
+                                locColTempCalendarDepartmentLeave, 
+                                userID exactin gblColUserBelong[@userID], 
+                                startDateValue >= Value(
+                                                        Day(_previousFirstDayInView) &
+                                                        Month(_previousFirstDayInView) &
+                                                        Year(_previousFirstDayInView)
+                                                    ) &&
+                                endDateValue >= Value(
+                                                        Day(_nextLastDayInView) &
+                                                        Month(_nextLastDayInView) &
+                                                        Year(_nextLastDayInView)
+                                                    )
+                            )
+                        ),
+                
+                        If(
+                            gblRecUser.roleID = 3,  //giám đốc khối
+                            Collect(
+                                locColCalendarTotalLeave,
+                                Filter(                         //Lấy tất cả các lần phép có khoảng ngày trong view calendar hiện tại
+                                    'ASTakeLeave.LeaveRequest', 
+                                    divisionID = gblRecUser.divisionID,
+                                    startDateValue >= Value(
+                                                            Day(_previousFirstDayInView) &
+                                                            Month(_previousFirstDayInView) &
+                                                            Year(_previousFirstDayInView)
+                                                        ) &&
+                                    endDateValue >= Value(
+                                                            Day(_nextLastDayInView) &
+                                                            Month(_nextLastDayInView) &
+                                                            Year(_nextLastDayInView)
+                                                        )
+                                )
+                            ),
+                
+                            //Các role còn lại lấy tất cả
+                            Collect(
+                                locColCalendarTotalLeave,
+                                Filter(                         //Lấy tất cả các lần phép có khoảng ngày trong view calendar hiện tại
+                                    'ASTakeLeave.LeaveRequest', 
+                                    divisionID = gblRecUser.divisionID,
+                                    startDateValue >= Value(
+                                                            Day(_previousFirstDayInView) &
+                                                            Month(_previousFirstDayInView) &
+                                                            Year(_previousFirstDayInView)
+                                                        ) &&
+                                    endDateValue >= Value(
+                                                            Day(_nextLastDayInView) &
+                                                            Month(_nextLastDayInView) &
+                                                            Year(_nextLastDayInView)
+                                                        )
+                                )
+                            )
+                
+                        )
+                    );
+            Text: ="Button"
+            X: =40
+            Y: =23
+            ZIndex: =1
+
+        btn_hms_CollectLeaveCalendarNextMonth As button:
+            FontWeight: =FontWeight.Bold
+            OnSelect: |
+                =//Lấy tất cả các lần phép của các user thuộc quản lý theo từng role
+                //Manager chỉ thấy các user có quản lý trực tiếp là mình, giám đốc khối thấy user trong khối, còn lại thấy tất cả
+                    If(
+                        gblRecUser.roleID = 2, //Nếu là manager
+                
+                        Collect(
+                            locColTempCalendarDepartmentLeave,
+                            Filter(                         //Lấy tất cả các lần phép có khoảng ngày trong view calendar hiện tại
+                                'ASTakeLeave.LeaveRequest', 
+                                departmentID = gblRecUser.departmentID,
+                                startDateValue >= Value(
+                                                        Day(_nextFirstDayInView) &
+                                                        Month(_nextFirstDayInView) &
+                                                        Year(_nextFirstDayInView)
+                                                    ) &&
+                                endDateValue >= Value(
+                                                        Day(_nextLastDayInView) &
+                                                        Month(_nextLastDayInView) &
+                                                        Year(_nextLastDayInView)
+                                                    )
+                            )
+                        );
+                        
+                        Collect(
+                            locColCalendarTotalLeave,
+                            Filter(                         //Lấy tất cả các lần phép có khoảng ngày trong view calendar hiện tại
+                                locColTempCalendarDepartmentLeave, 
+                                userID exactin gblColUserBelong[@userID], 
+                                startDateValue >= Value(
+                                                        Day(_nextFirstDayInView) &
+                                                        Month(_nextFirstDayInView) &
+                                                        Year(_nextFirstDayInView)
+                                                    ) &&
+                                endDateValue >= Value(
+                                                        Day(_nextLastDayInView) &
+                                                        Month(_nextLastDayInView) &
+                                                        Year(_nextLastDayInView)
+                                                    )
+                            )
+                        ),
+                
+                        If(
+                            gblRecUser.roleID = 3,  //giám đốc khối
+                            Collect(
+                                locColCalendarTotalLeave,
+                                Filter(                         //Lấy tất cả các lần phép có khoảng ngày trong view calendar hiện tại
+                                    'ASTakeLeave.LeaveRequest', 
+                                    divisionID = gblRecUser.divisionID,
+                                    startDateValue >= Value(
+                                                            Day(_nextFirstDayInView) &
+                                                            Month(_nextFirstDayInView) &
+                                                            Year(_nextFirstDayInView)
+                                                        ) &&
+                                    endDateValue >= Value(
+                                                            Day(_nextLastDayInView) &
+                                                            Month(_nextLastDayInView) &
+                                                            Year(_nextLastDayInView)
+                                                        )
+                                )
+                            ),
+                
+                            //Các role còn lại lấy tất cả
+                            Collect(
+                                locColCalendarTotalLeave,
+                                Filter(                         //Lấy tất cả các lần phép có khoảng ngày trong view calendar hiện tại
+                                    'ASTakeLeave.LeaveRequest', 
+                                    divisionID = gblRecUser.divisionID,
+                                    startDateValue >= Value(
+                                                            Day(_nextFirstDayInView) &
+                                                            Month(_nextFirstDayInView) &
+                                                            Year(_nextFirstDayInView)
+                                                        ) &&
+                                    endDateValue >= Value(
+                                                            Day(_nextLastDayInView) &
+                                                            Month(_nextLastDayInView) &
+                                                            Year(_nextLastDayInView)
+                                                        )
+                                )
+                            )
+                
+                        )
+                    );
+            Text: ="Button"
+            X: =60
+            Y: =23
+            ZIndex: =2
+
+        btn_hms_CollectLeaveCalendarPreviousMonth As button:
+            OnSelect: |
+                =//Lấy tất cả các lần phép của các user thuộc quản lý theo từng role
+                //Manager chỉ thấy các user có quản lý trực tiếp là mình, giám đốc khối thấy user trong khối, còn lại thấy tất cả
+                    If(
+                        gblRecUser.roleID = 2, //Nếu là manager
+                
+                        Collect(
+                            locColTempCalendarDepartmentLeave,  //collection tạm lấy tất cả ngày nghỉ của phòng 
+                            Filter(                         //Lấy tất cả các lần phép có khoảng ngày trong view calendar hiện tại
+                                'ASTakeLeave.LeaveRequest', 
+                                departmentID = gblRecUser.departmentID,
+                                startDateValue >= Value(
+                                                        Day(_previousFirstDayInView) &
+                                                        Month(_previousFirstDayInView) &
+                                                        Year(_previousFirstDayInView)
+                                                    ) &&
+                                endDateValue >= Value(
+                                                        Day(_previousLastDayInView) &
+                                                        Month(_previousLastDayInView) &
+                                                        Year(_previousLastDayInView)
+                                                    )
+                            )
+                        );
+                        
+                        Collect(
+                            locColCalendarTotalLeave,
+                            Filter(                         //Lấy tất cả các lần phép có khoảng ngày trong view calendar hiện tại
+                                locColTempCalendarDepartmentLeave, 
+                                userID exactin gblColUserBelong[@userID], 
+                                startDateValue >= Value(
+                                                        Day(_previousFirstDayInView) &
+                                                        Month(_previousFirstDayInView) &
+                                                        Year(_previousFirstDayInView)
+                                                    ) &&
+                                endDateValue >= Value(
+                                                        Day(_previousLastDayInView) &
+                                                        Month(_previousLastDayInView) &
+                                                        Year(_previousLastDayInView)
+                                                    )
+                            )
+                        ),
+                
+                        If(
+                            gblRecUser.roleID = 3,  //giám đốc khối
+                            Collect(
+                                locColCalendarTotalLeave,
+                                Filter(                         //Lấy tất cả các lần phép có khoảng ngày trong view calendar hiện tại
+                                    'ASTakeLeave.LeaveRequest', 
+                                    divisionID = gblRecUser.divisionID,
+                                    startDateValue >= Value(
+                                                            Day(_previousFirstDayInView) &
+                                                            Month(_previousFirstDayInView) &
+                                                            Year(_previousFirstDayInView)
+                                                        ) &&
+                                    endDateValue >= Value(
+                                                            Day(_previousLastDayInView) &
+                                                            Month(_previousLastDayInView) &
+                                                            Year(_previousLastDayInView)
+                                                        )
+                                )
+                            ),
+                
+                            //Các role còn lại lấy tất cả
+                            Collect(
+                                locColCalendarTotalLeave,
+                                Filter(                         //Lấy tất cả các lần phép có khoảng ngày trong view calendar hiện tại
+                                    'ASTakeLeave.LeaveRequest', 
+                                    divisionID = gblRecUser.divisionID,
+                                    startDateValue >= Value(
+                                                            Day(_previousFirstDayInView) &
+                                                            Month(_previousFirstDayInView) &
+                                                            Year(_previousFirstDayInView)
+                                                        ) &&
+                                    endDateValue >= Value(
+                                                            Day(_previousLastDayInView) &
+                                                            Month(_previousLastDayInView) &
+                                                            Year(_previousLastDayInView)
+                                                        )
+                                )
+                            )
+                
+                        )
+                    );
+            Text: ="Button"
+            X: =80
+            Y: =23
+            ZIndex: =3
 
