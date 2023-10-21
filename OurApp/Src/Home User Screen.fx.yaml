@@ -232,7 +232,6 @@
     ctn_hs_Title As groupContainer.verticalAutoLayoutContainer:
         DropShadow: =DropShadow.None
         Height: =41
-        LayoutDirection: =LayoutDirection.Vertical
         LayoutMode: =LayoutMode.Auto
         PaddingLeft: =30
         PaddingRight: =30
@@ -251,6 +250,16 @@
             X: =191
             Y: =101
             ZIndex: =1
+
+        ico_hus_ChangeToManagerHome As icon.Sync:
+            Height: =Parent.Height
+            Icon: =Icon.Sync
+            OnSelect: =Navigate('Home Manager Screen')
+            Visible: =gblRecUser.roleID <> 1 || gblRecUser.roleID <> 5 || gblRecUser.roleID <> 6
+            Width: =30
+            X: =506
+            Y: =92
+            ZIndex: =2
 
     ctn_hs_MainContent As groupContainer.horizontalAutoLayoutContainer:
         DropShadow: =DropShadow.None
@@ -383,7 +392,7 @@
                 FontWeight: =FontWeight.Semibold
                 PaddingLeft: =10
                 Size: =15
-                Text: ="Lịch sử tạo phép"
+                Text: ="Lịch sử nghỉ phép"
                 ZIndex: =3
 
             Container7 As groupContainer.verticalAutoLayoutContainer:
