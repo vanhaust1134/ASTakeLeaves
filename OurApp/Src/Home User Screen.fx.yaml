@@ -161,7 +161,6 @@
 
             gal_NavigationMenu As gallery.galleryVertical:
                 AlignInContainer: =AlignInContainer.SetByContainer
-                DelayItemLoading: =true
                 Fill: =RGBA(255, 255, 255, 1)
                 Height: =652
                 Items: |-

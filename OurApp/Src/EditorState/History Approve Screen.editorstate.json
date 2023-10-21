@@ -6759,7 +6759,14 @@
         "TemplatePadding",
         "Layout",
         "Transition",
-        "DelayItemLoading",
+        {
+          "AFDDataSourceName": "",
+          "AutoRuleBindingEnabled": false,
+          "AutoRuleBindingString": "true",
+          "InvariantPropertyName": "DelayItemLoading",
+          "IsLockable": false,
+          "NameMapSourceSchema": "?"
+        },
         "LoadingSpinner",
         "LoadingSpinnerColor",
         "DisplayMode",

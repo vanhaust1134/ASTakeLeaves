@@ -81,7 +81,6 @@
             ZIndex: =3
 
             gal_NavigationMenu_5 As gallery.galleryVertical:
-                DelayItemLoading: =true
                 Fill: =RGBA(255, 255, 255, 1)
                 Height: =652
                 Items: |-
@@ -328,6 +327,7 @@
                     lbl_lds_Division As label:
                         AlignInContainer: =AlignInContainer.Center
                         Color: =RGBA(47, 47, 47, 1)
+                        FillPortions: =1
                         FontWeight: =FontWeight.Bold
                         Text: ="Phòng"
                         ZIndex: =2
@@ -363,6 +363,14 @@
                         FontWeight: =FontWeight.Bold
                         Text: ="Không lương"
                         ZIndex: =6
+
+                    lbl_lds_LeaveDay_3 As label:
+                        AlignInContainer: =AlignInContainer.Center
+                        Color: =RGBA(47, 47, 47, 1)
+                        FontWeight: =FontWeight.Bold
+                        Text: =""
+                        Width: =50
+                        ZIndex: =7
 
                 gal_lds_List As gallery.galleryVertical:
                     AlignInContainer: =AlignInContainer.SetByContainer
@@ -442,6 +450,17 @@
                             LayoutMinHeight: =30
                             Text: =If(IsBlank(ThisItem.totalDayUnpaid_Year),"0 ngày",ThisItem.totalDayUnpaid_Year & " ngày")
                             ZIndex: =6
+
+                        img_us_Edit_4 As image:
+                            Height: =45
+                            Image: =Edit
+                            ImagePosition: =ImagePosition.Center
+                            LayoutMinHeight: =30
+                            OnSelect: =
+                            Width: =44
+                            X: =991
+                            Y: =2
+                            ZIndex: =7
 
     ctn_lds_Header As groupContainer.horizontalAutoLayoutContainer:
         DropShadow: =DropShadow.None

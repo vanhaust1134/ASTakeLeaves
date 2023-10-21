@@ -74,7 +74,6 @@
             ZIndex: =3
 
             gal_NavigationMenu_9 As gallery.galleryVertical:
-                DelayItemLoading: =true
                 Fill: =RGBA(255, 255, 255, 1)
                 Height: =652
                 Items: |-
@@ -307,7 +306,7 @@
                                 OnSelect: |-
                                     =Patch('ASTakeLeave.WeekDay',LookUp('ASTakeLeave.WeekDay',ID = ThisItem.ID),{active:0});
                                     //Tạo mới ngày
-                                    Patch('ASTakeLeave.WeekDay',Defaults('ASTakeLeave.WeekDay'),{sort:ThisItem.sort,weekDay:ThisItem.weekDay,status:If(Toggle1.Value = true,1,0),active:1});
+                                    Patch('ASTakeLeave.WeekDay',Defaults('ASTakeLeave.WeekDay'),{sort:ThisItem.sort,weekDay:ThisItem.weekDay,status:If(Toggle1.Value = true,1,2),active:1});
                                     Notify("Cập nhật thành công",NotificationType.Success,1500)
                                 OnUncheck: |-
                                     =/*Patch('ASTakeLeave.WeekDay',LookUp('ASTakeLeave.WeekDay',ID = ThisItem.ID),{active:0});

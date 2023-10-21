@@ -111,7 +111,6 @@
             ZIndex: =3
 
             gal_NavigationMenu_8 As gallery.galleryVertical:
-                DelayItemLoading: =true
                 Fill: =RGBA(255, 255, 255, 1)
                 Height: =652
                 Items: |-
