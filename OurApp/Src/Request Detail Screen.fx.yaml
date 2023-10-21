@@ -88,8 +88,8 @@
                 LayoutMode: =LayoutMode.Auto
                 LayoutOverflowY: =LayoutOverflow.Scroll
                 PaddingBottom: =10
-                PaddingLeft: =10
-                PaddingRight: =10
+                PaddingLeft: =20
+                PaddingRight: =20
                 PaddingTop: =10
                 ZIndex: =1
 
@@ -103,7 +103,7 @@
                     LayoutMinHeight: =100
                     LayoutMinWidth: =250
                     LayoutMode: =LayoutMode.Auto
-                    PaddingLeft: =2
+                    PaddingLeft: =1
                     PaddingRight: =2
                     ZIndex: =1
 
@@ -134,6 +134,8 @@
                     LayoutMinHeight: =100
                     LayoutMinWidth: =250
                     LayoutMode: =LayoutMode.Auto
+                    PaddingLeft: =1
+                    PaddingRight: =1
                     ZIndex: =2
 
                     lbl_rds_DetailTitle As label:
@@ -164,6 +166,8 @@
                     LayoutMinHeight: =100
                     LayoutMinWidth: =250
                     LayoutMode: =LayoutMode.Auto
+                    PaddingLeft: =1
+                    PaddingRight: =1
                     ZIndex: =3
 
                     lbl_rds_JobTitle As label:
@@ -193,6 +197,8 @@
                     LayoutMinHeight: =100
                     LayoutMinWidth: =250
                     LayoutMode: =LayoutMode.Auto
+                    PaddingLeft: =1
+                    PaddingRight: =1
                     ZIndex: =4
 
                     lbl_rds_DivisionTitle As label:
@@ -217,6 +223,8 @@
                     LayoutMinHeight: =40
                     LayoutMinWidth: =250
                     LayoutMode: =LayoutMode.Auto
+                    PaddingLeft: =1
+                    PaddingRight: =1
                     ZIndex: =5
 
                     lbl_rs_DivisionTitle_6 As label:
@@ -248,6 +256,8 @@
                     LayoutMinHeight: =100
                     LayoutMinWidth: =250
                     LayoutMode: =LayoutMode.Auto
+                    PaddingLeft: =1
+                    PaddingRight: =1
                     ZIndex: =6
 
                     lbl_rds_HandOverTitle As label:
@@ -278,6 +288,8 @@
                     LayoutMinHeight: =100
                     LayoutMinWidth: =250
                     LayoutMode: =LayoutMode.Auto
+                    PaddingLeft: =1
+                    PaddingRight: =1
                     ZIndex: =7
 
                     lbl_rds_HandOverContentTitle As label:

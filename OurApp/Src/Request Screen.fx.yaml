@@ -83,6 +83,122 @@
                     UpdateContext({locShowErrorDate: "Ngày tạo hợp lệ"})
                 )
             )
+        );
+        //Tính tổng ngày nghỉ
+        ClearCollect(
+            colTotalListDateRange,
+            AddColumns(
+                FirstN(
+                    [
+                        0,
+                        1,
+                        2,
+                        3,
+                        4,
+                        5,
+                        6,
+                        7,
+                        8,
+                        9,
+                        10,
+                        11,
+                        12,
+                        13,
+                        14,
+                        15,
+                        16,
+                        17,
+                        18,
+                        19,
+                        20,
+                        21,
+                        22,
+                        23,
+                        24,
+                        25,
+                        26,
+                        27,
+                        28,
+                        29
+                    ],
+                    DateDiff(
+                        dtp_rs_StartDay.SelectedDate,
+                        dtp_rs_FinishDay.SelectedDate,
+                        TimeUnit.Days
+                    ) + 1
+                ),
+                "Total",
+                //Kiểm tra ngày nghỉ
+                If(
+                    CountRows(
+                        Filter(
+                            gblColHoliday,
+                            active = 1 And date = DateAdd(
+                                dtp_rs_StartDay.SelectedDate,
+                                Value,
+                                TimeUnit.Days
+                            )
+                        )
+                    ) = 1,
+                    0,
+                    //Kiểm tra ngày chủ nhật
+                    If(
+                        Weekday(
+                            DateAdd(
+                                dtp_rs_StartDay.SelectedDate,
+                                Value,
+                                TimeUnit.Days
+                            )
+                        ) = 1,
+                        0,
+                        //Kiểm tra lịch làm việc (1 ngày hay nửa ngày)
+                        If(
+                            LookUp(
+                                gblColWeekDay,
+                                active = 1 And sort = Weekday(
+                                    DateAdd(
+                                        dtp_rs_StartDay.SelectedDate,
+                                        Value,
+                                        TimeUnit.Days
+                                    )
+                                )
+                            ).status = 1,
+                            //Kiểm tra trạng thái ngày bắt đầu và kết thúc do người dùng chọn (cả ngày, nửa sáng, nửa chiều)
+                            If(
+                                CountRows(
+                                    Filter(
+                                        colDateRange,
+                                        Date = DateAdd(
+                                            dtp_rs_StartDay.SelectedDate,
+                                            Value,
+                                            TimeUnit.Days
+                                        ) And Status = 2
+                                    )
+                                ) = 1,
+                                0.5,
+                                CountRows(
+                                    Filter(
+                                        colDateRange,
+                                        Date = DateAdd(
+                                            dtp_rs_StartDay.SelectedDate,
+                                            Value,
+                                            TimeUnit.Days
+                                        ) And Status = 3
+                                    )
+                                ) = 1,
+                                0.5,1
+                            ),
+                            0.5
+                        )
+                    )
+                ),
+                "Date",
+                DateAdd(
+                    dtp_rs_StartDay.SelectedDate,
+                    Value,
+                    TimeUnit.Days
+                )
+            )
         )
 
     btn_rs_BackGroundScreen As button:
@@ -464,7 +580,10 @@
                                         colDateRange,
                                         ID = 1
                                     ),
-                                    {Date: dtp_rs_StartDay.SelectedDate,WeekDay:Weekday(dtp_rs_StartDay.SelectedDate)}
+                                    {
+                                        Date: dtp_rs_StartDay.SelectedDate,
+                                        WeekDay: Weekday(dtp_rs_StartDay.SelectedDate)
+                                    }
                                 );
                                 If(
                                     locRequestDayLeaveReverse = false,
@@ -494,7 +613,7 @@
                                             DateDiff(
                                                 Today(),
                                                 dtp_rs_StartDay.SelectedDate
-                                            ) +1 < 7,
+                                            ) + 1 < 7,
                                             UpdateContext({locShowErrorDate: "Phải tạo trước ít nhất 7 ngày làm việc"}),
                                             UpdateContext({locShowErrorDate: "Ngày tạo hợp lệ"})
                                         ),
@@ -616,7 +735,8 @@
                                                             ) And Status = 3
                                                         )
                                                     ) = 1,
-                                                    0.5,1
+                                                    0.5,
+                                                    1
                                                 ),
                                                 0.5
                                             )
@@ -1220,7 +1340,10 @@
                                 NotificationType.Error,
                                 1500
                             ),
-                            Sum(colTotalListDateRange,Total) = 0,
+                            Sum(
+                                colTotalListDateRange,
+                                Total
+                            ) = 0,
                             Notify(
                                 "Ngày nghỉ phải lớn hơn hoặc bằng 1 ngày",
                                 NotificationType.Error,
@@ -1414,7 +1537,7 @@
                 Fill: =RGBA(255, 255, 255, 1)
                 Height: =28
                 HoverFill: =ColorFade(RGBA(73, 113, 215, 1), -20%)
-                OnSelect: =Navigate('Home User Screen')
+                OnSelect: =If(gblRecUser.roleID = 1,Navigate('Home User Screen'),Navigate('Home Manager Screen'))
                 PressedFill: =RGBA(73, 113, 215, 1)
                 RadiusBottomLeft: =5
                 RadiusBottomRight: =5
