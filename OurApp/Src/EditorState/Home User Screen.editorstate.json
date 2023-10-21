@@ -5996,7 +5996,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "ctn_hs_Info2",
-      "ParentIndex": 0,
+      "ParentIndex": 1,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -8042,14 +8042,7 @@
         "DisplayMode",
         "ChildTabPriority",
         "LayoutMode",
-        {
-          "AFDDataSourceName": "",
-          "AutoRuleBindingEnabled": false,
-          "AutoRuleBindingString": "",
-          "InvariantPropertyName": "LayoutDirection",
-          "IsLockable": false,
-          "NameMapSourceSchema": "?"
-        },
+        "LayoutDirection",
         "LayoutAlignItems",
         "LayoutJustifyContent",
         "LayoutGap",
@@ -9894,7 +9887,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "img_hs_Avatar",
-      "ParentIndex": 1,
+      "ParentIndex": 0,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -15714,7 +15707,7 @@
         {
           "AFDDataSourceName": "",
           "AutoRuleBindingEnabled": false,
-          "AutoRuleBindingString": "",
+          "AutoRuleBindingString": "\"Text\"",
           "InvariantPropertyName": "Text",
           "IsLockable": false,
           "NameMapSourceSchema": "?"
