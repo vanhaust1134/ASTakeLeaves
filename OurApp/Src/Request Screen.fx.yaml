@@ -3,57 +3,87 @@
     OnHidden: =
     OnVisible: |-
         =//Tạo collect chứa gồm 2 ngày bắt đầu và kết thúc của kì nghỉ
-        ClearCollect(colDateRange,Table({ID:1,Date:dtp_rs_StartDay.SelectedDate,Status:1,WeekDay:Weekday(dtp_rs_StartDay.SelectedDate)},{ID:2,Date:dtp_rs_FinishDay.SelectedDate,Status:1,WeekDay:Weekday(dtp_rs_FinishDay.SelectedDate)}));
-        
-        UpdateContext({locRequestDayLeaveReverse:false});
-        
+        ClearCollect(
+            colDateRange,
+            Table(
+                {
+                    ID: 1,
+                    Date: dtp_rs_StartDay.SelectedDate,
+                    Status: 1,
+                    WeekDay: Weekday(dtp_rs_StartDay.SelectedDate)
+                },
+                {
+                    ID: 2,
+                    Date: dtp_rs_FinishDay.SelectedDate,
+                    Status: 1,
+                    WeekDay: Weekday(dtp_rs_FinishDay.SelectedDate)
+                }
+            )
+        );
+        UpdateContext({locRequestDayLeaveReverse: false});
+        //Từng ngày phép trong tháng
+        ClearCollect(
+            colLeaveDayInMonth,
+            AddColumns(
+                Sequence(
+                    12,
+                    1
+                ),
+                "LeaveDays",
+                LookUp(
+                    'ASTakeLeave.TotalDayOffInYear',
+                    userID = gblRecUser.userID
+                ).maxDayOff_Year / 12
+            )
+        );
+        //Kiểm tra ngày nghỉ
         If(
-                locRequestDayLeaveReverse = false,
-                If(
+            locRequestDayLeaveReverse = false,
+            If(
             //Kiểm tra tổng ngày nghỉ <= 2
+                DateDiff(
+                    dtp_rs_StartDay.SelectedDate,
+                    dtp_rs_FinishDay.SelectedDate
+                ) + 1 <= 2,
+                If(
                     DateDiff(
-                        dtp_rs_StartDay.SelectedDate,
-                        dtp_rs_FinishDay.SelectedDate
-                    ) + 1 <= 2,
-                    If(
-                        DateDiff(
-                            Today(),
-                            dtp_rs_StartDay.SelectedDate
-                        ) < 1,
-                        UpdateContext({locShowErrorDate: "Phải tạo trước ít nhất 1 ngày làm việc"}),
-                        UpdateContext({locShowErrorDate: "Ngày tạo hợp lệ"})
-                    ),
+                        Today(),
+                        dtp_rs_StartDay.SelectedDate
+                    ) < 1,
+                    UpdateContext({locShowErrorDate: "Phải tạo trước ít nhất 1 ngày làm việc"}),
+                    UpdateContext({locShowErrorDate: "Ngày tạo hợp lệ"})
+                ),
             //Kiểm tra tổng ngày nghỉ >= 3 và <=4
+                DateDiff(
+                    dtp_rs_StartDay.SelectedDate,
+                    dtp_rs_FinishDay.SelectedDate
+                ) + 1 >= 3 And DateDiff(
+                    dtp_rs_StartDay.SelectedDate,
+                    dtp_rs_FinishDay.SelectedDate
+                ) + 1 <= 4,
+                If(
                     DateDiff(
-                        dtp_rs_StartDay.SelectedDate,
-                        dtp_rs_FinishDay.SelectedDate
-                    ) + 1 >= 3 And DateDiff(
-                        dtp_rs_StartDay.SelectedDate,
-                        dtp_rs_FinishDay.SelectedDate
-                    ) + 1 <= 4,
-                    If(
-                        DateDiff(
-                            Today(),
-                            dtp_rs_StartDay.SelectedDate
-                        ) < 7,
-                        UpdateContext({locShowErrorDate: "Phải tạo trước ít nhất 7 ngày làm việc"}),
-                        UpdateContext({locShowErrorDate: "Ngày tạo hợp lệ"})
-                    ),
+                        Today(),
+                        dtp_rs_StartDay.SelectedDate
+                    ) < 7,
+                    UpdateContext({locShowErrorDate: "Phải tạo trước ít nhất 7 ngày làm việc"}),
+                    UpdateContext({locShowErrorDate: "Ngày tạo hợp lệ"})
+                ),
             //Kiểm tra tổng ngày nghỉ >= 5
+                DateDiff(
+                    dtp_rs_StartDay.SelectedDate,
+                    dtp_rs_FinishDay.SelectedDate
+                ) + 1 >= 5,
+                If(
                     DateDiff(
-                        dtp_rs_StartDay.SelectedDate,
-                        dtp_rs_FinishDay.SelectedDate
-                    ) + 1 >= 5,
-                    If(
-                        DateDiff(
-                            Today(),
-                            dtp_rs_StartDay.SelectedDate
-                        ) < 14,
-                        UpdateContext({locShowErrorDate: "Phải tạo trước ít nhất 14 ngày làm việc"}),
-                        UpdateContext({locShowErrorDate: "Ngày tạo hợp lệ"})
-                    )
+                        Today(),
+                        dtp_rs_StartDay.SelectedDate
+                    ) < 14,
+                    UpdateContext({locShowErrorDate: "Phải tạo trước ít nhất 14 ngày làm việc"}),
+                    UpdateContext({locShowErrorDate: "Ngày tạo hợp lệ"})
                 )
             )
+        )
 
     btn_rs_BackGroundScreen As button:
         BorderStyle: =BorderStyle.None
@@ -157,7 +187,114 @@
             FontWeight: =FontWeight.Semibold
             Size: =15
             Text: |-
-                ="Được nghỉ tối đa: " & 8
+                ="Được nghỉ tối đa: " & If(
+                    Month(Today()) < 9,
+                    If(
+                        Value(
+                            Right(
+                                Round(
+                                    Sum(
+                                        Filter(
+                                            colLeaveDayInMonth,
+                                            Value = Month(Today()) Or Value = Month(Today()) + 1 Or Month(Today()) + 2 Or Month(Today()) + 3
+                                        ),
+                                        LeaveDays
+                                    ),
+                                    1
+                                ),
+                                1
+                            )
+                        ) < 5,
+                        Round(
+                            Sum(
+                                Filter(
+                                    colLeaveDayInMonth,
+                                    Value = Month(Today()) Or Value = Month(Today()) + 1 Or Month(Today()) + 2 Or Month(Today()) + 3
+                                ),
+                                LeaveDays
+                            ),
+                            0
+                        ) - LookUp(
+                            'ASTakeLeave.TotalDayOffInYear',
+                            userID = gblRecUser.userID
+                        ).totalDayOff_Year,
+                        Value(
+                            Right(
+                                Round(
+                                    Sum(
+                                        Filter(
+                                            colLeaveDayInMonth,
+                                            Value = Month(Today()) Or Value = Month(Today()) + 1 Or Month(Today()) + 2 Or Month(Today()) + 3
+                                        ),
+                                        LeaveDays
+                                    ),
+                                    1
+                                ),
+                                1
+                            )
+                        ) >= 5,
+                        RoundUp(
+                            Sum(
+                                Filter(
+                                    colLeaveDayInMonth,
+                                    Value = Month(Today()) Or Value = Month(Today()) + 1 Or Month(Today()) + 2 Or Month(Today()) + 3
+                                ),
+                                LeaveDays
+                            ),
+                            0
+                        ) - LookUp(
+                            'ASTakeLeave.TotalDayOffInYear',
+                            userID = gblRecUser.userID
+                        ).totalDayOff_Year
+                    ),
+                    //Tháng hiện tại là tháng 9
+                    If(
+                        Value(
+                            Right(
+                                Round(
+                                    Sum(
+                                        colLeaveDayInMonth,
+                                        LeaveDays
+                                    ),
+                                    1
+                                ),
+                                1
+                            )
+                        ) < 5,
+                        Round(
+                            Sum(
+                                colLeaveDayInMonth,
+                                LeaveDays
+                            ),
+                            0
+                        ) - LookUp(
+                            'ASTakeLeave.TotalDayOffInYear',
+                            userID = gblRecUser.userID
+                        ).totalDayOff_Year,
+                        Value(
+                            Right(
+                                Round(
+                                    Sum(
+                                        colLeaveDayInMonth,
+                                        LeaveDays
+                                    ),
+                                    1
+                                ),
+                                1
+                            )
+                        ) >= 5,
+                        RoundUp(
+                            Sum(
+                                colLeaveDayInMonth,
+                                LeaveDays
+                            ),
+                            0
+                        ) - LookUp(
+                            'ASTakeLeave.TotalDayOffInYear',
+                            userID = gblRecUser.userID
+                        ).totalDayOff_Year
+                    )
+                )
             ZIndex: =3
 
         lbl_rs_DivisionTitle_1 As label:
@@ -166,7 +303,7 @@
             FontWeight: =FontWeight.Semibold
             Size: =15
             Text: |-
-                ="Tổng đã nghỉ: 10/12"
+                ="Tổng đã nghỉ: " & LookUp('ASTakeLeave.TotalDayOffInYear',userID = gblRecUser.userID).totalDayOff_Year & "/" & LookUp('ASTakeLeave.TotalDayOffInYear',userID = gblRecUser.userID).maxDayOff_Year
             Width: =230
             ZIndex: =4
 
@@ -248,7 +385,7 @@
                         BorderColor: =RGBA(0, 0, 0, 1)
                         BorderThickness: =1
                         Height: =50
-                        Items: =["Có lương","Không lương"]
+                        Items: ='ASTakeLeave.LeaveReason'
                         ZIndex: =2
 
                 ctn_rs_Detail As groupContainer.verticalAutoLayoutContainer:
@@ -310,7 +447,7 @@
                         DisabledFill: =RGBA(255, 255, 255, 1)
                         Height: =50
                         IconBackground: =RGBA(73, 113, 215, 1)
-                        OnChange: |
+                        OnChange: |-
                             =If(
                                 //Kiểm tra ngày kết thúc nhỏ hơn ngày bắt đầu
                                 dtp_rs_StartDay.SelectedDate > dtp_rs_FinishDay.SelectedDate,
@@ -357,7 +494,7 @@
                                             DateDiff(
                                                 Today(),
                                                 dtp_rs_StartDay.SelectedDate
-                                            ) < 7,
+                                            ) + 1 < 7,
                                             UpdateContext({locShowErrorDate: "Phải tạo trước ít nhất 7 ngày làm việc"}),
                                             UpdateContext({locShowErrorDate: "Ngày tạo hợp lệ"})
                                         ),
@@ -370,13 +507,129 @@
                                             DateDiff(
                                                 Today(),
                                                 dtp_rs_StartDay.SelectedDate
-                                            ) < 14,
+                                            ) + 1 < 14,
                                             UpdateContext({locShowErrorDate: "Phải tạo trước ít nhất 14 ngày làm việc"}),
                                             UpdateContext({locShowErrorDate: "Ngày tạo hợp lệ"})
                                         )
                                     )
                                 )
                             );
+                            //Tính tổng ngày nghỉ
+                            ClearCollect(
+                                colTotalListDateRange,
+                                AddColumns(
+                                    FirstN(
+                                        [
+                                            0,
+                                            1,
+                                            2,
+                                            3,
+                                            4,
+                                            5,
+                                            6,
+                                            7,
+                                            8,
+                                            9,
+                                            10,
+                                            11,
+                                            12,
+                                            13,
+                                            14,
+                                            15,
+                                            16,
+                                            17,
+                                            18,
+                                            19,
+                                            20,
+                                            21,
+                                            22,
+                                            23,
+                                            24,
+                                            25,
+                                            26,
+                                            27,
+                                            28,
+                                            29
+                                        ],
+                                        DateDiff(
+                                            dtp_rs_StartDay.SelectedDate,
+                                            dtp_rs_FinishDay.SelectedDate,
+                                            TimeUnit.Days
+                                        ) + 1
+                                    ),
+                                    "Total",
+                                    //Kiểm tra ngày nghỉ
+                                    If(
+                                        CountRows(
+                                            Filter(
+                                                gblColHoliday,
+                                                active = 1 And date = DateAdd(
+                                                    dtp_rs_StartDay.SelectedDate,
+                                                    Value,
+                                                    TimeUnit.Days
+                                                )
+                                            )
+                                        ) = 1,
+                                        0,
+                                        //Kiểm tra ngày chủ nhật
+                                        If(
+                                            Weekday(
+                                                DateAdd(
+                                                    dtp_rs_StartDay.SelectedDate,
+                                                    Value,
+                                                    TimeUnit.Days
+                                                )
+                                            ) = 1,
+                                            0,
+                                            //Kiểm tra lịch làm việc (1 ngày hay nửa ngày)
+                                            If(
+                                                LookUp(
+                                                    gblColWeekDay,
+                                                    active = 1 And sort = Weekday(
+                                                        DateAdd(
+                                                            dtp_rs_StartDay.SelectedDate,
+                                                            Value,
+                                                            TimeUnit.Days
+                                                        )
+                                                    )
+                                                ).status = 1,
+                                                //Kiểm tra trạng thái ngày bắt đầu và kết thúc do người dùng chọn (cả ngày, nửa sáng, nửa chiều)
+                                                If(
+                                                    CountRows(
+                                                        Filter(
+                                                            colDateRange,
+                                                            Date = DateAdd(
+                                                                dtp_rs_StartDay.SelectedDate,
+                                                                Value,
+                                                                TimeUnit.Days
+                                                            ) And Status = 2
+                                                        )
+                                                    ) = 1,
+                                                    0.5,
+                                                    CountRows(
+                                                        Filter(
+                                                            colDateRange,
+                                                            Date = DateAdd(
+                                                                dtp_rs_StartDay.SelectedDate,
+                                                                Value,
+                                                                TimeUnit.Days
+                                                            ) And Status = 3
+                                                        )
+                                                    ) = 1,
+                                                    0.5,1
+                                                ),
+                                                0.5
+                                            )
+                                        )
+                                    ),
+                                    "Date",
+                                    DateAdd(
+                                        dtp_rs_StartDay.SelectedDate,
+                                        Value,
+                                        TimeUnit.Days
+                                    )
+                                )
+                            )
                         ZIndex: =3
 
                 ctn_rs_Division As groupContainer.verticalAutoLayoutContainer:
@@ -407,7 +660,7 @@
                         DisabledFill: =RGBA(255, 255, 255, 1)
                         Height: =50
                         IconBackground: =RGBA(73, 113, 215, 1)
-                        OnChange: |
+                        OnChange: |-
                             =If(
                                 //Kiểm tra ngày kết thúc nhỏ hơn ngày bắt đầu
                                 dtp_rs_FinishDay.SelectedDate < dtp_rs_StartDay.SelectedDate,
@@ -474,6 +727,122 @@
                                     )
                                 )
                             );
+                            //Tính tổng ngày nghỉ
+                            ClearCollect(
+                                colTotalListDateRange,
+                                AddColumns(
+                                    FirstN(
+                                        [
+                                            0,
+                                            1,
+                                            2,
+                                            3,
+                                            4,
+                                            5,
+                                            6,
+                                            7,
+                                            8,
+                                            9,
+                                            10,
+                                            11,
+                                            12,
+                                            13,
+                                            14,
+                                            15,
+                                            16,
+                                            17,
+                                            18,
+                                            19,
+                                            20,
+                                            21,
+                                            22,
+                                            23,
+                                            24,
+                                            25,
+                                            26,
+                                            27,
+                                            28,
+                                            29
+                                        ],
+                                        DateDiff(
+                                            dtp_rs_StartDay.SelectedDate,
+                                            dtp_rs_FinishDay.SelectedDate,
+                                            TimeUnit.Days
+                                        ) + 1
+                                    ),
+                                    "Total",
+                                    //Kiểm tra ngày nghỉ
+                                    If(
+                                        CountRows(
+                                            Filter(
+                                                gblColHoliday,
+                                                active = 1 And date = DateAdd(
+                                                    dtp_rs_StartDay.SelectedDate,
+                                                    Value,
+                                                    TimeUnit.Days
+                                                )
+                                            )
+                                        ) = 1,
+                                        0,
+                                        //Kiểm tra ngày chủ nhật
+                                        If(
+                                            Weekday(
+                                                DateAdd(
+                                                    dtp_rs_StartDay.SelectedDate,
+                                                    Value,
+                                                    TimeUnit.Days
+                                                )
+                                            ) = 1,
+                                            0,
+                                            //Kiểm tra lịch làm việc (1 ngày hay nửa ngày)
+                                            If(
+                                                LookUp(
+                                                    gblColWeekDay,
+                                                    active = 1 And sort = Weekday(
+                                                        DateAdd(
+                                                            dtp_rs_StartDay.SelectedDate,
+                                                            Value,
+                                                            TimeUnit.Days
+                                                        )
+                                                    )
+                                                ).status = 1,
+                                                //Kiểm tra trạng thái ngày bắt đầu và kết thúc do người dùng chọn (cả ngày, nửa sáng, nửa chiều)
+                                                If(
+                                                    CountRows(
+                                                        Filter(
+                                                            colDateRange,
+                                                            Date = DateAdd(
+                                                                dtp_rs_StartDay.SelectedDate,
+                                                                Value,
+                                                                TimeUnit.Days
+                                                            ) And Status = 2
+                                                        )
+                                                    ) = 1,
+                                                    0.5,
+                                                    CountRows(
+                                                        Filter(
+                                                            colDateRange,
+                                                            Date = DateAdd(
+                                                                dtp_rs_StartDay.SelectedDate,
+                                                                Value,
+                                                                TimeUnit.Days
+                                                            ) And Status = 3
+                                                        )
+                                                    ) = 1,
+                                                    0.5,1
+                                                ),
+                                                0.5
+                                            )
+                                        )
+                                    ),
+                                    "Date",
+                                    DateAdd(
+                                        dtp_rs_StartDay.SelectedDate,
+                                        Value,
+                                        TimeUnit.Days
+                                    )
+                                )
+                            )
                         ZIndex: =2
 
                 Label7 As label:
@@ -509,7 +878,7 @@
                             FontWeight: =FontWeight.Semibold
                             Size: =15
                             Text: |-
-                                ="Tổng: " & CountRows(colDateRange) & " ngày"
+                                ="Tổng: " & Sum(colTotalListDateRange,Total) & " ngày"
                             ZIndex: =2
 
                     Gallery5 As gallery.galleryHorizontal:
@@ -533,7 +902,7 @@
                             FontWeight: =FontWeight.Bold
                             Height: =90
                             OnSelect: =Select(Parent)
-                            PaddingBottom: =If(ThisItem.WeekDay = 1,0,55)
+                            PaddingBottom: =If(ThisItem.WeekDay = 1 Or CountRows(Filter(gblColHoliday,active = 1 And date = ThisItem.Date)) = 1,0,55)
                             RadiusBottomLeft: =5
                             RadiusBottomRight: =5
                             RadiusTopLeft: =5
@@ -554,14 +923,130 @@
                             Items: |-
                                 =If(LookUp(gblColWeekDay,active = 1 And sort = ThisItem.WeekDay).status = 1,Table({ID:1,Name:"Cả ngày"},{ID:2,Name:"Nửa sáng"},{ID:3,Name:"Nửa chiều"}),LookUp(gblColWeekDay,active = 1 And sort = ThisItem.WeekDay).status = 2,Table({ID:1,Name:"Nửa sáng"},{ID:2,Name:"Nửa chiều"}))
                             OnChange: |-
-                                =Patch(colDateRange,LookUp(colDateRange,ID = ThisItem.ID),{Status:Dropdown1.Selected.ID})
+                                =Patch(colDateRange,LookUp(colDateRange,ID = ThisItem.ID),{Status:Dropdown1.Selected.ID});
+                                //Tính tổng ngày nghỉ
+                                ClearCollect(
+                                    colTotalListDateRange,
+                                    AddColumns(
+                                        FirstN(
+                                            [
+                                                0,
+                                                1,
+                                                2,
+                                                3,
+                                                4,
+                                                5,
+                                                6,
+                                                7,
+                                                8,
+                                                9,
+                                                10,
+                                                11,
+                                                12,
+                                                13,
+                                                14,
+                                                15,
+                                                16,
+                                                17,
+                                                18,
+                                                19,
+                                                20,
+                                                21,
+                                                22,
+                                                23,
+                                                24,
+                                                25,
+                                                26,
+                                                27,
+                                                28,
+                                                29
+                                            ],
+                                            DateDiff(
+                                                dtp_rs_StartDay.SelectedDate,
+                                                dtp_rs_FinishDay.SelectedDate,
+                                                TimeUnit.Days
+                                            ) + 1
+                                        ),
+                                        "Total",
+                                        //Kiểm tra ngày nghỉ
+                                        If(
+                                            CountRows(
+                                                Filter(
+                                                    gblColHoliday,
+                                                    active = 1 And date = DateAdd(
+                                                        dtp_rs_StartDay.SelectedDate,
+                                                        Value,
+                                                        TimeUnit.Days
+                                                    )
+                                                )
+                                            ) = 1,
+                                            0,
+                                            //Kiểm tra ngày chủ nhật
+                                            If(
+                                                Weekday(
+                                                    DateAdd(
+                                                        dtp_rs_StartDay.SelectedDate,
+                                                        Value,
+                                                        TimeUnit.Days
+                                                    )
+                                                ) = 1,
+                                                0,
+                                                //Kiểm tra lịch làm việc (1 ngày hay nửa ngày)
+                                                If(
+                                                    LookUp(
+                                                        gblColWeekDay,
+                                                        active = 1 And sort = Weekday(
+                                                            DateAdd(
+                                                                dtp_rs_StartDay.SelectedDate,
+                                                                Value,
+                                                                TimeUnit.Days
+                                                            )
+                                                        )
+                                                    ).status = 1,
+                                                    //Kiểm tra trạng thái ngày bắt đầu và kết thúc do người dùng chọn (cả ngày, nửa sáng, nửa chiều)
+                                                    If(
+                                                        CountRows(
+                                                            Filter(
+                                                                colDateRange,
+                                                                Date = DateAdd(
+                                                                    dtp_rs_StartDay.SelectedDate,
+                                                                    Value,
+                                                                    TimeUnit.Days
+                                                                ) And Status = 2
+                                                            )
+                                                        ) = 1,
+                                                        0.5,
+                                                        CountRows(
+                                                            Filter(
+                                                                colDateRange,
+                                                                Date = DateAdd(
+                                                                    dtp_rs_StartDay.SelectedDate,
+                                                                    Value,
+                                                                    TimeUnit.Days
+                                                                ) And Status = 3
+                                                            )
+                                                        ) = 1,
+                                                        0.5,1
+                                                    ),
+                                                    0.5
+                                                )
+                                            )
+                                        ),
+                                        "Date",
+                                        DateAdd(
+                                            dtp_rs_StartDay.SelectedDate,
+                                            Value,
+                                            TimeUnit.Days
+                                        )
+                                    )
+                                )
                             OnSelect: =Select(Parent)
                             PaddingBottom: =5
                             PaddingLeft: =5
                             PaddingRight: =5
                             PaddingTop: =5
                             Size: =12
-                            Visible: =If(ThisItem.WeekDay = 1,false,true)
+                            Visible: =If(ThisItem.WeekDay = 1 Or CountRows(Filter(gblColHoliday,active = 1 And date = ThisItem.Date)) = 1,false,true)
                             Width: =137
                             X: =5
                             Y: =47
@@ -611,15 +1096,17 @@
                             Text: ="Công việc bàn giao cho"
                             ZIndex: =1
 
-                        drp_rs_HandOver As dropdown:
+                        drp_rs_HandOver As combobox:
                             BorderColor: =RGBA(0, 0, 0, 1)
                             BorderThickness: =1
-                            ChevronBackground: =RGBA(73, 113, 215, 1)
-                            DisabledColor: =RGBA(0, 0, 0, 1)
-                            DisabledFill: =RGBA(255, 255, 255, 1)
+                            DisplayFields: =["DisplayName","Email","Picture"]
                             Height: =50
-                            Items: =["Trần Văn Hậu"]
-                            ZIndex: =2
+                            InputTextPlaceholder: ="Tìm nhân viên"
+                            Items: =gblColAllUser365
+                            SearchFields: =["Claims"]
+                            SearchItems: =Search(gblColAllUser365,drp_rs_HandOver.SearchText,"Claims")
+                            Template: =ListItemTemplate.Person
+                            ZIndex: =3
 
                     lbl_rs_HandOverContentTitle As label:
                         Color: =RGBA(94, 94, 94, 1)
@@ -728,160 +1215,168 @@
                     AlignInContainer: =AlignInContainer.End
                     Fill: =RGBA(73, 113, 215, 1)
                     OnSelect: |-
-                        =UpdateContext({locSubmit: true});
-                        ClearCollect(
-                            colListDateRange,
-                            AddColumns(
-                                FirstN(
-                                    [
-                                        0,
-                                        1,
-                                        2,
-                                        3,
-                                        4,
-                                        5,
-                                        6,
-                                        7,
-                                        8,
-                                        9,
-                                        10,
-                                        11,
-                                        12,
-                                        13,
-                                        14,
-                                        15,
-                                        16,
-                                        17,
-                                        18,
-                                        19,
-                                        20,
-                                        21,
-                                        22,
-                                        23,
-                                        24,
-                                        25,
-                                        26,
-                                        27,
-                                        28,
-                                        29
-                                    ],
-                                    DateDiff(
-                                        dtp_rs_StartDay.SelectedDate,
-                                        dtp_rs_FinishDay.SelectedDate,
-                                        TimeUnit.Days
-                                    ) + 1
-                                ),
-                                "Total",
-                                If(
-                                    CountRows(
-                                        Filter(
-                                            gblColHoliday, active = 1 And
-                                            date = DateAdd(
-                                                dtp_rs_StartDay.SelectedDate,
-                                                Value,
-                                                TimeUnit.Days
-                                            )
-                                        )
-                                    ) = 1,
-                                    0,
+                        =If(
+                            IsBlank(txt_rs_Detail.Text),
+                            Notify(
+                                "Trường chi tiết nghỉ phép không được bỏ trống",
+                                NotificationType.Error,
+                                1500
+                            ),
+                            UpdateContext({locSubmit: true});
+                            ClearCollect(
+                                colListDateRange,
+                                AddColumns(
+                                    FirstN(
+                                        [
+                                            0,
+                                            1,
+                                            2,
+                                            3,
+                                            4,
+                                            5,
+                                            6,
+                                            7,
+                                            8,
+                                            9,
+                                            10,
+                                            11,
+                                            12,
+                                            13,
+                                            14,
+                                            15,
+                                            16,
+                                            17,
+                                            18,
+                                            19,
+                                            20,
+                                            21,
+                                            22,
+                                            23,
+                                            24,
+                                            25,
+                                            26,
+                                            27,
+                                            28,
+                                            29
+                                        ],
+                                        DateDiff(
+                                            dtp_rs_StartDay.SelectedDate,
+                                            dtp_rs_FinishDay.SelectedDate,
+                                            TimeUnit.Days
+                                        ) + 1
+                                    ),
+                                    "Total",
                                     If(
-                                        Weekday(
-                                            DateAdd(
-                                                dtp_rs_StartDay.SelectedDate,
-                                                Value,
-                                                TimeUnit.Days
+                                        CountRows(
+                                            Filter(
+                                                gblColHoliday,
+                                                active = 1 And date = DateAdd(
+                                                    dtp_rs_StartDay.SelectedDate,
+                                                    Value,
+                                                    TimeUnit.Days
+                                                )
                                             )
                                         ) = 1,
                                         0,
                                         If(
-                                            LookUp(
-                                                gblColWeekDay,
-                                                active = 1 And sort = Weekday(
-                                                    DateAdd(
-                                                        dtp_rs_StartDay.SelectedDate,
-                                                        Value,
-                                                        TimeUnit.Days
-                                                    )
+                                            Weekday(
+                                                DateAdd(
+                                                    dtp_rs_StartDay.SelectedDate,
+                                                    Value,
+                                                    TimeUnit.Days
                                                 )
-                                            ).status = 1,
+                                            ) = 1,
+                                            0,
                                             If(
-                                                CountRows(
-                                                    Filter(
-                                                        colDateRange,
-                                                        Date = DateAdd(
+                                                LookUp(
+                                                    gblColWeekDay,
+                                                    active = 1 And sort = Weekday(
+                                                        DateAdd(
                                                             dtp_rs_StartDay.SelectedDate,
                                                             Value,
                                                             TimeUnit.Days
-                                                        ) And Status = 1
+                                                        )
                                                     )
-                                                ) = 1,
-                                                LookUp(
-                                                    'ASTakeLeave.TotalDayOffInYear',
-                                                    userID = gblRecUser.userID
-                                                ).maxDayOff_Year / 12,
+                                                ).status = 1,
+                                                If(
+                                                    CountRows(
+                                                        Filter(
+                                                            colDateRange,
+                                                            Date = DateAdd(
+                                                                dtp_rs_StartDay.SelectedDate,
+                                                                Value,
+                                                                TimeUnit.Days
+                                                            ) And Status = 1
+                                                        )
+                                                    ) = 1,
+                                                    LookUp(
+                                                        'ASTakeLeave.TotalDayOffInYear',
+                                                        userID = gblRecUser.userID
+                                                    ).maxDayOff_Year / 12,
+                                                    (LookUp(
+                                                        'ASTakeLeave.TotalDayOffInYear',
+                                                        userID = gblRecUser.userID
+                                                    ).maxDayOff_Year / 12) / 2
+                                                ),
                                                 (LookUp(
                                                     'ASTakeLeave.TotalDayOffInYear',
                                                     userID = gblRecUser.userID
                                                 ).maxDayOff_Year / 12) / 2
-                                            ),
-                                            (LookUp(
-                                                'ASTakeLeave.TotalDayOffInYear',
-                                                userID = gblRecUser.userID
-                                            ).maxDayOff_Year / 12) / 2
+                                            )
                                         )
-                                    )
-                                ),
-                                "Date",
-                                DateAdd(
-                                    dtp_rs_StartDay.SelectedDate,
-                                    Value,
-                                    TimeUnit.Days
-                                )
-                            )
-                        );
-                        UpdateContext(
-                            {
-                                locTotalDayLeave: If(
-                                    Value(
-                                        Right(
-                                            RoundUp(
-                                                Sum(
-                                                    colListDateRange,
-                                                    Total
-                                                ),
-                                                1
-                                            ),
-                                            1
-                                        )
-                                    ) < 5,
-                                    Round(
-                                        Sum(
-                                            colListDateRange,
-                                            Total
-                                        ),
-                                        0
                                     ),
-                                    Value(
-                                        Right(
-                                            RoundUp(
-                                                Sum(
-                                                    colListDateRange,
-                                                    Total
-                                                ),
-                                                1
-                                            ),
-                                            1
-                                        )
-                                    ) >= 5,
-                                    RoundUp(
-                                        Sum(
-                                            colListDateRange,
-                                            Total
-                                        ),
-                                        0
+                                    "Date",
+                                    DateAdd(
+                                        dtp_rs_StartDay.SelectedDate,
+                                        Value,
+                                        TimeUnit.Days
                                     )
                                 )
-                            }
+                            );
+                            UpdateContext(
+                                {
+                                    locTotalDayLeave: If(
+                                        Value(
+                                            Right(
+                                                RoundUp(
+                                                    Sum(
+                                                        colListDateRange,
+                                                        Total
+                                                    ),
+                                                    1
+                                                ),
+                                                1
+                                            )
+                                        ) < 5,
+                                        Round(
+                                            Sum(
+                                                colListDateRange,
+                                                Total
+                                            ),
+                                            0
+                                        ),
+                                        Value(
+                                            Right(
+                                                RoundUp(
+                                                    Sum(
+                                                        colListDateRange,
+                                                        Total
+                                                    ),
+                                                    1
+                                                ),
+                                                1
+                                            )
+                                        ) >= 5,
+                                        RoundUp(
+                                            Sum(
+                                                colListDateRange,
+                                                Total
+                                            ),
+                                            0
+                                        )
+                                    )
+                                }
+                            )
                         )
                     Text: ="Tạo"
                     ZIndex: =5
@@ -1202,8 +1697,37 @@
             Height: =36
             HoverFill: =ColorFade(Self.Fill, -20%)
             OnSelect: |-
-                =Notify("Gửi thành công",NotificationType.Success,1500);
-                UpdateContext({locSubmit:false})
+                =Patch(
+                    'ASTakeLeave.LeaveRequest',
+                    Defaults('ASTakeLeave.LeaveRequest'),
+                    {
+                        departmentID: gblRecUser.departmentID,
+                        divisionID: gblRecUser.divisionID,
+                        userID: gblRecUser.userID,
+                        totalDayOff: Sum(colTotalListDateRange,Total),
+                        totalDayUnpaid: If(LookUp('ASTakeLeave.TotalDayOffInYear',userID = gblRecUser.userID).totalDayOff_Year + Sum(colTotalListDateRange,Total) > LookUp('ASTakeLeave.TotalDayOffInYear',userID = gblRecUser.userID).maxDayOff_Year,(LookUp('ASTakeLeave.TotalDayOffInYear',userID = gblRecUser.userID).totalDayOff_Year + Sum(colTotalListDateRange,Total)) - LookUp('ASTakeLeave.TotalDayOffInYear',userID = gblRecUser.userID).maxDayOff_Year ,0),
+                        startDate: dtp_rs_StartDay.SelectedDate,
+                        endDate: dtp_rs_FinishDay.SelectedDate,
+                        startDateValue: Value(Day(dtp_rs_StartDay.SelectedDate) & Month(dtp_rs_StartDay.SelectedDate) & Year(dtp_rs_StartDay.SelectedDate)),
+                        endDateValue: Value(Day(dtp_rs_FinishDay.SelectedDate) & Month(dtp_rs_FinishDay.SelectedDate) & Year(dtp_rs_FinishDay.SelectedDate)),
+                        startDateType:LookUp(colDateRange,ID = 1).Status,
+                        endDateType:LookUp(colDateRange,ID = 2).Status,
+                        reason:txt_rs_Detail.Text,
+                        reasonDetail:drp_rs_Reason.Selected.description,
+                        handOverUserID:LookUp(gblColAllUser,OData__x0033_65AccountInfo.Email = drp_rs_HandOver.Selected.Email).userID,
+                        handOverContent:txt_rs_HandOverContent.Text,
+                        currentApproveLevel:1,
+                        maxApproveLevel:If(gblRecUser.roleID = 2 And Sum(colTotalListDateRange,Total) <= 12,1,gblRecUser.roleID = 2 And Sum(colTotalListDateRange,Total) >= 12,2,gblRecUser.roleID = 1 And Sum(colTotalListDateRange,Total) <= 12,2,gblRecUser.roleID = 1 And Sum(colTotalListDateRange,Total) > 12,3),
+                        status:1
+                    },
+                    Form2.Updates
+                );
+                Notify(
+                    "Gửi thành công",
+                    NotificationType.Success,
+                    1500
+                );
+                UpdateContext({locSubmit: false})
             PressedColor: =RGBA(255,255,255,1)
             PressedFill: =Self.Fill
             RadiusBottomLeft: =5
@@ -1235,104 +1759,4 @@
             X: =782
             Y: =443
             ZIndex: =8
-
-    Button8 As button:
-        OnSelect: |-
-            =ClearCollect(
-                colListDateRange,
-                AddColumns(
-                    FirstN(
-                        [
-                            0,
-                            1,
-                            2,
-                            3,
-                            4,
-                            5,
-                            6,
-                            7,
-                            8,
-                            9,
-                            10,
-                            11,
-                            12,
-                            13,
-                            14,
-                            15,
-                            16,
-                            17,
-                            18,
-                            19,
-                            20,
-                            21,
-                            22,
-                            23,
-                            24,
-                            25,
-                            26,
-                            27,
-                            28,
-                            29
-                        ],
-                        DateDiff(
-                            dtp_rs_StartDay.SelectedDate,
-                            dtp_rs_FinishDay.SelectedDate,
-                            TimeUnit.Days
-                        ) + 1
-                    ),
-                    "Total",
-                    If(
-                        CountRows(Filter(gblColHoliday,date = DateAdd(
-                                dtp_rs_StartDay.SelectedDate,
-                                Value,
-                                TimeUnit.Days
-                            ))) = 1,0,
-                        If(Weekday(
-                            DateAdd(
-                                dtp_rs_StartDay.SelectedDate,
-                                Value,
-                                TimeUnit.Days
-                            )
-                        ) = 1,
-                        0,
-                        If(
-                            LookUp(
-                                gblColWeekDay,
-                                active = 1 And sort = Weekday(
-                                    DateAdd(
-                                        dtp_rs_StartDay.SelectedDate,
-                                        Value,
-                                        TimeUnit.Days
-                                    )
-                                )
-                            ).status = 1,
-                            LookUp(
-                                'ASTakeLeave.TotalDayOffInYear',
-                                userID = gblRecUser.userID
-                            ).maxDayOff_Year / 12,
-                            (LookUp(
-                                'ASTakeLeave.TotalDayOffInYear',
-                                userID = gblRecUser.userID
-                            ).maxDayOff_Year / 12) / 2
-                        )
-                    )),
-                    "Date",
-                    DateAdd(
-                        dtp_rs_StartDay.SelectedDate,
-                        Value,
-                        TimeUnit.Days
-                    )
-                )
-            );
-            UpdateContext({locTotalDayLeave:Sum(colListDateRange,Total)})
-        Text: ="Button"
-        X: =656
-        Y: =32
-        ZIndex: =27
-
-    Label10 As label:
-        Text: =locTotalDayLeave
-        X: =843
-        Y: =32
-        ZIndex: =28
 

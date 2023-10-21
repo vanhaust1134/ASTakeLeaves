@@ -9523,6 +9523,36 @@
             {
               "logicalLocations": [
                 {
+                  "fullyQualifiedName": "'Request Screen'.locTotalDayLeave"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'Request Screen'.locTotalDayLeave",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "locTotalDayLeave",
+                "module": "Request Screen",
+                "type": "'Request Screen'"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "app-UnusedVariables",
+          "ruleIndex": 6
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
                   "fullyQualifiedName": "'User Screen'.locAdd"
                 }
               ],
