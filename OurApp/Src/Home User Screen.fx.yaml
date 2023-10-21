@@ -383,7 +383,7 @@
                 FontWeight: =FontWeight.Semibold
                 PaddingLeft: =10
                 Size: =15
-                Text: ="Lịch sử nghỉ phép"
+                Text: ="Lịch sử tạo phép"
                 ZIndex: =3
 
             Container7 As groupContainer.verticalAutoLayoutContainer:
@@ -464,7 +464,7 @@
                                 LayoutMinWidth: =166
                                 OnSelect: =Navigate('Request Detail Screen')
                                 Size: =12
-                                Text: =ThisItem.startDate
+                                Text: =$"{Text(ThisItem.startDate, "dd/mm")} - {Text(ThisItem.endDate, "dd/mm")}"
                                 Wrap: =false
                                 ZIndex: =1
 
