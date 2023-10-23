@@ -872,8 +872,8 @@
                                 =!IsBlank(
                                     LookUp(
                                         locColPersonalLeave, 
-                                        startDate >= DateAdd(_firstDayInView,ThisItem.Value, TimeUnit.Days) &&
-                                        endDate <= DateAdd(_firstDayInView,ThisItem.Value, TimeUnit.Days)
+                                        DateValue(startDate) <= DateAdd(_firstDayInView,ThisItem.Value, TimeUnit.Days) &&
+                                        DateValue(endDate) >= DateAdd(_firstDayInView,ThisItem.Value, TimeUnit.Days)
                                     )
                                 )
                             Width: =37

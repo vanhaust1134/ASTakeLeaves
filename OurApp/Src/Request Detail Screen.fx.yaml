@@ -248,25 +248,6 @@
                     PaddingRight: =1
                     ZIndex: =5
 
-                    lbl_rs_DivisionTitle_6 As label:
-                        Color: =RGBA(94, 94, 94, 1)
-                        FillPortions: =1
-                        FontWeight: =FontWeight.Semibold
-                        Size: =15
-                        Text: |-
-                            ="Tổng ngày nghỉ: " & locRequestDetail.totalDayOff & " ngày"
-                        ZIndex: =1
-
-                    lbl_rs_DivisionTitle_8 As label:
-                        Align: =Align.Right
-                        Color: =RGBA(94, 94, 94, 1)
-                        FillPortions: =1
-                        FontWeight: =FontWeight.Semibold
-                        Size: =15
-                        Text: |-
-                            ="Không lương: " & locRequestDetail.totalDayUnpaid & " ngày"
-                        ZIndex: =2
-
                 ctn_rds_DateType As groupContainer.horizontalAutoLayoutContainer:
                     DropShadow: =DropShadow.None
                     LayoutMinHeight: =100
