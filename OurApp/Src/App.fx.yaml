@@ -50,6 +50,8 @@ App As appinfo:
             2,
             Collect(gblColUserManager, Filter('ASTakeLeave.UserRelationship', userID = gblRecUser.userID, active = 1))
         ),
+        //Lấy các cấp phê duyệt cấp cao
+        Collect(gblColManagerHighLevel,Filter('ASTakeLeave.CommonRelationship',active = 1));
         
         //Lấy danh sách user quản lý theo role (Chỉ role manager và HR manager)
         If(

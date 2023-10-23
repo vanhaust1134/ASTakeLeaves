@@ -6617,7 +6617,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "ctn_rds_FormDetail",
-      "ParentIndex": 1,
+      "ParentIndex": 0,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -6894,7 +6894,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "ctn_rds_FormDetail2",
-      "ParentIndex": 0,
+      "ParentIndex": 1,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -8345,7 +8345,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "ctn_rds_Info2",
-      "ParentIndex": 0,
+      "ParentIndex": 1,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -15248,7 +15248,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "img_rds_Avatar",
-      "ParentIndex": 1,
+      "ParentIndex": 0,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {

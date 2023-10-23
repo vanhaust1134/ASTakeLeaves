@@ -1878,7 +1878,7 @@
                             OData__x0033_65AccountInfo.Email = drp_rs_HandOver.Selected.Email
                         ).userID,
                         handOverContent: txt_rs_HandOverContent.Text,
-                        currentApproveLevel: 1,
+                        currentApproveLevel: If(gblRecUser.roleID = 1,1,gblRecUser.roleID = 2,2,gblRecUser.roleID = 3,2,gblRecUser.roleID = 4,2),
                         maxApproveLevel: If(
                             gblRecUser.roleID = 2 And Sum(
                                 colTotalListDateRange,

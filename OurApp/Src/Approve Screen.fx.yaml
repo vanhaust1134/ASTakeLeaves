@@ -1,10 +1,72 @@
 "'Approve Screen' As screen":
     Fill: =RGBA(224,224,224,1)
-    OnVisible: |+
+    OnVisible: |-
         =//Lấy các cấp phê duyệt của user hiện tại
-        ClearCollect(colApproveStepDetailUser,Sort(Filter('ASTakeLeave.UserRelationship',userID = gblRecUser.userID And active = 1),approveProcessLevel,SortOrder.Ascending));
-        ClearCollect(colApproveStepDetailCommon,Sort(Filter('ASTakeLeave.CommonRelationship',active = 1),approveProcessLevel,SortOrder.Ascending))
-        
+        ClearCollect(
+            colApproveStepDetailUser,
+            Sort(
+                Filter(
+                    gblColUserManager,
+                    userID = gblRecUser.userID And active = 1
+                ),
+                approveProcessLevel,
+                SortOrder.Ascending
+            )
+        );
+        ClearCollect(
+            colApproveStepDetailCommon,
+            Sort(
+                Filter(
+                    gblColManagerHighLevel,
+                    active = 1
+                ),
+                approveProcessLevel,
+                SortOrder.Ascending
+            )
+        );
+        //Lấy danh sách yêu cầu theo quản lý của người tạo
+        If(
+            //Role trưởng phòng
+            gblRecUser.roleID = 2,
+            ClearCollect(
+                colLeaveRequestByManager,
+                AddColumns(
+                    Filter('ASTakeLeave.LeaveRequest',status = 1) As Temp,
+                    "approveUserID",
+                    LookUp(
+                        gblColUserManager,
+                        userID = Temp.userID And active = 1 And approveProcessLevel = 1
+                    ).approveUserID
+                )
+            )
+        );
+        If(
+            //Role giám đốc khối
+            gblRecUser.roleID = 3,
+            ClearCollect(
+                colLeaveRequestByManager,
+                AddColumns(
+                    Filter('ASTakeLeave.LeaveRequest',status = 1) As Temp,
+                    "approveUserID",
+                    LookUp(
+                        gblColUserManager,
+                        userID = Temp.userID And active = 1 And approveProcessLevel = 2
+                    ).approveUserID
+                )
+            )
+        );
+        If(
+            //Role giám đốc khối
+            gblRecUser.roleID = 4,
+            ClearCollect(
+                colLeaveRequestByManager,
+                AddColumns(
+                    Filter('ASTakeLeave.LeaveRequest',status = 1) As Temp,
+                    "approveUserID",
+                    gblRecUser.userID
+                )
+            )
+        );
 
     btn_as_BackGroundScreen As button:
         BorderStyle: =BorderStyle.None
@@ -176,7 +238,7 @@
             FillPortions: =1
             FontWeight: =FontWeight.Semibold
             Size: =15
-            Text: ="Có 10 yêu cầu đang chờ phê duyệt"
+            Text: ="Có " & CountRows(Filter(colLeaveRequestByManager,approveUserID = gblRecUser.userID)) & " yêu cầu đang chờ phê duyệt"
             Width: =230
             ZIndex: =2
 
@@ -291,8 +353,7 @@
                 gal_as_List As gallery.galleryVertical:
                     AlignInContainer: =AlignInContainer.SetByContainer
                     DelayItemLoading: =true
-                    Items: |-
-                        =Table({ID:1,Reason:"Nghỉ bệnh",Time:"01/10 - 03/10/2023",Created:"Trần Văn Hậu",Status:"Đã phê duyệt"},{ID:1,Reason:"Nghỉ về quê",Time:"28/09 - 28/09/2023",Created:"Trần Văn Hậu",Status:"Đã phê duyệt"},{ID:1,Reason:"Khám bệnh",Time:"15/09 - 17/09/2023",Created:"Trần Văn Hậu",Status:"Đã phê duyệt"})
+                    Items: =Filter(colLeaveRequestByManager,approveUserID = gblRecUser.userID)
                     Layout: =Layout.Vertical
                     LayoutMinHeight: =287
                     LayoutMinWidth: =0
@@ -324,7 +385,7 @@
                             FontWeight: =FontWeight.Semibold
                             LayoutMinWidth: =140
                             OnSelect: =Navigate('Request Detail Screen')
-                            Text: =ThisItem.Reason
+                            Text: =ThisItem.reason
                             Wrap: =false
                             ZIndex: =1
 
@@ -333,7 +394,7 @@
                             FillPortions: =1
                             FontWeight: =FontWeight.Semibold
                             OnSelect: =Navigate('Request Detail Screen')
-                            Text: =ThisItem.Time
+                            Text: =ThisItem.startDate & ThisItem.endDate
                             Wrap: =false
                             ZIndex: =2
 
@@ -342,7 +403,7 @@
                             FillPortions: =1
                             FontWeight: =FontWeight.Semibold
                             OnSelect: =Navigate('Request Detail Screen')
-                            Text: ="5 ngày"
+                            Text: =ThisItem.totalDayOff & " ngày"
                             Wrap: =false
                             ZIndex: =3
 
@@ -351,7 +412,7 @@
                             FillPortions: =1
                             FontWeight: =FontWeight.Semibold
                             OnSelect: =Navigate('Request Detail Screen')
-                            Text: =ThisItem.Created
+                            Text: =LookUp(gblColAllUser,active = 1 And userID = ThisItem.userID).fullName
                             Wrap: =false
                             ZIndex: =4
 
@@ -399,7 +460,8 @@
                             LayoutMinHeight: =0
                             LayoutMinWidth: =0
                             OnSelect: |-
-                                =UpdateContext({locReject:true})
+                                =UpdateContext({locReject:true});
+                                UpdateContext({locRequestInfo:ThisItem})
                             Width: =50
                             ZIndex: =6
 
@@ -410,7 +472,8 @@
                             LayoutMinHeight: =0
                             LayoutMinWidth: =0
                             OnSelect: |-
-                                =UpdateContext({locApprove:true})
+                                =UpdateContext({locApprove:true});
+                                UpdateContext({locRequestInfo:ThisItem})
                             Width: =50
                             ZIndex: =7
 
@@ -594,7 +657,9 @@
             Height: =36
             HoverFill: =ColorFade(Self.Fill, -20%)
             OnSelect: |-
-                =Notify("Tạo thành công",NotificationType.Success,1500);
+                =Patch('ASTakeLeave.LeaveRequest',LookUp('ASTakeLeave.LeaveRequest',ID = locRequestInfo.ID),{currentApproveLevel:0,status:3});
+                Patch('ASTakeLeave.HistoryApprove',Defaults());
+                Notify("Từ chối thành công",NotificationType.Success,1500);
                 UpdateContext({locReject:false})
             PressedColor: =RGBA(255,255,255,1)
             PressedFill: =Self.Fill
@@ -714,7 +779,8 @@
             Height: =36
             HoverFill: =ColorFade(Self.Fill, -20%)
             OnSelect: |-
-                =Notify("Duyệt thành công",NotificationType.Success,1500);
+                =If(locRequestInfo.currentApproveLevel = locRequestInfo.maxApproveLevel,Patch('ASTakeLeave.LeaveRequest',LookUp('ASTakeLeave.LeaveRequest',ID = locRequestInfo.ID),{currentApproveLevel:locRequestInfo.currentApproveLevel + 1,status:2}),Patch('ASTakeLeave.LeaveRequest',LookUp('ASTakeLeave.LeaveRequest',ID = locRequestInfo.ID),{currentApproveLevel:locRequestInfo.currentApproveLevel + 1}));
+                Notify("Duyệt thành công",NotificationType.Success,1500);
                 UpdateContext({locApprove:false})
             PressedColor: =RGBA(255,255,255,1)
             PressedFill: =Self.Fill
@@ -754,35 +820,35 @@
                 ="<table  width='100%' border='1' cellpadding='5' style='border:1px solid black; border-collapse:collapse'>
                   <tr>
                     <td style=width:200px><b>Các lí do nghỉ</b></td>
-                    <td>" & "Có lương" &"</td>
+                    <td>" & locRequestInfo.reason &"</td>
                   </tr>
                   <tr>
                     <td style=width:200px><b>Lí do</b></td>
-                    <td>" & "Nghỉ bệnh" &"</td>
+                    <td>" & locRequestInfo.reasonDetail &"</td>
                   </tr>
                   <tr>
                     <td style=width:100px><b>Ngày bắt đầu</b></td>
-                    <td>" & "20/10/2023" &"</td>
+                    <td>" & locRequestInfo.startDate &"</td>
                   </tr>
                   <tr>
                     <td style=width:100px><b>Ngày kết thúc</b></td>
-                    <td>" & "27/10/2023" &"</td>
+                    <td>" & locRequestInfo.endDate &"</td>
                   </tr>
                   <tr>
                     <td style=width:100px><b>Thời lượng</b></td>
-                    <td>" & "2 ngày" &"</td>
+                    <td>" & locRequestInfo.totalDayOff & " ngày" &"</td>
                   </tr>
                   <tr>
                     <td style=width:100px><b>Người tạo</b></td>
-                    <td>" & "Trần Văn Hậu" &"</td>
+                    <td>" & LookUp(gblColAllUser,userID = locRequestInfo.userID).fullName &"</td>
                   </tr>
                   <tr>
                     <td style=width:100px><b>Nhân viên bàn giao</b></td>
-                    <td>" & "Võ Đỗ Thi Nhân" &"</td>
+                    <td>" & LookUp(gblColAllUser,userID = locRequestInfo.handOverUserID).fullName &"</td>
                   </tr>
                   <tr>
                     <td style=width:100px><b>Công việc bàn giao</b></td>
-                    <td>" & "Triển khai phần mềm cho khách hàng" &"</td>
+                    <td>" & locRequestInfo.handOverContent &"</td>
                   </tr>
                 </table>"
             Size: =13
@@ -790,4 +856,20 @@
             X: =387
             Y: =159
             ZIndex: =9
+
+    Button8 As button:
+        OnSelect: |-
+            =UpdateContext({locReject:true})
+        Text: ="Button"
+        X: =547
+        Y: =32
+        ZIndex: =9
+
+    Button8_2 As button:
+        OnSelect: |-
+            =UpdateContext({locApprove:true});
+        Text: ="Button"
+        X: =757
+        Y: =32
+        ZIndex: =10
 
