@@ -1,7 +1,31 @@
 "'Statistical Manager Screen' As screen":
     Fill: =RGBA(224,224,224,1)
     OnVisible: |-
-        =ClearCollect(colFilterAdvance,Table({ID:4,Title:"Theo năm",Status:true},{ID:1,Title:"Tất cả nhân viên",Status:true},{ID:2,Title:"Theo Phòng",Status:true},{ID:3,Title:"Theo nhân viên",Status:true}))
+        =Collect(
+            locColReportManagerFilterAdvance,
+            Table(
+                {
+                    ID: 0,
+                    Title: "Theo năm",
+                    Status: true
+                },
+                {
+                    ID: 1,
+                    Title: "Tất cả nhân viên",
+                    Status: true
+                },
+                {
+                    ID: 2,
+                    Title: "Theo Phòng",
+                    Status: true
+                },
+                {
+                    ID: 3,
+                    Title: "Theo nhân viên",
+                    Status: true
+                }
+            )
+        )
 
     btn_hs_BackGroundScreen_2 As button:
         BorderStyle: =BorderStyle.None
@@ -309,7 +333,7 @@
 
             Gallery4 As gallery.variableTemplateHeightGallery:
                 DelayItemLoading: =true
-                Items: =colFilterAdvance
+                Items: =locColReportManagerFilterAdvance
                 Layout: =Layout.Vertical
                 LayoutMinHeight: =287
                 LayoutMinWidth: =0
@@ -331,9 +355,9 @@
                     OnCheck: |-
                         =//Patch(colFilterAdvance,LookUp(colFilterAdvance,ID = ThisItem.ID),{Status:true});
                     OnSelect: |-
-                        =Patch(colFilterAdvance,LookUp(colFilterAdvance,ID = ThisItem.ID),{Status:!ThisItem.Status});
-                        If(ThisItem.ID = 3 And ThisItem.Status = false,Patch(colFilterAdvance,LookUp(colFilterAdvance,ID = 1),{Status:false}));
-                        If(ThisItem.ID = 1 And ThisItem.Status = false,Patch(colFilterAdvance,LookUp(colFilterAdvance,ID = 3),{Status:false}))
+                        =Patch(locColReportManagerFilterAdvance,LookUp(locColReportManagerFilterAdvance,ID = ThisItem.ID),{Status:!ThisItem.Status});
+                        If(ThisItem.ID = 3 And ThisItem.Status = false,Patch(locColReportManagerFilterAdvance,LookUp(locColReportManagerFilterAdvance,ID = 1),{Status:false}));
+                        If(ThisItem.ID = 1 And ThisItem.Status = false,Patch(locColReportManagerFilterAdvance,LookUp(locColReportManagerFilterAdvance,ID = 3),{Status:false}))
                     OnUncheck: |-
                         =//Patch(colFilterAdvance,LookUp(colFilterAdvance,ID = ThisItem.ID),{Status:false})
                     ShowLabel: =false
@@ -442,7 +466,7 @@
                     Height: =90
                     LayoutDirection: =LayoutDirection.Vertical
                     LayoutMode: =LayoutMode.Auto
-                    Visible: =If(ThisItem.ID = 4 And ThisItem.Status = true,true)
+                    Visible: =If(ThisItem.ID = 0 And ThisItem.Status = true,true)
                     Width: =232
                     Y: =47
                     ZIndex: =6
