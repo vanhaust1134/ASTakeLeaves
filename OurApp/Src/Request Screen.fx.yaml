@@ -1351,7 +1351,7 @@
                                 1500
                             ),
                             UpdateContext({locSubmit: true});
-                            ClearCollect(
+                            /*ClearCollect(
                                 colListDateRange,
                                 AddColumns(
                                     FirstN(
@@ -1504,7 +1504,7 @@
                                         )
                                     )
                                 }
-                            )
+                            )*/
                         )
                     Text: ="Tạo"
                     ZIndex: =5
@@ -1914,8 +1914,7 @@
                             1
                         ),
                         status: 1,
-                        createDayValue: Value(Day(Today()) & Month(Today()) & Year(Today())),
-                        totalLeaveDays: locTotalDayLeave
+                        createDayValue: Value(Day(Today()) & Month(Today()) & Year(Today()))
                     },
                     Form2.Updates
                 );
