@@ -1,7 +1,22 @@
 "'Statistical User Screen' As screen":
     Fill: =RGBA(224,224,224,1)
     OnVisible: |-
-        =ClearCollect(colFilterAdvance,Table({ID:4,Title:"Theo năm",Status:true}))
+        =//Lấy các ngày phép trong năm hiện tại
+        If(
+            IsEmpty(locColReportTotalRequest),  //chỉ lấy lần đầu
+            Collect(
+                locColReportTotalRequest,
+                AddColumns(
+                    Filter('ASTakeLeave.LeaveRequest', userID = gblRecUser.userID, status = 2) As temp,
+                    "year",
+                    Year(temp.startDate)
+                )
+            );
+            Collect(
+                locColReportYears,
+                Distinct(locColReportTotalRequest, year)
+            )
+        )
 
     btn_hs_BackGroundScreen_3 As button:
         BorderStyle: =BorderStyle.None
@@ -458,7 +473,7 @@
                         BorderThickness: =1
                         ChevronBackground: =RGBA(73, 113, 215, 1)
                         Height: =35
-                        Items: =Sequence(2,2023)
+                        Items: =locColReportTotalRequest
                         LayoutMinWidth: =0
                         Width: =200
                         ZIndex: =4

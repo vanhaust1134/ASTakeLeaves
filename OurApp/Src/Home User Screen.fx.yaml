@@ -431,7 +431,10 @@
                     LayoutMinHeight: =287
                     LayoutMinWidth: =0
                     LoadingSpinner: =LoadingSpinner.Data
-                    OnSelect: =Navigate('Request Detail Screen')
+                    OnSelect: |-
+                        =//Lưu biến chứa thông tin phép hiện tại
+                        Set(locCurrentCalendarLeaveRequest, ThisItem);
+                        Navigate('Request Detail Screen');
                     ShowScrollbar: =false
                     TemplateSize: =70
                     ZIndex: =1
