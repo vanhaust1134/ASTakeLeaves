@@ -590,8 +590,8 @@
                                 =CountRows(
                                     Filter(
                                         locColCalendarTotalLeave,
-                                        startDate >= DateAdd(_firstDayInView,ThisItem.Value, TimeUnit.Days) &&
-                                        endDate <= DateAdd(_firstDayInView,ThisItem.Value, TimeUnit.Days)
+                                        DateValue(startDate) <= DateAdd(_firstDayInView,ThisItem.Value, TimeUnit.Days) &&
+                                        DateValue(endDate) >= DateAdd(_firstDayInView,ThisItem.Value, TimeUnit.Days)
                                     )
                                 )
                             Visible: =If(Value(Self.Text) = 0, false, true)
@@ -657,7 +657,7 @@
                             ),
                             Filter(
                                 locColCalendarTotalLeave, 
-                                startDate >= _dateSelected && endDate <= _dateSelected
+                                startDate <= _dateSelected && endDate >= _dateSelected
                             )
                         )
                     Layout: =Layout.Vertical
