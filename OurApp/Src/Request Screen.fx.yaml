@@ -28,12 +28,14 @@
                 Sequence(
                     12,
                     1
-                ),
+                ) As Temp,
                 "LeaveDays",
                 LookUp(
                     'ASTakeLeave.TotalDayOffInYear',
                     userID = gblRecUser.userID
-                ).maxDayOff_Year / 12
+                ).maxDayOff_Year / 12,
+                "Status",
+                If(CountRows(Filter('ASTakeLeave.LeaveRequest',userID = gblRecUser.userID And Month(startDate) = Temp.Value And status = 2)) = 1,1,0)
             )
         );
         //Kiểm tra ngày nghỉ
@@ -199,7 +201,116 @@
                     TimeUnit.Days
                 )
             )
-        )
+        );
+        //Tính tổng ngày nghỉ cho phép
+        UpdateContext({locLeaveDayAllow:If(
+            Month(Today()) < 9,
+            If(
+                Value(
+                    Right(
+                        Round(
+                            Sum(
+                                Filter(
+                                    colLeaveDayInMonth,
+                                    Value <= Month(Today()) Or Value = Month(Today()) + 1 Or Value = Month(Today()) + 2 Or Value = Month(Today()) + 3 And Status = 0
+                                ),
+                                LeaveDays
+                            ),
+                            1
+                        ),
+                        1
+                    )
+                ) < 5,
+                Round(
+                    Sum(
+                        Filter(
+                            colLeaveDayInMonth,
+                            Value <= Month(Today()) Or Value = Month(Today()) + 1 Or Value = Month(Today()) + 2 Or Value = Month(Today()) + 3 And Status = 0
+                        ),
+                        LeaveDays
+                    ),
+                    0
+                ) - LookUp(
+                    'ASTakeLeave.TotalDayOffInYear',
+                    userID = gblRecUser.userID
+                ).totalDayOff_Year,
+                Value(
+                    Right(
+                        Round(
+                            Sum(
+                                Filter(
+                                    colLeaveDayInMonth,
+                                    Value <= Month(Today()) Or Value = Month(Today()) + 1 Or Value = Month(Today()) + 2 Or Value = Month(Today()) + 3 And Status = 0
+                                ),
+                                LeaveDays
+                            ),
+                            1
+                        ),
+                        1
+                    )
+                ) >= 5,
+                RoundUp(
+                    Sum(
+                        Filter(
+                            colLeaveDayInMonth,
+                            Value <= Month(Today()) Or Value = Month(Today()) + 1 Or Value = Month(Today()) + 2 Or Value = Month(Today()) + 3 And Status = 0
+                        ),
+                        LeaveDays
+                    ),
+                    0
+                ) - LookUp(
+                    'ASTakeLeave.TotalDayOffInYear',
+                    userID = gblRecUser.userID
+                ).totalDayOff_Year
+            ),
+            //Tháng hiện tại là tháng 9
+            If(
+                Value(
+                    Right(
+                        Round(
+                            Sum(
+                                Filter(colLeaveDayInMonth,Status = 0),
+                                LeaveDays
+                            ),
+                            1
+                        ),
+                        1
+                    )
+                ) < 5,
+                Round(
+                    Sum(
+                        Filter(colLeaveDayInMonth,Status = 0),
+                        LeaveDays
+                    ),
+                    0
+                ) - LookUp(
+                    'ASTakeLeave.TotalDayOffInYear',
+                    userID = gblRecUser.userID
+                ).totalDayOff_Year,
+                Value(
+                    Right(
+                        Round(
+                            Sum(
+                                Filter(colLeaveDayInMonth,Status = 0),
+                                LeaveDays
+                            ),
+                            1
+                        ),
+                        1
+                    )
+                ) >= 5,
+                RoundUp(
+                    Sum(
+                        Filter(colLeaveDayInMonth,Status = 0),
+                        LeaveDays
+                    ),
+                    0
+                ) - LookUp(
+                    'ASTakeLeave.TotalDayOffInYear',
+                    userID = gblRecUser.userID
+                ).totalDayOff_Year
+            )
+        )})
 
     btn_rs_BackGroundScreen As button:
         BorderStyle: =BorderStyle.None
@@ -300,117 +411,10 @@
             Align: =Align.Right
             Color: =RGBA(94, 94, 94, 1)
             FillPortions: =1
-            FontWeight: =FontWeight.Semibold
+            FontWeight: =FontWeight.Bold
             Size: =15
             Text: |-
-                ="Được nghỉ tối đa: " & If(
-                    Month(Today()) < 9,
-                    If(
-                        Value(
-                            Right(
-                                Round(
-                                    Sum(
-                                        Filter(
-                                            colLeaveDayInMonth,
-                                            Value = Month(Today()) Or Value = Month(Today()) + 1 Or Month(Today()) + 2 Or Month(Today()) + 3
-                                        ),
-                                        LeaveDays
-                                    ),
-                                    1
-                                ),
-                                1
-                            )
-                        ) < 5,
-                        Round(
-                            Sum(
-                                Filter(
-                                    colLeaveDayInMonth,
-                                    Value = Month(Today()) Or Value = Month(Today()) + 1 Or Month(Today()) + 2 Or Month(Today()) + 3
-                                ),
-                                LeaveDays
-                            ),
-                            0
-                        ) - LookUp(
-                            'ASTakeLeave.TotalDayOffInYear',
-                            userID = gblRecUser.userID
-                        ).totalDayOff_Year,
-                        Value(
-                            Right(
-                                Round(
-                                    Sum(
-                                        Filter(
-                                            colLeaveDayInMonth,
-                                            Value = Month(Today()) Or Value = Month(Today()) + 1 Or Month(Today()) + 2 Or Month(Today()) + 3
-                                        ),
-                                        LeaveDays
-                                    ),
-                                    1
-                                ),
-                                1
-                            )
-                        ) >= 5,
-                        RoundUp(
-                            Sum(
-                                Filter(
-                                    colLeaveDayInMonth,
-                                    Value = Month(Today()) Or Value = Month(Today()) + 1 Or Month(Today()) + 2 Or Month(Today()) + 3
-                                ),
-                                LeaveDays
-                            ),
-                            0
-                        ) - LookUp(
-                            'ASTakeLeave.TotalDayOffInYear',
-                            userID = gblRecUser.userID
-                        ).totalDayOff_Year
-                    ),
-                    //Tháng hiện tại là tháng 9
-                    If(
-                        Value(
-                            Right(
-                                Round(
-                                    Sum(
-                                        colLeaveDayInMonth,
-                                        LeaveDays
-                                    ),
-                                    1
-                                ),
-                                1
-                            )
-                        ) < 5,
-                        Round(
-                            Sum(
-                                colLeaveDayInMonth,
-                                LeaveDays
-                            ),
-                            0
-                        ) - LookUp(
-                            'ASTakeLeave.TotalDayOffInYear',
-                            userID = gblRecUser.userID
-                        ).totalDayOff_Year,
-                        Value(
-                            Right(
-                                Round(
-                                    Sum(
-                                        colLeaveDayInMonth,
-                                        LeaveDays
-                                    ),
-                                    1
-                                ),
-                                1
-                            )
-                        ) >= 5,
-                        RoundUp(
-                            Sum(
-                                colLeaveDayInMonth,
-                                LeaveDays
-                            ),
-                            0
-                        ) - LookUp(
-                            'ASTakeLeave.TotalDayOffInYear',
-                            userID = gblRecUser.userID
-                        ).totalDayOff_Year
-                    )
-                )
+                ="Được nghỉ tối đa: " & locLeaveDayAllow
             ZIndex: =3
 
         lbl_rs_DivisionTitle_1 As label:
@@ -998,7 +1002,7 @@
                             FontWeight: =FontWeight.Semibold
                             Size: =15
                             Text: |-
-                                ="Tổng: " & Sum(colTotalListDateRange,Total) & " ngày"
+                                ="Tổng: " & Sum(colTotalListDateRange,Total) & " ngày " & If(Sum(colTotalListDateRange,Total) > locLeaveDayAllow,"(tổng ngày nghỉ lớn hơn ngày nghỉ cho phép)")
                             ZIndex: =2
 
                     Gallery5 As gallery.galleryHorizontal:
@@ -1347,6 +1351,12 @@
                             ) = 0,
                             Notify(
                                 "Ngày nghỉ phải lớn hơn hoặc bằng 1 ngày",
+                                NotificationType.Error,
+                                1500
+                            ),
+                            Sum(colTotalListDateRange,Total) > locLeaveDayAllow,
+                            Notify(
+                                "Tổng ngày nghỉ lớn hơn ngày nghỉ cho phép",
                                 NotificationType.Error,
                                 1500
                             ),
@@ -1825,98 +1835,161 @@
             Height: =36
             HoverFill: =ColorFade(Self.Fill, -20%)
             OnSelect: |-
-                =Patch(
-                    'ASTakeLeave.LeaveRequest',
-                    Defaults('ASTakeLeave.LeaveRequest'),
-                    {
-                        departmentID: gblRecUser.departmentID,
-                        divisionID: gblRecUser.divisionID,
-                        userID: gblRecUser.userID,
-                        totalDayOff: Sum(
-                            colTotalListDateRange,
-                            Total
-                        ),
-                        totalDayUnpaid: If(
-                            LookUp(
-                                'ASTakeLeave.TotalDayOffInYear',
-                                userID = gblRecUser.userID
-                            ).totalDayOff_Year + Sum(
+                =//Tạo yêu cầu
+                Set(
+                    gblRequest,
+                    Patch(
+                        'ASTakeLeave.LeaveRequest',
+                        Defaults('ASTakeLeave.LeaveRequest'),
+                        {
+                            departmentID: gblRecUser.departmentID,
+                            divisionID: gblRecUser.divisionID,
+                            userID: gblRecUser.userID,
+                            totalDayOff: Sum(
                                 colTotalListDateRange,
                                 Total
-                            ) > LookUp(
-                                'ASTakeLeave.TotalDayOffInYear',
-                                userID = gblRecUser.userID
-                            ).maxDayOff_Year,
-                            (LookUp(
-                                'ASTakeLeave.TotalDayOffInYear',
-                                userID = gblRecUser.userID
-                            ).totalDayOff_Year + Sum(
-                                colTotalListDateRange,
-                                Total
-                            )) - LookUp(
-                                'ASTakeLeave.TotalDayOffInYear',
-                                userID = gblRecUser.userID
-                            ).maxDayOff_Year,
-                            0
-                        ),
-                        startDate: dtp_rs_StartDay.SelectedDate,
-                        endDate: dtp_rs_FinishDay.SelectedDate,
-                        startDateValue: Value(Day(dtp_rs_StartDay.SelectedDate) & Month(dtp_rs_StartDay.SelectedDate) & Year(dtp_rs_StartDay.SelectedDate)),
-                        endDateValue: Value(Day(dtp_rs_FinishDay.SelectedDate) & Month(dtp_rs_FinishDay.SelectedDate) & Year(dtp_rs_FinishDay.SelectedDate)),
-                        startDateType: LookUp(
-                            colDateRange,
-                            ID = 1
-                        ).Status,
-                        endDateType: LookUp(
-                            colDateRange,
-                            ID = 2
-                        ).Status,
-                        reason: txt_rs_Detail.Text,
-                        reasonDetail: drp_rs_Reason.Selected.description,
-                        handOverUserID: LookUp(
-                            gblColAllUser,
-                            OData__x0033_65AccountInfo.Email = drp_rs_HandOver.Selected.Email
-                        ).userID,
-                        handOverContent: txt_rs_HandOverContent.Text,
-                        currentApproveLevel: If(gblRecUser.roleID = 1,1,gblRecUser.roleID = 2,2,gblRecUser.roleID = 3,2,gblRecUser.roleID = 4,2),
-                        maxApproveLevel: If(
-                            gblRecUser.roleID = 2 And Sum(
-                                colTotalListDateRange,
-                                Total
-                            ) <= 12,
-                            2,
-                            gblRecUser.roleID = 2 And Sum(
-                                colTotalListDateRange,
-                                Total
-                            ) >= 12,
-                            3,
-                            gblRecUser.roleID = 1 And Sum(
-                                colTotalListDateRange,
-                                Total
-                            ) <= 12,
-                            2,
-                            gblRecUser.roleID = 1 And Sum(
-                                colTotalListDateRange,
-                                Total
-                            ) > 12,
-                            2,
-                            gblRecUser.roleID = 3 And Sum(
-                                colTotalListDateRange,
-                                Total
-                            ) <= 12,
-                            1,
-                            gblRecUser.roleID = 3 And Sum(
-                                colTotalListDateRange,
-                                Total
-                            ) > 12,
-                            2,
-                            gblRecUser.roleID = 4,
-                            1
-                        ),
-                        status: 1,
-                        createDayValue: Value(Day(Today()) & Month(Today()) & Year(Today()))
-                    },
-                    Form2.Updates
+                            ),
+                            totalDayUnpaid: If(
+                                LookUp(
+                                    'ASTakeLeave.TotalDayOffInYear',
+                                    userID = gblRecUser.userID
+                                ).totalDayOff_Year + Sum(
+                                    colTotalListDateRange,
+                                    Total
+                                ) > LookUp(
+                                    'ASTakeLeave.TotalDayOffInYear',
+                                    userID = gblRecUser.userID
+                                ).maxDayOff_Year,
+                                (LookUp(
+                                    'ASTakeLeave.TotalDayOffInYear',
+                                    userID = gblRecUser.userID
+                                ).totalDayOff_Year + Sum(
+                                    colTotalListDateRange,
+                                    Total
+                                )) - LookUp(
+                                    'ASTakeLeave.TotalDayOffInYear',
+                                    userID = gblRecUser.userID
+                                ).maxDayOff_Year,
+                                0
+                            ),
+                            startDate: dtp_rs_StartDay.SelectedDate,
+                            endDate: dtp_rs_FinishDay.SelectedDate,
+                            startDateValue: Value(Day(dtp_rs_StartDay.SelectedDate) & Month(dtp_rs_StartDay.SelectedDate) & Year(dtp_rs_StartDay.SelectedDate)),
+                            endDateValue: Value(Day(dtp_rs_FinishDay.SelectedDate) & Month(dtp_rs_FinishDay.SelectedDate) & Year(dtp_rs_FinishDay.SelectedDate)),
+                            startDateType: LookUp(
+                                colDateRange,
+                                ID = 1
+                            ).Status,
+                            endDateType: LookUp(
+                                colDateRange,
+                                ID = 2
+                            ).Status,
+                            reason: txt_rs_Detail.Text,
+                            reasonDetail: drp_rs_Reason.Selected.description,
+                            handOverUserID: LookUp(
+                                gblColAllUser,
+                                OData__x0033_65AccountInfo.Email = drp_rs_HandOver.Selected.Email
+                            ).userID,
+                            handOverContent: txt_rs_HandOverContent.Text,
+                            currentApproveLevel: If(
+                                gblRecUser.roleID = 1,
+                                1,
+                                gblRecUser.roleID = 2,
+                                2,
+                                gblRecUser.roleID = 3,
+                                2,
+                                gblRecUser.roleID = 4,
+                                2
+                            ),
+                            maxApproveLevel: If(
+                                gblRecUser.roleID = 2 And Sum(
+                                    colTotalListDateRange,
+                                    Total
+                                ) <= 12,
+                                2,
+                                gblRecUser.roleID = 2 And Sum(
+                                    colTotalListDateRange,
+                                    Total
+                                ) >= 12,
+                                3,
+                                gblRecUser.roleID = 1 And Sum(
+                                    colTotalListDateRange,
+                                    Total
+                                ) <= 12,
+                                2,
+                                gblRecUser.roleID = 1 And Sum(
+                                    colTotalListDateRange,
+                                    Total
+                                ) > 12,
+                                2,
+                                gblRecUser.roleID = 3 And Sum(
+                                    colTotalListDateRange,
+                                    Total
+                                ) <= 12,
+                                1,
+                                gblRecUser.roleID = 3 And Sum(
+                                    colTotalListDateRange,
+                                    Total
+                                ) > 12,
+                                2,
+                                gblRecUser.roleID = 4,
+                                1
+                            ),
+                            status: 1,
+                            createDayValue: Value(Day(Today()) & Month(Today()) & Year(Today()))
+                        },
+                        Form2.Updates
+                    )
+                );
+                //Nếu người tạo là quản lý, giám đốc hoặc giám đốc điều hành thì yêu cầu tự động phê duyệt tại bước này (ghi nhận lịch sử)
+                If(
+                    gblRecUser.roleID = 2,
+                    Patch(
+                        'ASTakeLeave.HistoryApprove',
+                        Defaults('ASTakeLeave.HistoryApprove'),
+                        {
+                            requestID: gblRequest.ID,
+                            userID: gblRecUser.userID,
+                            status: 2
+                        }
+                    ),
+                    gblRecUser.roleID = 3,
+                    Patch(
+                        'ASTakeLeave.HistoryApprove',
+                        Defaults('ASTakeLeave.HistoryApprove'),
+                        {
+                            requestID: gblRequest.ID,
+                            userID: gblRecUser.userID,
+                            status: 2
+                        }
+                    ),
+                    gblRecUser.roleID = 4,
+                    Patch(
+                        'ASTakeLeave.HistoryApprove',
+                        Defaults('ASTakeLeave.HistoryApprove'),
+                        {
+                            requestID: gblRequest.ID,
+                            userID: gblRecUser.userID,
+                            status: 2
+                        }
+                    )
+                );
+                //Ghi nhận tháng nghỉ
+                ForAll(
+                    Sequence(
+                        12,
+                        1
+                    ) As Temp,
+                    Patch(
+                        'ASTakeLeave.RequestCalculatedDays',
+                        Defaults('ASTakeLeave.RequestCalculatedDays'),
+                        {
+                            year: Year(Today()),
+                            requestID: gblRequest.ID,
+                            month:If(CountRows(Filter(colTotalListDateRange,Month(Date) = Temp.Value))>1,Temp.Value),
+                            totalDayOffWithPaid:Sum(Filter(colTotalListDateRange,Month(Date) = Temp.Value),Total)
+                        }
+                    )
                 );
                 Notify(
                     "Gửi thành công",

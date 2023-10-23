@@ -14,40 +14,159 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'Approve Screen'.ctn_as_Reject.btn_as_Submit.OnSelect"
+                  "fullyQualifiedName": "'Request Screen'.OnVisible"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'Approve Screen'.ctn_as_Reject.btn_as_Submit.OnSelect",
+                  "fullyQualifiedName": "'Request Screen'.OnVisible",
                   "relativeAddress": 0
                 },
                 "region": {
-                  "charLength": 10,
-                  "charOffset": 161,
+                  "charLength": 16,
+                  "charOffset": 912,
                   "snippet": {
-                    "text": "Defaults()"
+                    "text": "Month(startDate)"
                   }
                 }
               },
               "properties": {
-                "member": "OnSelect",
-                "module": "Approve Screen",
-                "type": "'Approve Screen'.ctn_as_Reject.btn_as_Submit"
+                "member": "OnVisible",
+                "module": "Request Screen",
+                "type": "'Request Screen'"
               }
             }
           ],
           "message": {
             "arguments": [
-              "0",
-              "1"
+              "Month"
             ],
             "id": "issue"
           },
           "properties": {
-            "level": "High"
+            "level": "Medium"
           },
-          "ruleId": "app-ErrBadArity",
+          "ruleId": "app-SuggestRemoteExecutionHint",
+          "ruleIndex": 0
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'Request Screen'.OnVisible"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'Request Screen'.OnVisible",
+                  "relativeAddress": 0
+                },
+                "region": {
+                  "charLength": 1,
+                  "charOffset": 929,
+                  "snippet": {
+                    "text": "="
+                  }
+                }
+              },
+              "properties": {
+                "member": "OnVisible",
+                "module": "Request Screen",
+                "type": "'Request Screen'"
+              }
+            }
+          ],
+          "message": {
+            "arguments": [
+              "Filter"
+            ],
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "app-SuggestRemoteExecutionHint",
+          "ruleIndex": 0
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'Request Screen'.OnVisible"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'Request Screen'.OnVisible",
+                  "relativeAddress": 0
+                },
+                "region": {
+                  "charLength": 3,
+                  "charOffset": 908,
+                  "snippet": {
+                    "text": "And"
+                  }
+                }
+              },
+              "properties": {
+                "member": "OnVisible",
+                "module": "Request Screen",
+                "type": "'Request Screen'"
+              }
+            }
+          ],
+          "message": {
+            "arguments": [
+              "Filter"
+            ],
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "app-SuggestRemoteExecutionHint",
+          "ruleIndex": 0
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'Request Screen'.OnVisible"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'Request Screen'.OnVisible",
+                  "relativeAddress": 0
+                },
+                "region": {
+                  "charLength": 3,
+                  "charOffset": 942,
+                  "snippet": {
+                    "text": "And"
+                  }
+                }
+              },
+              "properties": {
+                "member": "OnVisible",
+                "module": "Request Screen",
+                "type": "'Request Screen'"
+              }
+            }
+          ],
+          "message": {
+            "arguments": [
+              "Filter"
+            ],
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "app-SuggestRemoteExecutionHint",
           "ruleIndex": 0
         },
         {
@@ -485,66 +604,6 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail2.gal_rds_ApproveProcess.AccessibleLabel"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail2.gal_rds_ApproveProcess.AccessibleLabel",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "AccessibleLabel",
-                "module": "Request Detail Screen",
-                "type": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail2.gal_rds_ApproveProcess"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-AccessibleLabelNeeded",
-          "ruleIndex": 2
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail2.gal_rds_ApproveProcess.TabIndex"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail2.gal_rds_ApproveProcess.TabIndex",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "TabIndex",
-                "module": "Request Detail Screen",
-                "type": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail2.gal_rds_ApproveProcess"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-TabIndexShouldBeDefinedForInteractiveControl",
-          "ruleIndex": 3
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
                   "fullyQualifiedName": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail.ctn_rds_Reason.drp_rds_Reason.AccessibleLabel"
                 }
               ],
@@ -839,6 +898,66 @@
           },
           "ruleId": "acc-AccessibleLabelNeeded",
           "ruleIndex": 2
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail2.gal_rds_ApproveProcess.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail2.gal_rds_ApproveProcess.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "Request Detail Screen",
+                "type": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail2.gal_rds_ApproveProcess"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 2
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail2.gal_rds_ApproveProcess.TabIndex"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail2.gal_rds_ApproveProcess.TabIndex",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "TabIndex",
+                "module": "Request Detail Screen",
+                "type": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail2.gal_rds_ApproveProcess"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-TabIndexShouldBeDefinedForInteractiveControl",
+          "ruleIndex": 3
         },
         {
           "locations": [
@@ -9395,6 +9514,36 @@
             {
               "logicalLocations": [
                 {
+                  "fullyQualifiedName": "App.locCurrentCalendarLeaveRequest"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "App.locCurrentCalendarLeaveRequest",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "locCurrentCalendarLeaveRequest",
+                "module": "App",
+                "type": "App"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "app-UnusedVariables",
+          "ruleIndex": 6
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
                   "fullyQualifiedName": "App.asiashine"
                 }
               ],
@@ -9418,7 +9567,7 @@
             "level": "Medium"
           },
           "ruleId": "app-UnusedMediaResources",
-          "ruleIndex": 6
+          "ruleIndex": 7
         },
         {
           "locations": [
@@ -9448,7 +9597,7 @@
             "level": "Medium"
           },
           "ruleId": "app-UnusedMediaResources",
-          "ruleIndex": 6
+          "ruleIndex": 7
         },
         {
           "locations": [
@@ -9478,7 +9627,7 @@
             "level": "Medium"
           },
           "ruleId": "app-CollectDelegatableDataSource",
-          "ruleIndex": 7
+          "ruleIndex": 8
         },
         {
           "locations": [
@@ -9508,7 +9657,7 @@
             "level": "Medium"
           },
           "ruleId": "app-CollectDelegatableDataSource",
-          "ruleIndex": 7
+          "ruleIndex": 8
         },
         {
           "locations": [
@@ -9538,7 +9687,7 @@
             "level": "Medium"
           },
           "ruleId": "app-CollectDelegatableDataSource",
-          "ruleIndex": 7
+          "ruleIndex": 8
         },
         {
           "locations": [
@@ -9567,7 +9716,7 @@
             "level": "Low"
           },
           "ruleId": "app-NumericPropertySizeWarning",
-          "ruleIndex": 8
+          "ruleIndex": 9
         },
         {
           "locations": [
@@ -9597,7 +9746,7 @@
             "level": "Medium"
           },
           "ruleId": "app-UnusedVariables",
-          "ruleIndex": 9
+          "ruleIndex": 6
         },
         {
           "locations": [
@@ -9627,7 +9776,7 @@
             "level": "Medium"
           },
           "ruleId": "app-UnusedVariables",
-          "ruleIndex": 9
+          "ruleIndex": 6
         },
         {
           "locations": [
@@ -9686,7 +9835,7 @@
             "level": "Medium"
           },
           "ruleId": "app-UnusedVariables",
-          "ruleIndex": 9
+          "ruleIndex": 6
         },
         {
           "locations": [
@@ -9716,7 +9865,7 @@
             "level": "Medium"
           },
           "ruleId": "app-UnusedVariables",
-          "ruleIndex": 9
+          "ruleIndex": 6
         },
         {
           "locations": [
@@ -9746,7 +9895,7 @@
             "level": "Medium"
           },
           "ruleId": "app-UnusedVariables",
-          "ruleIndex": 9
+          "ruleIndex": 6
         },
         {
           "locations": [
@@ -9776,7 +9925,7 @@
             "level": "Medium"
           },
           "ruleId": "app-UnusedVariables",
-          "ruleIndex": 9
+          "ruleIndex": 6
         }
       ],
       "tool": {
@@ -9785,15 +9934,20 @@
           "name": "PowerApps app checker",
           "rules": [
             {
-              "id": "app-ErrBadArity",
+              "id": "app-SuggestRemoteExecutionHint",
               "messageStrings": {
                 "issue": {
-                  "text": "Invalid number of arguments: received {0}, expected {1}."
+                  "text": "Delegation warning. The \"{0}\" part of this formula might not work correctly on large data sets."
                 }
               },
               "properties": {
                 "componentType": "app",
-                "level": "High",
+                "howToFix": [
+                  "If your data set exceeds the 500 record limit but contains less than 2,000 records, try resetting the limit.",
+                  "Try simplifying the formula.",
+                  "Try moving your data to a different data source."
+                ],
+                "level": "Medium",
                 "primaryCategory": "formula",
                 "whyFix": ""
               }
@@ -9886,6 +10040,23 @@
               }
             },
             {
+              "id": "app-UnusedVariables",
+              "messageStrings": {
+                "issue": {
+                  "text": "Unused variable"
+                }
+              },
+              "properties": {
+                "componentType": "app",
+                "howToFix": [
+                  "Remove the unused variable."
+                ],
+                "level": "Medium",
+                "primaryCategory": "performance",
+                "whyFix": "This variable is declared but is not referenced by any control, so it is not needed."
+              }
+            },
+            {
               "id": "app-UnusedMediaResources",
               "messageStrings": {
                 "issue": {
@@ -9934,23 +10105,6 @@
                 "level": "Low",
                 "primaryCategory": "performance",
                 "whyFix": "We recommend testing on all supported platforms to ensure that attachments of this size can be uploaded successfully."
-              }
-            },
-            {
-              "id": "app-UnusedVariables",
-              "messageStrings": {
-                "issue": {
-                  "text": "Unused variable"
-                }
-              },
-              "properties": {
-                "componentType": "app",
-                "howToFix": [
-                  "Remove the unused variable."
-                ],
-                "level": "Medium",
-                "primaryCategory": "performance",
-                "whyFix": "This variable is declared but is not referenced by any control, so it is not needed."
               }
             },
             {

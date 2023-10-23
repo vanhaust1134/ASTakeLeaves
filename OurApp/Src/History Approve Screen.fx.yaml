@@ -267,7 +267,8 @@
                             Color: =RGBA(114, 114, 114, 1)
                             FillPortions: =1
                             FontWeight: =FontWeight.Semibold
-                            OnSelect: =Navigate('Request Detail Screen')
+                            OnSelect: |-
+                                =Navigate('Request Detail Screen',ScreenTransition.Fade,{locRequestDetail:ThisItem})
                             Text: =ThisItem.reason
                             ZIndex: =1
 
@@ -275,7 +276,8 @@
                             Color: =RGBA(114, 114, 114, 1)
                             FillPortions: =1
                             FontWeight: =FontWeight.Semibold
-                            OnSelect: =Navigate('Request Detail Screen')
+                            OnSelect: |-
+                                =Navigate('Request Detail Screen',ScreenTransition.Fade,{locRequestDetail:ThisItem})
                             Text: =ThisItem.startDate & ThisItem.endDate
                             ZIndex: =2
 
@@ -283,7 +285,8 @@
                             Color: =RGBA(114, 114, 114, 1)
                             FillPortions: =1
                             FontWeight: =FontWeight.Semibold
-                            OnSelect: =Navigate('Request Detail Screen')
+                            OnSelect: |-
+                                =Navigate('Request Detail Screen',ScreenTransition.Fade,{locRequestDetail:ThisItem})
                             Text: ="5 ngày"
                             ZIndex: =3
 
@@ -291,7 +294,8 @@
                             Color: =RGBA(114, 114, 114, 1)
                             FillPortions: =1
                             FontWeight: =FontWeight.Semibold
-                            OnSelect: =Navigate('Request Detail Screen')
+                            OnSelect: |-
+                                =Navigate('Request Detail Screen',ScreenTransition.Fade,{locRequestDetail:ThisItem})
                             Text: =ThisItem.Created
                             ZIndex: =4
 

@@ -706,13 +706,62 @@
                 X: =137
                 ZIndex: =1
 
-                btn_rs_Create_1 As button:
+                btn_rds_Approve As button:
                     BorderStyle: =BorderStyle.None
                     DisabledFill: =
                     Fill: =RGBA(72, 163, 62, 1)
                     Height: =28
                     HoverFill: =ColorFade(Self.Fill, -20%)
-                    OnSelect: =Notify("Phê duyệt thành công",NotificationType.Success,1500)
+                    OnSelect: |-
+                        =//Nếu chưa là bước cuối sẽ cập nhật tới bước tiếp theo, Nếu đã là bước cuối cập nhật yêu cầu với trạng thái hoàn thành
+                        If(locRequestDetail.currentApproveLevel = locRequestDetail.maxApproveLevel,Patch('ASTakeLeave.LeaveRequest',LookUp('ASTakeLeave.LeaveRequest',ID = locRequestDetail.ID),{currentApproveLevel:locRequestDetail.currentApproveLevel + 1,status:2}),Patch('ASTakeLeave.LeaveRequest',LookUp('ASTakeLeave.LeaveRequest',ID = locRequestDetail.ID),{currentApproveLevel:locRequestDetail.currentApproveLevel + 1}));
+                        //Ghi nhận lịch sử phê duyệt
+                        Patch('ASTakeLeave.HistoryApprove',Defaults('ASTakeLeave.HistoryApprove'),{requestID:locRequestDetail.ID,userID:gblRecUser.userID,status:1});
+                        Refresh('ASTakeLeave.LeaveRequest');
+                        //Lấy danh sách yêu cầu theo quản lý của người tạo
+                        If(
+                            //Role trưởng phòng
+                            gblRecUser.roleID = 2,
+                            ClearCollect(
+                                colLeaveRequestByManager,
+                                AddColumns(
+                                    Filter('ASTakeLeave.LeaveRequest',currentApproveLevel = 1 And status = 1) As Temp,
+                                    "approveUserID",
+                                    LookUp(
+                                        gblColUserManager,
+                                        userID = Temp.userID And active = 1 And approveProcessLevel = 1
+                                    ).approveUserID
+                                )
+                            )
+                        );
+                        If(
+                            //Role giám đốc khối
+                            gblRecUser.roleID = 3,
+                            ClearCollect(
+                                colLeaveRequestByManager,
+                                AddColumns(
+                                    Filter('ASTakeLeave.LeaveRequest',currentApproveLevel = 2 And status = 1) As Temp,
+                                    "approveUserID",
+                                    LookUp(
+                                        gblColUserManager,
+                                        userID = Temp.userID And active = 1 And approveProcessLevel = 2
+                                    ).approveUserID
+                                )
+                            )
+                        );
+                        If(
+                            //Role giám đốc khối
+                            gblRecUser.roleID = 4,
+                            ClearCollect(
+                                colLeaveRequestByManager,
+                                AddColumns(
+                                    Filter('ASTakeLeave.LeaveRequest',currentApproveLevel = 3 And status = 1) As Temp,
+                                    "approveUserID",
+                                    gblRecUser.userID
+                                )
+                            )
+                        );
+                        Notify("Duyệt thành công",NotificationType.Success,1500);
                     PressedColor: =RGBA(255,255,255,1)
                     PressedFill: =Self.Fill
                     RadiusBottomLeft: =5
@@ -721,17 +770,67 @@
                     RadiusTopRight: =5
                     Size: =13
                     Text: ="Phê duyệt"
+                    Visible: =If(LookUp(colLeaveRequestByManager,ID = locRequestDetail.ID).approveUserID = gblRecUser.userID,true,false)
                     Width: =104
                     X: =117
                     Y: =36
                     ZIndex: =1
 
-                btn_rs_Overview_1 As button:
+                btn_rds_Reject As button:
                     BorderStyle: =BorderStyle.None
                     Fill: =RGBA(233, 79, 76, 1)
                     Height: =28
                     HoverFill: =ColorFade(Self.Fill, -20%)
-                    OnSelect: =Notify("Từ chối thành công",NotificationType.Success,1500)
+                    OnSelect: |-
+                        =//Cập nhật trạng thái yêu cầu thành từ chối
+                        Patch('ASTakeLeave.LeaveRequest',LookUp('ASTakeLeave.LeaveRequest',ID = locRequestDetail.ID),{currentApproveLevel:0,status:3});
+                        //Ghi nhận lịch sử từ chối yêu cầu
+                        Patch('ASTakeLeave.HistoryApprove',Defaults('ASTakeLeave.HistoryApprove'),{requestID:locRequestDetail.ID,userID:gblRecUser.userID,status:2,comment:txt_as_RejectReason.Text});
+                        Refresh('ASTakeLeave.LeaveRequest');
+                        //Lấy danh sách yêu cầu theo quản lý của người tạo
+                        If(
+                            //Role trưởng phòng
+                            gblRecUser.roleID = 2,
+                            ClearCollect(
+                                colLeaveRequestByManager,
+                                AddColumns(
+                                    Filter('ASTakeLeave.LeaveRequest',currentApproveLevel = 1 And status = 1) As Temp,
+                                    "approveUserID",
+                                    LookUp(
+                                        gblColUserManager,
+                                        userID = Temp.userID And active = 1 And approveProcessLevel = 1
+                                    ).approveUserID
+                                )
+                            )
+                        );
+                        If(
+                            //Role giám đốc khối
+                            gblRecUser.roleID = 3,
+                            ClearCollect(
+                                colLeaveRequestByManager,
+                                AddColumns(
+                                    Filter('ASTakeLeave.LeaveRequest',currentApproveLevel = 2 And status = 1) As Temp,
+                                    "approveUserID",
+                                    LookUp(
+                                        gblColUserManager,
+                                        userID = Temp.userID And active = 1 And approveProcessLevel = 2
+                                    ).approveUserID
+                                )
+                            )
+                        );
+                        If(
+                            //Role giám đốc khối
+                            gblRecUser.roleID = 4,
+                            ClearCollect(
+                                colLeaveRequestByManager,
+                                AddColumns(
+                                    Filter('ASTakeLeave.LeaveRequest',currentApproveLevel = 3 And status = 1) As Temp,
+                                    "approveUserID",
+                                    gblRecUser.userID
+                                )
+                            )
+                        );
+                        Notify("Từ chối thành công",NotificationType.Success,1500);
                     PressedColor: =Color.White
                     PressedFill: =Self.Fill
                     RadiusBottomLeft: =5
@@ -740,6 +839,7 @@
                     RadiusTopRight: =5
                     Size: =13
                     Text: ="Từ chối"
+                    Visible: =If(LookUp(colLeaveRequestByManager,ID = locRequestDetail.ID).approveUserID = gblRecUser.userID,true,false)
                     Width: =104
                     X: =191
                     Y: =36
