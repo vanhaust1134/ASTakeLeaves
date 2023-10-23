@@ -1,21 +1,29 @@
 "'Statistical User Screen' As screen":
     Fill: =RGBA(224,224,224,1)
     OnVisible: |-
-        =//Lấy các ngày phép trong năm hiện tại
+        =//Lấy ngày phép trong tất cả các năm
         If(
-            IsEmpty(locColReportTotalRequest),  //chỉ lấy lần đầu
-            Collect(
-                locColReportTotalRequest,
-                AddColumns(
-                    Filter('ASTakeLeave.LeaveRequest', userID = gblRecUser.userID, status = 2) As temp,
-                    "year",
-                    Year(temp.startDate)
-                )
+            IsEmpty(locColReportPersonalTotalDayOffInYear),    //chỉ lấy lần đầu
+            Collect(                                            //lấy theo năm
+                locColReportPersonalTotalDayOffInYear,
+                Filter('ASTakeLeave.TotalDayOffInYear', userID = gblRecUser.userID, active = 1)
             );
-            Collect(
-                locColReportYears,
-                Distinct(locColReportTotalRequest, year)
-            )
+            //Tạo biến chứa thông tin phép cho năm hiện tại
+            UpdateContext({locRecReportCurrentLeaveYear: LookUp(locColReportPersonalTotalDayOffInYear, year = Year(Today()))});
+            Collect(                                            //lấy theo tháng
+                locColReportPersonalTotalDayOffInMonth,
+                Filter('ASTakeLeave.TotalDayOffInMonth', userID = gblRecUser.userID)
+            );   
+            Collect(                                            //collection chưa item phục vụ filter
+                loccolReportPersonalFilterAdvance,
+                Table(
+                    {
+                        ID: 0,
+                        Title: "Theo năm",
+                        Status: true
+                    }
+                    )
+            );
         )
 
     btn_hs_BackGroundScreen_3 As button:
@@ -198,6 +206,7 @@
             RadiusTopLeft: =5
             RadiusTopRight: =5
             Text: ="Xuất file"
+            Visible: =false
             ZIndex: =2
 
     ctn_hs_MainContent_3 As groupContainer.horizontalAutoLayoutContainer:
@@ -249,8 +258,20 @@
                     PaddingRight: =10
                     RadiusBottomLeft: =0
                     RadiusBottomRight: =0
-                    Text: ="Biểu đồ thống kê theo tháng"
+                    Text: =$"Biểu đồ thống kê theo tháng"
                     ZIndex: =1
+
+                Label10 As label:
+                    Align: =Align.Right
+                    Color: =RGBA(124, 124, 124, 1)
+                    FontWeight: =FontWeight.Semibold
+                    Height: =Parent.Height
+                    PaddingRight: =20
+                    Size: =15
+                    Text: |-
+                        =$"Tổng: {locRecReportCurrentLeaveYear.totalDayOff_Year}/{locRecReportCurrentLeaveYear.maxDayOff_Year} {Char(9)}{Char(9)} Không lương: {locRecReportCurrentLeaveYear.totalDayUnpaid_Year}"
+                    Width: =Parent.Width / 2
+                    ZIndex: =2
 
             Rectangle2_2 As rectangle:
                 Fill: =RGBA(73, 113, 215, 1)
@@ -270,8 +291,7 @@
                 ColumnChart1_1 As barChart:
                     GridStyle: =GridStyle.All
                     Height: =500
-                    Items: |-
-                        =Table({Month:1,Value:0},{Month:2,Value:0},{Month:3,Value:2},{Month:4,Value:0},{Month:5,Value:0},{Month:6,Value:0},{Month:7,Value:0},{Month:8,Value:10},{Month:9,Value:0},{Month:10,Value:0},{Month:11,Value:0},{Month:12,Value:0})
+                    Items: =Filter(locColReportPersonalTotalDayOffInMonth, year = Dropdown3_6.Selected.Value)
                     X: =40
                     XLabelAngle: =40
                     Y: =70
@@ -324,7 +344,7 @@
 
             Gallery4_1 As gallery.variableTemplateHeightGallery:
                 DelayItemLoading: =true
-                Items: =colFilterAdvance
+                Items: =loccolReportPersonalFilterAdvance
                 Layout: =Layout.Vertical
                 LayoutMinHeight: =287
                 LayoutMinWidth: =0
@@ -337,6 +357,7 @@
                     FontWeight: =FontWeight.Semibold
                     OnSelect: =Select(Parent)
                     Text: =ThisItem.Title
+                    Visible: =ThisItem.ID = 0
                     Y: =8
                     ZIndex: =1
 
@@ -346,13 +367,15 @@
                     OnCheck: |-
                         =//Patch(colFilterAdvance,LookUp(colFilterAdvance,ID = ThisItem.ID),{Status:true});
                     OnSelect: |-
-                        =Patch(colFilterAdvance,LookUp(colFilterAdvance,ID = ThisItem.ID),{Status:!ThisItem.Status});
-                        If(ThisItem.ID = 3 And ThisItem.Status = false,Patch(colFilterAdvance,LookUp(colFilterAdvance,ID = 1),{Status:false}));
-                        If(ThisItem.ID = 1 And ThisItem.Status = false,Patch(colFilterAdvance,LookUp(colFilterAdvance,ID = 3),{Status:false}))
+                        =//Patch(colFilterAdvance,LookUp(colFilterAdvance,ID = ThisItem.ID),{Status:!ThisItem.Status});
+                        //If(ThisItem.ID = 3 And ThisItem.Status = false,Patch(colFilterAdvance,LookUp(colFilterAdvance,ID = 1),{Status:false}));
+                        //If(ThisItem.ID = 1 And ThisItem.Status = false,Patch(colFilterAdvance,LookUp(colFilterAdvance,ID = 3),{Status:false}))
                     OnUncheck: |-
                         =//Patch(colFilterAdvance,LookUp(colFilterAdvance,ID = ThisItem.ID),{Status:false})
                     ShowLabel: =false
-                    Visible: =If(ThisItem.ID=4,false,true)
+                    Visible: |-
+                        =//If(ThisItem.ID = 0, true, false)
+                        false
                     Width: =59
                     X: =171
                     Y: =14
@@ -363,7 +386,9 @@
                     Height: =160
                     LayoutDirection: =LayoutDirection.Vertical
                     LayoutMode: =LayoutMode.Auto
-                    Visible: =If(ThisItem.ID = 3 And ThisItem.Status = true,true)
+                    Visible: |-
+                        =//If(ThisItem.ID = 3 And ThisItem.Status = true,true)
+                        false
                     Width: =232
                     Y: =48
                     ZIndex: =3
@@ -405,7 +430,9 @@
                     Height: =90
                     LayoutDirection: =LayoutDirection.Vertical
                     LayoutMode: =LayoutMode.Auto
-                    Visible: =If(ThisItem.ID = 1 And ThisItem.Status = true,true)
+                    Visible: |-
+                        =//If(ThisItem.ID = 1 And ThisItem.Status = true,true)
+                        false
                     Width: =232
                     Y: =49
                     ZIndex: =4
@@ -431,7 +458,9 @@
                     Height: =90
                     LayoutDirection: =LayoutDirection.Vertical
                     LayoutMode: =LayoutMode.Auto
-                    Visible: =If(ThisItem.ID = 2 And ThisItem.Status = true,true)
+                    Visible: |-
+                        =//If(ThisItem.ID = 2 And ThisItem.Status = true,true)
+                        false
                     Width: =232
                     Y: =49
                     ZIndex: =5
@@ -457,7 +486,7 @@
                     Height: =90
                     LayoutDirection: =LayoutDirection.Vertical
                     LayoutMode: =LayoutMode.Auto
-                    Visible: =If(ThisItem.ID = 4 And ThisItem.Status = true,true)
+                    Visible: =If(ThisItem.ID = 0 And ThisItem.Status = true,true)
                     Width: =232
                     Y: =47
                     ZIndex: =6
@@ -472,9 +501,25 @@
                         BorderColor: =RGBA(73, 113, 215, 1)
                         BorderThickness: =1
                         ChevronBackground: =RGBA(73, 113, 215, 1)
+                        Default: =Year(Today())
                         Height: =35
-                        Items: =locColReportTotalRequest
+                        Items: =Sort(Distinct(locColReportPersonalTotalDayOffInYear, year), Value, SortOrder.Ascending)
                         LayoutMinWidth: =0
+                        OnChange: |-
+                            =//Lấy ngày phép trong tất cả các năm
+                            If(
+                                IsEmpty(locColReportPersonalTotalDayOffInMonth),    //chỉ lấy lần đầu
+                                Collect(                                            //lấy theo năm
+                                    locColReportPersonalTotalDayOffInYear,
+                                    Filter('ASTakeLeave.TotalDayOffInYear', userID = gblRecUser.userID, active = 1)
+                                );
+                                UpdateContext({locRecReportCurrentLeaveYear: LookUp(locColReportPersonalTotalDayOffInYear, year = Dropdown3_6.Selected.Value)});
+                                Collect(                                            //lấy theo tháng
+                                    locColReportPersonalTotalDayOffInMonth,
+                                    Filter('ASTakeLeave.TotalDayOffInMonth', userID = gblRecUser.userID)
+                                );
+                                
+                            )
                         Width: =200
                         ZIndex: =4
 

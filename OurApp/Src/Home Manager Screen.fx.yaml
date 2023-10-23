@@ -291,7 +291,7 @@
                         
                         //Thêm record vào danh sách phép hiện tại nếu tháng này chưa có
                         If(
-                             _firstDayInView < Min(locColExistCalendarView, firstDayInView),
+                             _firstDayInView < Min(locColExistCalendarViewManager, firstDayInView),
                         
                             //Tính firstDayInView và lastDayInView cho tháng sau
                             UpdateContext({
