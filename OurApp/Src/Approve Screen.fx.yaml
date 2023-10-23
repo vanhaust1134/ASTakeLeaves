@@ -1,5 +1,9 @@
 "'Approve Screen' As screen":
     Fill: =RGBA(224,224,224,1)
+    OnVisible: |-
+        =//Lấy các cấp phê duyệt của user hiện tại
+        ClearCollect(colApproveStepDetailUser,Sort(Filter('ASTakeLeave.UserRelationship',userID = gblRecUser.userID And active = 1),approveProcessLevel,SortOrder.Ascending));
+        ClearCollect(colApproveStepDetailCommon,Sort(Filter('ASTakeLeave.CommonRelationship',active = 1),approveProcessLevel,SortOrder.Ascending))
 
     btn_as_BackGroundScreen As button:
         BorderStyle: =BorderStyle.None

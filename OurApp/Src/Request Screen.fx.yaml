@@ -1222,9 +1222,10 @@
                             DisplayFields: =["DisplayName","Email","Picture"]
                             Height: =50
                             InputTextPlaceholder: ="Tìm nhân viên"
-                            Items: =gblColAllUser365
+                            IsSearchable: =false
+                            Items: =Filter(gblColAllUser365,Email <> User().Email)
                             SearchFields: =["Claims"]
-                            SearchItems: =Search(gblColAllUser365,drp_rs_HandOver.SearchText,"Claims")
+                            SearchItems: =[]
                             SelectMultiple: =false
                             Template: =ListItemTemplate.Person
                             ZIndex: =3
@@ -1831,23 +1832,90 @@
                         departmentID: gblRecUser.departmentID,
                         divisionID: gblRecUser.divisionID,
                         userID: gblRecUser.userID,
-                        totalDayOff: Sum(colTotalListDateRange,Total),
-                        totalDayUnpaid: If(LookUp('ASTakeLeave.TotalDayOffInYear',userID = gblRecUser.userID).totalDayOff_Year + Sum(colTotalListDateRange,Total) > LookUp('ASTakeLeave.TotalDayOffInYear',userID = gblRecUser.userID).maxDayOff_Year,(LookUp('ASTakeLeave.TotalDayOffInYear',userID = gblRecUser.userID).totalDayOff_Year + Sum(colTotalListDateRange,Total)) - LookUp('ASTakeLeave.TotalDayOffInYear',userID = gblRecUser.userID).maxDayOff_Year ,0),
+                        totalDayOff: Sum(
+                            colTotalListDateRange,
+                            Total
+                        ),
+                        totalDayUnpaid: If(
+                            LookUp(
+                                'ASTakeLeave.TotalDayOffInYear',
+                                userID = gblRecUser.userID
+                            ).totalDayOff_Year + Sum(
+                                colTotalListDateRange,
+                                Total
+                            ) > LookUp(
+                                'ASTakeLeave.TotalDayOffInYear',
+                                userID = gblRecUser.userID
+                            ).maxDayOff_Year,
+                            (LookUp(
+                                'ASTakeLeave.TotalDayOffInYear',
+                                userID = gblRecUser.userID
+                            ).totalDayOff_Year + Sum(
+                                colTotalListDateRange,
+                                Total
+                            )) - LookUp(
+                                'ASTakeLeave.TotalDayOffInYear',
+                                userID = gblRecUser.userID
+                            ).maxDayOff_Year,
+                            0
+                        ),
                         startDate: dtp_rs_StartDay.SelectedDate,
                         endDate: dtp_rs_FinishDay.SelectedDate,
                         startDateValue: Value(Day(dtp_rs_StartDay.SelectedDate) & Month(dtp_rs_StartDay.SelectedDate) & Year(dtp_rs_StartDay.SelectedDate)),
                         endDateValue: Value(Day(dtp_rs_FinishDay.SelectedDate) & Month(dtp_rs_FinishDay.SelectedDate) & Year(dtp_rs_FinishDay.SelectedDate)),
-                        startDateType:LookUp(colDateRange,ID = 1).Status,
-                        endDateType:LookUp(colDateRange,ID = 2).Status,
-                        reason:txt_rs_Detail.Text,
-                        reasonDetail:drp_rs_Reason.Selected.description,
-                        handOverUserID:LookUp(gblColAllUser,OData__x0033_65AccountInfo.Email = drp_rs_HandOver.Selected.Email).userID,
-                        handOverContent:txt_rs_HandOverContent.Text,
-                        currentApproveLevel:1,
-                        maxApproveLevel:If(gblRecUser.roleID = 2 And Sum(colTotalListDateRange,Total) <= 12,1,gblRecUser.roleID = 2 And Sum(colTotalListDateRange,Total) >= 12,2,gblRecUser.roleID = 1 And Sum(colTotalListDateRange,Total) <= 12,2,gblRecUser.roleID = 1 And Sum(colTotalListDateRange,Total) > 12,3),
-                        status:1,
-                        createDayValue:Value(Day(Today()) & Month(Today()) & Year(Today())),
-                        totalLeaveDays:locTotalDayLeave
+                        startDateType: LookUp(
+                            colDateRange,
+                            ID = 1
+                        ).Status,
+                        endDateType: LookUp(
+                            colDateRange,
+                            ID = 2
+                        ).Status,
+                        reason: txt_rs_Detail.Text,
+                        reasonDetail: drp_rs_Reason.Selected.description,
+                        handOverUserID: LookUp(
+                            gblColAllUser,
+                            OData__x0033_65AccountInfo.Email = drp_rs_HandOver.Selected.Email
+                        ).userID,
+                        handOverContent: txt_rs_HandOverContent.Text,
+                        currentApproveLevel: 1,
+                        maxApproveLevel: If(
+                            gblRecUser.roleID = 2 And Sum(
+                                colTotalListDateRange,
+                                Total
+                            ) <= 12,
+                            2,
+                            gblRecUser.roleID = 2 And Sum(
+                                colTotalListDateRange,
+                                Total
+                            ) >= 12,
+                            3,
+                            gblRecUser.roleID = 1 And Sum(
+                                colTotalListDateRange,
+                                Total
+                            ) <= 12,
+                            2,
+                            gblRecUser.roleID = 1 And Sum(
+                                colTotalListDateRange,
+                                Total
+                            ) > 12,
+                            2,
+                            gblRecUser.roleID = 3 And Sum(
+                                colTotalListDateRange,
+                                Total
+                            ) <= 12,
+                            1,
+                            gblRecUser.roleID = 3 And Sum(
+                                colTotalListDateRange,
+                                Total
+                            ) > 12,
+                            2,
+                            gblRecUser.roleID = 4,
+                            1
+                        ),
+                        status: 1,
+                        createDayValue: Value(Day(Today()) & Month(Today()) & Year(Today())),
+                        totalLeaveDays: locTotalDayLeave
                     },
                     Form2.Updates
                 );
@@ -1856,7 +1924,13 @@
                     NotificationType.Success,
                     1500
                 );
-                Reset(drp_rs_Reason);Reset(txt_rs_Detail);Reset(dtp_rs_StartDay);Reset(dtp_rs_FinishDay);Reset(drp_rs_HandOver);Reset(txt_rs_HandOverContent);ResetForm(Form2);
+                Reset(drp_rs_Reason);
+                Reset(txt_rs_Detail);
+                Reset(dtp_rs_StartDay);
+                Reset(dtp_rs_FinishDay);
+                Reset(drp_rs_HandOver);
+                Reset(txt_rs_HandOverContent);
+                ResetForm(Form2);
                 UpdateContext({locSubmit: false})
             PressedColor: =RGBA(255,255,255,1)
             PressedFill: =Self.Fill

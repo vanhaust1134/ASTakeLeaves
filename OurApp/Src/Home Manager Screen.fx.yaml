@@ -678,6 +678,8 @@
                             AlignInContainer: =AlignInContainer.Stretch
                             Image: =Calendar
                             LayoutMinHeight: =50
+                            OnSelect: |-
+                                =Navigate('Request Detail Screen',ScreenTransition.Fade,{locRequestDetail:ThisItem})
                             Width: =50
                             ZIndex: =1
 
@@ -701,7 +703,8 @@
                                 Color: =RGBA(114, 114, 114, 1)
                                 FontWeight: =FontWeight.Semibold
                                 Height: =22
-                                OnSelect: =Navigate('Request Detail Screen')
+                                OnSelect: |-
+                                    =Navigate('Request Detail Screen',ScreenTransition.Fade,{locRequestDetail:ThisItem})
                                 Size: =12
                                 Text: =$"{Text(ThisItem.startDate, "dd/mm")} - {Text(ThisItem.endDate, "dd/mm")}"
                                 ZIndex: =1
@@ -710,7 +713,8 @@
                                 Color: =RGBA(114, 114, 114, 1)
                                 Height: =22
                                 LayoutMinWidth: =0
-                                OnSelect: =Navigate('Request Detail Screen')
+                                OnSelect: |-
+                                    =Navigate('Request Detail Screen',ScreenTransition.Fade,{locRequestDetail:ThisItem})
                                 Size: =12
                                 Text: =ThisItem.reason
                                 ZIndex: =2
@@ -720,7 +724,8 @@
                                 FillPortions: =1
                                 LayoutMinHeight: =22
                                 LayoutMinWidth: =200
-                                OnSelect: =Navigate('Request Detail Screen')
+                                OnSelect: |-
+                                    =Navigate('Request Detail Screen',ScreenTransition.Fade,{locRequestDetail:ThisItem})
                                 Size: =12
                                 Text: |-
                                     =Text(ThisItem.Created, "dd/mm/yyyy hh:mm")
