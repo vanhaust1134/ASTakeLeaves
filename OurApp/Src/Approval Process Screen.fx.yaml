@@ -313,7 +313,7 @@
                             LayoutMinHeight: =30
                             OnSelect: |-
                                 =UpdateContext({locUpdateUser:true})
-                            Text: =If(ThisItem.approveProcessLevel = 3,"Giám đốc điều hành",ThisItem.approveProcessLevel = 4,"HR / C&B","Trưởng HR")
+                            Text: =If(ThisItem.approveProcessLevel = 1,"Giám đốc điều hành",ThisItem.approveProcessLevel = 2,"HR / C&B")
                             Wrap: =false
                             ZIndex: =2
 

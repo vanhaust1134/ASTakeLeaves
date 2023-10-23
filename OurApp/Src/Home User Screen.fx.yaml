@@ -446,7 +446,8 @@
                             AlignInContainer: =AlignInContainer.Stretch
                             Image: =Calendar
                             LayoutMinHeight: =50
-                            OnSelect: =Navigate('Request Detail Screen')
+                            OnSelect: |-
+                                =Navigate('Request Detail Screen',ScreenTransition.Fade,{locRequestDetail:ThisItem})
                             Width: =50
                             ZIndex: =1
 
@@ -471,7 +472,8 @@
                                 FontWeight: =FontWeight.Semibold
                                 Height: =22
                                 LayoutMinWidth: =166
-                                OnSelect: =Navigate('Request Detail Screen')
+                                OnSelect: |-
+                                    =Navigate('Request Detail Screen',ScreenTransition.Fade,{locRequestDetail:ThisItem})
                                 Size: =12
                                 Text: =$"{Text(ThisItem.startDate, "dd/mm")} - {Text(ThisItem.endDate, "dd/mm")}"
                                 Wrap: =false
@@ -481,7 +483,8 @@
                                 Color: =RGBA(114, 114, 114, 1)
                                 Height: =22
                                 LayoutMinWidth: =0
-                                OnSelect: =Navigate('Request Detail Screen')
+                                OnSelect: |-
+                                    =Navigate('Request Detail Screen',ScreenTransition.Fade,{locRequestDetail:ThisItem})
                                 Size: =12
                                 Text: =ThisItem.reason
                                 Wrap: =false
