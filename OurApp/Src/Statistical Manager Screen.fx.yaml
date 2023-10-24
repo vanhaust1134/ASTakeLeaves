@@ -16,6 +16,10 @@
                         Collect(
                             locColReportManagerTotalDayOffInMonth,  //Lấy các thông tin nghỉ phép trong tất cả tháng
                             Filter('ASTakeLeave.TotalDayOffInMonth', userID = temp.userID)
+                        ),
+                        Collect(
+                            locColReportManagerTotalLeaveRequest,  //Lấy tất cả các lần nghỉ phép
+                            Filter('ASTakeLeave.LeaveRequest', userID = temp.userID, status = 2)
                         )
                     )
                 ),
@@ -32,6 +36,13 @@
                             Collect(
                                 locColReportManagerTotalDayOffInMonth,
                                 Filter('ASTakeLeave.TotalDayOffInMonth', userID = temp.userID)
+                            ),
+                            If(
+                                IsEmpty(locColReportManagerTotalLeaveRequest),
+                                Collect(
+                                    locColReportManagerTotalLeaveRequest,  //Lấy tất cả các lần nghỉ phép
+                                    Filter('ASTakeLeave.LeaveRequest', divisionID = gblRecUser.divisionID, status = 2)
+                                )
                             )
                         )
                     ),
@@ -46,6 +57,18 @@
                             Collect(    
                                 locColReportManagerTotalDayOffInMonth,  //Chỉ lấy năm đầu
                                 Filter('ASTakeLeave.TotalDayOffInMonth', year = Year(Today()))
+                            ),
+                            If(
+                                IsEmpty(locColReportManagerTotalLeaveRequest),
+                                Collect(
+                                    locColReportManagerTotalLeaveRequest,  //Lấy tất cả các lần nghỉ phép
+                                    Filter(
+                                        'ASTakeLeave.LeaveRequest', 
+                                        startDateValue <= Value(0112 & Year(Today()) - 1) &&
+                                        endDateValue >= Value(3103 & Year(Today())), 
+                                        status = 2
+                                    )
+                                )
                             )
                         )  
                     )
@@ -423,7 +446,7 @@
                     ShowLabel: =false
                     Visible: |-
                         =If(
-                            ThisItem.ID = 0 || gblRecUser.roleID <= 2, 
+                            ThisItem.ID = 0 || (ThisItem.ID = 2 && gblRecUser.roleID <= 2), 
                             false, 
                             true
                         ) 
