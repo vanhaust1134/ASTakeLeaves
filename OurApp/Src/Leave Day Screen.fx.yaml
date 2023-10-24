@@ -217,7 +217,7 @@
             BorderColor: =RGBA(73, 113, 215, 1)
             BorderThickness: =1
             ChevronBackground: =RGBA(73, 113, 215, 1)
-            Items: =gblColDepartment
+            Items: =Filter(gblColDepartment,active = 1 Or name = "Tất cả")
             Width: =200
             X: =590
             Y: =145
@@ -408,6 +408,7 @@
                             FontWeight: =FontWeight.Bold
                             LayoutMinHeight: =30
                             Text: =LookUp(gblColUser,userID = ThisItem.userID).fullName
+                            Wrap: =false
                             ZIndex: =1
 
                         lbl_lds_ItemDivision As label:
@@ -786,6 +787,22 @@
                     MaxAttachmentSize: =50
                     MaxAttachmentsText: ="Số lượng file đã đạt tối đa."
                     NoAttachmentsText: ="Không có file."
+                    OnAddFile: |-
+                        =If(
+                            Not(
+                                Or(
+                                    EndsWith(
+                                        Lower(Last(Self.Attachments).Name),
+                                        ".xlsx"
+                                    )
+                                )
+                            ),
+                            Notify(
+                                "Only Excel files are allowed",
+                                NotificationType.Error
+                            );
+                            Reset(Self)
+                        )
                     PaddingBottom: =5
                     PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
                     PaddingRight: =5

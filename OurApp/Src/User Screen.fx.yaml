@@ -497,6 +497,7 @@
                             LayoutMinWidth: =0
                             OnSelect: |-
                                 =UpdateContext({locUpdateUser:true});
+                                Reset(cbo_us_Email_2);
                                 UpdateContext({locUser:ThisItem});
                                 UpdateContext({locAdd:true});
                                 UpdateContext({locEdit:false})
@@ -1632,14 +1633,14 @@
                 =Office365Users.SearchUserV2({searchTerm:locUser.email}).value
             DisplayFields: =["DisplayName","Mail"]
             InputTextPlaceholder: ="Tìm người dùng"
-            IsSearchable: =false
             Items: |-
                 =Office365Users.SearchUserV2({searchTerm:Self.SearchText}).value
             OnSelect: |-
                 =UpdateContext({locEdit:true});
                 UpdateContext({locAdd:false})
             SearchFields: =["Mail"]
-            SearchItems: =[]
+            SearchItems: |-
+                =Search(Office365Users.SearchUserV2({searchTerm:Self.SearchText}).value,cbo_us_Email_2.SearchText,"Mail")
             SelectMultiple: =false
             Template: =ListItemTemplate.Double
             X: =551
@@ -1890,10 +1891,11 @@
         drp_us_Roles_7 As dropdown:
             BorderColor: =RGBA(116, 116, 116, 1)
             BorderThickness: =1
+            Default: =LookUp(gblColRoles,ID = locUser.roleID).name
             DisabledColor: =RGBA(0, 0, 0, 1)
             DisabledFill: =RGBA(255, 255, 255, 1)
             DisplayMode: =DisplayMode.Disabled
-            Items: =LookUp('ASTakeLeave.Roles',ID = LookUp('ASTakeLeave.Users_Roles',userID = locUser.userID).roleID)
+            Items: =//LookUp('ASTakeLeave.Roles',ID = LookUp('ASTakeLeave.Users_Roles',userID = locUser.userID).roleID)
             X: =548
             Y: =535
             ZIndex: =19

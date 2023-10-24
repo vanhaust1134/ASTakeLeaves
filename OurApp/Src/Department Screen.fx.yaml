@@ -1375,6 +1375,7 @@
             Items: =Filter(gblColAllUser,roleID = 3 And active = 1)
             SearchFields: =["email"]
             SearchItems: =Search(Filter(gblColAllUser,roleID = 3 And active = 1),cbo_ds_LineManager_2.SearchText,"email")
+            SelectMultiple: =false
             X: =551
             Y: =271
             ZIndex: =20
