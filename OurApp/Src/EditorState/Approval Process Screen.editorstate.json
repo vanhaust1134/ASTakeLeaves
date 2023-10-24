@@ -214,7 +214,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "blank_11",
-      "ParentIndex": 0,
+      "ParentIndex": 3,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -542,7 +542,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "blank_12",
-      "ParentIndex": 1,
+      "ParentIndex": 4,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -8775,7 +8775,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "ctn_us_CreateUser_2",
-      "ParentIndex": 2,
+      "ParentIndex": 3,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -8976,7 +8976,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "ctn_us_DeleteUser_2",
-      "ParentIndex": 3,
+      "ParentIndex": 4,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -9439,7 +9439,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "ctn_us_Header_2",
-      "ParentIndex": 6,
+      "ParentIndex": 5,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -9965,7 +9965,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "ctn_us_Info2_2",
-      "ParentIndex": 0,
+      "ParentIndex": 1,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -10927,14 +10927,7 @@
         "BorderStyle",
         "Fill",
         "X",
-        {
-          "AFDDataSourceName": "",
-          "AutoRuleBindingEnabled": false,
-          "AutoRuleBindingString": "",
-          "InvariantPropertyName": "Y",
-          "IsLockable": false,
-          "NameMapSourceSchema": "?"
-        },
+        "Y",
         "Width",
         "Height",
         "DisplayMode",
@@ -11017,7 +11010,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "ctn_us_MainContent_2",
-      "ParentIndex": 9,
+      "ParentIndex": 7,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -11219,7 +11212,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "ctn_us_Title_2",
-      "ParentIndex": 7,
+      "ParentIndex": 6,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -14970,7 +14963,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "img_us_Avatar_2",
-      "ParentIndex": 1,
+      "ParentIndex": 0,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -19055,7 +19048,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "lbl_us_LeaveDay_2",
-      "ParentIndex": 4,
+      "ParentIndex": 2,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -19383,7 +19376,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "lbl_us_LeaveDay_3",
-      "ParentIndex": 3,
+      "ParentIndex": 1,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -21954,7 +21947,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "lbl_us_TimeTotal_3",
-      "ParentIndex": 2,
+      "ParentIndex": 0,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {

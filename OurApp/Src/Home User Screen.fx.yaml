@@ -568,16 +568,12 @@
                                 Filter(                         //Lấy tất cả các lần phép có khoảng ngày trong view calendar hiện tại
                                     'ASTakeLeave.LeaveRequest', 
                                     userID = gblRecUser.userID, 
-                                    startDateValue >= Value(
-                                                        Day(_previousFirstDayInView) & 
-                                                        Month(_previousFirstDayInView) & 
-                                                        Year(_previousFirstDayInView)
-                                                        ),
-                                    endDateValue <= Value(
-                                                        Day(_previousLastDayInView) & 
-                                                        Month(_previousLastDayInView) & 
-                                                        Year(_previousLastDayInView)
-                                                        ) 
+                                    Or(                         //Lấy theo 2 trường hợp, 1 là bắt đầu + kết thúc trong tháng, 2 là bắt đầu tháng này kết thúc tháng kia
+                                        startDateValue >= Value(Day(_previousFirstDayInView) & Month(_previousFirstDayInView) & Year(_previousFirstDayInView)) &&
+                                        endDateValue <= Value(Day(_previousLastDayInView) & Month(_previousLastDayInView) & Year(_previousLastDayInView)),
+                                        startDateValue >= Value(Day(_previousFirstDayInView) & Month(_previousFirstDayInView) & Year(_previousFirstDayInView)) &&
+                                        endDateValue <= Value(Day(_lastDayInView) & Month(_lastDayInView) & Year(_lastDayInView)) 
+                                    ) 
                                 )  
                             );
                         
@@ -630,16 +626,12 @@
                                 Filter(                         //Lấy tất cả các lần phép có khoảng ngày trong view calendar hiện tại
                                     'ASTakeLeave.LeaveRequest', 
                                     userID = gblRecUser.userID, 
-                                    startDateValue >= Value(
-                                                        Day(_nextFirstDayInView) & 
-                                                        Month(_nextFirstDayInView) & 
-                                                        Year(_nextFirstDayInView)
-                                                        ),
-                                    endDateValue <= Value(
-                                                        Day(_nextLastDayInView) & 
-                                                        Month(_nextLastDayInView) & 
-                                                        Year(_nextLastDayInView)
-                                                        ) 
+                                    Or(
+                                        startDateValue >= Value(Day(_nextFirstDayInView) & Month(_nextFirstDayInView) & Year(_nextFirstDayInView)) &&
+                                        endDateValue <= Value(Day(_nextLastDayInView) & Month(_nextLastDayInView) & Year(_nextLastDayInView)),
+                                        startDateValue >= Value(Day(_firstDayInView) & Month(_firstDayInView) & Year(_firstDayInView)) &&
+                                        endDateValue <= Value(Day(_nextLastDayInView) & Month(_nextLastDayInView) & Year(_nextLastDayInView))                
+                                    )
                                 )  
                             );
                         
