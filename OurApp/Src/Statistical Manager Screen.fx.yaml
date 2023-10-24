@@ -1,31 +1,85 @@
 "'Statistical Manager Screen' As screen":
     Fill: =RGBA(224,224,224,1)
-    OnVisible: |-
-        =Collect(
-            locColReportManagerFilterAdvance,
-            Table(
-                {
-                    ID: 0,
-                    Title: "Theo năm",
-                    Status: true
-                },
-                {
-                    ID: 1,
-                    Title: "Tất cả nhân viên",
-                    Status: true
-                },
-                {
-                    ID: 2,
-                    Title: "Theo Phòng",
-                    Status: true
-                },
-                {
-                    ID: 3,
-                    Title: "Theo nhân viên",
-                    Status: true
-                }
-            )
-        )
+    OnVisible: |+
+        =//Lấy ngày phép trong tất cả các năm theo phân quyền
+        If(
+            IsEmpty(locColReportManagerTotalDayOffInYear),  //Chỉ lấy lần đầu
+            If(
+                gblRecUser.roleID = 2,  //Nếu là Manager -----------------------
+                ForAll(
+                    gblColUserBelong As temp,   //collection đã có từ onstart
+                    Concurrent(
+                        Collect(                
+                            locColReportManagerTotalDayOffInYear,   //Lấy các thông tin nghỉ phép trong tất cả năm
+                            Filter('ASTakeLeave.TotalDayOffInYear', userID = temp.userID, active = 1)
+                        ),
+                        Collect(
+                            locColReportManagerTotalDayOffInMonth,  //Lấy các thông tin nghỉ phép trong tất cả tháng
+                            Filter('ASTakeLeave.TotalDayOffInMonth', userID = temp.userID)
+                        )
+                    )
+                ),
+                
+                If(
+                    gblRecUser.roleID = 3,  //Nếu là giám đốc khối ----------------------------------
+                    ForAll(
+                        Filter(gblColAllUser, divisionID = gblRecUser.divisionID) As temp,
+                        Concurrent(
+                            Collect(
+                                locColReportManagerTotalDayOffInYear,
+                                Filter('ASTakeLeave.TotalDayOffInYear', userID = temp.userID, active = 1)
+                            ),
+                            Collect(
+                                locColReportManagerTotalDayOffInMonth,
+                                Filter('ASTakeLeave.TotalDayOffInMonth', userID = temp.userID)
+                            )
+                        )
+                    ),
+        
+                    If(
+                        gblRecUser.roleID = 4 || gblRecUser.roleID = 5 || gblRecUser.roleID = 7,    //Nếu là giám đốc, HR, trưởng HR ------------------
+                        Concurrent(
+                            Collect(
+                                locColReportManagerTotalDayOffInYear,
+                                Filter('ASTakeLeave.TotalDayOffInYear', active = 1)
+                            ),
+                            Collect(    
+                                locColReportManagerTotalDayOffInMonth,  //Chỉ lấy năm đầu
+                                Filter('ASTakeLeave.TotalDayOffInMonth', year = Year(Today()))
+                            )
+                        )  
+                    )
+                ) 
+            );
+        
+            //Tạo collection dùng cho bộ lọc
+            Collect(
+                locColReportManagerFilterAdvance,
+                Table(
+                    {
+                        ID: 0,
+                        Title: "Theo năm",
+                        Status: true
+                    },
+                    {
+                        ID: 1,
+                        Title: "Tất cả nhân viên",
+                        Status: true
+                    },
+                    {
+                        ID: 2,
+                        Title: "Theo Phòng",
+                        Status: true
+                    },
+                    {
+                        ID: 3,
+                        Title: "Theo nhân viên",
+                        Status: true
+                    }
+                )
+            );
+        );
+        
 
     btn_hs_BackGroundScreen_2 As button:
         BorderStyle: =BorderStyle.None
@@ -346,6 +400,12 @@
                     FontWeight: =FontWeight.Semibold
                     OnSelect: =Select(Parent)
                     Text: =ThisItem.Title
+                    Visible: |-
+                        =If(
+                            ThisItem.ID = 2 && gblRecUser.roleID <= 2, 
+                            false, 
+                            true
+                        ) 
                     Y: =8
                     ZIndex: =1
 
@@ -361,7 +421,12 @@
                     OnUncheck: |-
                         =//Patch(colFilterAdvance,LookUp(colFilterAdvance,ID = ThisItem.ID),{Status:false})
                     ShowLabel: =false
-                    Visible: =If(ThisItem.ID=4,false,true)
+                    Visible: |-
+                        =If(
+                            ThisItem.ID = 0 || gblRecUser.roleID <= 2, 
+                            false, 
+                            true
+                        ) 
                     Width: =59
                     X: =171
                     Y: =14
@@ -440,7 +505,12 @@
                     Height: =90
                     LayoutDirection: =LayoutDirection.Vertical
                     LayoutMode: =LayoutMode.Auto
-                    Visible: =If(ThisItem.ID = 2 And ThisItem.Status = true,true)
+                    Visible: |-
+                        =If(
+                            gblRecUser.roleID > 2 && ThisItem.ID = 2 && ThisItem.Status = true, //chỉ hiện khi từ giám đốc khối trở lên
+                            true,
+                            false
+                        )
                     Width: =232
                     Y: =49
                     ZIndex: =5
@@ -456,7 +526,16 @@
                         BorderThickness: =1
                         ChevronBackground: =RGBA(73, 113, 215, 1)
                         Height: =35
-                        Items: =["Software","IT Service"]
+                        Items: |-
+                            =If(
+                                gblRecUser.roleID = 3,
+                                Filter(gblColDepartment, divisionID = gblRecUser.divisionID),
+                                If(
+                                    gblRecUser.roleID = 4 || gblRecUser.roleID = 5 || gblRecUser.roleID = 7,
+                                    gblColDepartment
+                                )
+                            
+                            )
                         LayoutMinWidth: =0
                         Width: =200
                         ZIndex: =4
@@ -482,7 +561,7 @@
                         BorderThickness: =1
                         ChevronBackground: =RGBA(73, 113, 215, 1)
                         Height: =35
-                        Items: =Sequence(2,2023)
+                        Items: =Sort(Distinct(locColReportManagerTotalDayOffInYear, year), Value, SortOrder.Ascending)
                         LayoutMinWidth: =0
                         Width: =200
                         ZIndex: =4
@@ -679,4 +758,16 @@
             X: =375
             Y: =354
             ZIndex: =9
+
+    ctn_sms_CodeButton As groupContainer.manualLayoutContainer:
+        Visible: =false
+        X: =40
+        Y: =40
+        ZIndex: =26
+
+        btn_sms_CreateReportCollection As button:
+            Text: ="Button"
+            X: =40
+            Y: =40
+            ZIndex: =1
 
