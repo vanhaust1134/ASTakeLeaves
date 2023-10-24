@@ -15,7 +15,7 @@ App As appinfo:
         //Lấy thông tin user hiện tại
         Set(
             gblRecUser,
-            LookUp(gblColAllUser, email = User().Email)
+            LookUp(Filter(gblColAllUser,active = 1), email = User().Email)
         );
         
         //Start concurrent  ------------------------------------------------------------------
@@ -23,7 +23,7 @@ App As appinfo:
         
         //Lấy ra userInfo từ acc365
         ForAll(
-            gblColAllUser As temp,
+            Filter(gblColAllUser,active = 1) As temp,
             Collect(
                 gblColAllUser365,
                 temp.OData__x0033_65AccountInfo
