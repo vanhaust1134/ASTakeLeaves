@@ -424,7 +424,7 @@
                             ),
                             Filter(
                                 locColPersonalLeave, 
-                                startDate >= _dateSelected && endDate <= _dateSelected
+                                startDate <= _dateSelected && endDate >= _dateSelected
                             )
                         )
                     Layout: =Layout.Vertical
