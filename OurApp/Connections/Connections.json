@@ -143,6 +143,9 @@
           "ASTakeLeave.LeaveRequest": {
             "tableName": "91e3d590-d0f5-4d19-a28f-4833f10d41d5"
           },
+          "ASTakeLeave.RequestCalculatedDays": {
+            "tableName": "17aef196-89dc-4c26-8d38-c43531e8c962"
+          },
           "ASTakeLeave.Roles": {
             "tableName": "1154f6a1-3e5b-45b8-b0f6-e94a2af297a2"
           },
@@ -182,7 +185,8 @@
       "ASTakeLeave.Users_Roles",
       "ASTakeLeave.Users",
       "ASTakeLeave.WeekDay",
-      "ASTakeLeave.LeaveReason"
+      "ASTakeLeave.LeaveReason",
+      "ASTakeLeave.RequestCalculatedDays"
     ],
     "dependencies": {},
     "dependents": [
