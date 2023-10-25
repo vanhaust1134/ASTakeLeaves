@@ -1,8 +1,12 @@
 "'Request Screen' As screen":
     Fill: =RGBA(224,224,224,1)
     OnHidden: =
-    OnVisible: |-
-        =//Tạo collect chứa gồm 2 ngày bắt đầu và kết thúc của kì nghỉ
+    OnVisible: |
+        =//Tạo biến tổng ngày phép và ngày phép còn lại
+        UpdateContext({locMaxDayLeaveNumber:LookUp('ASTakeLeave.TotalDayOffInYear',userID = gblRecUser.userID).maxDayOff_Year});
+        UpdateContext({locTotalDayLeaveNumber:LookUp('ASTakeLeave.TotalDayOffInYear',userID = gblRecUser.userID).totalDayOff_Year});
+        
+        //Tạo collect chứa gồm 2 ngày bắt đầu và kết thúc của kì nghỉ
         ClearCollect(
             colDateRange,
             Table(
@@ -423,7 +427,7 @@
             FontWeight: =FontWeight.Semibold
             Size: =15
             Text: |-
-                ="Tổng đã nghỉ: " & LookUp('ASTakeLeave.TotalDayOffInYear',userID = gblRecUser.userID).totalDayOff_Year & "/" & LookUp('ASTakeLeave.TotalDayOffInYear',userID = gblRecUser.userID).maxDayOff_Year
+                ="Tổng đã nghỉ: " & locTotalDayLeaveNumber & "/" & locMaxDayLeaveNumber
             Width: =230
             ZIndex: =4
 
@@ -1884,8 +1888,8 @@
                                 colDateRange,
                                 ID = 2
                             ).Status,
-                            reason: txt_rs_Detail.Text,
-                            reasonDetail: drp_rs_Reason.Selected.description,
+                            reason: drp_rs_Reason.Selected.description,
+                            reasonDetail: txt_rs_Detail.Text,
                             handOverUserID: LookUp(
                                 gblColAllUser,
                                 OData__x0033_65AccountInfo.Email = drp_rs_HandOver.Selected.Email
@@ -2035,4 +2039,23 @@
             X: =782
             Y: =443
             ZIndex: =8
+
+    Button10 As button:
+        OnSelect: |-
+            =//Kiểm tra tổng ngày nghỉ cho phép
+            ClearCollect(
+                colMaxDayLeave,
+                Table(
+                    {
+                        DayLeave: 4,
+                        CurrentTotalDayLeave:locMaxDayLeaveNumber / 12 * 6,
+                        MaxDayLeaveCurrent:(locMaxDayLeaveNumber / 12 * 6) - 4 + (3 * locMaxDayLeaveNumber / 12),
+                        TotalDayLeaveAllow:(locMaxDayLeaveNumber / 12 * 6) - 4 + 3 * locMaxDayLeaveNumber / 12
+                    }
+                )
+            );
+        Text: ="Button"
+        X: =575
+        Y: =32
+        ZIndex: =27
 
