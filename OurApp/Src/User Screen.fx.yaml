@@ -1358,6 +1358,10 @@
                         NotificationType.Error,
                         1500
                     ),
+                    //Kiểm tra nếu thay đổi role gd khối thì gỡ user ra khỏi khối
+                    If(locUser.roleID <>drp_us_Roles_2.Selected.ID,Patch('ASTakeLeave.Division',LookUp('ASTakeLeave.Division',active = 1 And directorUserID = locUser.userID),{directorUserID:Blank()}));
+                    //Cập nhật userID của khối khi có thay đổi
+                    If(locUser.userID <> txt_us_Name_6.Text,Patch('ASTakeLeave.Division',LookUp('ASTakeLeave.Division',active = 1 And directorUserID = locUser.userID),{directorUserID:txt_us_Name_6.Text}));
                     //Sửa nhân viên cũ thành không hoạt động
                     Patch(
                         'ASTakeLeave.Users',
