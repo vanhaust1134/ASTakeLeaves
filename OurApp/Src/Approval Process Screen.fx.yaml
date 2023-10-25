@@ -734,114 +734,6 @@
             Y: =492
             ZIndex: =19
 
-    ctn_us_DeleteUser_2 As groupContainer.manualLayoutContainer:
-        Fill: =RGBA(0, 0, 0, 0.5)
-        Height: =768
-        RadiusBottomLeft: =20
-        RadiusBottomRight: =20
-        RadiusTopLeft: =20
-        RadiusTopRight: =20
-        Visible: =locDeleteUser
-        Width: =1366
-        ZIndex: =7
-
-        btn_us_BackGround_10 As button:
-            BorderStyle: =BorderStyle.None
-            DisabledFill: =RGBA(255, 255, 255, 1)
-            DisplayMode: =DisplayMode.Disabled
-            Height: =205
-            RadiusBottomLeft: =5
-            RadiusBottomRight: =5
-            RadiusTopLeft: =5
-            RadiusTopRight: =5
-            Text: =""
-            Width: =608
-            X: =375
-            Y: =268
-            ZIndex: =1
-
-        lbl_us_Title_12 As label:
-            FontWeight: =FontWeight.Bold
-            Text: ="Xác nhận"
-            X: =387
-            Y: =280
-            ZIndex: =2
-
-        shp_us_Deco_20 As rectangle:
-            Fill: =RGBA(202, 202, 202, 1)
-            Height: =1
-            Width: =608
-            X: =375
-            Y: =335
-            ZIndex: =3
-
-        ico_us_Cancel_10 As icon.Cancel:
-            Color: =RGBA(149, 149, 149, 1)
-            Height: =29
-            Icon: =Icon.Cancel
-            OnSelect: |-
-                =UpdateContext({locDeleteUser:false})
-            Width: =25
-            X: =942
-            Y: =285
-            ZIndex: =4
-
-        lbl_us_Name_8 As label:
-            FontWeight: =FontWeight.Semibold
-            Text: ="Bạn có chắc chắn muốn xóa ?"
-            Width: =288
-            X: =387
-            Y: =348
-            ZIndex: =5
-
-        shp_us_Deco_21 As rectangle:
-            Fill: =RGBA(202, 202, 202, 1)
-            Height: =1
-            Width: =608
-            X: =375
-            Y: =407
-            ZIndex: =6
-
-        btn_us_Submit_10 As button:
-            BorderThickness: =1
-            Fill: =RGBA(0, 89, 204, 1)
-            Height: =36
-            HoverFill: =ColorFade(Self.Fill, -20%)
-            OnSelect: |-
-                =Notify("Xóa thành công",NotificationType.Success,1500);
-                UpdateContext({locDeleteUser:false})
-            PressedColor: =RGBA(255,255,255,1)
-            PressedFill: =Self.Fill
-            RadiusBottomLeft: =5
-            RadiusBottomRight: =5
-            RadiusTopLeft: =5
-            RadiusTopRight: =5
-            Text: ="Xóa"
-            Width: =87
-            X: =879
-            Y: =422
-            ZIndex: =7
-
-        btn_us_Cancel_10 As button:
-            BorderThickness: =1
-            Color: =RGBA(0, 0, 0, 1)
-            Fill: =RGBA(255, 255, 255, 1)
-            Height: =36
-            HoverFill: =ColorFade(Self.Fill, -20%)
-            OnSelect: |-
-                =UpdateContext({locDeleteUser:false})
-            PressedColor: =RGBA(0,0,0,1)
-            PressedFill: =Self.Fill
-            RadiusBottomLeft: =5
-            RadiusBottomRight: =5
-            RadiusTopLeft: =5
-            RadiusTopRight: =5
-            Text: ="Hủy"
-            Width: =87
-            X: =779
-            Y: =422
-            ZIndex: =8
-
     ctn_ds_Filter_1 As groupContainer.horizontalAutoLayoutContainer:
         DropShadow: =DropShadow.None
         Height: =52
@@ -851,7 +743,7 @@
         Width: =1170
         X: =196
         Y: =150
-        ZIndex: =8
+        ZIndex: =7
 
         lbt_ds_AddFile_1 As label:
             Align: =Align.Center
@@ -873,17 +765,6 @@
             Width: =30
             ZIndex: =2
 
-    ctn_us_UpdateHP As groupContainer.manualLayoutContainer:
-        Fill: =RGBA(0, 0, 0, 0.5)
-        Height: =768
-        RadiusBottomLeft: =20
-        RadiusBottomRight: =20
-        RadiusTopLeft: =20
-        RadiusTopRight: =20
-        Visible: =locUpdateHP
-        Width: =1366
-        ZIndex: =9
-
     ctn_us_CreateHP As groupContainer.manualLayoutContainer:
         Fill: =RGBA(0, 0, 0, 0.5)
         Height: =768
@@ -893,7 +774,7 @@
         RadiusTopRight: =20
         Visible: =locCreateHP
         Width: =1366
-        ZIndex: =10
+        ZIndex: =9
 
         btn_us_BackGround_11 As button:
             BorderStyle: =BorderStyle.None
@@ -1014,6 +895,255 @@
             ZIndex: =14
 
         drp_us_Roles_6 As dropdown:
+            BorderColor: =RGBA(116, 116, 116, 1)
+            BorderThickness: =1
+            Items: =Filter(gblColAllUser,active = 1 And userID exactin (Filter('ASTakeLeave.Users_Roles',Or(roleID = 4,roleID = 5)).userID))
+            X: =548
+            Y: =236
+            ZIndex: =19
+
+    ctn_us_DeleteUser_2 As groupContainer.manualLayoutContainer:
+        Fill: =RGBA(0, 0, 0, 0.5)
+        Height: =768
+        RadiusBottomLeft: =20
+        RadiusBottomRight: =20
+        RadiusTopLeft: =20
+        RadiusTopRight: =20
+        Visible: =locDeleteUser
+        Width: =1366
+        ZIndex: =10
+
+        btn_us_BackGround_10 As button:
+            BorderStyle: =BorderStyle.None
+            DisabledFill: =RGBA(255, 255, 255, 1)
+            DisplayMode: =DisplayMode.Disabled
+            Height: =205
+            RadiusBottomLeft: =5
+            RadiusBottomRight: =5
+            RadiusTopLeft: =5
+            RadiusTopRight: =5
+            Text: =""
+            Width: =608
+            X: =375
+            Y: =268
+            ZIndex: =1
+
+        lbl_us_Title_12 As label:
+            FontWeight: =FontWeight.Bold
+            Text: ="Xác nhận"
+            X: =387
+            Y: =280
+            ZIndex: =2
+
+        shp_us_Deco_20 As rectangle:
+            Fill: =RGBA(202, 202, 202, 1)
+            Height: =1
+            Width: =608
+            X: =375
+            Y: =335
+            ZIndex: =3
+
+        ico_us_Cancel_10 As icon.Cancel:
+            Color: =RGBA(149, 149, 149, 1)
+            Height: =29
+            Icon: =Icon.Cancel
+            OnSelect: |-
+                =UpdateContext({locDeleteUser:false})
+            Width: =25
+            X: =942
+            Y: =285
+            ZIndex: =4
+
+        lbl_us_Name_8 As label:
+            FontWeight: =FontWeight.Semibold
+            Text: ="Bạn có chắc chắn muốn xóa ?"
+            Width: =288
+            X: =387
+            Y: =348
+            ZIndex: =5
+
+        shp_us_Deco_21 As rectangle:
+            Fill: =RGBA(202, 202, 202, 1)
+            Height: =1
+            Width: =608
+            X: =375
+            Y: =407
+            ZIndex: =6
+
+        btn_us_Submit_10 As button:
+            BorderThickness: =1
+            Fill: =RGBA(0, 89, 204, 1)
+            Height: =36
+            HoverFill: =ColorFade(Self.Fill, -20%)
+            OnSelect: |-
+                =//Cập nhật item cũ thành không hoạt động
+                Patch('ASTakeLeave.CommonRelationship',LookUp('ASTakeLeave.CommonRelationship',ID = locCommon.ID),{active:0});
+                Notify("Xóa thành công",NotificationType.Success,1500);
+                UpdateContext({locDeleteUser:false})
+            PressedColor: =RGBA(255,255,255,1)
+            PressedFill: =Self.Fill
+            RadiusBottomLeft: =5
+            RadiusBottomRight: =5
+            RadiusTopLeft: =5
+            RadiusTopRight: =5
+            Text: ="Xóa"
+            Width: =87
+            X: =879
+            Y: =422
+            ZIndex: =7
+
+        btn_us_Cancel_10 As button:
+            BorderThickness: =1
+            Color: =RGBA(0, 0, 0, 1)
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =36
+            HoverFill: =ColorFade(Self.Fill, -20%)
+            OnSelect: |-
+                =UpdateContext({locDeleteUser:false})
+            PressedColor: =RGBA(0,0,0,1)
+            PressedFill: =Self.Fill
+            RadiusBottomLeft: =5
+            RadiusBottomRight: =5
+            RadiusTopLeft: =5
+            RadiusTopRight: =5
+            Text: ="Hủy"
+            Width: =87
+            X: =779
+            Y: =422
+            ZIndex: =8
+
+    ctn_us_UpdateHP As groupContainer.manualLayoutContainer:
+        Fill: =RGBA(0, 0, 0, 0.5)
+        Height: =768
+        RadiusBottomLeft: =20
+        RadiusBottomRight: =20
+        RadiusTopLeft: =20
+        RadiusTopRight: =20
+        Visible: =locUpdateHP
+        Width: =1366
+        ZIndex: =11
+
+        btn_us_BackGround_12 As button:
+            BorderStyle: =BorderStyle.None
+            DisabledFill: =RGBA(255, 255, 255, 1)
+            DisplayMode: =DisplayMode.Disabled
+            Height: =575
+            RadiusBottomLeft: =5
+            RadiusBottomRight: =5
+            RadiusTopLeft: =5
+            RadiusTopRight: =5
+            Text: =""
+            Width: =608
+            X: =375
+            Y: =100
+            ZIndex: =1
+
+        lbl_us_Title_15 As label:
+            FontWeight: =FontWeight.Bold
+            Text: ="Sửa thông tin"
+            X: =387
+            Y: =105
+            ZIndex: =2
+
+        shp_us_Deco_24 As rectangle:
+            Fill: =RGBA(202, 202, 202, 1)
+            Height: =1
+            Width: =608
+            X: =375
+            Y: =150
+            ZIndex: =3
+
+        ico_us_Cancel_12 As icon.Cancel:
+            Color: =RGBA(149, 149, 149, 1)
+            Height: =29
+            Icon: =Icon.Cancel
+            OnSelect: |-
+                =UpdateContext({locUpdateHP:false})
+            Width: =25
+            X: =942
+            Y: =110
+            ZIndex: =4
+
+        lbl_us_Name_12 As label:
+            Align: =Align.Right
+            FontWeight: =FontWeight.Semibold
+            Text: ="Bước duyệt"
+            X: =387
+            Y: =172
+            ZIndex: =5
+
+        shp_us_Deco_25 As rectangle:
+            Fill: =RGBA(202, 202, 202, 1)
+            Height: =1
+            Width: =608
+            X: =375
+            Y: =627
+            ZIndex: =6
+
+        btn_us_Submit_12 As button:
+            BorderThickness: =1
+            Fill: =RGBA(0, 89, 204, 1)
+            Height: =36
+            HoverFill: =ColorFade(Self.Fill, -20%)
+            OnSelect: |-
+                =//Cập nhật item cũ thành không hoạt động
+                Patch('ASTakeLeave.CommonRelationship',LookUp('ASTakeLeave.CommonRelationship',ID = locCommon.ID),{active:0});
+                //Tạo mới cấp phê duyệt
+                Patch('ASTakeLeave.CommonRelationship',Defaults('ASTakeLeave.CommonRelationship'),{sort:locCommon.sort,approveProcessLevel:locCommon.approveProcessLevel,userID:drp_us_Roles_9.Selected.userID,active:1});
+                Notify("sửa thành công",NotificationType.Success,1500);
+                UpdateContext({locUpdateHP:false})
+            PressedColor: =RGBA(255,255,255,1)
+            PressedFill: =Self.Fill
+            RadiusBottomLeft: =5
+            RadiusBottomRight: =5
+            RadiusTopLeft: =5
+            RadiusTopRight: =5
+            Text: ="Sửa"
+            Width: =87
+            X: =879
+            Y: =633
+            ZIndex: =7
+
+        btn_us_Cancel_12 As button:
+            BorderThickness: =1
+            Color: =RGBA(0, 0, 0, 1)
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =36
+            HoverFill: =ColorFade(Self.Fill, -20%)
+            OnSelect: |-
+                =UpdateContext({locUpdateHP:false})
+            PressedColor: =RGBA(0,0,0,1)
+            PressedFill: =Self.Fill
+            RadiusBottomLeft: =5
+            RadiusBottomRight: =5
+            RadiusTopLeft: =5
+            RadiusTopRight: =5
+            Text: ="Hủy"
+            Width: =87
+            X: =779
+            Y: =633
+            ZIndex: =8
+
+        lbl_us_Roles_10 As label:
+            Align: =Align.Right
+            FontWeight: =FontWeight.Semibold
+            Text: ="Người phụ trách"
+            X: =387
+            Y: =236
+            ZIndex: =13
+
+        txt_us_Name_10 As text:
+            BorderColor: =RGBA(116, 116, 116, 1)
+            BorderThickness: =1
+            Default: =If(locCommon.approveProcessLevel = 1,"Giám đốc điều hành","HR / C&B")
+            DisplayMode: =DisplayMode.View
+            HintText: ="Nhập họ tên"
+            Width: =394
+            X: =548
+            Y: =172
+            ZIndex: =14
+
+        drp_us_Roles_9 As dropdown:
             BorderColor: =RGBA(116, 116, 116, 1)
             BorderThickness: =1
             Items: =Filter(gblColAllUser,active = 1 And userID exactin (Filter('ASTakeLeave.Users_Roles',Or(roleID = 4,roleID = 5)).userID))

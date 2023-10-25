@@ -940,8 +940,8 @@
                             email: cbo_us_Email.Selected.Mail,
                             phone: txt_us_Phone_1.Text,
                             jobTitle: txt_us_JobTitle_1.Text,
-                            divisionID: drp_us_Department_3.Selected.ID,
-                            departmentID: drp_us_Department_1.Selected.ID,
+                            divisionID: If(drp_us_Roles_1.Selected.ID = 1 Or drp_us_Roles_1.Selected.ID = 2,drp_us_Department_3.Selected.ID,Blank()),
+                            departmentID: If(drp_us_Roles_1.Selected.ID = 1 Or drp_us_Roles_1.Selected.ID = 2,drp_us_Department_1.Selected.ID,Blank()),
                             '365AccountInfo': {
                                 '@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedUser",
                                 Department: "",
@@ -1100,10 +1100,10 @@
             Align: =Align.Right
             FontWeight: =FontWeight.Semibold
             Text: ="Phòng"
-            Visible: =If(drp_us_Roles_1.Selected.ID = 3,false,true)
+            Visible: =If(drp_us_Roles_1.Selected.ID = 1 Or drp_us_Roles_1.Selected.ID = 2 ,true,false)
             Width: =97
             X: =439
-            Y: =471
+            Y: =534
             ZIndex: =12
 
         lbl_us_Roles_1 As label:
@@ -1111,7 +1111,7 @@
             FontWeight: =FontWeight.Semibold
             Text: ="Roles"
             X: =387
-            Y: =If(drp_us_Roles_1.Selected.ID = 3,475,535)
+            Y: =405
             ZIndex: =13
 
         txt_us_Name_1 As text:
@@ -1139,10 +1139,10 @@
             BorderColor: =RGBA(116, 116, 116, 1)
             BorderThickness: =1
             Items: =Filter(gblColDepartment,divisionID = drp_us_Department_3.Selected.ID And active = 1)
-            Visible: =If(drp_us_Roles_1.Selected.ID = 3,false,true)
+            Visible: =If(drp_us_Roles_1.Selected.ID = 1 Or drp_us_Roles_1.Selected.ID = 2 ,true,false)
             Width: =260
             X: =548
-            Y: =471
+            Y: =534
             ZIndex: =17
 
         txt_us_JobTitle_1 As text:
@@ -1160,7 +1160,7 @@
             BorderThickness: =1
             Items: =Filter(gblColRoles,name <> "Tất cả")
             X: =548
-            Y: =If(drp_us_Roles_1.Selected.ID = 3,475,535)
+            Y: =405
             ZIndex: =19
 
         lbl_us_Roles_3 As label:
@@ -1170,7 +1170,7 @@
             Visible: =If(drp_us_Roles_1.Selected.ID = 1 Or drp_us_Roles_1.Selected.ID = 5,true,false)
             Width: =162
             X: =375
-            Y: =If(drp_us_Roles_1.Selected.ID = 3,535,595)
+            Y: =If(drp_us_Roles_1.Selected.ID = 1 Or drp_us_Roles_1.Selected.ID = 1 ,595,468)
             ZIndex: =20
 
         drp_us_Manager As dropdown:
@@ -1179,7 +1179,7 @@
             Items: =Filter(gblColAllUser,active = 1 And roleID = 2 And userID <> locUser.userID)
             Visible: =If(drp_us_Roles_1.Selected.ID = 1 Or drp_us_Roles_1.Selected.ID = 5,true,false)
             X: =548
-            Y: =If(drp_us_Roles_1.Selected.ID = 3,535,595)
+            Y: =If(drp_us_Roles_1.Selected.ID = 1 Or drp_us_Roles_1.Selected.ID = 1 ,595,468)
             ZIndex: =21
 
         lbl_us_Name_4 As label:
@@ -1204,18 +1204,20 @@
             Align: =Align.Right
             FontWeight: =FontWeight.Semibold
             Text: ="Khối"
+            Visible: =If(drp_us_Roles_1.Selected.ID = 1 Or drp_us_Roles_1.Selected.ID = 2 ,true,false)
             Width: =97
             X: =439
-            Y: =407
+            Y: =470
             ZIndex: =24
 
         drp_us_Department_3 As dropdown:
             BorderColor: =RGBA(116, 116, 116, 1)
             BorderThickness: =1
             Items: =Filter(gblColDivision,active = 1)
+            Visible: =If(drp_us_Roles_1.Selected.ID = 1 Or drp_us_Roles_1.Selected.ID = 2 ,true,false)
             Width: =260
             X: =548
-            Y: =407
+            Y: =470
             ZIndex: =25
 
         cbo_us_Email As combobox:
@@ -1353,8 +1355,8 @@
                             email: cbo_us_Email_2.Selected.Mail,
                             phone: txt_us_Phone_2.Text,
                             jobTitle: txt_us_JobTitle_2.Text,
-                            divisionID: cbo_us_Line_4.Selected.ID,
-                            departmentID: cbo_us_Department_2.Selected.ID,
+                            divisionID: If(drp_us_Roles_2.Selected.ID = 1 Or drp_us_Roles_2.Selected.ID = 2,cbo_us_Line_4.Selected.ID,Blank()),
+                            departmentID: If(drp_us_Roles_2.Selected.ID = 1 Or drp_us_Roles_2.Selected.ID = 2,cbo_us_Department_2.Selected.ID,Blank()),
                             '365AccountInfo': {
                                 '@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedUser",
                                 Department: "",
@@ -1535,10 +1537,10 @@
             Align: =Align.Right
             FontWeight: =FontWeight.Semibold
             Text: ="Phòng"
-            Visible: =If(drp_us_Roles_2.Selected.ID = 3,false,true)
+            Visible: =If(drp_us_Roles_2.Selected.ID = 1 Or drp_us_Roles_2.Selected.ID = 2,true,false)
             Width: =97
             X: =448
-            Y: =471
+            Y: =543
             ZIndex: =12
 
         lbl_us_Roles_2 As label:
@@ -1546,7 +1548,7 @@
             FontWeight: =FontWeight.Semibold
             Text: ="Roles"
             X: =387
-            Y: =If(drp_us_Roles_2.Selected.ID = 3,475,540)
+            Y: =408
             ZIndex: =13
 
         txt_us_Name_2 As text:
@@ -1586,7 +1588,7 @@
             Default: =LookUp(gblColRoles,ID = locUser.roleID).name
             Items: =Filter(gblColRoles,name <> "Tất cả")
             X: =548
-            Y: =If(drp_us_Roles_2.Selected.ID = 3,475,540)
+            Y: =408
             ZIndex: =19
 
         lbl_us_Roles_6 As label:
@@ -1596,7 +1598,7 @@
             Visible: =If(drp_us_Roles_2.Selected.ID = 1 Or drp_us_Roles_2.Selected.ID = 5,true,false)
             Width: =162
             X: =375
-            Y: =If(drp_us_Roles_2.Selected.ID = 3,555,607)
+            Y: =If(drp_us_Roles_2.Selected.ID = 1 Or drp_us_Roles_2.Selected.ID = 2,607,470)
             ZIndex: =20
 
         lbl_us_Name_5 As label:
@@ -1621,9 +1623,10 @@
             Align: =Align.Right
             FontWeight: =FontWeight.Semibold
             Text: ="Khối"
+            Visible: =If(drp_us_Roles_2.Selected.ID = 1 Or drp_us_Roles_2.Selected.ID = 2,true,false)
             Width: =97
             X: =448
-            Y: =407
+            Y: =479
             ZIndex: =24
 
         cbo_us_Email_2 As combobox:
@@ -1659,7 +1662,7 @@
             SelectMultiple: =false
             Visible: =If(drp_us_Roles_2.Selected.ID = 1 Or drp_us_Roles_2.Selected.ID = 5,true,false)
             X: =548
-            Y: =If(drp_us_Roles_2.Selected.ID = 3,555,607)
+            Y: =If(drp_us_Roles_2.Selected.ID = 1 Or drp_us_Roles_2.Selected.ID = 2,607,470)
             ZIndex: =27
 
         cbo_us_Line_4 As combobox:
@@ -1672,9 +1675,10 @@
             SearchFields: =["directorUserID"]
             SearchItems: =Search(Filter(gblColDivision,active = 1 And name <> "Tất cả"),cbo_us_Line_4.SearchText,"directorUserID")
             SelectMultiple: =false
+            Visible: =If(drp_us_Roles_2.Selected.ID = 1 Or drp_us_Roles_2.Selected.ID = 2,true,false)
             Width: =260
             X: =549
-            Y: =408
+            Y: =480
             ZIndex: =28
 
         cbo_us_Department_2 As combobox:
@@ -1687,10 +1691,10 @@
             SearchFields: =["ComplianceAssetId"]
             SearchItems: =Search(Filter(gblColDepartment,divisionID = cbo_us_Line_4.Selected.ID And active = 1 And name <> "Tất cả"),cbo_us_Department_2.SearchText,"ComplianceAssetId")
             SelectMultiple: =false
-            Visible: =If(drp_us_Roles_2.Selected.ID = 3,false,true)
+            Visible: =If(drp_us_Roles_2.Selected.ID = 1 Or drp_us_Roles_2.Selected.ID = 2,true,false)
             Width: =260
             X: =551
-            Y: =471
+            Y: =543
             ZIndex: =29
 
     ctn_us_DetailUser As groupContainer.manualLayoutContainer:
@@ -1810,9 +1814,10 @@
             Align: =Align.Right
             FontWeight: =FontWeight.Semibold
             Text: ="Phòng"
+            Visible: =If(drp_us_Roles_7.Selected.ID = 1 Or drp_us_Roles_7.Selected.ID = 2,true,false)
             Width: =97
             X: =448
-            Y: =471
+            Y: =535
             ZIndex: =12
 
         lbl_us_Roles_7 As label:
@@ -1820,7 +1825,7 @@
             FontWeight: =FontWeight.Semibold
             Text: ="Roles"
             X: =387
-            Y: =535
+            Y: =409
             ZIndex: =13
 
         txt_us_Name_8 As text:
@@ -1870,9 +1875,10 @@
             DisabledFill: =RGBA(255, 255, 255, 1)
             DisplayMode: =DisplayMode.Disabled
             Items: =LookUp('ASTakeLeave.Department',ID = locUser.departmentID)
+            Visible: =If(drp_us_Roles_7.Selected.ID = 1 Or drp_us_Roles_7.Selected.ID = 2,true,false)
             Width: =260
             X: =548
-            Y: =471
+            Y: =535
             ZIndex: =17
 
         txt_us_JobTitle_3 As text:
@@ -1895,9 +1901,9 @@
             DisabledColor: =RGBA(0, 0, 0, 1)
             DisabledFill: =RGBA(255, 255, 255, 1)
             DisplayMode: =DisplayMode.Disabled
-            Items: =//LookUp('ASTakeLeave.Roles',ID = LookUp('ASTakeLeave.Users_Roles',userID = locUser.userID).roleID)
+            Items: =LookUp(gblColRoles,ID = locUser.roleID)
             X: =548
-            Y: =535
+            Y: =409
             ZIndex: =19
 
         lbl_us_Roles_8 As label:
@@ -1906,7 +1912,7 @@
             Text: ="Quản lý trực tiếp"
             Width: =162
             X: =375
-            Y: =602
+            Y: =If(drp_us_Roles_7.Selected.ID = 1 Or drp_us_Roles_7.Selected.ID = 2,602,475)
             ZIndex: =20
 
         drp_us_Roles_8 As dropdown:
@@ -1918,7 +1924,7 @@
             DisplayMode: =DisplayMode.Disabled
             Items: =LookUp(gblColAllUser,active = 1 And userID = LookUp(gblColManagerByUser,userID = locUser.userID).approveUserID)
             X: =548
-            Y: =602
+            Y: =If(drp_us_Roles_7.Selected.ID = 1 Or drp_us_Roles_7.Selected.ID = 2,602,475)
             ZIndex: =21
 
         lbl_us_Name_9 As label:
@@ -1946,9 +1952,10 @@
             Align: =Align.Right
             FontWeight: =FontWeight.Semibold
             Text: ="Khối"
+            Visible: =If(drp_us_Roles_7.Selected.ID = 1 Or drp_us_Roles_7.Selected.ID = 2,true,false)
             Width: =97
             X: =448
-            Y: =407
+            Y: =471
             ZIndex: =24
 
         drp_us_Department_6 As dropdown:
@@ -1958,8 +1965,9 @@
             DisabledFill: =RGBA(255, 255, 255, 1)
             DisplayMode: =DisplayMode.Disabled
             Items: =LookUp('ASTakeLeave.Division',ID = locUser.divisionID)
+            Visible: =If(drp_us_Roles_7.Selected.ID = 1 Or drp_us_Roles_7.Selected.ID = 2,true,false)
             Width: =260
             X: =548
-            Y: =407
+            Y: =471
             ZIndex: =25
 
