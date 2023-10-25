@@ -369,6 +369,7 @@
                         Color: =RGBA(47, 47, 47, 1)
                         FontWeight: =FontWeight.Bold
                         Text: =""
+                        Visible: =false
                         Width: =50
                         ZIndex: =7
 
@@ -458,6 +459,7 @@
                             ImagePosition: =ImagePosition.Center
                             LayoutMinHeight: =30
                             OnSelect: =
+                            Visible: =false
                             Width: =44
                             X: =991
                             Y: =2
