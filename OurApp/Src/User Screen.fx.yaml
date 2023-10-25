@@ -402,7 +402,7 @@
                 gal_us_List As gallery.galleryVertical:
                     AlignInContainer: =AlignInContainer.SetByContainer
                     DelayItemLoading: =true
-                    Items: =Search(Filter(gblColAllUser,active = 1 And (divisionID = drp_us_Employee.Selected.ID || If(IsBlank(drp_us_Employee.Selected.ID),true,false)) And (roleID = drp_us_Employee_1.Selected.ID || If(IsBlank(drp_us_Employee_1.Selected.ID),true,false))),txt_lds_Search_1.Text,"fullName")
+                    Items: =Search(Filter(gblColAllUser,active = 1 And (departmentID = drp_us_Employee.Selected.ID || If(IsBlank(drp_us_Employee.Selected.ID),true,false)) And (roleID = drp_us_Employee_1.Selected.ID || If(IsBlank(drp_us_Employee_1.Selected.ID),true,false))),txt_lds_Search_1.Text,"fullName")
                     Layout: =Layout.Vertical
                     LayoutMinHeight: =287
                     LayoutMinWidth: =0
@@ -767,10 +767,32 @@
             OnSelect: |-
                 =//Sửa nhân viên cũ thành không hoạt động
                 Patch('ASTakeLeave.Users',LookUp('ASTakeLeave.Users',ID = locUser.ID),{active:0});
-                //Sửa quản lý cũ thành không hoạt động
-                Patch('ASTakeLeave.UserRelationship',LookUp('ASTakeLeave.UserRelationship',userID = locUser.userID),{active:0});
-                //Sửa vai trò cũ thành không hoạt động
-                Patch('ASTakeLeave.Users_Roles',LookUp('ASTakeLeave.Users_Roles',userID = locUser.userID),{active:0});
+                ///Sửa quản lý cũ thành không hoạt động
+                Patch(
+                        'ASTakeLeave.UserRelationship',
+                        LookUp(
+                            'ASTakeLeave.UserRelationship',
+                            userID = locUser.userID And active = 1 And approveProcessLevel = 1
+                        ),
+                        {active: 0}
+                    );
+                    Patch(
+                        'ASTakeLeave.UserRelationship',
+                        LookUp(
+                            'ASTakeLeave.UserRelationship',
+                            userID = locUser.userID And active = 1 And approveProcessLevel = 2
+                        ),
+                        {active: 0}
+                    );
+                    //Sửa vai trò cũ thành không hoạt động
+                Patch(
+                        'ASTakeLeave.Users_Roles',
+                        LookUp(
+                            'ASTakeLeave.Users_Roles',
+                            userID = locUser.userID And active = 1
+                        ),
+                        {active: 0}
+                    );
                 //Làm mới bảng người dùng
                 Refresh('ASTakeLeave.Users');
                 //Thêm trường role vào bảng user
@@ -1910,6 +1932,7 @@
             Align: =Align.Right
             FontWeight: =FontWeight.Semibold
             Text: ="Quản lý trực tiếp"
+            Visible: =If(drp_us_Roles_7.Selected.ID = 1 Or drp_us_Roles_7.Selected.ID = 5,true,false)
             Width: =162
             X: =375
             Y: =If(drp_us_Roles_7.Selected.ID = 1 Or drp_us_Roles_7.Selected.ID = 2,602,475)
@@ -1923,6 +1946,7 @@
             DisabledFill: =RGBA(255, 255, 255, 1)
             DisplayMode: =DisplayMode.Disabled
             Items: =LookUp(gblColAllUser,active = 1 And userID = LookUp(gblColManagerByUser,userID = locUser.userID).approveUserID)
+            Visible: =If(drp_us_Roles_7.Selected.ID = 1 Or drp_us_Roles_7.Selected.ID = 5,true,false)
             X: =548
             Y: =If(drp_us_Roles_7.Selected.ID = 1 Or drp_us_Roles_7.Selected.ID = 2,602,475)
             ZIndex: =21

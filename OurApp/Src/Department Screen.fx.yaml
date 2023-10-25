@@ -359,7 +359,8 @@
                         Color: =RGBA(47, 47, 47, 1)
                         FillPortions: =4
                         FontWeight: =FontWeight.Bold
-                        Text: ="Quản lý"
+                        PaddingRight: =50
+                        Text: ="Giám đốc khối"
                         ZIndex: =3
 
                     blank_7 As label:
@@ -481,9 +482,9 @@
                             =UpdateContext({locDetailDP:true});
                             UpdateContext({locDivision:ThisItem})
                         Text: =LookUp('ASTakeLeave.Users',userID = ThisItem.directorUserID And active = 1).fullName
-                        Width: =240
+                        Width: =410
                         Wrap: =false
-                        X: =709
+                        X: =578
                         Y: =5
                         ZIndex: =3
 
