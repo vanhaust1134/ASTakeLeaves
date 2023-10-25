@@ -343,13 +343,13 @@
 
                         img_us_Delete_2 As image:
                             FillPortions: =0.1
-                            Image: =Delete
+                            Image: =If(ThisItem.approveProcessLevel = 2,Delete)
                             ImagePosition: =ImagePosition.Center
                             LayoutMinHeight: =0
                             LayoutMinWidth: =0
                             OnSelect: |-
                                 =UpdateContext({locDeleteUser:true});
-                                UpdateContext({locUser:ThisItem})
+                                UpdateContext({locCommon:ThisItem})
                             Width: =50
                             ZIndex: =5
 
@@ -840,7 +840,7 @@
             HoverFill: =ColorFade(Self.Fill, -20%)
             OnSelect: |-
                 =//Tạo mới cấp phê duyệt
-                Patch('ASTakeLeave.CommonRelationship',Defaults('ASTakeLeave.CommonRelationship'),{sort:2,approveProcessLevel:2,userID:drp_us_Roles_6.Selected.userID,active:1});
+                Patch('ASTakeLeave.CommonRelationship',Defaults('ASTakeLeave.CommonRelationship'),{sort:Max(Filter('ASTakeLeave.CommonRelationship',active = 1),sort)+1,approveProcessLevel:2,userID:drp_us_Roles_6.Selected.userID,active:1});
                 Notify("Tạo thành công",NotificationType.Success,1500);
                 UpdateContext({locCreateHP:false})
             PressedColor: =RGBA(255,255,255,1)
@@ -886,7 +886,7 @@
         txt_us_Name_9 As text:
             BorderColor: =RGBA(116, 116, 116, 1)
             BorderThickness: =1
-            Default: =If(locCommon.approveProcessLevel = 1,"Giám đốc điều hành","HR / C&B")
+            Default: ="HR / C&B"
             DisplayMode: =DisplayMode.View
             HintText: ="Nhập họ tên"
             Width: =394
@@ -897,7 +897,7 @@
         drp_us_Roles_6 As dropdown:
             BorderColor: =RGBA(116, 116, 116, 1)
             BorderThickness: =1
-            Items: =Filter(gblColAllUser,active = 1 And userID exactin (Filter('ASTakeLeave.Users_Roles',Or(roleID = 4,roleID = 5)).userID))
+            Items: =Filter(gblColAllUser,active = 1 And userID exactin (Filter('ASTakeLeave.Users_Roles',roleID = 5).userID))
             X: =548
             Y: =236
             ZIndex: =19
@@ -1146,7 +1146,7 @@
         drp_us_Roles_9 As dropdown:
             BorderColor: =RGBA(116, 116, 116, 1)
             BorderThickness: =1
-            Items: =Filter(gblColAllUser,active = 1 And userID exactin (Filter('ASTakeLeave.Users_Roles',Or(roleID = 4,roleID = 5)).userID))
+            Items: =If(locCommon.approveProcessLevel = 1,Filter(gblColAllUser,active = 1 And userID exactin (Filter('ASTakeLeave.Users_Roles',active = 1 And roleID = 4).userID)),Filter(gblColAllUser,active = 1 And userID exactin (Filter('ASTakeLeave.Users_Roles',active = 1 And roleID = 5).userID)))
             X: =548
             Y: =236
             ZIndex: =19

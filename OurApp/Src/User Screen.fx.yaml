@@ -473,7 +473,7 @@
                             OnSelect: |-
                                 =UpdateContext({locDetailUser:true});
                                 UpdateContext({locUser:ThisItem})
-                            Text: =LookUp(gblColAllUser,active = 1 And userID = LookUp(gblColManagerByUser,userID = ThisItem.userID).approveUserID).fullName
+                            Text: =LookUp(gblColAllUser,active = 1 And userID = LookUp(gblColManagerByUser,userID = ThisItem.userID And approveProcessLevel = 1).approveUserID).fullName
                             Wrap: =false
                             ZIndex: =4
 
@@ -1540,7 +1540,7 @@
             Visible: =If(drp_us_Roles_2.Selected.ID = 1 Or drp_us_Roles_2.Selected.ID = 2,true,false)
             Width: =97
             X: =448
-            Y: =543
+            Y: =536
             ZIndex: =12
 
         lbl_us_Roles_2 As label:
@@ -1626,7 +1626,7 @@
             Visible: =If(drp_us_Roles_2.Selected.ID = 1 Or drp_us_Roles_2.Selected.ID = 2,true,false)
             Width: =97
             X: =448
-            Y: =479
+            Y: =472
             ZIndex: =24
 
         cbo_us_Email_2 As combobox:
@@ -1678,7 +1678,7 @@
             Visible: =If(drp_us_Roles_2.Selected.ID = 1 Or drp_us_Roles_2.Selected.ID = 2,true,false)
             Width: =260
             X: =549
-            Y: =480
+            Y: =473
             ZIndex: =28
 
         cbo_us_Department_2 As combobox:
@@ -1694,7 +1694,7 @@
             Visible: =If(drp_us_Roles_2.Selected.ID = 1 Or drp_us_Roles_2.Selected.ID = 2,true,false)
             Width: =260
             X: =551
-            Y: =543
+            Y: =536
             ZIndex: =29
 
     ctn_us_DetailUser As groupContainer.manualLayoutContainer:
