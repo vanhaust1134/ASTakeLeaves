@@ -847,6 +847,46 @@
             {
               "logicalLocations": [
                 {
+                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_MainContent_1.ctn_ds_List_1.ctn_ds_DetailList_1.Container1.Container1_2.Gallery3.Items"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_MainContent_1.ctn_ds_List_1.ctn_ds_DetailList_1.Container1.Container1_2.Gallery3.Items",
+                  "relativeAddress": 0
+                },
+                "region": {
+                  "charLength": 6,
+                  "charOffset": 94,
+                  "snippet": {
+                    "text": "\"name\""
+                  }
+                }
+              },
+              "properties": {
+                "member": "Items",
+                "module": "Leave Calendar Screen",
+                "type": "'Leave Calendar Screen'.ctn_ds_MainContent_1.ctn_ds_List_1.ctn_ds_DetailList_1.Container1.Container1_2.Gallery3"
+              }
+            }
+          ],
+          "message": {
+            "arguments": [
+              "Search"
+            ],
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "app-SuggestRemoteExecutionHint",
+          "ruleIndex": 2
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
                   "fullyQualifiedName": "'Leave Day Screen'.ctn_Navigate_5.ctn_NavigationMenu_5.gal_NavigationMenu_5.AccessibleLabel"
                 }
               ],

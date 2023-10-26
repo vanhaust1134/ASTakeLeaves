@@ -342,8 +342,10 @@
                             ZIndex: =4
 
                         img_us_Delete_2 As image:
+                            DisabledFill: =RGBA(0, 0, 0, 0)
+                            DisplayMode: =If(ThisItem.sort > 2,DisplayMode.Edit,DisplayMode.Disabled)
                             FillPortions: =0.1
-                            Image: =If(ThisItem.approveProcessLevel = 2,Delete)
+                            Image: =If(ThisItem.sort > 2,Delete)
                             ImagePosition: =ImagePosition.Center
                             LayoutMinHeight: =0
                             LayoutMinWidth: =0

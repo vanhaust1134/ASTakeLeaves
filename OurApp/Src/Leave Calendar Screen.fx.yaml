@@ -408,7 +408,7 @@
 
                         Gallery3 As gallery.galleryVertical:
                             DelayItemLoading: =true
-                            Items: =Filter('ASTakeLeave.Holiday',active = 1)
+                            Items: =Search(Filter('ASTakeLeave.Holiday',active = 1 And year = Year(Today())),txt_ds_Search_2.Text,"name")
                             Layout: =Layout.Vertical
                             LayoutMinHeight: =287
                             LayoutMinWidth: =320
@@ -720,7 +720,7 @@
                         1500
                     ),
                     //Cập nhật ngày lễ thành không hoạt động
-                    Patch('ASTakeLeave.Holiday',LookUp('ASTakeLeave.Holiday',ID = locHoliday.ID,{active:0}));
+                    Patch('ASTakeLeave.Holiday',LookUp('ASTakeLeave.Holiday',ID = locHoliday.ID),{active:0});
                     //Tạo ngày lễ
                     Patch(
                         'ASTakeLeave.Holiday',
@@ -781,7 +781,7 @@
         txt_ds_Name_4 As text:
             BorderColor: =RGBA(116, 116, 116, 1)
             BorderThickness: =1
-            Default: =""
+            Default: =locHoliday.name
             HintText: ="Nhập tên ngày"
             Width: =394
             X: =562

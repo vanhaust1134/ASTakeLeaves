@@ -799,18 +799,45 @@
                     );
                 //Làm mới bảng người dùng
                 Refresh('ASTakeLeave.Users');
+                Refresh('ASTakeLeave.Users_Roles');
+                Refresh('ASTakeLeave.UserRelationship');
                 //Thêm trường role vào bảng user
                 ClearCollect(
                     gblColAllUser,
                     AddColumns(
-                        ShowColumns('ASTakeLeave.Users', "ID", "userID", "fullName", "shortName", "email", "phone", "jobTitle", "departmentID", "divisionID", "OData__x0033_65AccountInfo", "active") As temp, 
-                        "roleID", 
-                        LookUp('ASTakeLeave.Users_Roles', userID = temp.userID).roleID
+                        ShowColumns(
+                            Filter('ASTakeLeave.Users',active = 1),
+                            "ID",
+                            "userID",
+                            "fullName",
+                            "shortName",
+                            "email",
+                            "phone",
+                            "jobTitle",
+                            "departmentID",
+                            "divisionID",
+                            "OData__x0033_65AccountInfo",
+                            "active"
+                        ) As temp,
+                        "roleID",
+                        LookUp(
+                            Filter(
+                                'ASTakeLeave.Users_Roles',
+                                active = 1
+                            ),
+                            userID = temp.userID
+                        ).roleID
                     )
                 );
-                Patch('ASTakeLeave.CommonRelationship',LookUp('ASTakeLeave.CommonRelationship',userID = locUser.userID),{userID:Blank()});
                 //Lấy bảng quản lý người dùng
-                ClearCollect(gblColManagerByUser,Filter('ASTakeLeave.UserRelationship',active = 1));
+                ClearCollect(
+                    gblColManagerByUser,
+                    Filter(
+                        'ASTakeLeave.UserRelationship',
+                        active = 1
+                    )
+                );
+                'ASTakeLeave.ActionDeleteUser'.Run(locUser.userID,locUser.roleID);
                 Notify("Xóa thành công",NotificationType.Success,1500);
                 UpdateContext({locDeleteUser:false})
             PressedColor: =RGBA(255,255,255,1)
@@ -967,7 +994,7 @@
                         'ASTakeLeave.Users',
                         Defaults('ASTakeLeave.Users'),
                         {
-                            userID: txt_us_Name_3.Text,
+                            userID: Substitute(txt_us_Name_3.Text," ",""),
                             fullName: txt_us_Name_1.Text,
                             email: cbo_us_Email.Selected.Mail,
                             phone: txt_us_Phone_1.Text,
@@ -1001,7 +1028,7 @@
                         'ASTakeLeave.UserRelationship',
                         Defaults('ASTakeLeave.UserRelationship'),
                         {
-                            approveUserID: If(drp_us_Roles_1.Selected.ID = 1 Or drp_us_Roles_1.Selected.ID = 5,drp_us_Manager.Selected.userID,Blank()),
+                            approveUserID: If(drp_us_Roles_1.Selected.ID = 1 Or drp_us_Roles_1.Selected.ID = 5 Or drp_us_Roles_1.Selected.ID = 7,drp_us_Manager.Selected.userID,Blank()),
                             userID: txt_us_Name_3.Text,
                             approveProcessLevel: 1,
                             active: 1
@@ -1039,7 +1066,7 @@
                     gblColAllUser,
                     AddColumns(
                         ShowColumns(
-                            'ASTakeLeave.Users',
+                            Filter('ASTakeLeave.Users',active = 1),
                             "ID",
                             "userID",
                             "fullName",
@@ -1132,7 +1159,7 @@
             Align: =Align.Right
             FontWeight: =FontWeight.Semibold
             Text: ="Phòng"
-            Visible: =If(drp_us_Roles_1.Selected.ID = 1 Or drp_us_Roles_1.Selected.ID = 2 ,true,false)
+            Visible: =If(drp_us_Roles_1.Selected.ID = 1 Or drp_us_Roles_1.Selected.ID = 2 Or drp_us_Roles_1.Selected.ID = 7 Or drp_us_Roles_1.Selected.ID = 5,true,false)
             Width: =97
             X: =439
             Y: =534
@@ -1171,7 +1198,7 @@
             BorderColor: =RGBA(116, 116, 116, 1)
             BorderThickness: =1
             Items: =Filter(gblColDepartment,divisionID = drp_us_Department_3.Selected.ID And active = 1)
-            Visible: =If(drp_us_Roles_1.Selected.ID = 1 Or drp_us_Roles_1.Selected.ID = 2 ,true,false)
+            Visible: =If(drp_us_Roles_1.Selected.ID = 1 Or drp_us_Roles_1.Selected.ID = 2 Or drp_us_Roles_1.Selected.ID = 7 Or drp_us_Roles_1.Selected.ID = 5,true,false)
             Width: =260
             X: =548
             Y: =534
@@ -1199,19 +1226,19 @@
             Align: =Align.Right
             FontWeight: =FontWeight.Semibold
             Text: ="Quản lý trực tiếp"
-            Visible: =If(drp_us_Roles_1.Selected.ID = 1 Or drp_us_Roles_1.Selected.ID = 5,true,false)
+            Visible: =If(drp_us_Roles_1.Selected.ID = 1 Or drp_us_Roles_1.Selected.ID = 7 Or drp_us_Roles_1.Selected.ID = 5,true,false)
             Width: =162
             X: =375
-            Y: =If(drp_us_Roles_1.Selected.ID = 1 Or drp_us_Roles_1.Selected.ID = 1 ,595,468)
+            Y: =If(drp_us_Roles_1.Selected.ID = 1 Or drp_us_Roles_1.Selected.ID = 2 Or drp_us_Roles_1.Selected.ID = 7 Or drp_us_Roles_1.Selected.ID = 5,595,471)
             ZIndex: =20
 
         drp_us_Manager As dropdown:
             BorderColor: =RGBA(116, 116, 116, 1)
             BorderThickness: =1
-            Items: =Filter(gblColAllUser,active = 1 And roleID = 2 And userID <> locUser.userID)
-            Visible: =If(drp_us_Roles_1.Selected.ID = 1 Or drp_us_Roles_1.Selected.ID = 5,true,false)
+            Items: =Filter(gblColAllUser,active = 1 And roleID = 2)
+            Visible: =If(drp_us_Roles_1.Selected.ID = 1 Or drp_us_Roles_1.Selected.ID = 7 Or drp_us_Roles_1.Selected.ID = 5,true,false)
             X: =548
-            Y: =If(drp_us_Roles_1.Selected.ID = 1 Or drp_us_Roles_1.Selected.ID = 1 ,595,468)
+            Y: =If(drp_us_Roles_1.Selected.ID = 1 Or drp_us_Roles_1.Selected.ID = 2 Or drp_us_Roles_1.Selected.ID = 7 Or drp_us_Roles_1.Selected.ID = 5,595,471)
             ZIndex: =21
 
         lbl_us_Name_4 As label:
@@ -1236,7 +1263,7 @@
             Align: =Align.Right
             FontWeight: =FontWeight.Semibold
             Text: ="Khối"
-            Visible: =If(drp_us_Roles_1.Selected.ID = 1 Or drp_us_Roles_1.Selected.ID = 2 ,true,false)
+            Visible: =If(drp_us_Roles_1.Selected.ID = 1 Or drp_us_Roles_1.Selected.ID = 2 Or drp_us_Roles_1.Selected.ID = 7 Or drp_us_Roles_1.Selected.ID = 5,true,false)
             Width: =97
             X: =439
             Y: =470
@@ -1246,7 +1273,7 @@
             BorderColor: =RGBA(116, 116, 116, 1)
             BorderThickness: =1
             Items: =Filter(gblColDivision,active = 1)
-            Visible: =If(drp_us_Roles_1.Selected.ID = 1 Or drp_us_Roles_1.Selected.ID = 2 ,true,false)
+            Visible: =If(drp_us_Roles_1.Selected.ID = 1 Or drp_us_Roles_1.Selected.ID = 2 Or drp_us_Roles_1.Selected.ID = 7 Or drp_us_Roles_1.Selected.ID = 5,true,false)
             Width: =260
             X: =548
             Y: =470
@@ -1371,7 +1398,7 @@
                     //Kiểm tra nếu thay đổi role gd khối thì gỡ user ra khỏi khối
                     If(locUser.roleID <>drp_us_Roles_2.Selected.ID,Patch('ASTakeLeave.Division',LookUp('ASTakeLeave.Division',active = 1 And directorUserID = locUser.userID),{directorUserID:Blank()}));
                     //Cập nhật userID của khối khi có thay đổi
-                    If(locUser.userID <> txt_us_Name_6.Text,Patch('ASTakeLeave.Division',LookUp('ASTakeLeave.Division',active = 1 And directorUserID = locUser.userID),{directorUserID:txt_us_Name_6.Text}));
+                    /*If(locUser.userID <> txt_us_Name_6.Text,Patch('ASTakeLeave.Division',LookUp('ASTakeLeave.Division',active = 1 And directorUserID = locUser.userID),{directorUserID:txt_us_Name_6.Text}));*/
                     //Sửa nhân viên cũ thành không hoạt động
                     Patch(
                         'ASTakeLeave.Users',
@@ -1386,7 +1413,7 @@
                         'ASTakeLeave.Users',
                         Defaults('ASTakeLeave.Users'),
                         {
-                            userID: txt_us_Name_6.Text,
+                            userID: Substitute(txt_us_Name_6.Text," ",""),
                             fullName: txt_us_Name_2.Text,
                             email: cbo_us_Email_2.Selected.Mail,
                             phone: txt_us_Phone_2.Text,
@@ -1446,7 +1473,7 @@
                         'ASTakeLeave.UserRelationship',
                         Defaults('ASTakeLeave.UserRelationship'),
                         {
-                            approveUserID: cbo_us_Manager_2.Selected.userID,
+                            approveUserID: If(drp_us_Roles_2.Selected.ID = 1 Or drp_us_Roles_2.Selected.ID = 5 Or drp_us_Roles_2.Selected.ID = 7,cbo_us_Manager_2.Selected.userID,Blank()),
                             userID: txt_us_Name_6.Text,
                             approveProcessLevel: 1,
                             active: 1
@@ -1463,12 +1490,12 @@
                         }
                     );
                 //Cập nhật lại mã nhân viên ngày phép
-                Patch('ASTakeLeave.TotalDayOffInYear',LookUp('ASTakeLeave.TotalDayOffInYear',userID = locUser.userID),{userID:txt_us_Name_6.Text});
+                /*Patch('ASTakeLeave.TotalDayOffInYear',LookUp('ASTakeLeave.TotalDayOffInYear',userID = locUser.userID),{userID:txt_us_Name_6.Text});
                 Notify(
                     "Sửa thành công",
                     NotificationType.Success,
                     1500
-                );
+                );*/
                 Reset(cbo_us_Email_2);
                 Reset(drp_us_Roles_2);
                 Reset(cbo_us_Manager_2);
@@ -1481,7 +1508,7 @@
                     gblColAllUser,
                     AddColumns(
                         ShowColumns(
-                            'ASTakeLeave.Users',
+                            Filter('ASTakeLeave.Users',active = 1),
                             "ID",
                             "userID",
                             "fullName",
@@ -1573,7 +1600,7 @@
             Align: =Align.Right
             FontWeight: =FontWeight.Semibold
             Text: ="Phòng"
-            Visible: =If(drp_us_Roles_2.Selected.ID = 1 Or drp_us_Roles_2.Selected.ID = 2,true,false)
+            Visible: =If(drp_us_Roles_2.Selected.ID = 1 Or drp_us_Roles_2.Selected.ID = 2 Or drp_us_Roles_2.Selected.ID = 5 Or drp_us_Roles_2.Selected.ID = 7,true,false)
             Width: =97
             X: =448
             Y: =536
@@ -1631,10 +1658,10 @@
             Align: =Align.Right
             FontWeight: =FontWeight.Semibold
             Text: ="Quản lý trực tiếp"
-            Visible: =If(drp_us_Roles_2.Selected.ID = 1 Or drp_us_Roles_2.Selected.ID = 5,true,false)
+            Visible: =If(drp_us_Roles_2.Selected.ID = 1 Or drp_us_Roles_2.Selected.ID = 5 Or drp_us_Roles_2.Selected.ID = 7,true,false)
             Width: =162
             X: =375
-            Y: =If(drp_us_Roles_2.Selected.ID = 1 Or drp_us_Roles_2.Selected.ID = 2,607,470)
+            Y: =If(drp_us_Roles_2.Selected.ID = 1 Or drp_us_Roles_2.Selected.ID = 2 Or drp_us_Roles_2.Selected.ID = 5 Or drp_us_Roles_2.Selected.ID = 7,595,480)
             ZIndex: =20
 
         lbl_us_Name_5 As label:
@@ -1649,6 +1676,9 @@
             BorderColor: =If(CountRows(Filter(gblColAllUser,active = 1 And userID <> locUser.userID And userID = txt_us_Name_6.Text)) = 1,Color.Red,RGBA(116, 116, 116, 1))
             BorderThickness: =1
             Default: =locUser.userID
+            DisabledColor: =RGBA(0, 0, 0, 1)
+            DisabledFill: =RGBA(214, 221, 224, 1)
+            DisplayMode: =DisplayMode.Disabled
             HintText: ="Nhập mã nhân viên"
             Width: =394
             X: =548
@@ -1659,14 +1689,14 @@
             Align: =Align.Right
             FontWeight: =FontWeight.Semibold
             Text: ="Khối"
-            Visible: =If(drp_us_Roles_2.Selected.ID = 1 Or drp_us_Roles_2.Selected.ID = 2,true,false)
+            Visible: =If(drp_us_Roles_2.Selected.ID = 1 Or drp_us_Roles_2.Selected.ID = 2 Or drp_us_Roles_2.Selected.ID = 5 Or drp_us_Roles_2.Selected.ID = 7,true,false)
             Width: =97
             X: =448
             Y: =472
             ZIndex: =24
 
         cbo_us_Email_2 As combobox:
-            BorderColor: =RGBA(116, 116, 116, 1)
+            BorderColor: =If(CountRows(Filter(gblColAllUser,active = 1 And email = cbo_us_Email_2.Selected.Mail And email <> locUser.email)) = 1,Color.Red,RGBA(116, 116, 116, 1))
             BorderThickness: =1
             DefaultSelectedItems: |-
                 =Office365Users.SearchUserV2({searchTerm:locUser.email}).value
@@ -1696,9 +1726,9 @@
             SearchFields: =["email"]
             SearchItems: =Search(Filter(gblColAllUser,active = 1 And roleID = 2 And userID <> locUser.userID),cbo_us_Manager_2.SearchText,"email")
             SelectMultiple: =false
-            Visible: =If(drp_us_Roles_2.Selected.ID = 1 Or drp_us_Roles_2.Selected.ID = 5,true,false)
+            Visible: =If(drp_us_Roles_2.Selected.ID = 1 Or drp_us_Roles_2.Selected.ID = 5 Or drp_us_Roles_2.Selected.ID = 7,true,false)
             X: =548
-            Y: =If(drp_us_Roles_2.Selected.ID = 1 Or drp_us_Roles_2.Selected.ID = 2,607,470)
+            Y: =If(drp_us_Roles_2.Selected.ID = 1 Or drp_us_Roles_2.Selected.ID = 2 Or drp_us_Roles_2.Selected.ID = 5 Or drp_us_Roles_2.Selected.ID = 7,595,480)
             ZIndex: =27
 
         cbo_us_Line_4 As combobox:
@@ -1708,10 +1738,11 @@
             DisplayFields: =["name"]
             InputTextPlaceholder: ="Chọn khối"
             Items: =Filter(gblColDivision,active = 1 And name <> "Tất cả")
+            OnChange: =Reset(cbo_us_Department_2)
             SearchFields: =["directorUserID"]
             SearchItems: =Search(Filter(gblColDivision,active = 1 And name <> "Tất cả"),cbo_us_Line_4.SearchText,"directorUserID")
             SelectMultiple: =false
-            Visible: =If(drp_us_Roles_2.Selected.ID = 1 Or drp_us_Roles_2.Selected.ID = 2,true,false)
+            Visible: =If(drp_us_Roles_2.Selected.ID = 1 Or drp_us_Roles_2.Selected.ID = 2 Or drp_us_Roles_2.Selected.ID = 5 Or drp_us_Roles_2.Selected.ID = 7,true,false)
             Width: =260
             X: =549
             Y: =473
@@ -1720,14 +1751,15 @@
         cbo_us_Department_2 As combobox:
             BorderColor: =RGBA(116, 116, 116, 1)
             BorderThickness: =1
-            DefaultSelectedItems: =LookUp(gblColDepartment,ID = locUser.departmentID And name <> "Tất cả")
+            DefaultSelectedItems: =If(cbo_us_Line_4.Selected.ID = locUser.divisionID,LookUp(gblColDepartment,ID = locUser.departmentID And name <> "Tất cả"))
             DisplayFields: =["name"]
             InputTextPlaceholder: ="Chọn bộ phận điều vận"
             Items: =Filter(gblColDepartment,divisionID = cbo_us_Line_4.Selected.ID And active = 1 And name <> "Tất cả")
+            Reset: =true
             SearchFields: =["ComplianceAssetId"]
             SearchItems: =Search(Filter(gblColDepartment,divisionID = cbo_us_Line_4.Selected.ID And active = 1 And name <> "Tất cả"),cbo_us_Department_2.SearchText,"ComplianceAssetId")
             SelectMultiple: =false
-            Visible: =If(drp_us_Roles_2.Selected.ID = 1 Or drp_us_Roles_2.Selected.ID = 2,true,false)
+            Visible: =If(drp_us_Roles_2.Selected.ID = 1 Or drp_us_Roles_2.Selected.ID = 2 Or drp_us_Roles_2.Selected.ID = 5 Or drp_us_Roles_2.Selected.ID = 7,true,false)
             Width: =260
             X: =551
             Y: =536
@@ -1850,7 +1882,7 @@
             Align: =Align.Right
             FontWeight: =FontWeight.Semibold
             Text: ="Phòng"
-            Visible: =If(drp_us_Roles_7.Selected.ID = 1 Or drp_us_Roles_7.Selected.ID = 2,true,false)
+            Visible: =If(drp_us_Roles_7.Selected.ID = 1 Or drp_us_Roles_7.Selected.ID = 2 Or drp_us_Roles_7.Selected.ID = 5 Or drp_us_Roles_7.Selected.ID = 7,true,false)
             Width: =97
             X: =448
             Y: =535
@@ -1911,7 +1943,7 @@
             DisabledFill: =RGBA(255, 255, 255, 1)
             DisplayMode: =DisplayMode.Disabled
             Items: =LookUp('ASTakeLeave.Department',ID = locUser.departmentID)
-            Visible: =If(drp_us_Roles_7.Selected.ID = 1 Or drp_us_Roles_7.Selected.ID = 2,true,false)
+            Visible: =If(drp_us_Roles_7.Selected.ID = 1 Or drp_us_Roles_7.Selected.ID = 2 Or drp_us_Roles_7.Selected.ID = 5 Or drp_us_Roles_7.Selected.ID = 7,true,false)
             Width: =260
             X: =548
             Y: =535
@@ -1946,10 +1978,10 @@
             Align: =Align.Right
             FontWeight: =FontWeight.Semibold
             Text: ="Quản lý trực tiếp"
-            Visible: =If(drp_us_Roles_7.Selected.ID = 1 Or drp_us_Roles_7.Selected.ID = 5,true,false)
+            Visible: =If(drp_us_Roles_7.Selected.ID = 1 Or drp_us_Roles_7.Selected.ID = 5 Or drp_us_Roles_7.Selected.ID = 7,true,false)
             Width: =162
             X: =375
-            Y: =If(drp_us_Roles_7.Selected.ID = 1 Or drp_us_Roles_7.Selected.ID = 2,602,475)
+            Y: =If(drp_us_Roles_7.Selected.ID = 1 Or drp_us_Roles_7.Selected.ID = 2 Or drp_us_Roles_7.Selected.ID = 5 Or drp_us_Roles_7.Selected.ID = 7,595,475)
             ZIndex: =20
 
         drp_us_Roles_8 As dropdown:
@@ -1960,9 +1992,9 @@
             DisabledFill: =RGBA(255, 255, 255, 1)
             DisplayMode: =DisplayMode.Disabled
             Items: =LookUp(gblColAllUser,active = 1 And userID = LookUp(gblColManagerByUser,userID = locUser.userID).approveUserID)
-            Visible: =If(drp_us_Roles_7.Selected.ID = 1 Or drp_us_Roles_7.Selected.ID = 5,true,false)
+            Visible: =If(drp_us_Roles_7.Selected.ID = 1 Or drp_us_Roles_7.Selected.ID = 5 Or drp_us_Roles_7.Selected.ID = 7,true,false)
             X: =548
-            Y: =If(drp_us_Roles_7.Selected.ID = 1 Or drp_us_Roles_7.Selected.ID = 2,602,475)
+            Y: =If(drp_us_Roles_7.Selected.ID = 1 Or drp_us_Roles_7.Selected.ID = 2 Or drp_us_Roles_7.Selected.ID = 5 Or drp_us_Roles_7.Selected.ID = 7,595,475)
             ZIndex: =21
 
         lbl_us_Name_9 As label:
@@ -1990,7 +2022,7 @@
             Align: =Align.Right
             FontWeight: =FontWeight.Semibold
             Text: ="Khối"
-            Visible: =If(drp_us_Roles_7.Selected.ID = 1 Or drp_us_Roles_7.Selected.ID = 2,true,false)
+            Visible: =If(drp_us_Roles_7.Selected.ID = 1 Or drp_us_Roles_7.Selected.ID = 2 Or drp_us_Roles_7.Selected.ID = 5 Or drp_us_Roles_7.Selected.ID = 7,true,false)
             Width: =97
             X: =448
             Y: =471
@@ -2003,9 +2035,15 @@
             DisabledFill: =RGBA(255, 255, 255, 1)
             DisplayMode: =DisplayMode.Disabled
             Items: =LookUp('ASTakeLeave.Division',ID = locUser.divisionID)
-            Visible: =If(drp_us_Roles_7.Selected.ID = 1 Or drp_us_Roles_7.Selected.ID = 2,true,false)
+            Visible: =If(drp_us_Roles_7.Selected.ID = 1 Or drp_us_Roles_7.Selected.ID = 2 Or drp_us_Roles_7.Selected.ID = 5 Or drp_us_Roles_7.Selected.ID = 7,true,false)
             Width: =260
             X: =548
             Y: =471
             ZIndex: =25
+
+    Label18 As label:
+        Text: =
+        X: =46
+        Y: =162
+        ZIndex: =13
 

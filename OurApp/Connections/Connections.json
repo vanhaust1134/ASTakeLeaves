@@ -51,6 +51,34 @@
     "dependents": [],
     "id": "1788df75-50d0-4023-8fc6-21646c5e4d76"
   },
+  "3b92d23d-34b1-4127-b337-d4a00ad0568c": {
+    "connectionRef": {
+      "displayName": "Logic flows",
+      "iconUri": "https://connectoricons-prod.azureedge.net/releases/v1.0.1664/1.0.1664.3477/logicflows/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_logicflows",
+      "parameterHints": {
+        "workflowEntityId": {},
+        "workflowName": {
+          "value": "a02bbda0-8b41-46b5-ad51-aad2d6d97428"
+        }
+      },
+      "parameterHintsV2": {
+        "workflowEntityId": {},
+        "workflowName": {
+          "value": "a02bbda0-8b41-46b5-ad51-aad2d6d97428"
+        }
+      }
+    },
+    "datasets": {},
+    "dataSources": [
+      "ASTakeLeave.ActionDeleteUser"
+    ],
+    "dependencies": {
+      "shared_sharepointonline": "cf341574-441c-4f2a-a3b6-ead8c294cdc6"
+    },
+    "dependents": [],
+    "id": "3b92d23d-34b1-4127-b337-d4a00ad0568c"
+  },
   "51d898db-ccf2-4c94-b1ca-7cda1f06927c": {
     "connectionRef": {
       "displayName": "Logic flows",
@@ -191,7 +219,8 @@
     "dependencies": {},
     "dependents": [
       "1788df75-50d0-4023-8fc6-21646c5e4d76",
-      "51d898db-ccf2-4c94-b1ca-7cda1f06927c"
+      "51d898db-ccf2-4c94-b1ca-7cda1f06927c",
+      "3b92d23d-34b1-4127-b337-d4a00ad0568c"
     ],
     "id": "cf341574-441c-4f2a-a3b6-ead8c294cdc6"
   }
