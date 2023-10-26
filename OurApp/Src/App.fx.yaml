@@ -8,7 +8,7 @@ App As appinfo:
             AddColumns(
                 ShowColumns('ASTakeLeave.Users', "ID", "userID", "fullName", "shortName", "email", "phone", "jobTitle", "departmentID", "divisionID", "OData__x0033_65AccountInfo", "active") As temp, 
                 "roleID", 
-                LookUp(Filter('ASTakeLeave.Users_Roles',active = 1), userID = temp.userID).roleID
+                LookUp(Filter('ASTakeLeave.Users_Roles', active = 1), userID = temp.userID).roleID
             )
         );
         

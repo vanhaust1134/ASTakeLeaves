@@ -402,7 +402,7 @@
                 gal_us_List As gallery.galleryVertical:
                     AlignInContainer: =AlignInContainer.SetByContainer
                     DelayItemLoading: =true
-                    Items: =Search(Filter(gblColAllUser,active = 1 And (departmentID = drp_us_Employee.Selected.ID || If(IsBlank(drp_us_Employee.Selected.ID),true,false)) And (roleID = drp_us_Employee_1.Selected.ID || If(IsBlank(drp_us_Employee_1.Selected.ID),true,false))),txt_lds_Search_1.Text,"fullName")
+                    Items: =Sort(Search(Filter(gblColAllUser,active = 1 And (departmentID = drp_us_Employee.Selected.ID || If(IsBlank(drp_us_Employee.Selected.ID),true,false)) And (roleID = drp_us_Employee_1.Selected.ID || If(IsBlank(drp_us_Employee_1.Selected.ID),true,false))),txt_lds_Search_1.Text,"fullName"),ID,SortOrder.Descending)
                     Layout: =Layout.Vertical
                     LayoutMinHeight: =287
                     LayoutMinWidth: =0
@@ -999,8 +999,8 @@
                             email: cbo_us_Email.Selected.Mail,
                             phone: txt_us_Phone_1.Text,
                             jobTitle: txt_us_JobTitle_1.Text,
-                            divisionID: If(drp_us_Roles_1.Selected.ID = 1 Or drp_us_Roles_1.Selected.ID = 2,drp_us_Department_3.Selected.ID,Blank()),
-                            departmentID: If(drp_us_Roles_1.Selected.ID = 1 Or drp_us_Roles_1.Selected.ID = 2,drp_us_Department_1.Selected.ID,Blank()),
+                            divisionID: If(drp_us_Roles_1.Selected.ID = 1 Or drp_us_Roles_1.Selected.ID = 2 Or drp_us_Roles_1.Selected.ID = 5 Or drp_us_Roles_1.Selected.ID = 7,drp_us_Department_3.Selected.ID,Blank()),
+                            departmentID: If(drp_us_Roles_1.Selected.ID = 1 Or drp_us_Roles_1.Selected.ID = 2 Or drp_us_Roles_1.Selected.ID = 5 Or drp_us_Roles_1.Selected.ID = 7,drp_us_Department_1.Selected.ID,Blank()),
                             '365AccountInfo': {
                                 '@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedUser",
                                 Department: "",
@@ -1377,6 +1377,12 @@
                         NotificationType.Error,
                         1500
                     ),
+                    CountRows(Filter(gblColAllUser,active = 1 And email = cbo_us_Email_2.Selected.Mail And email <> locUser.email)) = 1,
+                    Notify(
+                        "Trường email không được trùng",
+                        NotificationType.Error,
+                        1500
+                    ),
                     IsBlank(txt_us_Name_2.Text),
                     Notify(
                         "Trường họ tên nhân viên không được để trống",
@@ -1418,8 +1424,8 @@
                             email: cbo_us_Email_2.Selected.Mail,
                             phone: txt_us_Phone_2.Text,
                             jobTitle: txt_us_JobTitle_2.Text,
-                            divisionID: If(drp_us_Roles_2.Selected.ID = 1 Or drp_us_Roles_2.Selected.ID = 2,cbo_us_Line_4.Selected.ID,Blank()),
-                            departmentID: If(drp_us_Roles_2.Selected.ID = 1 Or drp_us_Roles_2.Selected.ID = 2,cbo_us_Department_2.Selected.ID,Blank()),
+                            divisionID: If(drp_us_Roles_2.Selected.ID = 1 Or drp_us_Roles_2.Selected.ID = 2 Or drp_us_Roles_2.Selected.ID = 5 Or drp_us_Roles_2.Selected.ID = 7,cbo_us_Line_4.Selected.ID,Blank()),
+                            departmentID: If(drp_us_Roles_2.Selected.ID = 1 Or drp_us_Roles_2.Selected.ID = 2 Or drp_us_Roles_2.Selected.ID = 5 Or drp_us_Roles_2.Selected.ID = 7,cbo_us_Department_2.Selected.ID,Blank()),
                             '365AccountInfo': {
                                 '@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedUser",
                                 Department: "",
