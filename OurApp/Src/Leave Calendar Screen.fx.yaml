@@ -544,7 +544,7 @@
                 RadiusTopRight: =5
                 Size: =13
                 Text: ="Ngày phép"
-                Visible: =If(gblRecUser.roleID = 6 Or gblRecUser.roleID = 5,true,false)
+                Visible: =If(gblRecUser.roleID = 5 Or gblRecUser.roleID = 7,true,false)
                 Width: =104
                 X: =117
                 Y: =36
@@ -564,7 +564,7 @@
                 RadiusTopRight: =5
                 Size: =13
                 Text: ="Lịch nghỉ phép"
-                Visible: =If(gblRecUser.roleID = 6 Or gblRecUser.roleID = 5,true,false)
+                Visible: =If(gblRecUser.roleID = 5 Or gblRecUser.roleID = 6 Or gblRecUser.roleID = 7,true,false)
                 Width: =150
                 X: =191
                 Y: =36

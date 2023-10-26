@@ -1,7 +1,7 @@
 "'Request Screen' As screen":
     Fill: =RGBA(224,224,224,1)
     OnHidden: =
-    OnVisible: |
+    OnVisible: |-
         =//Tạo biến tổng ngày phép và ngày phép còn lại
         UpdateContext({locMaxDayLeaveNumber:LookUp('ASTakeLeave.TotalDayOffInYear',userID = gblRecUser.userID).maxDayOff_Year});
         UpdateContext({locTotalDayLeaveNumber:LookUp('ASTakeLeave.TotalDayOffInYear',userID = gblRecUser.userID).totalDayOff_Year});
@@ -207,7 +207,7 @@
             )
         );
         //Tính tổng ngày nghỉ cho phép
-        UpdateContext({locLeaveDayAllow:If(
+        /*UpdateContext({locLeaveDayAllow:If(
             Month(Today()) < 9,
             If(
                 Value(
@@ -314,7 +314,19 @@
                     userID = gblRecUser.userID
                 ).totalDayOff_Year
             )
-        )})
+        )})*/
+        //Kiểm tra tổng ngày nghỉ cho phép
+        ClearCollect(
+            colMaxDayLeave,
+            Table(
+                {
+                    DayLeave: locTotalDayLeaveNumber,
+                    CurrentTotalDayLeave:locMaxDayLeaveNumber / 12 * Month(Today()),
+                    MaxDayLeaveCurrent:If(Value(Right()),)(locMaxDayLeaveNumber / 12 * Month(Today())) - locTotalDayLeaveNumber + (3 * locMaxDayLeaveNumber / 12)
+                    TotalDayLeaveAllow:(locMaxDayLeaveNumber / 12 * 6) - 4 + 3 * locMaxDayLeaveNumber / 12
+                }
+            )
+        );
 
     btn_rs_BackGroundScreen As button:
         BorderStyle: =BorderStyle.None
