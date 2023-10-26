@@ -672,7 +672,6 @@
                 ZIndex: =1
 
             ctn_us_Info2 As groupContainer.verticalAutoLayoutContainer:
-                AlignInContainer: =AlignInContainer.SetByContainer
                 DropShadow: =DropShadow.None
                 LayoutDirection: =LayoutDirection.Vertical
                 LayoutMinHeight: =0
