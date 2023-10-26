@@ -72,7 +72,42 @@ App As appinfo:
         );
         //End concurent     -------------------------------------------------------------
         
-    StartScreen: =If(LookUp('ASTakeLeave.Users_Roles',userID = LookUp('ASTakeLeave.Users','365AccountInfo'.Email = User().Email And active = 1).userID And active = 1).roleID = 1,'Home User Screen',LookUp('ASTakeLeave.Users_Roles',userID = LookUp('ASTakeLeave.Users','365AccountInfo'.Email = User().Email).userID).roleID = 6,'User Screen','Home Manager Screen')
+    StartScreen: |-
+        =If(
+            LookUp(
+                'ASTakeLeave.Users_Roles',
+                userID = LookUp(
+                    'ASTakeLeave.Users',
+                    '365AccountInfo'.Email = User().Email And active = 1
+                ).userID And active = 1
+            ).roleID = 1,
+            'Home User Screen',
+            LookUp(
+                'ASTakeLeave.Users_Roles',
+                userID = LookUp(
+                    'ASTakeLeave.Users',
+                    '365AccountInfo'.Email = User().Email
+                ).userID
+            ).roleID = 6,
+            'User Screen',
+            LookUp(
+                'ASTakeLeave.Users_Roles',
+                userID = LookUp(
+                    'ASTakeLeave.Users',
+                    '365AccountInfo'.Email = User().Email
+                ).userID
+            ).roleID = 7,
+            'Leave Day Screen',
+            LookUp(
+                'ASTakeLeave.Users_Roles',
+                userID = LookUp(
+                    'ASTakeLeave.Users',
+                    '365AccountInfo'.Email = User().Email
+                ).userID
+            ).roleID = 5,
+            'Leave Day Screen',
+            'Home Manager Screen'
+        )
     Theme: =PowerAppsTheme
 
     Host As hostControl.DefaultHostControlVariant:

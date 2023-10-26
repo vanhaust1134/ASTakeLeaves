@@ -2009,3 +2009,15 @@
             Y: =471
             ZIndex: =25
 
+    Button11 As button:
+        OnSelect: |-
+            =//Lấy thông tin user hiện tại
+            Set(
+                gblRecUser,
+                LookUp(Filter(gblColAllUser,active = 1), email = User().Email)
+            );
+        Text: ="Button"
+        X: =856
+        Y: =16
+        ZIndex: =13
+
