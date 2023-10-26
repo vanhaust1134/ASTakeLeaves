@@ -78,7 +78,7 @@
                 Fill: =RGBA(255, 255, 255, 1)
                 Height: =652
                 Items: |-
-                    =If(gblRecUser.roleID = 1,Table({ID:1,Image:Home,Title:"Trang chủ",Navigate:'Home User Screen'},{ID:2,Image:Analytics,Title:"Báo cáo",Navigate:'Statistical User Screen'}),Or(gblRecUser.roleID = 2,gblRecUser.roleID = 3,gblRecUser.roleID = 4),Table({ID:1,Image:Home,Title:"Trang chủ",Navigate:'Home Manager Screen'},{ID:2,Image:'Admin Settings Male',Title:"Phê duyệt",Navigate:'Approve Screen'},{ID:3,Image:Analytics,Title:"Báo cáo",Navigate:'Statistical Manager Screen'}),gblRecUser.roleID = 5 Or gblRecUser.roleID = 7,Table({ID:1,Image:Home,Title:"Trang chủ",Navigate:'Home Manager Screen'},{ID:2,Image:'Data Recovery',Title:"Thiết lập",Navigate:'User Screen'},{ID:3,Image:Analytics,Title:"Báo cáo",Navigate:'Statistical Manager Screen'}),gblRecUser.roleID = 6,Table({ID:1,Image:'Data Recovery',Title:"Thiết lập",Navigate:'User Screen'}))
+                    =If(gblRecUser.roleID = 1,Table({ID:1,Image:Home,Title:"Trang chủ",Navigate:'Home User Screen'},{ID:2,Image:Analytics,Title:"Báo cáo",Navigate:'Statistical User Screen'}),Or(gblRecUser.roleID = 2,gblRecUser.roleID = 3,gblRecUser.roleID = 4),Table({ID:1,Image:Home,Title:"Trang chủ",Navigate:'Home Manager Screen'},{ID:2,Image:'Admin Settings Male',Title:"Phê duyệt",Navigate:'Approve Screen'},{ID:3,Image:Analytics,Title:"Báo cáo",Navigate:'Statistical Manager Screen'}),gblRecUser.roleID = 5 Or gblRecUser.roleID = 7,Table({ID:1,Image:Home,Title:"Trang chủ",Navigate:'Home Manager Screen'},{ID:2,Image:'Data Recovery',Title:"Thiết lập",Navigate:'Leave Day Screen'},{ID:3,Image:Analytics,Title:"Báo cáo",Navigate:'Statistical Manager Screen'}),gblRecUser.roleID = 6,Table({ID:1,Image:'Data Recovery',Title:"Thiết lập",Navigate:'User Screen'}))
                 Layout: =Layout.Vertical
                 LayoutMinHeight: =287
                 LayoutMinWidth: =0
@@ -390,6 +390,7 @@
                 RadiusTopRight: =5
                 Size: =13
                 Text: ="Người dùng"
+                Visible: =If(gblRecUser.roleID = 6,true,false)
                 Width: =110
                 X: =117
                 Y: =36
@@ -410,6 +411,7 @@
                 RadiusTopRight: =5
                 Size: =13
                 Text: ="Phòng"
+                Visible: =If(gblRecUser.roleID = 6,true,false)
                 Width: =104
                 X: =117
                 Y: =36
@@ -430,6 +432,7 @@
                 RadiusTopRight: =5
                 Size: =13
                 Text: ="Ngày phép"
+                Visible: =If(gblRecUser.roleID = 5 Or gblRecUser.roleID = 7,true,false)
                 Width: =104
                 X: =117
                 Y: =36
@@ -450,6 +453,7 @@
                 RadiusTopRight: =5
                 Size: =13
                 Text: ="Lịch nghỉ phép"
+                Visible: =If(gblRecUser.roleID = 5 Or gblRecUser.roleID = 6 Or gblRecUser.roleID = 7,true,false)
                 Width: =150
                 X: =117
                 Y: =36
@@ -469,6 +473,7 @@
                 RadiusTopRight: =5
                 Size: =13
                 Text: ="Phê duyệt cấp cao"
+                Visible: =If(gblRecUser.roleID = 6,true,false)
                 Width: =180
                 X: =191
                 Y: =36
