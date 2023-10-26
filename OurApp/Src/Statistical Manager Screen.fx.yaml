@@ -11,13 +11,29 @@
                     Concurrent(
                         Collect(                
                             locColReportManagerTotalDayOffInYear,   //Lấy các thông tin nghỉ phép trong tất cả năm
-                            Filter('ASTakeLeave.TotalDayOffInYear', userID = temp.userID, active = 1)
+                            AddColumns(
+                                Filter('ASTakeLeave.TotalDayOffInYear', userID = temp.userID, active = 1),
+                                "departmentID",
+                                LookUp(gblColAllUser, userID = temp.userID).departmentID,
+                                "divisionID",
+                                LookUp(gblColAllUser, userID = temp.userID).divisionID
+                            )
                         ),
                         Collect(
                             locColReportManagerTotalDayOffInMonth,  //Lấy các thông tin nghỉ phép trong tất cả tháng
-                            Filter('ASTakeLeave.TotalDayOffInMonth', userID = temp.userID)
+                            AddColumns(
+                                Filter('ASTakeLeave.TotalDayOffInMonth', userID = temp.userID),
+                                "departmentID",
+                                LookUp(gblColAllUser, userID = temp.userID).departmentID,
+                                "divisionID",
+                                LookUp(gblColAllUser, userID = temp.userID).divisionID
+                            )
                         )
-                    )
+                    );
+                );
+                Collect(    //Tạo collection chứa các year dữ liệu
+                    locColReportYear,
+                    Sort(Distinct(locColReportManagerTotalDayOffInYear, year), Value, SortOrder.Ascending)
                 ),
                 
                 If(
@@ -27,13 +43,25 @@
                         Concurrent(
                             Collect(
                                 locColReportManagerTotalDayOffInYear,
-                                Filter('ASTakeLeave.TotalDayOffInYear', userID = temp.userID, active = 1)
+                                Filter('ASTakeLeave.TotalDayOffInYear', userID = temp.userID, active = 1),
+                                {
+                                    departmentID: temp.departmentID,
+                                    divisionID: temp.divisionID
+                                }
                             ),
                             Collect(
                                 locColReportManagerTotalDayOffInMonth,
-                                Filter('ASTakeLeave.TotalDayOffInMonth', userID = temp.userID)
+                                Filter('ASTakeLeave.TotalDayOffInMonth', userID = temp.userID, year = Year(Today())),
+                                {
+                                    departmentID: temp.departmentID,
+                                    divisionID: temp.divisionID
+                                }
                             )
                         )
+                    );
+                    Collect(    //Tạo collection chứa các year dữ liệu
+                        locColReportYear,
+                        Sort(Distinct(locColReportManagerTotalDayOffInYear, year), Value, SortOrder.Ascending)
                     ),
         
                     If(
@@ -45,11 +73,29 @@
                             ),
                             Collect(    
                                 locColReportManagerTotalDayOffInMonthTemp1,  //lấy 6 tháng đầu
-                                Filter('ASTakeLeave.TotalDayOffInMonth', year = Year(Today()), month <= 6)
+                                AddColumns(
+                                    Filter('ASTakeLeave.TotalDayOffInMonth', year = Year(Today()), month <= 6) As temp,
+                                    "departmentID",
+                                    LookUp(gblColAllUser, userID = temp.userID).departmentID,
+                                    "divisionID",
+                                    LookUp(gblColAllUser, userID = temp.userID).divisionID
+                                )
                             ),
                             Collect(    
                                 locColReportManagerTotalDayOffInMonthTemp2,  //lấy 6 tháng sau
-                                Filter('ASTakeLeave.TotalDayOffInMonth', year = Year(Today()), month >= 7)
+                                AddColumns(
+                                    Filter('ASTakeLeave.TotalDayOffInMonth', year = Year(Today()), month >= 7) As temp,
+                                    "departmentID",
+                                    LookUp(gblColAllUser, userID = temp.userID).departmentID,
+                                    "divisionID",
+                                    LookUp(gblColAllUser, userID = temp.userID).divisionID
+                                )
+                            ),
+                            Collect(    //Tạo collection chứa các year dữ liệu
+                                locColReportYear,
+                                {
+                                    Value: Year(Today())
+                                }
                             )
                         );
                         //Gộp 2 collection temp
@@ -73,22 +119,28 @@
                     },
                     {
                         ID: 1,
-                        Title: "Tất cả nhân viên",
+                        title: "Tất cả nhân viên",
                         status: true
                     },
                     {
                         ID: 2,
-                        Title: "Theo Phòng",
+                        title: "Theo Phòng",
                         status: true
                     },
                     {
                         ID: 3,
-                        Title: "Theo nhân viên",
+                        title: "Theo nhân viên",
                         status: true
                     }
                 )
             );
         );
+        
+        //Tắt các filter khi vào
+        UpdateIf(locColReportManagerFilterAdvance, ID > 0, {status: false});
+        
+        //Cho chạy button chứa code tạo report
+        Select(btn_sms_CalculateFilter);
         
 
     btn_hs_BackGroundScreen_2 As button:
@@ -409,7 +461,7 @@
                 Label2 As label:
                     FontWeight: =FontWeight.Semibold
                     OnSelect: =Select(Parent)
-                    Text: =ThisItem.Title
+                    Text: =ThisItem.title
                     Visible: |-
                         =If(
                             ThisItem.ID = 2 && gblRecUser.roleID <= 2, 
@@ -424,10 +476,28 @@
                     Default: =ThisItem.status
                     OnCheck: |-
                         =//Patch(colFilterAdvance,LookUp(colFilterAdvance,ID = ThisItem.ID),{Status:true});
-                    OnSelect: |-
-                        =Patch(locColReportManagerFilterAdvance,LookUp(locColReportManagerFilterAdvance,ID = ThisItem.ID),{status:!ThisItem.status});
-                        If(ThisItem.ID = 3 And ThisItem.status = false,Patch(locColReportManagerFilterAdvance,LookUp(locColReportManagerFilterAdvance,ID = 1),{status:false}));
-                        If(ThisItem.ID = 1 And ThisItem.status = false,Patch(locColReportManagerFilterAdvance,LookUp(locColReportManagerFilterAdvance,ID = 3),{status:false}))
+                    OnSelect: |+
+                        =Patch(                                  //update status của filter
+                            locColReportManagerFilterAdvance,
+                            ThisItem,
+                            {status: !ThisItem.status}
+                        );
+                        
+                        If(                                     //nếu filter từ tắt -> bật, tắt các filter còn lại
+                            ThisItem.status = false,
+                            UpdateIf(
+                                locColReportManagerFilterAdvance, 
+                                ID <> ThisItem.ID && ID > 0,
+                                {status: false}
+                            );
+                        );
+                        
+                        //Chạy lại code tính report
+                        Select(btn_sms_CalculateFilter);
+                        
+                        
+                            
+                        
                     OnUncheck: |-
                         =//Patch(colFilterAdvance,LookUp(colFilterAdvance,ID = ThisItem.ID),{Status:false})
                     ShowLabel: =false
@@ -463,13 +533,17 @@
                         BorderThickness: =1
                         ChevronBackground: =RGBA(73, 113, 215, 1)
                         Height: =35
+                        Items: =[1, 2]
                         LayoutMinWidth: =0
                         Visible: =false
                         Width: =200
                         ZIndex: =2
 
                     cbb_sms_User As combobox:
+                        AlignInContainer: =AlignInContainer.Center
                         DisplayFields: =["DisplayName","Email","Picture"]
+                        Height: =35
+                        InputTextPlaceholder: ="Chọn nhân sự"
                         Items: |-
                             =Switch(
                                 gblRecUser.roleID,
@@ -477,8 +551,15 @@
                                 2,
                                 Filter(gblColAllUser365, Email exactin gblColUserBelong.email),
                             
+                                3,
+                                Filter(gblColAllUser365, Email exactin Filter(gblColAllUser, divisionID = gblRecUser.divisionID).email),
+                                
                                 gblColAllUser365
                             )
+                        OnChange: =Select(btn_sms_CalculateFilter);
+                        PaddingBottom: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
                         SearchFields: =["DisplayName"]
                         SearchItems: |-
                             =Search(Switch(
@@ -487,9 +568,15 @@
                                 2,
                                 Filter(gblColAllUser365, Email exactin gblColUserBelong.email),
                             
+                                3,
+                                Filter(gblColAllUser365, Email exactin Filter(gblColAllUser, divisionID = gblRecUser.divisionID).email),
+                                
                                 gblColAllUser365
                             ),cbb_sms_User.SearchText,"DisplayName")
-                        Template: =ListItemTemplate.Person
+                        SelectMultiple: =false
+                        Size: =10
+                        Template: =ListItemTemplate.Double
+                        Width: =200
                         ZIndex: =3
 
                     Label5_1 As label:
@@ -502,9 +589,11 @@
                         BorderColor: =RGBA(73, 113, 215, 1)
                         BorderThickness: =1
                         ChevronBackground: =RGBA(73, 113, 215, 1)
+                        Default: =1
                         Height: =35
                         Items: =Sequence(12,1)
                         LayoutMinWidth: =0
+                        OnChange: =Select(btn_sms_CalculateFilter);
                         Width: =200
                         ZIndex: =5
 
@@ -528,9 +617,11 @@
                         BorderColor: =RGBA(73, 113, 215, 1)
                         BorderThickness: =1
                         ChevronBackground: =RGBA(73, 113, 215, 1)
+                        Default: =1
                         Height: =35
                         Items: =Sequence(12,1)
                         LayoutMinWidth: =0
+                        OnChange: =Select(btn_sms_CalculateFilter);
                         Width: =200
                         ZIndex: =4
 
@@ -571,6 +662,7 @@
                             
                             )
                         LayoutMinWidth: =0
+                        OnChange: =Select(btn_sms_CalculateFilter);
                         Width: =200
                         ZIndex: =4
 
@@ -579,7 +671,7 @@
                     Height: =90
                     LayoutDirection: =LayoutDirection.Vertical
                     LayoutMode: =LayoutMode.Auto
-                    Visible: =If(ThisItem.ID = 0 And ThisItem.status = true,true)
+                    Visible: =ThisItem.ID = 0
                     Width: =232
                     Y: =47
                     ZIndex: =6
@@ -597,6 +689,51 @@
                         Height: =35
                         Items: =Sort(Distinct(locColReportManagerTotalDayOffInYear, year), Value, SortOrder.Ascending)
                         LayoutMinWidth: =0
+                        OnChange: |
+                            =//Lấy dữ liệu nếu khác năm và tính toán lại
+                            If(
+                                !(Dropdown3_5.Selected.Value exactin locColReportYear),
+                                If(
+                                    gblRecUser.roleID = 4 || gblRecUser.roleID = 5 || gblRecUser.roleID = 7,    //Nếu là giám đốc, HR, trưởng HR ------------------
+                                    Concurrent(
+                                        ClearCollect(    
+                                            locColReportManagerTotalDayOffInMonthTemp1,  //lấy 6 tháng đầu
+                                            AddColumns(
+                                                Filter('ASTakeLeave.TotalDayOffInMonth', year = Dropdown3_5.Selected.Value, month <= 6) As temp,
+                                                "departmentID",
+                                                LookUp(gblColAllUser, userID = temp.userID).departmentID,
+                                                "divisionID",
+                                                LookUp(gblColAllUser, userID = temp.userID).divisionID
+                                            )
+                                        ),
+                                        ClearCollect(    
+                                            locColReportManagerTotalDayOffInMonthTemp2,  //lấy 6 tháng sau
+                                            AddColumns(
+                                                Filter('ASTakeLeave.TotalDayOffInMonth', year = Dropdown3_5.Selected.Value, month >= 7) As temp,
+                                                "departmentID",
+                                                LookUp(gblColAllUser, userID = temp.userID).departmentID,
+                                                "divisionID",
+                                                LookUp(gblColAllUser, userID = temp.userID).divisionID
+                                            )
+                                        ),
+                                        Collect(    //Tạo collection chứa các year dữ liệu
+                                            locColReportYear,
+                                            {
+                                                Value: Year(Dropdown3_5.Selected.Value)
+                                            }
+                                        )
+                                    );
+                                    //Gộp 2 collection temp
+                                    Collect(
+                                        locColReportManagerTotalDayOffInMonth,
+                                        locColReportManagerTotalDayOffInMonthTemp1,
+                                        locColReportManagerTotalDayOffInMonthTemp2
+                                    )  
+                                );
+                            
+                                //Chạy lại tính toán
+                                Select(btn_sms_CalculateFilter);
+                            )
                         Width: =200
                         ZIndex: =4
 
@@ -806,35 +943,58 @@
             ZIndex: =1
 
         btn_sms_CalculateFilter As button:
-            OnSelect: |-
+            OnSelect: |
                 =//Update các biến filter
                 UpdateContext({locBoolReportManagerFilterTotalStatus: LookUp(locColReportManagerFilterAdvance, ID = 1).status});
                 UpdateContext({locBoolReportManagerFilterDepartmentStatus: LookUp(locColReportManagerFilterAdvance, ID = 2).status});
                 UpdateContext({locBoolReportManagerFilterPersonalStatus: LookUp(locColReportManagerFilterAdvance, ID = 3).status});
                 
-                Switch(
-                    gblRecUser.roleID,
-                
-                    2,
+                //Tính tổng các ngày phép theo filter và theo role
                     If(
-                        locBoolReportManagerFilterTotalStatus && !locBoolReportManagerFilterPersonalStatus, //Đang filter tất cả nhân viên
+                        locBoolReportManagerFilterTotalStatus || locBoolReportManagerFilterPersonalStatus, //Đang filter tất cả nhân viên hoặc cá nhân
                         ClearCollect(
-                            locColManagerReport,
-                            Filter(locColReportManagerTotalDayOffInMonth, year = Dropdown3_5.Selected.Value && month = Dropdown3_3.Selected.Value)
+                            locColManagerReportData,
+                            Filter(
+                                locColReportManagerTotalDayOffInMonth, 
+                                year = Dropdown3_5.Selected.Value,                  //year 
+                                month = If(                                         //month, nếu filter tất cả đang bật, lấy month tương ứng và ngược lại
+                                            locBoolReportManagerFilterTotalStatus, 
+                                            Dropdown3_3.Selected.Value, 
+                                            Dropdown3_1.Selected.Value
+                                        ),
+                                If(locBoolReportManagerFilterDepartmentStatus, departmentID = Dropdown3_4.Selected.ID, true),   //nếu là role gd khối trở lên
+                                If(locBoolReportManagerFilterPersonalStatus, email = cbb_sms_User.Selected.Email, true) //Filter cá nhân nếu đang bật
+                            )
+                        );
+                        ClearCollect(
+                            locColManagerReportStat,
+                            {
+                                month: Max(locColManagerReportData, month),
+                                dayOffSum: Sum(locColManagerReportData, totalDayOff_Month),
+                                dayOffUnPaidSum: Sum(locColManagerReportData, totalDayUnpaid_Month)
+                            }
                         ),
-                        If(
-                            !locBoolReportManagerFilterTotalStatus && locBoolReportManagerFilterPersonalStatus, //Đang filter một nhân viên
-                            ClearCollect(
-                                locColManagerReport,
-                                Filter(
-                                    locColReportManagerTotalDayOffInMonth, 
-                                    year = Dropdown3_5.Selected.Value && month = Dropdown3_3.Selected.Value,
-                                    userID = 1
-                                )
-                            )   
+                
+                        ClearCollect(
+                            locColManagerReportData,
+                            Filter(
+                                locColReportManagerTotalDayOffInYear, 
+                                year = Dropdown3_5.Selected.Value
+                            )
+                        );
+                        ClearCollect(
+                            locColManagerReportStat,
+                            ForAll(
+                                Sequence(12, 1) As temp,
+                                {
+                                    month: temp.Value,
+                                    dayOffSum: Sum(Filter(locColManagerReportData, month = temp.Value), totalDayOff_Year),
+                                    dayOffUnPaidSum: Sum(Filter(locColManagerReportData, month = temp.Value), totalDayUnpaid_Year)
+                                }
+                            )
                         )
+                       
                     )
-                )
             Text: ="Button"
             X: =40
             Y: =40
