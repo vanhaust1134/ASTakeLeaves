@@ -270,7 +270,7 @@
             BorderColor: =RGBA(73, 113, 215, 1)
             BorderThickness: =1
             ChevronBackground: =RGBA(73, 113, 215, 1)
-            Items: =Filter(gblColDepartment,active = 1 Or name = "Tất cả")
+            Items: =Filter(gblColDepartment,active = 1 And divisionID = drp_ds_Division.Selected.ID  Or name = "Tất cả")
             Width: =200
             X: =104
             Y: =145

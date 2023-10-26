@@ -552,6 +552,7 @@
                 RadiusTopRight: =5
                 Size: =13
                 Text: ="Người dùng"
+                Visible: =If(gblRecUser.roleID = 6,true,false)
                 Width: =110
                 X: =191
                 Y: =36
@@ -572,6 +573,7 @@
                 RadiusTopRight: =5
                 Size: =13
                 Text: ="Phòng"
+                Visible: =If(gblRecUser.roleID = 6,true,false)
                 Width: =104
                 X: =117
                 Y: =36
@@ -592,6 +594,7 @@
                 RadiusTopRight: =5
                 Size: =13
                 Text: ="Ngày phép"
+                Visible: =If(gblRecUser.roleID = 6 Or gblRecUser.roleID = 5,true,false)
                 Width: =104
                 X: =117
                 Y: =36
@@ -612,6 +615,7 @@
                 RadiusTopRight: =5
                 Size: =13
                 Text: ="Lịch nghỉ phép"
+                Visible: =If(gblRecUser.roleID = 6 Or gblRecUser.roleID = 5,true,false)
                 Width: =150
                 X: =117
                 Y: =36
@@ -632,6 +636,7 @@
                 RadiusTopRight: =5
                 Size: =13
                 Text: ="Phê duyệt cấp cao"
+                Visible: =If(gblRecUser.roleID = 6,true,false)
                 Width: =180
                 X: =117
                 Y: =36
@@ -925,6 +930,12 @@
                     ) = 1,
                     Notify(
                         "Trường mã nhân viên bị trùng",
+                        NotificationType.Error,
+                        1500
+                    ),
+                    CountRows(Filter(gblColAllUser,active = 1 And email = cbo_us_Email.Selected.Mail)) = 1,
+                    Notify(
+                        "Trường email bị trùng",
                         NotificationType.Error,
                         1500
                     ),
@@ -1243,7 +1254,7 @@
             ZIndex: =25
 
         cbo_us_Email As combobox:
-            BorderColor: =RGBA(116, 116, 116, 1)
+            BorderColor: =If(CountRows(Filter(gblColAllUser,active = 1 And email = cbo_us_Email.Selected.Mail)) = 1,Color.Red,RGBA(116, 116, 116, 1))
             BorderThickness: =1
             DisplayFields: =["DisplayName","Mail"]
             InputTextPlaceholder: ="Tìm người dùng"
@@ -1337,6 +1348,18 @@
                     IsBlank(txt_us_Name_6.Text),
                     Notify(
                         "Trường mã nhân viên không được để trống",
+                        NotificationType.Error,
+                        1500
+                    ),
+                    CountRows(Filter(gblColAllUser,active = 1 And userID = txt_us_Name_6.Text)) = 1,
+                    Notify(
+                        "Trường mã nhân viên bị trùng",
+                        NotificationType.Error,
+                        1500
+                    ),
+                    CountRows(Filter(gblColAllUser,active = 1 And email = cbo_us_Email_2.Selected.Mail)) = 1,
+                    Notify(
+                        "Trường email bị trùng",
                         NotificationType.Error,
                         1500
                     ),
@@ -1656,7 +1679,7 @@
             ZIndex: =24
 
         cbo_us_Email_2 As combobox:
-            BorderColor: =RGBA(116, 116, 116, 1)
+            BorderColor: =If(CountRows(Filter(gblColAllUser,active = 1 And email = cbo_us_Email_2.Selected.Mail)) = 1,Color.Red,RGBA(116, 116, 116, 1))
             BorderThickness: =1
             DefaultSelectedItems: |-
                 =Office365Users.SearchUserV2({searchTerm:locUser.email}).value

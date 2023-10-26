@@ -502,6 +502,7 @@
                 RadiusTopRight: =5
                 Size: =13
                 Text: ="Người dùng"
+                Visible: =If(gblRecUser.roleID = 6,true,false)
                 Width: =110
                 X: =117
                 Y: =36
@@ -522,6 +523,7 @@
                 RadiusTopRight: =5
                 Size: =13
                 Text: ="Phòng"
+                Visible: =If(gblRecUser.roleID = 6,true,false)
                 Width: =104
                 X: =117
                 Y: =36
@@ -542,6 +544,7 @@
                 RadiusTopRight: =5
                 Size: =13
                 Text: ="Ngày phép"
+                Visible: =If(gblRecUser.roleID = 6 Or gblRecUser.roleID = 5,true,false)
                 Width: =104
                 X: =117
                 Y: =36
@@ -561,6 +564,7 @@
                 RadiusTopRight: =5
                 Size: =13
                 Text: ="Lịch nghỉ phép"
+                Visible: =If(gblRecUser.roleID = 6 Or gblRecUser.roleID = 5,true,false)
                 Width: =150
                 X: =191
                 Y: =36
@@ -581,6 +585,7 @@
                 RadiusTopRight: =5
                 Size: =13
                 Text: ="Phê duyệt cấp cao"
+                Visible: =If(gblRecUser.roleID = 6,true,false)
                 Width: =180
                 X: =117
                 Y: =36
