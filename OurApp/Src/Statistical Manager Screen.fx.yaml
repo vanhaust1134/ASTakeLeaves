@@ -16,10 +16,6 @@
                         Collect(
                             locColReportManagerTotalDayOffInMonth,  //Lấy các thông tin nghỉ phép trong tất cả tháng
                             Filter('ASTakeLeave.TotalDayOffInMonth', userID = temp.userID)
-                        ),
-                        Collect(
-                            locColReportManagerTotalLeaveRequest,  //Lấy tất cả các lần nghỉ phép
-                            Filter('ASTakeLeave.LeaveRequest', userID = temp.userID, status = 2)
                         )
                     )
                 ),
@@ -36,13 +32,6 @@
                             Collect(
                                 locColReportManagerTotalDayOffInMonth,
                                 Filter('ASTakeLeave.TotalDayOffInMonth', userID = temp.userID)
-                            ),
-                            If(
-                                IsEmpty(locColReportManagerTotalLeaveRequest),
-                                Collect(
-                                    locColReportManagerTotalLeaveRequest,  //Lấy tất cả các lần nghỉ phép
-                                    Filter('ASTakeLeave.LeaveRequest', divisionID = gblRecUser.divisionID, status = 2)
-                                )
                             )
                         )
                     ),
@@ -55,21 +44,19 @@
                                 Filter('ASTakeLeave.TotalDayOffInYear', active = 1)
                             ),
                             Collect(    
-                                locColReportManagerTotalDayOffInMonth,  //Chỉ lấy năm đầu
-                                Filter('ASTakeLeave.TotalDayOffInMonth', year = Year(Today()))
+                                locColReportManagerTotalDayOffInMonthTemp1,  //lấy 6 tháng đầu
+                                Filter('ASTakeLeave.TotalDayOffInMonth', year = Year(Today()), month <= 6)
                             ),
-                            If(
-                                IsEmpty(locColReportManagerTotalLeaveRequest),
-                                Collect(
-                                    locColReportManagerTotalLeaveRequest,  //Lấy tất cả các lần nghỉ phép
-                                    Filter(
-                                        'ASTakeLeave.LeaveRequest', 
-                                        startDateValue <= Value(0112 & Year(Today()) - 1) &&
-                                        endDateValue >= Value(3103 & Year(Today())), 
-                                        status = 2
-                                    )
-                                )
+                            Collect(    
+                                locColReportManagerTotalDayOffInMonthTemp2,  //lấy 6 tháng sau
+                                Filter('ASTakeLeave.TotalDayOffInMonth', year = Year(Today()), month >= 7)
                             )
+                        );
+                        //Gộp 2 collection temp
+                        Collect(
+                            locColReportManagerTotalDayOffInMonth,
+                            locColReportManagerTotalDayOffInMonthTemp1,
+                            locColReportManagerTotalDayOffInMonthTemp2
                         )  
                     )
                 ) 
@@ -81,23 +68,23 @@
                 Table(
                     {
                         ID: 0,
-                        Title: "Theo năm",
-                        Status: true
+                        title: "Theo năm",
+                        status: true
                     },
                     {
                         ID: 1,
                         Title: "Tất cả nhân viên",
-                        Status: true
+                        status: true
                     },
                     {
                         ID: 2,
                         Title: "Theo Phòng",
-                        Status: true
+                        status: true
                     },
                     {
                         ID: 3,
                         Title: "Theo nhân viên",
-                        Status: true
+                        status: true
                     }
                 )
             );
@@ -434,13 +421,13 @@
 
                 Toggle2 As toggleSwitch:
                     BorderStyle: =BorderStyle.None
-                    Default: =ThisItem.Status
+                    Default: =ThisItem.status
                     OnCheck: |-
                         =//Patch(colFilterAdvance,LookUp(colFilterAdvance,ID = ThisItem.ID),{Status:true});
                     OnSelect: |-
-                        =Patch(locColReportManagerFilterAdvance,LookUp(locColReportManagerFilterAdvance,ID = ThisItem.ID),{Status:!ThisItem.Status});
-                        If(ThisItem.ID = 3 And ThisItem.Status = false,Patch(locColReportManagerFilterAdvance,LookUp(locColReportManagerFilterAdvance,ID = 1),{Status:false}));
-                        If(ThisItem.ID = 1 And ThisItem.Status = false,Patch(locColReportManagerFilterAdvance,LookUp(locColReportManagerFilterAdvance,ID = 3),{Status:false}))
+                        =Patch(locColReportManagerFilterAdvance,LookUp(locColReportManagerFilterAdvance,ID = ThisItem.ID),{status:!ThisItem.status});
+                        If(ThisItem.ID = 3 And ThisItem.status = false,Patch(locColReportManagerFilterAdvance,LookUp(locColReportManagerFilterAdvance,ID = 1),{status:false}));
+                        If(ThisItem.ID = 1 And ThisItem.status = false,Patch(locColReportManagerFilterAdvance,LookUp(locColReportManagerFilterAdvance,ID = 3),{status:false}))
                     OnUncheck: |-
                         =//Patch(colFilterAdvance,LookUp(colFilterAdvance,ID = ThisItem.ID),{Status:false})
                     ShowLabel: =false
@@ -460,7 +447,7 @@
                     Height: =160
                     LayoutDirection: =LayoutDirection.Vertical
                     LayoutMode: =LayoutMode.Auto
-                    Visible: =If(ThisItem.ID = 3 And ThisItem.Status = true,true)
+                    Visible: =If(ThisItem.ID = 3 And ThisItem.status = true,true)
                     Width: =232
                     Y: =48
                     ZIndex: =3
@@ -476,15 +463,39 @@
                         BorderThickness: =1
                         ChevronBackground: =RGBA(73, 113, 215, 1)
                         Height: =35
-                        Items: =["Trần Văn Hậu","Võ Đỗ Thi Nhân"]
                         LayoutMinWidth: =0
+                        Visible: =false
                         Width: =200
                         ZIndex: =2
+
+                    cbb_sms_User As combobox:
+                        DisplayFields: =["DisplayName","Email","Picture"]
+                        Items: |-
+                            =Switch(
+                                gblRecUser.roleID,
+                            
+                                2,
+                                Filter(gblColAllUser365, Email exactin gblColUserBelong.email),
+                            
+                                gblColAllUser365
+                            )
+                        SearchFields: =["DisplayName"]
+                        SearchItems: |-
+                            =Search(Switch(
+                                gblRecUser.roleID,
+                            
+                                2,
+                                Filter(gblColAllUser365, Email exactin gblColUserBelong.email),
+                            
+                                gblColAllUser365
+                            ),cbb_sms_User.SearchText,"DisplayName")
+                        Template: =ListItemTemplate.Person
+                        ZIndex: =3
 
                     Label5_1 As label:
                         AlignInContainer: =AlignInContainer.Stretch
                         Text: ="Tháng"
-                        ZIndex: =3
+                        ZIndex: =4
 
                     Dropdown3_1 As dropdown:
                         AlignInContainer: =AlignInContainer.Center
@@ -495,14 +506,14 @@
                         Items: =Sequence(12,1)
                         LayoutMinWidth: =0
                         Width: =200
-                        ZIndex: =4
+                        ZIndex: =5
 
                 Container5_1 As groupContainer.verticalAutoLayoutContainer:
                     DropShadow: =DropShadow.Semibold
                     Height: =90
                     LayoutDirection: =LayoutDirection.Vertical
                     LayoutMode: =LayoutMode.Auto
-                    Visible: =If(ThisItem.ID = 1 And ThisItem.Status = true,true)
+                    Visible: =If(ThisItem.ID = 1 And ThisItem.status = true,true)
                     Width: =232
                     Y: =49
                     ZIndex: =4
@@ -530,7 +541,7 @@
                     LayoutMode: =LayoutMode.Auto
                     Visible: |-
                         =If(
-                            gblRecUser.roleID > 2 && ThisItem.ID = 2 && ThisItem.Status = true, //chỉ hiện khi từ giám đốc khối trở lên
+                            gblRecUser.roleID > 2 && ThisItem.ID = 2 && ThisItem.status = true, //chỉ hiện khi từ giám đốc khối trở lên
                             true,
                             false
                         )
@@ -568,7 +579,7 @@
                     Height: =90
                     LayoutDirection: =LayoutDirection.Vertical
                     LayoutMode: =LayoutMode.Auto
-                    Visible: =If(ThisItem.ID = 0 And ThisItem.Status = true,true)
+                    Visible: =If(ThisItem.ID = 0 And ThisItem.status = true,true)
                     Width: =232
                     Y: =47
                     ZIndex: =6
@@ -793,4 +804,39 @@
             X: =40
             Y: =40
             ZIndex: =1
+
+        btn_sms_CalculateFilter As button:
+            OnSelect: |-
+                =//Update các biến filter
+                UpdateContext({locBoolReportManagerFilterTotalStatus: LookUp(locColReportManagerFilterAdvance, ID = 1).status});
+                UpdateContext({locBoolReportManagerFilterDepartmentStatus: LookUp(locColReportManagerFilterAdvance, ID = 2).status});
+                UpdateContext({locBoolReportManagerFilterPersonalStatus: LookUp(locColReportManagerFilterAdvance, ID = 3).status});
+                
+                Switch(
+                    gblRecUser.roleID,
+                
+                    2,
+                    If(
+                        locBoolReportManagerFilterTotalStatus && !locBoolReportManagerFilterPersonalStatus, //Đang filter tất cả nhân viên
+                        ClearCollect(
+                            locColManagerReport,
+                            Filter(locColReportManagerTotalDayOffInMonth, year = Dropdown3_5.Selected.Value && month = Dropdown3_3.Selected.Value)
+                        ),
+                        If(
+                            !locBoolReportManagerFilterTotalStatus && locBoolReportManagerFilterPersonalStatus, //Đang filter một nhân viên
+                            ClearCollect(
+                                locColManagerReport,
+                                Filter(
+                                    locColReportManagerTotalDayOffInMonth, 
+                                    year = Dropdown3_5.Selected.Value && month = Dropdown3_3.Selected.Value,
+                                    userID = 1
+                                )
+                            )   
+                        )
+                    )
+                )
+            Text: ="Button"
+            X: =40
+            Y: =40
+            ZIndex: =2
 

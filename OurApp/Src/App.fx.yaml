@@ -15,7 +15,7 @@ App As appinfo:
         //Lấy thông tin user hiện tại
         Set(
             gblRecUser,
-            LookUp(Filter(gblColAllUser,active = 1), email = User().Email)
+            LookUp(Filter(gblColAllUser, active = 1), email = User().Email)
         );
         
         //Start concurrent  ------------------------------------------------------------------
@@ -58,8 +58,12 @@ App As appinfo:
             gblRecUser.roleID = 2 || gblRecUser.roleID = 7,
             Collect(
                 gblColUserBelong,
-                Filter(
-                    'ASTakeLeave.UserRelationship', approveUserID = gblRecUser.userID, approveProcessLevel = 1, active = 1
+                AddColumns(
+                    Filter(
+                        'ASTakeLeave.UserRelationship', approveUserID = gblRecUser.userID, approveProcessLevel = 1, active = 1
+                    ) As temp,
+                    "email",
+                    LookUp(gblColAllUser, userID = temp.userID).email
                 )
             )
         ),
@@ -72,7 +76,26 @@ App As appinfo:
         );
         //End concurent     -------------------------------------------------------------
         
-    StartScreen: =If(LookUp('ASTakeLeave.Users_Roles',userID = LookUp('ASTakeLeave.Users','365AccountInfo'.Email = User().Email And active = 1).userID And active = 1).roleID = 1,'Home User Screen',LookUp('ASTakeLeave.Users_Roles',userID = LookUp('ASTakeLeave.Users','365AccountInfo'.Email = User().Email).userID).roleID = 6,'User Screen','Home Manager Screen')
+    StartScreen: |-
+        =If(
+            LookUp(
+                'ASTakeLeave.Users_Roles',
+                userID = LookUp(
+                    'ASTakeLeave.Users',
+                    '365AccountInfo'.Email = User().Email And active = 1
+                ).userID And active = 1
+            ).roleID = 1,
+            'Home User Screen',
+            LookUp(
+                'ASTakeLeave.Users_Roles',
+                userID = LookUp(
+                    'ASTakeLeave.Users',
+                    '365AccountInfo'.Email = User().Email
+                ).userID
+            ).roleID = 6,
+            'User Screen',
+            'Home Manager Screen'
+        )
     Theme: =PowerAppsTheme
 
     Host As hostControl.DefaultHostControlVariant:
