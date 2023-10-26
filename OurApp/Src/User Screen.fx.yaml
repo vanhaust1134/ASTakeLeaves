@@ -1351,18 +1351,6 @@
                         NotificationType.Error,
                         1500
                     ),
-                    CountRows(Filter(gblColAllUser,active = 1 And userID = txt_us_Name_6.Text)) = 1,
-                    Notify(
-                        "Trường mã nhân viên bị trùng",
-                        NotificationType.Error,
-                        1500
-                    ),
-                    CountRows(Filter(gblColAllUser,active = 1 And email = cbo_us_Email_2.Selected.Mail)) = 1,
-                    Notify(
-                        "Trường email bị trùng",
-                        NotificationType.Error,
-                        1500
-                    ),
                     IsBlank(txt_us_Name_2.Text),
                     Notify(
                         "Trường họ tên nhân viên không được để trống",
@@ -1679,7 +1667,7 @@
             ZIndex: =24
 
         cbo_us_Email_2 As combobox:
-            BorderColor: =If(CountRows(Filter(gblColAllUser,active = 1 And email = cbo_us_Email_2.Selected.Mail)) = 1,Color.Red,RGBA(116, 116, 116, 1))
+            BorderColor: =RGBA(116, 116, 116, 1)
             BorderThickness: =1
             DefaultSelectedItems: |-
                 =Office365Users.SearchUserV2({searchTerm:locUser.email}).value
