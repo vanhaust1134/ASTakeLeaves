@@ -1217,7 +1217,7 @@
         drp_us_Roles_1 As dropdown:
             BorderColor: =RGBA(116, 116, 116, 1)
             BorderThickness: =1
-            Items: =If(CountRows(Filter(gblColAllUser,active = 1 And roleID = 3))=0,Filter(gblColRoles,name <> "Tất cả" And name = "Giám đốc khối"),If(CountRows(Filter(gblColAllUser,active = 1 And roleID = 2))=0,Filter(gblColRoles,name <> "Tất cả" And name = "Quản Lý"),Filter(gblColRoles,name <> "Tất cả")))
+            Items: =If(CountRows(Filter(gblColAllUser,active = 1 And roleID = 3))=0,Filter(gblColRoles,name <> "Tất cả" And name = "Giám đốc khối"),If(CountRows(Filter(gblColAllUser,active = 1 And roleID = 2))=0,Filter(gblColRoles,name <> "Tất cả" And name = "Quản lý" Or name = "Giám đốc khối"),Filter(gblColRoles,name <> "Tất cả")))
             X: =548
             Y: =405
             ZIndex: =19
@@ -1649,7 +1649,7 @@
             BorderColor: =RGBA(116, 116, 116, 1)
             BorderThickness: =1
             Default: =LookUp(gblColRoles,ID = locUser.roleID).name
-            Items: =Filter(gblColRoles,name <> "Tất cả")
+            Items: =If(CountRows(Filter(gblColAllUser,active = 1 And roleID = 3))=0,Filter(gblColRoles,name <> "Tất cả" And name = "Giám đốc khối"),If(CountRows(Filter(gblColAllUser,active = 1 And roleID = 2))=0,Filter(gblColRoles,name <> "Tất cả" And name = "Quản lý" Or name = "Giám đốc khối"),Filter(gblColRoles,name <> "Tất cả")))
             X: =548
             Y: =408
             ZIndex: =19
