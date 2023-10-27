@@ -1,7 +1,7 @@
 "'Request Screen' As screen":
     Fill: =RGBA(80,80,80,1)
     OnHidden: =
-    OnVisible: |-
+    OnVisible: |
         =//Tạo biến tổng ngày phép và ngày phép còn lại
         UpdateContext({locMaxDayLeaveNumber:LookUp('ASTakeLeave.TotalDayOffInYear',userID = gblRecUser.userID).maxDayOff_Year});
         UpdateContext({locTotalDayLeaveNumber:LookUp('ASTakeLeave.TotalDayOffInYear',userID = gblRecUser.userID).totalDayOff_Year});
@@ -321,9 +321,36 @@
             Table(
                 {
                     DayLeave: locTotalDayLeaveNumber,
-                    CurrentTotalDayLeave:locMaxDayLeaveNumber / 12 * Month(Today()),
-                    MaxDayLeaveCurrent:If(Value(Right()),)(locMaxDayLeaveNumber / 12 * Month(Today())) - locTotalDayLeaveNumber + (3 * locMaxDayLeaveNumber / 12)
-                    TotalDayLeaveAllow:(locMaxDayLeaveNumber / 12 * 6) - 4 + 3 * locMaxDayLeaveNumber / 12
+                    CurrentTotalDayLeave: locMaxDayLeaveNumber / 12 * Month(Today()),
+                    MaxDayLeaveCurrent: (locMaxDayLeaveNumber / 12 * Month(Today())) - locTotalDayLeaveNumber + (3 * locMaxDayLeaveNumber / 12),
+                    TotalDayLeaveAllow: If(Month(Today())<9,If(
+                        Value(
+                            Right(
+                                RoundUp(
+                                    (locMaxDayLeaveNumber / 12 * Month(Today())) - locTotalDayLeaveNumber + (3 * locMaxDayLeaveNumber / 12),
+                                    1
+                                ),
+                                1
+                            )
+                        ) < 5,
+                        Round(
+                            (locMaxDayLeaveNumber / 12 * Month(Today())) - locTotalDayLeaveNumber + (3 * locMaxDayLeaveNumber / 12),
+                            0
+                        ),
+                        Value(
+                            Right(
+                                RoundUp(
+                                    (locMaxDayLeaveNumber / 12 * Month(Today())) - locTotalDayLeaveNumber + (3 * locMaxDayLeaveNumber / 12),
+                                    1
+                                ),
+                                1
+                            )
+                        ) >= 5,
+                        RoundUp(
+                            (locMaxDayLeaveNumber / 12 * Month(Today())) - locTotalDayLeaveNumber + (3 * locMaxDayLeaveNumber / 12),
+                            0
+                        )
+                    ),Month(Today())>=9,locMaxDayLeaveNumber - locTotalDayLeaveNumber)
                 }
             )
         );
@@ -430,7 +457,7 @@
             FontWeight: =FontWeight.Bold
             Size: =15
             Text: |-
-                ="Được nghỉ tối đa: " & locLeaveDayAllow
+                ="Được nghỉ tối đa: " & First(colMaxDayLeave).TotalDayLeaveAllow
             ZIndex: =3
 
         lbl_rs_DivisionTitle_1 As label:
@@ -1018,7 +1045,7 @@
                             FontWeight: =FontWeight.Semibold
                             Size: =15
                             Text: |-
-                                ="Tổng: " & Sum(colTotalListDateRange,Total) & " ngày " & If(Sum(colTotalListDateRange,Total) > locLeaveDayAllow,"(tổng ngày nghỉ lớn hơn ngày nghỉ cho phép)")
+                                ="Tổng: " & Sum(colTotalListDateRange,Total) & " ngày " & If(Sum(colTotalListDateRange,Total) > First(colMaxDayLeave).TotalDayLeaveAllow,"(tổng ngày nghỉ lớn hơn ngày nghỉ cho phép)")
                             ZIndex: =2
 
                     Gallery5 As gallery.galleryHorizontal:
@@ -1227,6 +1254,7 @@
                         LayoutMinHeight: =100
                         LayoutMinWidth: =250
                         LayoutMode: =LayoutMode.Auto
+                        PaddingLeft: =1
                         ZIndex: =1
 
                         lbl_rs_HandOverTitle As label:
@@ -1322,6 +1350,7 @@
                                 PaddingTop: =5
                                 Tooltip: =Parent.DisplayName
                                 Width: =497
+                                X: =1
                                 Y: =DataCardKey2.Y + DataCardKey2.Height + 5
                                 ZIndex: =2
 
@@ -1370,12 +1399,13 @@
                                 NotificationType.Error,
                                 1500
                             ),
-                            Sum(colTotalListDateRange,Total) > locLeaveDayAllow,
+                            Sum(colTotalListDateRange,Total) > First(colMaxDayLeave).TotalDayLeaveAllow,
                             Notify(
                                 "Tổng ngày nghỉ lớn hơn ngày nghỉ cho phép",
                                 NotificationType.Error,
                                 1500
                             ),
+                            Collect(colRecordTotalDayLeaveByMonth,AddColumns(Sequence(12,1) As Temp,"TotalLeaveDay",Sum(Filter(colTotalListDateRange,Month(Date) = Temp.Value),Total),"TotalLeaveDayUnPaidByMonth",Sum(Filter(colTotalListDateRange,Month(Date) = Temp.Value),Total)));
                             UpdateContext({locSubmit: true});
                             /*ClearCollect(
                                 colListDateRange,
@@ -2051,23 +2081,4 @@
             X: =782
             Y: =443
             ZIndex: =8
-
-    Button10 As button:
-        OnSelect: |-
-            =//Kiểm tra tổng ngày nghỉ cho phép
-            ClearCollect(
-                colMaxDayLeave,
-                Table(
-                    {
-                        DayLeave: 4,
-                        CurrentTotalDayLeave:locMaxDayLeaveNumber / 12 * 6,
-                        MaxDayLeaveCurrent:(locMaxDayLeaveNumber / 12 * 6) - 4 + (3 * locMaxDayLeaveNumber / 12),
-                        TotalDayLeaveAllow:(locMaxDayLeaveNumber / 12 * 6) - 4 + 3 * locMaxDayLeaveNumber / 12
-                    }
-                )
-            );
-        Text: ="Button"
-        X: =575
-        Y: =32
-        ZIndex: =27
 
