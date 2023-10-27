@@ -1,5 +1,5 @@
 "'Request Screen' As screen":
-    Fill: =RGBA(224,224,224,1)
+    Fill: =RGBA(80,80,80,1)
     OnHidden: =
     OnVisible: |-
         =//Tạo biến tổng ngày phép và ngày phép còn lại

@@ -1,10 +1,10 @@
 [
   {
     "ApiId": "/providers/microsoft.powerapps/apis/shared_logicflows",
-    "FlowNameId": "e0616a3e-929b-41ce-83ea-4e71f8d5755f",
+    "FlowNameId": "22b27580-033f-48df-ae72-7d4001d1a5f9",
     "Name": "ASTakeLeave.ActionUpdateUser",
     "ServiceKind": "ConnectedWadl",
     "Type": "ServiceInfo",
-    "WorkflowEntityId": null
+    "WorkflowEntityId": "816fd566-7274-ee11-8179-000d3aa0d035"
   }
 ]

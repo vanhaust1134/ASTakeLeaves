@@ -1,5 +1,5 @@
 "'Request Detail Screen' As screen":
-    Fill: =RGBA(224,224,224,1)
+    Fill: =RGBA(80,80,80,1)
     OnVisible: |-
         =//Tạo collect chứa gồm 2 ngày bắt đầu và kết thúc của kì nghỉ
         ClearCollect(

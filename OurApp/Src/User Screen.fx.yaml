@@ -1,5 +1,5 @@
 "'User Screen' As screen":
-    Fill: =RGBA(224,224,224,1)
+    Fill: =RGBA(80,80,80,1)
     OnVisible: |-
         =
         //Tạo collect cho bảng phòng để thêm 1 item "Tất cả"
@@ -1502,7 +1502,7 @@
                     NotificationType.Success,
                     1500
                 );*/
-                'ASTakeLeave.ActionUpdateUser'.Run(locUser.userID,locUser.roleID);
+                'ASTakeLeave.ActionUpdateUser'.Run(locUser.roleID,locUser.userID);
                 Reset(cbo_us_Email_2);
                 Reset(drp_us_Roles_2);
                 Reset(cbo_us_Manager_2);

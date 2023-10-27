@@ -1,0 +1,10 @@
+[
+  {
+    "ApiId": "/providers/microsoft.powerapps/apis/shared_logicflows",
+    "FlowNameId": "a88474fa-87b7-4784-bb31-695d7f3d9c08",
+    "Name": "ASTakeLeave.UpdateUserRelationShip",
+    "ServiceKind": "ConnectedWadl",
+    "Type": "ServiceInfo",
+    "WorkflowEntityId": "0e272784-9574-ee11-8179-000d3aa0d035"
+  }
+]

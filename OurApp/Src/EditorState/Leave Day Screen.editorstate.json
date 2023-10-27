@@ -672,7 +672,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "btn_lds_ApprovalProcess",
-      "ParentIndex": 4,
+      "ParentIndex": 2,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -1696,7 +1696,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "btn_lds_LeaveDay",
-      "ParentIndex": 2,
+      "ParentIndex": 3,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -2075,7 +2075,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "btn_lds_Rule",
-      "ParentIndex": 3,
+      "ParentIndex": 4,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {

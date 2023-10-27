@@ -119,33 +119,29 @@
     "dependents": [],
     "id": "51d898db-ccf2-4c94-b1ca-7cda1f06927c"
   },
-  "937af40b-402d-4b6c-9c16-aee134bae008": {
-    "connectionRef": {
-      "displayName": "Office 365 Users",
-      "iconUri": "https://connectoricons-prod.azureedge.net/releases/v1.0.1664/1.0.1664.3477/office365users/icon.png",
-      "id": "/providers/microsoft.powerapps/apis/shared_office365users"
-    },
-    "datasets": {},
-    "dataSources": [
-      "Office365Users"
-    ],
-    "dependencies": {},
-    "dependents": [],
-    "id": "937af40b-402d-4b6c-9c16-aee134bae008"
-  },
-  "9dd948fe-3644-4980-955b-a4e85a3d9c4c": {
+  "632857a1-c916-42ab-8d52-741d19a7bbcd": {
     "connectionRef": {
       "displayName": "Logic flows",
       "iconUri": "https://connectoricons-prod.azureedge.net/releases/v1.0.1664/1.0.1664.3477/logicflows/icon.png",
       "id": "/providers/microsoft.powerapps/apis/shared_logicflows",
       "parameterHints": {
-        "workflowEntityId": {},
+        "cf341574-441c-4f2a-a3b6-ead8c294cdc6": {
+          "value": "shared_sharepointonline"
+        },
+        "workflowEntityId": {
+          "value": "816fd566-7274-ee11-8179-000d3aa0d035"
+        },
         "workflowName": {
           "value": "e0616a3e-929b-41ce-83ea-4e71f8d5755f"
         }
       },
       "parameterHintsV2": {
-        "workflowEntityId": {},
+        "shared_sharepointonline": {
+          "value": "cf341574-441c-4f2a-a3b6-ead8c294cdc6"
+        },
+        "workflowEntityId": {
+          "value": "816fd566-7274-ee11-8179-000d3aa0d035"
+        },
         "workflowName": {
           "value": "e0616a3e-929b-41ce-83ea-4e71f8d5755f"
         }
@@ -159,7 +155,21 @@
       "shared_sharepointonline": "cf341574-441c-4f2a-a3b6-ead8c294cdc6"
     },
     "dependents": [],
-    "id": "9dd948fe-3644-4980-955b-a4e85a3d9c4c"
+    "id": "632857a1-c916-42ab-8d52-741d19a7bbcd"
+  },
+  "937af40b-402d-4b6c-9c16-aee134bae008": {
+    "connectionRef": {
+      "displayName": "Office 365 Users",
+      "iconUri": "https://connectoricons-prod.azureedge.net/releases/v1.0.1664/1.0.1664.3477/office365users/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_office365users"
+    },
+    "datasets": {},
+    "dataSources": [
+      "Office365Users"
+    ],
+    "dependencies": {},
+    "dependents": [],
+    "id": "937af40b-402d-4b6c-9c16-aee134bae008"
   },
   "cf341574-441c-4f2a-a3b6-ead8c294cdc6": {
     "appActions": [
@@ -255,8 +265,47 @@
       "1788df75-50d0-4023-8fc6-21646c5e4d76",
       "51d898db-ccf2-4c94-b1ca-7cda1f06927c",
       "3b92d23d-34b1-4127-b337-d4a00ad0568c",
-      "9dd948fe-3644-4980-955b-a4e85a3d9c4c"
+      "f3d25281-5924-49a4-9da5-f0b76e90abda",
+      "632857a1-c916-42ab-8d52-741d19a7bbcd"
     ],
     "id": "cf341574-441c-4f2a-a3b6-ead8c294cdc6"
+  },
+  "f3d25281-5924-49a4-9da5-f0b76e90abda": {
+    "connectionRef": {
+      "displayName": "Logic flows",
+      "iconUri": "https://connectoricons-prod.azureedge.net/releases/v1.0.1664/1.0.1664.3477/logicflows/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_logicflows",
+      "parameterHints": {
+        "cf341574-441c-4f2a-a3b6-ead8c294cdc6": {
+          "value": "shared_sharepointonline"
+        },
+        "workflowEntityId": {
+          "value": "0e272784-9574-ee11-8179-000d3aa0d035"
+        },
+        "workflowName": {
+          "value": "bad7a079-6d0a-4c06-974c-02e9534653f1"
+        }
+      },
+      "parameterHintsV2": {
+        "shared_sharepointonline": {
+          "value": "cf341574-441c-4f2a-a3b6-ead8c294cdc6"
+        },
+        "workflowEntityId": {
+          "value": "0e272784-9574-ee11-8179-000d3aa0d035"
+        },
+        "workflowName": {
+          "value": "bad7a079-6d0a-4c06-974c-02e9534653f1"
+        }
+      }
+    },
+    "datasets": {},
+    "dataSources": [
+      "ASTakeLeave.UpdateUserRelationShip"
+    ],
+    "dependencies": {
+      "shared_sharepointonline": "cf341574-441c-4f2a-a3b6-ead8c294cdc6"
+    },
+    "dependents": [],
+    "id": "f3d25281-5924-49a4-9da5-f0b76e90abda"
   }
 }

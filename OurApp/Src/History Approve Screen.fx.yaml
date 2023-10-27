@@ -1,5 +1,5 @@
 "'History Approve Screen' As screen":
-    Fill: =RGBA(224,224,224,1)
+    Fill: =RGBA(80,80,80,1)
     OnVisible: |-
         =//Lấy danh sách yêu cầu theo quản lý của người tạo
         If(

@@ -1,5 +1,5 @@
 "'Department Screen' As screen":
-    Fill: =RGBA(224,224,224,1)
+    Fill: =RGBA(80,80,80,1)
     OnHidden: |-
         =//Tạo collect cho bảng khối để thêm 1 item "Tất cả"
         Refresh('ASTakeLeave.Division');
@@ -925,6 +925,8 @@
                             }
                         )
                     );
+                    //Cập nhật quy trình phê duyệt giám đốc khối
+                    'ASTakeLeave.UpdateUserRelationShip'.Run(If(!IsBlank(drp_ds_LineManager.Selected.userID),drp_ds_LineManager.Selected.userID,""),gblDivision.ID);
                 //Lấy tất cả phòng về
                 Collect(
                     gblColDepartment,
@@ -1226,6 +1228,8 @@
                             }
                         )
                     );
+                    //Cập nhật quy trình phê duyệt giám đốc khối
+                    'ASTakeLeave.UpdateUserRelationShip'.Run(If(!IsBlank(cbo_ds_LineManager_2.Selected.userID),cbo_ds_LineManager_2.Selected.userID,""),locDivision.ID);
                 Notify(
                     "Sửa thành công",
                     NotificationType.Success,

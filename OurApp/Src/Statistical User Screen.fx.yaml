@@ -1,5 +1,5 @@
 "'Statistical User Screen' As screen":
-    Fill: =RGBA(224,224,224,1)
+    Fill: =RGBA(80,80,80,1)
     OnVisible: |-
         =//Lấy ngày phép trong tất cả các năm
         If(

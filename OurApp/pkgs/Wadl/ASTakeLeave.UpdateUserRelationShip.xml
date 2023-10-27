@@ -1,11 +1,11 @@
-<application xmlns:xml="http://www.w3.org/XML/1998/namespace" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:service="https://asia-001.azure-apim.net/apim/logicflows" xmlns:siena="http://schemas.microsoft.com/MicrosoftProjectSiena/WADL/2014/11" siena:serviceId="ASTakeLeave.ActionUpdateUser" xmlns="http://wadl.dev.java.net/2009/02">
-  <doc title="ASTakeLeave.ActionUpdateUser" />
+<application xmlns:xml="http://www.w3.org/XML/1998/namespace" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:service="https://asia-001.azure-apim.net/apim/logicflows" xmlns:siena="http://schemas.microsoft.com/MicrosoftProjectSiena/WADL/2014/11" siena:serviceId="ASTakeLeave.UpdateUserRelationShip" xmlns="http://wadl.dev.java.net/2009/02">
+  <doc title="ASTakeLeave.UpdateUserRelationShip" />
   <grammars>
     <jsonTypes targetNamespace="https://asia-001.azure-apim.net/apim/logicflows" xmlns="http://schemas.microsoft.com/MicrosoftProjectSiena/WADL/2014/11">
-      <number name="ManualTriggerInput_number_1_def" />
+      <number name="ManualTriggerInput_number_def" />
       <string name="ManualTriggerInput_text_def" />
       <object name="ManualTriggerInput">
-        <property name="number_1" type="number" />
+        <property name="number" type="number" />
         <property name="text" type="string" />
       </object>
     </jsonTypes>
@@ -20,8 +20,8 @@
             <doc title="The api version" />
           </param>
           <representation mediaType="application/json">
-            <param style="plain" name="number_1" path="/number_1" type="xs:double" required="true">
-              <doc title="roleID" />
+            <param style="plain" name="number" path="/number" type="xs:double" required="true">
+              <doc title="divisionID" />
             </param>
             <param style="plain" name="text" path="/text" type="xs:string" required="true">
               <doc title="userID" />
