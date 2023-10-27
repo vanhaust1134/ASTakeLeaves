@@ -411,7 +411,7 @@
                             FillPortions: =1
                             FontWeight: =FontWeight.Bold
                             LayoutMinHeight: =30
-                            Text: =LookUp(gblColUser,userID = ThisItem.userID).fullName
+                            Text: =LookUp(gblColAllUser,userID = ThisItem.userID).fullName
                             Wrap: =false
                             ZIndex: =1
 

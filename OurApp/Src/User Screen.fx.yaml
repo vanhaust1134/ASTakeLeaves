@@ -356,7 +356,7 @@
                         Color: =RGBA(47, 47, 47, 1)
                         FillPortions: =1
                         FontWeight: =FontWeight.Bold
-                        Text: ="Chức vụ"
+                        Text: ="Chức danh"
                         ZIndex: =2
 
                     lbl_us_Division As label:
@@ -1879,7 +1879,7 @@
         lbl_us_JobTitle_4 As label:
             Align: =Align.Right
             FontWeight: =FontWeight.Semibold
-            Text: ="Chức vụ"
+            Text: ="Chức danh"
             X: =387
             Y: =343
             ZIndex: =11
