@@ -420,7 +420,7 @@
                             Label6 As label:
                                 FontWeight: =FontWeight.Bold
                                 Height: =24
-                                Text: =ThisItem.date
+                                Text: =Text(ThisItem.date,"dd/mm/yyyy")
                                 Width: =299
                                 X: =78
                                 Y: =11

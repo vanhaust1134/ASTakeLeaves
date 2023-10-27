@@ -1502,6 +1502,7 @@
                     NotificationType.Success,
                     1500
                 );*/
+                'ASTakeLeave.ActionUpdateUser'.Run(locUser.userID,locUser.roleID);
                 Reset(cbo_us_Email_2);
                 Reset(drp_us_Roles_2);
                 Reset(cbo_us_Manager_2);
