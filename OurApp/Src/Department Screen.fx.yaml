@@ -208,6 +208,7 @@
         LayoutMode: =LayoutMode.Auto
         PaddingLeft: =30
         PaddingRight: =25
+        PaddingTop: =1
         Width: =1170
         X: =196
         Y: =150
