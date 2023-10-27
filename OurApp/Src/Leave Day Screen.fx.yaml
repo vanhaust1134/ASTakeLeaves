@@ -2,7 +2,11 @@
     Fill: =RGBA(224,224,224,1)
     OnVisible: |-
         =//Tạo collect cho bảng phòng để thêm 1 item "Tất cả"
-        If(CountRows(Filter(gblColDepartment,name = "Tất cả")) = 0,Collect(gblColDepartment,Table({name:"Tất cả"})));
+        If(CountRows(Filter(gblColDepartment,name = "Tất cả")) = 0,Clear(gblColDepartment);Collect(gblColDepartment,Table({name:"Tất cả"}));//Lấy tất cả phòng về
+        Collect(
+            gblColDepartment,
+            ShowColumns(Filter('ASTakeLeave.Department',active = 1), "ID", "name", "divisionID", "active")
+        ));
         
         //Thêm trường phòng ban và tên người dùng vào bảng ngày phép
         ClearCollect(gblColDayOff,AddColumns('ASTakeLeave.TotalDayOffInYear' As Temp,"userName",LookUp(gblColAllUser,active = 1 And userID = Temp.userID).fullName,"deparmentName",LookUp(gblColAllUser,active = 1 And userID = Temp.userID).departmentID));

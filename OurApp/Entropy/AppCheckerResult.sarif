@@ -14,6 +14,46 @@
             {
               "logicalLocations": [
                 {
+                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_MainContent_1.ctn_ds_List_1.ctn_ds_DetailList_1.Container1.Container1_2.Gallery3.Items"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_MainContent_1.ctn_ds_List_1.ctn_ds_DetailList_1.Container1.Container1_2.Gallery3.Items",
+                  "relativeAddress": 0
+                },
+                "region": {
+                  "charLength": 6,
+                  "charOffset": 94,
+                  "snippet": {
+                    "text": "\"name\""
+                  }
+                }
+              },
+              "properties": {
+                "member": "Items",
+                "module": "Leave Calendar Screen",
+                "type": "'Leave Calendar Screen'.ctn_ds_MainContent_1.ctn_ds_List_1.ctn_ds_DetailList_1.Container1.Container1_2.Gallery3"
+              }
+            }
+          ],
+          "message": {
+            "arguments": [
+              "Search"
+            ],
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "app-SuggestRemoteExecutionHint",
+          "ruleIndex": 0
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
                   "fullyQualifiedName": "'Request Screen'.OnVisible"
                 }
               ],
@@ -44,7 +84,7 @@
             "level": "High"
           },
           "ruleId": "app-ErrBadToken",
-          "ruleIndex": 0
+          "ruleIndex": 1
         },
         {
           "locations": [
@@ -85,7 +125,7 @@
             "level": "High"
           },
           "ruleId": "app-ErrExpectedFound-Ex-Fnd",
-          "ruleIndex": 1
+          "ruleIndex": 2
         },
         {
           "locations": [
@@ -126,7 +166,7 @@
             "level": "High"
           },
           "ruleId": "app-ErrExpectedFound-Ex-Fnd",
-          "ruleIndex": 1
+          "ruleIndex": 2
         },
         {
           "locations": [
@@ -167,7 +207,7 @@
             "level": "High"
           },
           "ruleId": "app-ErrExpectedFound-Ex-Fnd",
-          "ruleIndex": 1
+          "ruleIndex": 2
         },
         {
           "locations": [
@@ -208,7 +248,7 @@
             "level": "High"
           },
           "ruleId": "app-ErrExpectedFound-Ex-Fnd",
-          "ruleIndex": 1
+          "ruleIndex": 2
         },
         {
           "locations": [
@@ -245,7 +285,7 @@
             "level": "High"
           },
           "ruleId": "app-ErrBadToken",
-          "ruleIndex": 0
+          "ruleIndex": 1
         },
         {
           "locations": [
@@ -285,7 +325,7 @@
             "level": "Medium"
           },
           "ruleId": "app-SuggestRemoteExecutionHint",
-          "ruleIndex": 2
+          "ruleIndex": 0
         },
         {
           "locations": [
@@ -325,7 +365,7 @@
             "level": "Medium"
           },
           "ruleId": "app-SuggestRemoteExecutionHint",
-          "ruleIndex": 2
+          "ruleIndex": 0
         },
         {
           "locations": [
@@ -365,7 +405,7 @@
             "level": "Medium"
           },
           "ruleId": "app-SuggestRemoteExecutionHint",
-          "ruleIndex": 2
+          "ruleIndex": 0
         },
         {
           "locations": [
@@ -405,7 +445,7 @@
             "level": "Medium"
           },
           "ruleId": "app-SuggestRemoteExecutionHint",
-          "ruleIndex": 2
+          "ruleIndex": 0
         },
         {
           "locations": [
@@ -770,63 +810,563 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_MainContent_1.ctn_ds_List_1.ctn_ds_DetailList_1.Container1.Container1_2.Gallery3.Items"
+                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_Navigate_9.ctn_NavigationMenu_9.gal_NavigationMenu_9.AccessibleLabel"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_MainContent_1.ctn_ds_List_1.ctn_ds_DetailList_1.Container1.Container1_2.Gallery3.Items",
+                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_Navigate_9.ctn_NavigationMenu_9.gal_NavigationMenu_9.AccessibleLabel",
                   "relativeAddress": 0
-                },
-                "region": {
-                  "charLength": 6,
-                  "charOffset": 94,
-                  "snippet": {
-                    "text": "\"name\""
-                  }
                 }
               },
               "properties": {
-                "member": "Items",
+                "member": "AccessibleLabel",
+                "module": "Leave Calendar Screen",
+                "type": "'Leave Calendar Screen'.ctn_Navigate_9.ctn_NavigationMenu_9.gal_NavigationMenu_9"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 8
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_Navigate_9.ctn_NavigationMenu_9.gal_NavigationMenu_9.TabIndex"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_Navigate_9.ctn_NavigationMenu_9.gal_NavigationMenu_9.TabIndex",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "TabIndex",
+                "module": "Leave Calendar Screen",
+                "type": "'Leave Calendar Screen'.ctn_Navigate_9.ctn_NavigationMenu_9.gal_NavigationMenu_9"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-TabIndexShouldBeDefinedForInteractiveControl",
+          "ruleIndex": 9
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_UpdateUser_1.ico_ds_Cancel_2.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_UpdateUser_1.ico_ds_Cancel_2.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "Leave Calendar Screen",
+                "type": "'Leave Calendar Screen'.ctn_ds_UpdateUser_1.ico_ds_Cancel_2"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 8
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_UpdateUser_1.ico_ds_Cancel_2.TabIndex"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_UpdateUser_1.ico_ds_Cancel_2.TabIndex",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "TabIndex",
+                "module": "Leave Calendar Screen",
+                "type": "'Leave Calendar Screen'.ctn_ds_UpdateUser_1.ico_ds_Cancel_2"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-TabIndexShouldBeDefinedForInteractiveControl",
+          "ruleIndex": 9
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_UpdateUser_1.txt_ds_Name_4.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_UpdateUser_1.txt_ds_Name_4.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "Leave Calendar Screen",
+                "type": "'Leave Calendar Screen'.ctn_ds_UpdateUser_1.txt_ds_Name_4"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 8
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_UpdateUser_1.DatePicker1_1.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_UpdateUser_1.DatePicker1_1.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "Leave Calendar Screen",
+                "type": "'Leave Calendar Screen'.ctn_ds_UpdateUser_1.DatePicker1_1"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 8
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_DeleteUser_1.ico_ds_Cancel_6.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_DeleteUser_1.ico_ds_Cancel_6.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "Leave Calendar Screen",
+                "type": "'Leave Calendar Screen'.ctn_ds_DeleteUser_1.ico_ds_Cancel_6"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 8
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_DeleteUser_1.ico_ds_Cancel_6.TabIndex"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_DeleteUser_1.ico_ds_Cancel_6.TabIndex",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "TabIndex",
+                "module": "Leave Calendar Screen",
+                "type": "'Leave Calendar Screen'.ctn_ds_DeleteUser_1.ico_ds_Cancel_6"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-TabIndexShouldBeDefinedForInteractiveControl",
+          "ruleIndex": 9
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_CreateUser_1.ico_ds_Cancel_3.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_CreateUser_1.ico_ds_Cancel_3.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "Leave Calendar Screen",
+                "type": "'Leave Calendar Screen'.ctn_ds_CreateUser_1.ico_ds_Cancel_3"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 8
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_CreateUser_1.ico_ds_Cancel_3.TabIndex"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_CreateUser_1.ico_ds_Cancel_3.TabIndex",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "TabIndex",
+                "module": "Leave Calendar Screen",
+                "type": "'Leave Calendar Screen'.ctn_ds_CreateUser_1.ico_ds_Cancel_3"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-TabIndexShouldBeDefinedForInteractiveControl",
+          "ruleIndex": 9
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_CreateUser_1.txt_ds_Name_3.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_CreateUser_1.txt_ds_Name_3.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "Leave Calendar Screen",
+                "type": "'Leave Calendar Screen'.ctn_ds_CreateUser_1.txt_ds_Name_3"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 8
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_CreateUser_1.DatePicker1.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_CreateUser_1.DatePicker1.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "Leave Calendar Screen",
+                "type": "'Leave Calendar Screen'.ctn_ds_CreateUser_1.DatePicker1"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 8
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_MainContent_1.ctn_ds_List_1.ctn_ds_DetailList_1.Container1.Container1_1.Gallery2.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_MainContent_1.ctn_ds_List_1.ctn_ds_DetailList_1.Container1.Container1_1.Gallery2.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "Leave Calendar Screen",
+                "type": "'Leave Calendar Screen'.ctn_ds_MainContent_1.ctn_ds_List_1.ctn_ds_DetailList_1.Container1.Container1_1.Gallery2"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 8
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_MainContent_1.ctn_ds_List_1.ctn_ds_DetailList_1.Container1.Container1_1.Gallery2.TabIndex"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_MainContent_1.ctn_ds_List_1.ctn_ds_DetailList_1.Container1.Container1_1.Gallery2.TabIndex",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "TabIndex",
+                "module": "Leave Calendar Screen",
+                "type": "'Leave Calendar Screen'.ctn_ds_MainContent_1.ctn_ds_List_1.ctn_ds_DetailList_1.Container1.Container1_1.Gallery2"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-TabIndexShouldBeDefinedForInteractiveControl",
+          "ruleIndex": 9
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_MainContent_1.ctn_ds_List_1.ctn_ds_DetailList_1.Container1.Container1_1.Gallery2.Toggle1.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_MainContent_1.ctn_ds_List_1.ctn_ds_DetailList_1.Container1.Container1_1.Gallery2.Toggle1.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "Leave Calendar Screen",
+                "type": "'Leave Calendar Screen'.ctn_ds_MainContent_1.ctn_ds_List_1.ctn_ds_DetailList_1.Container1.Container1_1.Gallery2.Toggle1"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 8
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_MainContent_1.ctn_ds_List_1.ctn_ds_DetailList_1.Container1.Container1_2.Container2_1.img_ds_File_4.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_MainContent_1.ctn_ds_List_1.ctn_ds_DetailList_1.Container1.Container1_2.Container2_1.img_ds_File_4.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "Leave Calendar Screen",
+                "type": "'Leave Calendar Screen'.ctn_ds_MainContent_1.ctn_ds_List_1.ctn_ds_DetailList_1.Container1.Container1_2.Container2_1.img_ds_File_4"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 8
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_MainContent_1.ctn_ds_List_1.ctn_ds_DetailList_1.Container1.Container1_2.Container2_1.img_ds_File_4.TabIndex"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_MainContent_1.ctn_ds_List_1.ctn_ds_DetailList_1.Container1.Container1_2.Container2_1.img_ds_File_4.TabIndex",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "TabIndex",
+                "module": "Leave Calendar Screen",
+                "type": "'Leave Calendar Screen'.ctn_ds_MainContent_1.ctn_ds_List_1.ctn_ds_DetailList_1.Container1.Container1_2.Container2_1.img_ds_File_4"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-TabIndexShouldBeDefinedForInteractiveControl",
+          "ruleIndex": 9
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_MainContent_1.ctn_ds_List_1.ctn_ds_DetailList_1.Container1.Container1_2.ctn_ds_Search_2.txt_ds_Search_2.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_MainContent_1.ctn_ds_List_1.ctn_ds_DetailList_1.Container1.Container1_2.ctn_ds_Search_2.txt_ds_Search_2.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "Leave Calendar Screen",
+                "type": "'Leave Calendar Screen'.ctn_ds_MainContent_1.ctn_ds_List_1.ctn_ds_DetailList_1.Container1.Container1_2.ctn_ds_Search_2.txt_ds_Search_2"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 8
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_MainContent_1.ctn_ds_List_1.ctn_ds_DetailList_1.Container1.Container1_2.Gallery3.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_MainContent_1.ctn_ds_List_1.ctn_ds_DetailList_1.Container1.Container1_2.Gallery3.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
                 "module": "Leave Calendar Screen",
                 "type": "'Leave Calendar Screen'.ctn_ds_MainContent_1.ctn_ds_List_1.ctn_ds_DetailList_1.Container1.Container1_2.Gallery3"
               }
             }
           ],
           "message": {
-            "arguments": [
-              "Search"
-            ],
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "app-SuggestRemoteExecutionHint",
-          "ruleIndex": 2
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "'Leave Day Screen'.ctn_Navigate_5.ctn_NavigationMenu_5.gal_NavigationMenu_5.AccessibleLabel"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'Leave Day Screen'.ctn_Navigate_5.ctn_NavigationMenu_5.gal_NavigationMenu_5.AccessibleLabel",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "AccessibleLabel",
-                "module": "Leave Day Screen",
-                "type": "'Leave Day Screen'.ctn_Navigate_5.ctn_NavigationMenu_5.gal_NavigationMenu_5"
-              }
-            }
-          ],
-          "message": {
             "id": "issue"
           },
           "properties": {
@@ -840,19 +1380,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'Leave Day Screen'.ctn_Navigate_5.ctn_NavigationMenu_5.gal_NavigationMenu_5.TabIndex"
+                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_MainContent_1.ctn_ds_List_1.ctn_ds_DetailList_1.Container1.Container1_2.Gallery3.TabIndex"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'Leave Day Screen'.ctn_Navigate_5.ctn_NavigationMenu_5.gal_NavigationMenu_5.TabIndex",
+                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_MainContent_1.ctn_ds_List_1.ctn_ds_DetailList_1.Container1.Container1_2.Gallery3.TabIndex",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "TabIndex",
-                "module": "Leave Day Screen",
-                "type": "'Leave Day Screen'.ctn_Navigate_5.ctn_NavigationMenu_5.gal_NavigationMenu_5"
+                "module": "Leave Calendar Screen",
+                "type": "'Leave Calendar Screen'.ctn_ds_MainContent_1.ctn_ds_List_1.ctn_ds_DetailList_1.Container1.Container1_2.Gallery3"
               }
             }
           ],
@@ -870,19 +1410,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'Leave Day Screen'.ctn_lds_AddFile.ico_us_Cancel_6.AccessibleLabel"
+                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_MainContent_1.ctn_ds_List_1.ctn_ds_DetailList_1.Container1.Container1_2.Gallery3.Image3.AccessibleLabel"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'Leave Day Screen'.ctn_lds_AddFile.ico_us_Cancel_6.AccessibleLabel",
+                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_MainContent_1.ctn_ds_List_1.ctn_ds_DetailList_1.Container1.Container1_2.Gallery3.Image3.AccessibleLabel",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "AccessibleLabel",
-                "module": "Leave Day Screen",
-                "type": "'Leave Day Screen'.ctn_lds_AddFile.ico_us_Cancel_6"
+                "module": "Leave Calendar Screen",
+                "type": "'Leave Calendar Screen'.ctn_ds_MainContent_1.ctn_ds_List_1.ctn_ds_DetailList_1.Container1.Container1_2.Gallery3.Image3"
               }
             }
           ],
@@ -900,19 +1440,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'Leave Day Screen'.ctn_lds_AddFile.ico_us_Cancel_6.TabIndex"
+                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_MainContent_1.ctn_ds_List_1.ctn_ds_DetailList_1.Container1.Container1_2.Gallery3.Image3.TabIndex"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'Leave Day Screen'.ctn_lds_AddFile.ico_us_Cancel_6.TabIndex",
+                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_MainContent_1.ctn_ds_List_1.ctn_ds_DetailList_1.Container1.Container1_2.Gallery3.Image3.TabIndex",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "TabIndex",
-                "module": "Leave Day Screen",
-                "type": "'Leave Day Screen'.ctn_lds_AddFile.ico_us_Cancel_6"
+                "module": "Leave Calendar Screen",
+                "type": "'Leave Calendar Screen'.ctn_ds_MainContent_1.ctn_ds_List_1.ctn_ds_DetailList_1.Container1.Container1_2.Gallery3.Image3"
               }
             }
           ],
@@ -930,19 +1470,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'Leave Day Screen'.ctn_lds_AddFile.Form1.Attachments_DataCard1.DataCardValue1.AccessibleLabel"
+                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_MainContent_1.ctn_ds_List_1.ctn_ds_DetailList_1.Container1.Container1_2.Gallery3.Image4.AccessibleLabel"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'Leave Day Screen'.ctn_lds_AddFile.Form1.Attachments_DataCard1.DataCardValue1.AccessibleLabel",
+                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_MainContent_1.ctn_ds_List_1.ctn_ds_DetailList_1.Container1.Container1_2.Gallery3.Image4.AccessibleLabel",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "AccessibleLabel",
-                "module": "Leave Day Screen",
-                "type": "'Leave Day Screen'.ctn_lds_AddFile.Form1.Attachments_DataCard1.DataCardValue1"
+                "module": "Leave Calendar Screen",
+                "type": "'Leave Calendar Screen'.ctn_ds_MainContent_1.ctn_ds_List_1.ctn_ds_DetailList_1.Container1.Container1_2.Gallery3.Image4"
               }
             }
           ],
@@ -960,589 +1500,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'Leave Day Screen'.ctn_lds_Filter.img_lds_File.AccessibleLabel"
+                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_MainContent_1.ctn_ds_List_1.ctn_ds_DetailList_1.Container1.Container1_2.Gallery3.Image4.TabIndex"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'Leave Day Screen'.ctn_lds_Filter.img_lds_File.AccessibleLabel",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "AccessibleLabel",
-                "module": "Leave Day Screen",
-                "type": "'Leave Day Screen'.ctn_lds_Filter.img_lds_File"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-AccessibleLabelNeeded",
-          "ruleIndex": 8
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "'Leave Day Screen'.ctn_lds_Filter.img_lds_File.TabIndex"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'Leave Day Screen'.ctn_lds_Filter.img_lds_File.TabIndex",
+                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_MainContent_1.ctn_ds_List_1.ctn_ds_DetailList_1.Container1.Container1_2.Gallery3.Image4.TabIndex",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "TabIndex",
-                "module": "Leave Day Screen",
-                "type": "'Leave Day Screen'.ctn_lds_Filter.img_lds_File"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-TabIndexShouldBeDefinedForInteractiveControl",
-          "ruleIndex": 9
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "'Leave Day Screen'.ctn_lds_Filter.drp_lds_Employee.AccessibleLabel"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'Leave Day Screen'.ctn_lds_Filter.drp_lds_Employee.AccessibleLabel",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "AccessibleLabel",
-                "module": "Leave Day Screen",
-                "type": "'Leave Day Screen'.ctn_lds_Filter.drp_lds_Employee"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-AccessibleLabelNeeded",
-          "ruleIndex": 8
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "'Leave Day Screen'.ctn_lds_Filter.ctn_lds_Search.txt_lds_Search.AccessibleLabel"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'Leave Day Screen'.ctn_lds_Filter.ctn_lds_Search.txt_lds_Search.AccessibleLabel",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "AccessibleLabel",
-                "module": "Leave Day Screen",
-                "type": "'Leave Day Screen'.ctn_lds_Filter.ctn_lds_Search.txt_lds_Search"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-AccessibleLabelNeeded",
-          "ruleIndex": 8
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "'Leave Day Screen'.ctn_lds_MainContent.ctn_lds_List.ctn_lds_DetailList.gal_lds_List.AccessibleLabel"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'Leave Day Screen'.ctn_lds_MainContent.ctn_lds_List.ctn_lds_DetailList.gal_lds_List.AccessibleLabel",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "AccessibleLabel",
-                "module": "Leave Day Screen",
-                "type": "'Leave Day Screen'.ctn_lds_MainContent.ctn_lds_List.ctn_lds_DetailList.gal_lds_List"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-AccessibleLabelNeeded",
-          "ruleIndex": 8
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "'Leave Day Screen'.ctn_lds_MainContent.ctn_lds_List.ctn_lds_DetailList.gal_lds_List.TabIndex"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'Leave Day Screen'.ctn_lds_MainContent.ctn_lds_List.ctn_lds_DetailList.gal_lds_List.TabIndex",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "TabIndex",
-                "module": "Leave Day Screen",
-                "type": "'Leave Day Screen'.ctn_lds_MainContent.ctn_lds_List.ctn_lds_DetailList.gal_lds_List"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-TabIndexShouldBeDefinedForInteractiveControl",
-          "ruleIndex": 9
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "'Request Detail Screen'.ctn_Navigate_4.ctn_NavigationMenu_4.gal_NavigationMenu_4.AccessibleLabel"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'Request Detail Screen'.ctn_Navigate_4.ctn_NavigationMenu_4.gal_NavigationMenu_4.AccessibleLabel",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "AccessibleLabel",
-                "module": "Request Detail Screen",
-                "type": "'Request Detail Screen'.ctn_Navigate_4.ctn_NavigationMenu_4.gal_NavigationMenu_4"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-AccessibleLabelNeeded",
-          "ruleIndex": 8
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "'Request Detail Screen'.ctn_Navigate_4.ctn_NavigationMenu_4.gal_NavigationMenu_4.TabIndex"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'Request Detail Screen'.ctn_Navigate_4.ctn_NavigationMenu_4.gal_NavigationMenu_4.TabIndex",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "TabIndex",
-                "module": "Request Detail Screen",
-                "type": "'Request Detail Screen'.ctn_Navigate_4.ctn_NavigationMenu_4.gal_NavigationMenu_4"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-TabIndexShouldBeDefinedForInteractiveControl",
-          "ruleIndex": 9
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail.ctn_rds_Reason.drp_rds_Reason.AccessibleLabel"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail.ctn_rds_Reason.drp_rds_Reason.AccessibleLabel",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "AccessibleLabel",
-                "module": "Request Detail Screen",
-                "type": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail.ctn_rds_Reason.drp_rds_Reason"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-AccessibleLabelNeeded",
-          "ruleIndex": 8
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail.ctn_rds_Detail.txt_rds_Detail.AccessibleLabel"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail.ctn_rds_Detail.txt_rds_Detail.AccessibleLabel",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "AccessibleLabel",
-                "module": "Request Detail Screen",
-                "type": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail.ctn_rds_Detail.txt_rds_Detail"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-AccessibleLabelNeeded",
-          "ruleIndex": 8
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail.ctn_rds_Function.dtp_rds_StartDay.AccessibleLabel"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail.ctn_rds_Function.dtp_rds_StartDay.AccessibleLabel",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "AccessibleLabel",
-                "module": "Request Detail Screen",
-                "type": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail.ctn_rds_Function.dtp_rds_StartDay"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-AccessibleLabelNeeded",
-          "ruleIndex": 8
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail.ctn_rds_Division.dtp_rds_FinishDay.AccessibleLabel"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail.ctn_rds_Division.dtp_rds_FinishDay.AccessibleLabel",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "AccessibleLabel",
-                "module": "Request Detail Screen",
-                "type": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail.ctn_rds_Division.dtp_rds_FinishDay"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-AccessibleLabelNeeded",
-          "ruleIndex": 8
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail.ctn_rds_DateType.Gallery5_1.AccessibleLabel"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail.ctn_rds_DateType.Gallery5_1.AccessibleLabel",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "AccessibleLabel",
-                "module": "Request Detail Screen",
-                "type": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail.ctn_rds_DateType.Gallery5_1"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-AccessibleLabelNeeded",
-          "ruleIndex": 8
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail.ctn_rds_DateType.Gallery5_1.TabIndex"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail.ctn_rds_DateType.Gallery5_1.TabIndex",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "TabIndex",
-                "module": "Request Detail Screen",
-                "type": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail.ctn_rds_DateType.Gallery5_1"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-TabIndexShouldBeDefinedForInteractiveControl",
-          "ruleIndex": 9
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail.ctn_rds_DateType.Gallery5_1.Dropdown1_1.AccessibleLabel"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail.ctn_rds_DateType.Gallery5_1.Dropdown1_1.AccessibleLabel",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "AccessibleLabel",
-                "module": "Request Detail Screen",
-                "type": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail.ctn_rds_DateType.Gallery5_1.Dropdown1_1"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-AccessibleLabelNeeded",
-          "ruleIndex": 8
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail.ctn_rds_HandOver.drp_rds_HandOver.AccessibleLabel"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail.ctn_rds_HandOver.drp_rds_HandOver.AccessibleLabel",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "AccessibleLabel",
-                "module": "Request Detail Screen",
-                "type": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail.ctn_rds_HandOver.drp_rds_HandOver"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-AccessibleLabelNeeded",
-          "ruleIndex": 8
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail.ctn_rds_HandOverContent.txt_rds_HandOverContent.AccessibleLabel"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail.ctn_rds_HandOverContent.txt_rds_HandOverContent.AccessibleLabel",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "AccessibleLabel",
-                "module": "Request Detail Screen",
-                "type": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail.ctn_rds_HandOverContent.txt_rds_HandOverContent"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-AccessibleLabelNeeded",
-          "ruleIndex": 8
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail.Form2_1.Attachments_DataCard2_1.DataCardValue5_1.AccessibleLabel"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail.Form2_1.Attachments_DataCard2_1.DataCardValue5_1.AccessibleLabel",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "AccessibleLabel",
-                "module": "Request Detail Screen",
-                "type": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail.Form2_1.Attachments_DataCard2_1.DataCardValue5_1"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-AccessibleLabelNeeded",
-          "ruleIndex": 8
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail2.gal_rds_ApproveProcess.AccessibleLabel"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail2.gal_rds_ApproveProcess.AccessibleLabel",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "AccessibleLabel",
-                "module": "Request Detail Screen",
-                "type": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail2.gal_rds_ApproveProcess"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-AccessibleLabelNeeded",
-          "ruleIndex": 8
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail2.gal_rds_ApproveProcess.TabIndex"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail2.gal_rds_ApproveProcess.TabIndex",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "TabIndex",
-                "module": "Request Detail Screen",
-                "type": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail2.gal_rds_ApproveProcess"
+                "module": "Leave Calendar Screen",
+                "type": "'Leave Calendar Screen'.ctn_ds_MainContent_1.ctn_ds_List_1.ctn_ds_DetailList_1.Container1.Container1_2.Gallery3.Image4"
               }
             }
           ],
@@ -4693,6 +4663,336 @@
                 "member": "TabIndex",
                 "module": "User Screen",
                 "type": "'User Screen'.ctn_us_MainContent.ctn_us_List.ctn_us_DetailList.gal_us_List.ctn_us_ItemList.img_us_Delete"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-TabIndexShouldBeDefinedForInteractiveControl",
+          "ruleIndex": 9
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'Leave Day Screen'.ctn_Navigate_5.ctn_NavigationMenu_5.gal_NavigationMenu_5.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'Leave Day Screen'.ctn_Navigate_5.ctn_NavigationMenu_5.gal_NavigationMenu_5.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "Leave Day Screen",
+                "type": "'Leave Day Screen'.ctn_Navigate_5.ctn_NavigationMenu_5.gal_NavigationMenu_5"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 8
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'Leave Day Screen'.ctn_Navigate_5.ctn_NavigationMenu_5.gal_NavigationMenu_5.TabIndex"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'Leave Day Screen'.ctn_Navigate_5.ctn_NavigationMenu_5.gal_NavigationMenu_5.TabIndex",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "TabIndex",
+                "module": "Leave Day Screen",
+                "type": "'Leave Day Screen'.ctn_Navigate_5.ctn_NavigationMenu_5.gal_NavigationMenu_5"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-TabIndexShouldBeDefinedForInteractiveControl",
+          "ruleIndex": 9
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'Leave Day Screen'.ctn_lds_AddFile.ico_us_Cancel_6.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'Leave Day Screen'.ctn_lds_AddFile.ico_us_Cancel_6.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "Leave Day Screen",
+                "type": "'Leave Day Screen'.ctn_lds_AddFile.ico_us_Cancel_6"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 8
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'Leave Day Screen'.ctn_lds_AddFile.ico_us_Cancel_6.TabIndex"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'Leave Day Screen'.ctn_lds_AddFile.ico_us_Cancel_6.TabIndex",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "TabIndex",
+                "module": "Leave Day Screen",
+                "type": "'Leave Day Screen'.ctn_lds_AddFile.ico_us_Cancel_6"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-TabIndexShouldBeDefinedForInteractiveControl",
+          "ruleIndex": 9
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'Leave Day Screen'.ctn_lds_AddFile.Form1.Attachments_DataCard1.DataCardValue1.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'Leave Day Screen'.ctn_lds_AddFile.Form1.Attachments_DataCard1.DataCardValue1.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "Leave Day Screen",
+                "type": "'Leave Day Screen'.ctn_lds_AddFile.Form1.Attachments_DataCard1.DataCardValue1"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 8
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'Leave Day Screen'.ctn_lds_Filter.img_lds_File.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'Leave Day Screen'.ctn_lds_Filter.img_lds_File.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "Leave Day Screen",
+                "type": "'Leave Day Screen'.ctn_lds_Filter.img_lds_File"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 8
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'Leave Day Screen'.ctn_lds_Filter.img_lds_File.TabIndex"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'Leave Day Screen'.ctn_lds_Filter.img_lds_File.TabIndex",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "TabIndex",
+                "module": "Leave Day Screen",
+                "type": "'Leave Day Screen'.ctn_lds_Filter.img_lds_File"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-TabIndexShouldBeDefinedForInteractiveControl",
+          "ruleIndex": 9
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'Leave Day Screen'.ctn_lds_Filter.drp_lds_Employee.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'Leave Day Screen'.ctn_lds_Filter.drp_lds_Employee.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "Leave Day Screen",
+                "type": "'Leave Day Screen'.ctn_lds_Filter.drp_lds_Employee"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 8
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'Leave Day Screen'.ctn_lds_Filter.ctn_lds_Search.txt_lds_Search.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'Leave Day Screen'.ctn_lds_Filter.ctn_lds_Search.txt_lds_Search.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "Leave Day Screen",
+                "type": "'Leave Day Screen'.ctn_lds_Filter.ctn_lds_Search.txt_lds_Search"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 8
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'Leave Day Screen'.ctn_lds_MainContent.ctn_lds_List.ctn_lds_DetailList.gal_lds_List.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'Leave Day Screen'.ctn_lds_MainContent.ctn_lds_List.ctn_lds_DetailList.gal_lds_List.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "Leave Day Screen",
+                "type": "'Leave Day Screen'.ctn_lds_MainContent.ctn_lds_List.ctn_lds_DetailList.gal_lds_List"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 8
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'Leave Day Screen'.ctn_lds_MainContent.ctn_lds_List.ctn_lds_DetailList.gal_lds_List.TabIndex"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'Leave Day Screen'.ctn_lds_MainContent.ctn_lds_List.ctn_lds_DetailList.gal_lds_List.TabIndex",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "TabIndex",
+                "module": "Leave Day Screen",
+                "type": "'Leave Day Screen'.ctn_lds_MainContent.ctn_lds_List.ctn_lds_DetailList.gal_lds_List"
               }
             }
           ],
@@ -8160,6 +8460,426 @@
             {
               "logicalLocations": [
                 {
+                  "fullyQualifiedName": "'Request Detail Screen'.ctn_Navigate_4.ctn_NavigationMenu_4.gal_NavigationMenu_4.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'Request Detail Screen'.ctn_Navigate_4.ctn_NavigationMenu_4.gal_NavigationMenu_4.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "Request Detail Screen",
+                "type": "'Request Detail Screen'.ctn_Navigate_4.ctn_NavigationMenu_4.gal_NavigationMenu_4"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 8
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'Request Detail Screen'.ctn_Navigate_4.ctn_NavigationMenu_4.gal_NavigationMenu_4.TabIndex"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'Request Detail Screen'.ctn_Navigate_4.ctn_NavigationMenu_4.gal_NavigationMenu_4.TabIndex",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "TabIndex",
+                "module": "Request Detail Screen",
+                "type": "'Request Detail Screen'.ctn_Navigate_4.ctn_NavigationMenu_4.gal_NavigationMenu_4"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-TabIndexShouldBeDefinedForInteractiveControl",
+          "ruleIndex": 9
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail.ctn_rds_Reason.drp_rds_Reason.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail.ctn_rds_Reason.drp_rds_Reason.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "Request Detail Screen",
+                "type": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail.ctn_rds_Reason.drp_rds_Reason"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 8
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail.ctn_rds_Detail.txt_rds_Detail.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail.ctn_rds_Detail.txt_rds_Detail.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "Request Detail Screen",
+                "type": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail.ctn_rds_Detail.txt_rds_Detail"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 8
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail.ctn_rds_Function.dtp_rds_StartDay.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail.ctn_rds_Function.dtp_rds_StartDay.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "Request Detail Screen",
+                "type": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail.ctn_rds_Function.dtp_rds_StartDay"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 8
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail.ctn_rds_Division.dtp_rds_FinishDay.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail.ctn_rds_Division.dtp_rds_FinishDay.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "Request Detail Screen",
+                "type": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail.ctn_rds_Division.dtp_rds_FinishDay"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 8
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail.ctn_rds_DateType.Gallery5_1.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail.ctn_rds_DateType.Gallery5_1.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "Request Detail Screen",
+                "type": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail.ctn_rds_DateType.Gallery5_1"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 8
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail.ctn_rds_DateType.Gallery5_1.TabIndex"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail.ctn_rds_DateType.Gallery5_1.TabIndex",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "TabIndex",
+                "module": "Request Detail Screen",
+                "type": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail.ctn_rds_DateType.Gallery5_1"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-TabIndexShouldBeDefinedForInteractiveControl",
+          "ruleIndex": 9
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail.ctn_rds_DateType.Gallery5_1.Dropdown1_1.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail.ctn_rds_DateType.Gallery5_1.Dropdown1_1.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "Request Detail Screen",
+                "type": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail.ctn_rds_DateType.Gallery5_1.Dropdown1_1"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 8
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail.ctn_rds_HandOver.drp_rds_HandOver.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail.ctn_rds_HandOver.drp_rds_HandOver.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "Request Detail Screen",
+                "type": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail.ctn_rds_HandOver.drp_rds_HandOver"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 8
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail.ctn_rds_HandOverContent.txt_rds_HandOverContent.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail.ctn_rds_HandOverContent.txt_rds_HandOverContent.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "Request Detail Screen",
+                "type": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail.ctn_rds_HandOverContent.txt_rds_HandOverContent"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 8
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail.Form2_1.Attachments_DataCard2_1.DataCardValue5_1.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail.Form2_1.Attachments_DataCard2_1.DataCardValue5_1.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "Request Detail Screen",
+                "type": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail.Form2_1.Attachments_DataCard2_1.DataCardValue5_1"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 8
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail2.gal_rds_ApproveProcess.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail2.gal_rds_ApproveProcess.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "Request Detail Screen",
+                "type": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail2.gal_rds_ApproveProcess"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 8
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail2.gal_rds_ApproveProcess.TabIndex"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail2.gal_rds_ApproveProcess.TabIndex",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "TabIndex",
+                "module": "Request Detail Screen",
+                "type": "'Request Detail Screen'.ctn_rds_MainContent.ctn_rds_Form.ctn_rds_FormDetail2.gal_rds_ApproveProcess"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-TabIndexShouldBeDefinedForInteractiveControl",
+          "ruleIndex": 9
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
                   "fullyQualifiedName": "'History Approve Screen'.ctn_Navigate_2.ctn_NavigationMenu_2.gal_NavigationMenu_2.AccessibleLabel"
                 }
               ],
@@ -9660,726 +10380,6 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_Navigate_9.ctn_NavigationMenu_9.gal_NavigationMenu_9.AccessibleLabel"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_Navigate_9.ctn_NavigationMenu_9.gal_NavigationMenu_9.AccessibleLabel",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "AccessibleLabel",
-                "module": "Leave Calendar Screen",
-                "type": "'Leave Calendar Screen'.ctn_Navigate_9.ctn_NavigationMenu_9.gal_NavigationMenu_9"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-AccessibleLabelNeeded",
-          "ruleIndex": 8
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_Navigate_9.ctn_NavigationMenu_9.gal_NavigationMenu_9.TabIndex"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_Navigate_9.ctn_NavigationMenu_9.gal_NavigationMenu_9.TabIndex",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "TabIndex",
-                "module": "Leave Calendar Screen",
-                "type": "'Leave Calendar Screen'.ctn_Navigate_9.ctn_NavigationMenu_9.gal_NavigationMenu_9"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-TabIndexShouldBeDefinedForInteractiveControl",
-          "ruleIndex": 9
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_UpdateUser_1.ico_ds_Cancel_2.AccessibleLabel"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_UpdateUser_1.ico_ds_Cancel_2.AccessibleLabel",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "AccessibleLabel",
-                "module": "Leave Calendar Screen",
-                "type": "'Leave Calendar Screen'.ctn_ds_UpdateUser_1.ico_ds_Cancel_2"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-AccessibleLabelNeeded",
-          "ruleIndex": 8
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_UpdateUser_1.ico_ds_Cancel_2.TabIndex"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_UpdateUser_1.ico_ds_Cancel_2.TabIndex",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "TabIndex",
-                "module": "Leave Calendar Screen",
-                "type": "'Leave Calendar Screen'.ctn_ds_UpdateUser_1.ico_ds_Cancel_2"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-TabIndexShouldBeDefinedForInteractiveControl",
-          "ruleIndex": 9
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_UpdateUser_1.txt_ds_Name_4.AccessibleLabel"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_UpdateUser_1.txt_ds_Name_4.AccessibleLabel",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "AccessibleLabel",
-                "module": "Leave Calendar Screen",
-                "type": "'Leave Calendar Screen'.ctn_ds_UpdateUser_1.txt_ds_Name_4"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-AccessibleLabelNeeded",
-          "ruleIndex": 8
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_UpdateUser_1.DatePicker1_1.AccessibleLabel"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_UpdateUser_1.DatePicker1_1.AccessibleLabel",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "AccessibleLabel",
-                "module": "Leave Calendar Screen",
-                "type": "'Leave Calendar Screen'.ctn_ds_UpdateUser_1.DatePicker1_1"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-AccessibleLabelNeeded",
-          "ruleIndex": 8
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_DeleteUser_1.ico_ds_Cancel_6.AccessibleLabel"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_DeleteUser_1.ico_ds_Cancel_6.AccessibleLabel",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "AccessibleLabel",
-                "module": "Leave Calendar Screen",
-                "type": "'Leave Calendar Screen'.ctn_ds_DeleteUser_1.ico_ds_Cancel_6"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-AccessibleLabelNeeded",
-          "ruleIndex": 8
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_DeleteUser_1.ico_ds_Cancel_6.TabIndex"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_DeleteUser_1.ico_ds_Cancel_6.TabIndex",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "TabIndex",
-                "module": "Leave Calendar Screen",
-                "type": "'Leave Calendar Screen'.ctn_ds_DeleteUser_1.ico_ds_Cancel_6"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-TabIndexShouldBeDefinedForInteractiveControl",
-          "ruleIndex": 9
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_CreateUser_1.ico_ds_Cancel_3.AccessibleLabel"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_CreateUser_1.ico_ds_Cancel_3.AccessibleLabel",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "AccessibleLabel",
-                "module": "Leave Calendar Screen",
-                "type": "'Leave Calendar Screen'.ctn_ds_CreateUser_1.ico_ds_Cancel_3"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-AccessibleLabelNeeded",
-          "ruleIndex": 8
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_CreateUser_1.ico_ds_Cancel_3.TabIndex"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_CreateUser_1.ico_ds_Cancel_3.TabIndex",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "TabIndex",
-                "module": "Leave Calendar Screen",
-                "type": "'Leave Calendar Screen'.ctn_ds_CreateUser_1.ico_ds_Cancel_3"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-TabIndexShouldBeDefinedForInteractiveControl",
-          "ruleIndex": 9
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_CreateUser_1.txt_ds_Name_3.AccessibleLabel"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_CreateUser_1.txt_ds_Name_3.AccessibleLabel",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "AccessibleLabel",
-                "module": "Leave Calendar Screen",
-                "type": "'Leave Calendar Screen'.ctn_ds_CreateUser_1.txt_ds_Name_3"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-AccessibleLabelNeeded",
-          "ruleIndex": 8
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_CreateUser_1.DatePicker1.AccessibleLabel"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_CreateUser_1.DatePicker1.AccessibleLabel",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "AccessibleLabel",
-                "module": "Leave Calendar Screen",
-                "type": "'Leave Calendar Screen'.ctn_ds_CreateUser_1.DatePicker1"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-AccessibleLabelNeeded",
-          "ruleIndex": 8
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_MainContent_1.ctn_ds_List_1.ctn_ds_DetailList_1.Container1.Container1_1.Gallery2.AccessibleLabel"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_MainContent_1.ctn_ds_List_1.ctn_ds_DetailList_1.Container1.Container1_1.Gallery2.AccessibleLabel",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "AccessibleLabel",
-                "module": "Leave Calendar Screen",
-                "type": "'Leave Calendar Screen'.ctn_ds_MainContent_1.ctn_ds_List_1.ctn_ds_DetailList_1.Container1.Container1_1.Gallery2"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-AccessibleLabelNeeded",
-          "ruleIndex": 8
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_MainContent_1.ctn_ds_List_1.ctn_ds_DetailList_1.Container1.Container1_1.Gallery2.TabIndex"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_MainContent_1.ctn_ds_List_1.ctn_ds_DetailList_1.Container1.Container1_1.Gallery2.TabIndex",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "TabIndex",
-                "module": "Leave Calendar Screen",
-                "type": "'Leave Calendar Screen'.ctn_ds_MainContent_1.ctn_ds_List_1.ctn_ds_DetailList_1.Container1.Container1_1.Gallery2"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-TabIndexShouldBeDefinedForInteractiveControl",
-          "ruleIndex": 9
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_MainContent_1.ctn_ds_List_1.ctn_ds_DetailList_1.Container1.Container1_1.Gallery2.Toggle1.AccessibleLabel"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_MainContent_1.ctn_ds_List_1.ctn_ds_DetailList_1.Container1.Container1_1.Gallery2.Toggle1.AccessibleLabel",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "AccessibleLabel",
-                "module": "Leave Calendar Screen",
-                "type": "'Leave Calendar Screen'.ctn_ds_MainContent_1.ctn_ds_List_1.ctn_ds_DetailList_1.Container1.Container1_1.Gallery2.Toggle1"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-AccessibleLabelNeeded",
-          "ruleIndex": 8
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_MainContent_1.ctn_ds_List_1.ctn_ds_DetailList_1.Container1.Container1_2.Container2_1.img_ds_File_4.AccessibleLabel"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_MainContent_1.ctn_ds_List_1.ctn_ds_DetailList_1.Container1.Container1_2.Container2_1.img_ds_File_4.AccessibleLabel",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "AccessibleLabel",
-                "module": "Leave Calendar Screen",
-                "type": "'Leave Calendar Screen'.ctn_ds_MainContent_1.ctn_ds_List_1.ctn_ds_DetailList_1.Container1.Container1_2.Container2_1.img_ds_File_4"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-AccessibleLabelNeeded",
-          "ruleIndex": 8
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_MainContent_1.ctn_ds_List_1.ctn_ds_DetailList_1.Container1.Container1_2.Container2_1.img_ds_File_4.TabIndex"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_MainContent_1.ctn_ds_List_1.ctn_ds_DetailList_1.Container1.Container1_2.Container2_1.img_ds_File_4.TabIndex",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "TabIndex",
-                "module": "Leave Calendar Screen",
-                "type": "'Leave Calendar Screen'.ctn_ds_MainContent_1.ctn_ds_List_1.ctn_ds_DetailList_1.Container1.Container1_2.Container2_1.img_ds_File_4"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-TabIndexShouldBeDefinedForInteractiveControl",
-          "ruleIndex": 9
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_MainContent_1.ctn_ds_List_1.ctn_ds_DetailList_1.Container1.Container1_2.ctn_ds_Search_2.txt_ds_Search_2.AccessibleLabel"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_MainContent_1.ctn_ds_List_1.ctn_ds_DetailList_1.Container1.Container1_2.ctn_ds_Search_2.txt_ds_Search_2.AccessibleLabel",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "AccessibleLabel",
-                "module": "Leave Calendar Screen",
-                "type": "'Leave Calendar Screen'.ctn_ds_MainContent_1.ctn_ds_List_1.ctn_ds_DetailList_1.Container1.Container1_2.ctn_ds_Search_2.txt_ds_Search_2"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-AccessibleLabelNeeded",
-          "ruleIndex": 8
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_MainContent_1.ctn_ds_List_1.ctn_ds_DetailList_1.Container1.Container1_2.Gallery3.AccessibleLabel"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_MainContent_1.ctn_ds_List_1.ctn_ds_DetailList_1.Container1.Container1_2.Gallery3.AccessibleLabel",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "AccessibleLabel",
-                "module": "Leave Calendar Screen",
-                "type": "'Leave Calendar Screen'.ctn_ds_MainContent_1.ctn_ds_List_1.ctn_ds_DetailList_1.Container1.Container1_2.Gallery3"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-AccessibleLabelNeeded",
-          "ruleIndex": 8
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_MainContent_1.ctn_ds_List_1.ctn_ds_DetailList_1.Container1.Container1_2.Gallery3.TabIndex"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_MainContent_1.ctn_ds_List_1.ctn_ds_DetailList_1.Container1.Container1_2.Gallery3.TabIndex",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "TabIndex",
-                "module": "Leave Calendar Screen",
-                "type": "'Leave Calendar Screen'.ctn_ds_MainContent_1.ctn_ds_List_1.ctn_ds_DetailList_1.Container1.Container1_2.Gallery3"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-TabIndexShouldBeDefinedForInteractiveControl",
-          "ruleIndex": 9
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_MainContent_1.ctn_ds_List_1.ctn_ds_DetailList_1.Container1.Container1_2.Gallery3.Image3.AccessibleLabel"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_MainContent_1.ctn_ds_List_1.ctn_ds_DetailList_1.Container1.Container1_2.Gallery3.Image3.AccessibleLabel",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "AccessibleLabel",
-                "module": "Leave Calendar Screen",
-                "type": "'Leave Calendar Screen'.ctn_ds_MainContent_1.ctn_ds_List_1.ctn_ds_DetailList_1.Container1.Container1_2.Gallery3.Image3"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-AccessibleLabelNeeded",
-          "ruleIndex": 8
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_MainContent_1.ctn_ds_List_1.ctn_ds_DetailList_1.Container1.Container1_2.Gallery3.Image3.TabIndex"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_MainContent_1.ctn_ds_List_1.ctn_ds_DetailList_1.Container1.Container1_2.Gallery3.Image3.TabIndex",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "TabIndex",
-                "module": "Leave Calendar Screen",
-                "type": "'Leave Calendar Screen'.ctn_ds_MainContent_1.ctn_ds_List_1.ctn_ds_DetailList_1.Container1.Container1_2.Gallery3.Image3"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-TabIndexShouldBeDefinedForInteractiveControl",
-          "ruleIndex": 9
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_MainContent_1.ctn_ds_List_1.ctn_ds_DetailList_1.Container1.Container1_2.Gallery3.Image4.AccessibleLabel"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_MainContent_1.ctn_ds_List_1.ctn_ds_DetailList_1.Container1.Container1_2.Gallery3.Image4.AccessibleLabel",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "AccessibleLabel",
-                "module": "Leave Calendar Screen",
-                "type": "'Leave Calendar Screen'.ctn_ds_MainContent_1.ctn_ds_List_1.ctn_ds_DetailList_1.Container1.Container1_2.Gallery3.Image4"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-AccessibleLabelNeeded",
-          "ruleIndex": 8
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_MainContent_1.ctn_ds_List_1.ctn_ds_DetailList_1.Container1.Container1_2.Gallery3.Image4.TabIndex"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'Leave Calendar Screen'.ctn_ds_MainContent_1.ctn_ds_List_1.ctn_ds_DetailList_1.Container1.Container1_2.Gallery3.Image4.TabIndex",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "TabIndex",
-                "module": "Leave Calendar Screen",
-                "type": "'Leave Calendar Screen'.ctn_ds_MainContent_1.ctn_ds_List_1.ctn_ds_DetailList_1.Container1.Container1_2.Gallery3.Image4"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-TabIndexShouldBeDefinedForInteractiveControl",
-          "ruleIndex": 9
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
                   "fullyQualifiedName": "App.locCurrentCalendarLeaveRequest"
                 }
               ],
@@ -10560,35 +10560,6 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'Leave Day Screen'.ctn_lds_AddFile.Form1.Attachments_DataCard1.DataCardValue1"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "'Leave Day Screen'.ctn_lds_AddFile.Form1.Attachments_DataCard1.DataCardValue1",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "module": "Leave Day Screen",
-                "type": "'Leave Day Screen'.ctn_lds_AddFile.Form1.Attachments_DataCard1.DataCardValue1"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Low"
-          },
-          "ruleId": "app-NumericPropertySizeWarning",
-          "ruleIndex": 15
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
                   "fullyQualifiedName": "'User Screen'.locAdd"
                 }
               ],
@@ -10643,6 +10614,35 @@
           },
           "ruleId": "app-UnusedVariables",
           "ruleIndex": 12
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "'Leave Day Screen'.ctn_lds_AddFile.Form1.Attachments_DataCard1.DataCardValue1"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'Leave Day Screen'.ctn_lds_AddFile.Form1.Attachments_DataCard1.DataCardValue1",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "module": "Leave Day Screen",
+                "type": "'Leave Day Screen'.ctn_lds_AddFile.Form1.Attachments_DataCard1.DataCardValue1"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Low"
+          },
+          "ruleId": "app-NumericPropertySizeWarning",
+          "ruleIndex": 15
         },
         {
           "locations": [
@@ -10770,6 +10770,25 @@
           "name": "PowerApps app checker",
           "rules": [
             {
+              "id": "app-SuggestRemoteExecutionHint",
+              "messageStrings": {
+                "issue": {
+                  "text": "Delegation warning. The \"{0}\" part of this formula might not work correctly on large data sets."
+                }
+              },
+              "properties": {
+                "componentType": "app",
+                "howToFix": [
+                  "If your data set exceeds the 500 record limit but contains less than 2,000 records, try resetting the limit.",
+                  "Try simplifying the formula.",
+                  "Try moving your data to a different data source."
+                ],
+                "level": "Medium",
+                "primaryCategory": "formula",
+                "whyFix": ""
+              }
+            },
+            {
               "id": "app-ErrBadToken",
               "messageStrings": {
                 "issue": {
@@ -10799,25 +10818,6 @@
                   "Remove or replace the unexpected characters with an expected character."
                 ],
                 "level": "High",
-                "primaryCategory": "formula",
-                "whyFix": ""
-              }
-            },
-            {
-              "id": "app-SuggestRemoteExecutionHint",
-              "messageStrings": {
-                "issue": {
-                  "text": "Delegation warning. The \"{0}\" part of this formula might not work correctly on large data sets."
-                }
-              },
-              "properties": {
-                "componentType": "app",
-                "howToFix": [
-                  "If your data set exceeds the 500 record limit but contains less than 2,000 records, try resetting the limit.",
-                  "Try simplifying the formula.",
-                  "Try moving your data to a different data source."
-                ],
-                "level": "Medium",
                 "primaryCategory": "formula",
                 "whyFix": ""
               }

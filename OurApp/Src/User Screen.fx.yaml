@@ -6,7 +6,7 @@
         If(CountRows(Filter(gblColDepartment,name = "Tất cả")) = 0,Clear(gblColDepartment);Collect(gblColDepartment,Table({name:"Tất cả"}));//Lấy tất cả phòng về
         Collect(
             gblColDepartment,
-            ShowColumns('ASTakeLeave.Department', "ID", "name", "divisionID", "active")
+            ShowColumns(Filter('ASTakeLeave.Department',active = 1), "ID", "name", "divisionID", "active")
         ));
         //Tạo collect cho bảng vai trò để thêm 1 item "Tất cả"
         ClearCollect(gblColRoles,Table({name:"Tất cả"}));

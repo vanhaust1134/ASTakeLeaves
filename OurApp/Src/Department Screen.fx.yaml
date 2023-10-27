@@ -6,14 +6,14 @@
         Clear(gblColDivision);Collect(gblColDivision,Table({name:"Tất cả"}));//Lấy tất cả khối về
         Collect(
             gblColDivision,
-            ShowColumns('ASTakeLeave.Division', "ID", "name", "directorUserID", "active")
+            ShowColumns(Filter('ASTakeLeave.Division',active = 1), "ID", "name", "directorUserID", "active")
         );
         
         //Tạo collect cho bảng phòng để thêm 1 item "Tất cả"
         Refresh('ASTakeLeave.Department');
         Clear(gblColDepartment);Collect(gblColDepartment,Table({name:"Tất cả"}));Collect(
             gblColDepartment,
-            ShowColumns('ASTakeLeave.Department', "ID", "name", "divisionID", "active")
+            ShowColumns(Filter('ASTakeLeave.Department',active = 1), "ID", "name", "divisionID", "active")
         );
         
         Refresh('ASTakeLeave.Users');
@@ -30,12 +30,12 @@
         If(CountRows(Filter(gblColDivision,name = "Tất cả")) = 0,Clear(gblColDivision);Collect(gblColDivision,Table({name:"Tất cả"}));//Lấy tất cả khối về
         Collect(
             gblColDivision,
-            ShowColumns('ASTakeLeave.Division', "ID", "name", "directorUserID", "active")
+            ShowColumns(Filter('ASTakeLeave.Division',active = 1), "ID", "name", "directorUserID", "active")
         ));
         //Tạo collect cho bảng phòng để thêm 1 item "Tất cả"
         If(CountRows(Filter(gblColDepartment,name = "Tất cả")) = 0,Clear(gblColDepartment);Collect(gblColDepartment,Table({name:"Tất cả"}));Collect(
             gblColDepartment,
-            ShowColumns('ASTakeLeave.Department', "ID", "name", "divisionID", "active")
+            ShowColumns(Filter('ASTakeLeave.Department',active = 1), "ID", "name", "divisionID", "active")
         ));
 
     btn_ds_BackGroundScreen As button:
