@@ -1411,6 +1411,12 @@
                                 NotificationType.Error,
                                 1500
                             ),
+                            locShowErrorDate <> "Ngày tạo hợp lệ",
+                            Notify(
+                                "Ngày tạo không hợp lệ",
+                                NotificationType.Error,
+                                1500
+                            ),
                             Collect(colRecordTotalDayLeaveByMonth,AddColumns(Sequence(12,1) As Temp,"TotalLeaveDay",If(Sum(Filter(colTotalListDateRange,Month(Date) = Temp.Value),Total)=0,0,Sum(Filter(colTotalListDateRange,Month(Date) = Temp.Value),Total)),"TotalLeaveDayUnPaidByMonth",If(locTotalDayLeaveNumber = locMaxDayLeaveNumber,Sum(Filter(colTotalListDateRange,Month(Date) = Temp.Value),Total),0)));
                             UpdateContext({locSubmit: true});
                             /*ClearCollect(
