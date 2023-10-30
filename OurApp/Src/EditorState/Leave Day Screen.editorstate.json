@@ -5462,7 +5462,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "ctn_lds_Info2",
-      "ParentIndex": 1,
+      "ParentIndex": 0,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -10338,7 +10338,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "img_lds_Avatar",
-      "ParentIndex": 0,
+      "ParentIndex": 1,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -11372,7 +11372,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "img_us_Edit_4",
-      "ParentIndex": 6,
+      "ParentIndex": 0,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -12301,7 +12301,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "lb_lds_UserName",
-      "ParentIndex": 0,
+      "ParentIndex": 1,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -12964,7 +12964,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "lbl_lds_Division",
-      "ParentIndex": 1,
+      "ParentIndex": 2,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -13307,7 +13307,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "lbl_lds_ItemDivision",
-      "ParentIndex": 1,
+      "ParentIndex": 2,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -13647,7 +13647,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "lbl_lds_ItemLeaveDay",
-      "ParentIndex": 2,
+      "ParentIndex": 3,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -13982,7 +13982,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "lbl_lds_ItemLeaveDay_1",
-      "ParentIndex": 4,
+      "ParentIndex": 5,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -14317,7 +14317,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "lbl_lds_ItemLeaveDay_2",
-      "ParentIndex": 5,
+      "ParentIndex": 6,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -14652,7 +14652,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "lbl_lds_ItemTimeTotal",
-      "ParentIndex": 3,
+      "ParentIndex": 4,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -14988,7 +14988,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "lbl_lds_ItemUserName",
-      "ParentIndex": 0,
+      "ParentIndex": 1,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -15321,7 +15321,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "lbl_lds_LeaveDay",
-      "ParentIndex": 3,
+      "ParentIndex": 4,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -15649,7 +15649,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "lbl_lds_LeaveDay_1",
-      "ParentIndex": 4,
+      "ParentIndex": 5,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -15977,7 +15977,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "lbl_lds_LeaveDay_2",
-      "ParentIndex": 5,
+      "ParentIndex": 6,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -16320,7 +16320,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "lbl_lds_LeaveDay_3",
-      "ParentIndex": 6,
+      "ParentIndex": 0,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -16994,7 +16994,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "lbl_lds_TimeTotal",
-      "ParentIndex": 2,
+      "ParentIndex": 3,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {

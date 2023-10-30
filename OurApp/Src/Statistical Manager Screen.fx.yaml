@@ -10,7 +10,7 @@
                     gblColUserBelong As temp,   //collection đã có từ onstart
                     Concurrent(
                         Collect(                
-                            locColReportManagerTotalDayOffInYear,   //Lấy các thông tin nghỉ phép trong tất cả năm
+                            locColReportManagerTotalDayOffInYear,   //Lấy các thông tin nghỉ phép trong tất cả năm                       
                             AddColumns(
                                 Filter('ASTakeLeave.TotalDayOffInYear', userID = temp.userID, active = 1),
                                 "departmentID",
@@ -929,7 +929,7 @@
                         ID: 1,
                         text: "Theo biểu đồ hiện tại"
                     },
-                     {
+                    {
                         ID: 2,
                         text: $"Tất cả trong năm hiện tại ({Year(Today())})"
                     }
@@ -991,12 +991,11 @@
                             locColManagerReportDataYear,
                             Filter(
                                 ShowColumns(
-                                    locColReportManagerTotalDayOffInYear, 
-                                    "userID", "email", "maxDayOff_Year", "totalDayOff_Year", "totalDayLeft_Year", "totalDayUnpaid_Year", "year", "active", "departmentID", "divisionID"
+                                    locColReportManagerTotalDayOffInMonth, 
+                                    "userID", "email", "totalDayOff_Month", "totalDayUnpaid_Month", "month", "year", "departmentID", "divisionID"
                                 ), 
                                 year = Dropdown3_5.Selected.Value,
-                                If(locBoolReportManagerFilterDepartmentStatus, departmentID = Dropdown3_4.Selected.ID, true),
-                                active = 1
+                                If(locBoolReportManagerFilterDepartmentStatus, departmentID = Dropdown3_4.Selected.ID, true)
                             )
                         );
                         ClearCollect(
@@ -1005,8 +1004,8 @@
                                 Sequence(12, 1) As temp,
                                 {
                                     month: temp.Value,
-                                    dayOffSum: Sum(Filter(locColManagerReportDataYear, month = temp.Value), totalDayOff_Year),
-                                    dayOffUnPaidSum: Sum(Filter(locColManagerReportDataYear, month = temp.Value), totalDayUnpaid_Year)
+                                    dayOffSum: Sum(Filter(locColManagerReportDataYear, month = temp.Value), totalDayOff_Month),
+                                    dayOffUnPaidSum: Sum(Filter(locColManagerReportDataYear, month = temp.Value), totalDayUnpaid_Month)
                                 }
                             )
                         )
@@ -1026,7 +1025,7 @@
                         locBoolReportManagerFilterTotalStatus || locBoolReportManagerFilterPersonalStatus, //Đang filter tất cả nhân viên hoặc cá nhân
                         Clear(locColReportExportDataMonthFilter);  //Tạo lại data export
                         ForAll(
-                            locColManagerReportData As temp,
+                            locColManagerReportDataMonth As temp,
                             Collect(
                                 locColReportExportDataMonthFilter,
                                 temp,
@@ -1049,54 +1048,53 @@
                                                     )
                                                     }",
                             JSON(locColReportExportDataMonthFilter, JSONFormat.IncludeBinaryData),
-                            2
+                            1
                         ),
                 
                         //Nếu là filter theo năm
-                        Clear(locColReportExportDataAll);  //Tạo lại data export
-                        ForAll(
-                            locColManagerReportData As temp,
-                            Collect(
-                                locColReportExportDataAll,
-                                temp,
-                                {   
-                                    name: LookUp(gblColAllUser, userID = temp.userID).fullName,
-                                    jobTitle: LookUp(gblColAllUser, userID = temp.userID).jobTitle,
-                                    division: LookUp(gblColDivision, ID = temp.divisionID).name,
-                                    department: LookUp(gblColDepartment, ID = temp.departmentID).name
-                                }
+                        Clear(locColReportExportDataYear);  //Tạo lại data export
+                        ClearCollect(
+                            locColReportExportDataYear,
+                            AddColumns(
+                                ShowColumns(
+                                    Filter(locColReportManagerTotalDayOffInYear, year = Dropdown3_5.Selected.Value),
+                                    "userID", "email", "totalDayOff_Year", "totalDayUnpaid_Year", "maxDayOff_Year", "totalDayLeft_Year", "year", "departmentID", "divisionID"
+                                ) As temp,
+                                "name", LookUp(gblColAllUser, userID = temp.userID).fullName,
+                                "jobTitle", LookUp(gblColAllUser, userID = temp.userID).jobTitle,
+                                "division", LookUp(gblColDivision, ID = temp.divisionID).name,
+                                "department", LookUp(gblColDepartment, ID = temp.departmentID).name
                             )
                         );
                         //Export bằng flow
                         'ASTakeLeave.ExportReportFile'.Run(
-                            $"TongHopNgayNghi_Thang{
-                                                    If(                                  
-                                                        locBoolReportManagerFilterTotalStatus, 
-                                                        Dropdown3_3.Selected.Value, 
-                                                        Dropdown3_1.Selected.Value
-                                                        )}_{Year(Dropdown3_5.Selected.Value)}_{Hour(Now())}{Minute(Now())}{Second(Now()
-                                                    )
-                                                    }",
-                            JSON(locColReportExportDataAll, JSONFormat.IncludeBinaryData),
+                            $"TongHopNgayNghi_Nam{Year(Dropdown3_5.Selected.Value)}_{Hour(Now())}{Minute(Now())}{Second(Now())}",
+                            JSON(locColReportExportDataYear, JSONFormat.IncludeBinaryData),
                             2
                         )
                     ),
                 
-                    Clear(locColReportExportDataAll);  //Tạo lại data export
+                    Clear(locColReportExportDataYear);  //Tạo lại data export
                     //Xuất tất cả trong năm hiện tại
-                    ForAll(
-                        Filter(locColReportManagerTotalDayOffInYear, year = Year(Today())) As temp,
-                        Collect(
-                            locColReportExportDataAll,
-                            temp,
-                            {   
-                                name: LookUp(gblColAllUser, userID = temp.userID).fullName,
-                                jobTitle: LookUp(gblColAllUser, userID = temp.userID).jobTitle,
-                                division: LookUp(gblColDivision, ID = temp.divisionID).name,
-                                department: LookUp(gblColDepartment, ID = temp.departmentID).name
-                            }
+                    ClearCollect(
+                            locColReportExportDataYear,
+                            AddColumns(
+                                ShowColumns(
+                                    Filter(locColReportManagerTotalDayOffInYear, year = Year(Today())),
+                                    "userID", "email", "totalDayOff_Year", "totalDayUnpaid_Year", "maxDayOff_Year", "totalDayLeft_Year", "year", "departmentID", "divisionID"
+                                ) As temp,
+                                "name", LookUp(gblColAllUser, userID = temp.userID).fullName,
+                                "jobTitle", LookUp(gblColAllUser, userID = temp.userID).jobTitle,
+                                "division", LookUp(gblColDivision, ID = temp.divisionID).name,
+                                "department", LookUp(gblColDepartment, ID = temp.departmentID).name
+                            )
+                        );
+                        //Export bằng flow
+                        'ASTakeLeave.ExportReportFile'.Run(
+                            $"TongHopNgayNghi_Nam{Year(Today())}_{Hour(Now())}{Minute(Now())}{Second(Now())}",
+                            JSON(locColReportExportDataYear, JSONFormat.IncludeBinaryData),
+                            2
                         )
-                    );
                 );
                 
                 
