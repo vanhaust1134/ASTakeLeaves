@@ -171,6 +171,36 @@
     "dependents": [],
     "id": "937af40b-402d-4b6c-9c16-aee134bae008"
   },
+  "b59dfbd7-972f-4c72-af82-8e47a4271975": {
+    "connectionRef": {
+      "displayName": "Logic flows",
+      "iconUri": "https://connectoricons-prod.azureedge.net/releases/v1.0.1664/1.0.1664.3477/logicflows/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_logicflows",
+      "parameterHints": {
+        "workflowEntityId": {
+          "value": "abf7bf1e-f976-ee11-8179-000d3aa0d035"
+        },
+        "workflowName": {
+          "value": "5e45f99c-d1a3-462f-815f-2b34113d9223"
+        }
+      },
+      "parameterHintsV2": {
+        "workflowEntityId": {
+          "value": "abf7bf1e-f976-ee11-8179-000d3aa0d035"
+        },
+        "workflowName": {
+          "value": "5e45f99c-d1a3-462f-815f-2b34113d9223"
+        }
+      }
+    },
+    "datasets": {},
+    "dataSources": [
+      "ASTakeLeave.ExportReportFile"
+    ],
+    "dependencies": {},
+    "dependents": [],
+    "id": "b59dfbd7-972f-4c72-af82-8e47a4271975"
+  },
   "cf341574-441c-4f2a-a3b6-ead8c294cdc6": {
     "appActions": [
       "providers/PowerPlatform.Governance/Operations/Read",

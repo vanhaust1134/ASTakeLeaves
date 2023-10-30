@@ -1,0 +1,10 @@
+[
+  {
+    "ApiId": "/providers/microsoft.powerapps/apis/shared_logicflows",
+    "FlowNameId": "5ba0606f-3349-4729-ac0b-b8a2e93985cb",
+    "Name": "ASTakeLeave.ExportReportFile",
+    "ServiceKind": "ConnectedWadl",
+    "Type": "ServiceInfo",
+    "WorkflowEntityId": "abf7bf1e-f976-ee11-8179-000d3aa0d035"
+  }
+]

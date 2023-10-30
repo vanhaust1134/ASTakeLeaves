@@ -6910,7 +6910,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "ctn_as_MainContent",
-      "ParentIndex": 8,
+      "ParentIndex": 6,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -7564,7 +7564,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "ctn_as_Title",
-      "ParentIndex": 7,
+      "ParentIndex": 5,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {

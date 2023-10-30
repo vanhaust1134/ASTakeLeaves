@@ -97,7 +97,7 @@
       "zeroalltabindexes": false
     },
     "Author": "",
-    "BindingErrorCount": 0,
+    "BindingErrorCount": 39,
     "ContainsThirdPartyPcfControls": false,
     "DefaultConnectedDataSourceMaxGetRowsCount": 500,
     "DocumentAppType": "DesktopOrTablet",
@@ -110,11 +110,11 @@
     "DocumentType": "App",
     "EnableInstrumentation": false,
     "FileID": "306ef002-5c1f-4d60-b80f-a4dc85a4c3ce",
-    "Id": "1c9c0f9c-64c5-402d-9b9f-5911bcb3b47c",
+    "Id": "9e2aeb08-e308-44a9-b9f5-a28459ff2cab",
     "InstrumentationKey": "",
     "LocalDatabaseReferences": "{}",
     "ManualOfflineProfileId": "",
-    "Name": "AS_LeaveApplication",
+    "Name": "AS_LeaveApplication.msapp",
     "OriginatingVersion": "1.334",
     "ParserErrorCount": 0,
     "ShowStatusBar": false
