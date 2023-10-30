@@ -1028,7 +1028,7 @@
                         'ASTakeLeave.UserRelationship',
                         Defaults('ASTakeLeave.UserRelationship'),
                         {
-                            approveUserID: If(drp_us_Roles_1.Selected.ID = 1 Or drp_us_Roles_1.Selected.ID = 5 Or drp_us_Roles_1.Selected.ID = 7,drp_us_Manager.Selected.userID,Blank()),
+                            approveUserID: If(drp_us_Roles_1.Selected.ID = 1 Or drp_us_Roles_1.Selected.ID = 5,drp_us_Manager.Selected.userID,Blank()),
                             userID: txt_us_Name_3.Text,
                             approveProcessLevel: 1,
                             active: 1
@@ -1226,7 +1226,7 @@
             Align: =Align.Right
             FontWeight: =FontWeight.Semibold
             Text: ="Quản lý trực tiếp"
-            Visible: =If(drp_us_Roles_1.Selected.ID = 1 Or drp_us_Roles_1.Selected.ID = 7 Or drp_us_Roles_1.Selected.ID = 5,true,false)
+            Visible: =If(drp_us_Roles_1.Selected.ID = 1 Or drp_us_Roles_1.Selected.ID = 5,true,false)
             Width: =162
             X: =375
             Y: =If(drp_us_Roles_1.Selected.ID = 1 Or drp_us_Roles_1.Selected.ID = 2 Or drp_us_Roles_1.Selected.ID = 7 Or drp_us_Roles_1.Selected.ID = 5,595,471)
@@ -1235,8 +1235,8 @@
         drp_us_Manager As dropdown:
             BorderColor: =RGBA(116, 116, 116, 1)
             BorderThickness: =1
-            Items: =Filter(gblColAllUser,active = 1 And roleID = 2)
-            Visible: =If(drp_us_Roles_1.Selected.ID = 1 Or drp_us_Roles_1.Selected.ID = 7 Or drp_us_Roles_1.Selected.ID = 5,true,false)
+            Items: =Filter(gblColAllUser,active = 1 And roleID = 2 Or roleID = 3)
+            Visible: =If(drp_us_Roles_1.Selected.ID = 1 Or drp_us_Roles_1.Selected.ID = 5,true,false)
             X: =548
             Y: =If(drp_us_Roles_1.Selected.ID = 1 Or drp_us_Roles_1.Selected.ID = 2 Or drp_us_Roles_1.Selected.ID = 7 Or drp_us_Roles_1.Selected.ID = 5,595,471)
             ZIndex: =21
@@ -1479,7 +1479,7 @@
                         'ASTakeLeave.UserRelationship',
                         Defaults('ASTakeLeave.UserRelationship'),
                         {
-                            approveUserID: If(drp_us_Roles_2.Selected.ID = 1 Or drp_us_Roles_2.Selected.ID = 5 Or drp_us_Roles_2.Selected.ID = 7,cbo_us_Manager_2.Selected.userID,Blank()),
+                            approveUserID: If(drp_us_Roles_2.Selected.ID = 1 Or drp_us_Roles_2.Selected.ID = 5,cbo_us_Manager_2.Selected.userID,Blank()),
                             userID: txt_us_Name_6.Text,
                             approveProcessLevel: 1,
                             active: 1
@@ -1665,7 +1665,7 @@
             Align: =Align.Right
             FontWeight: =FontWeight.Semibold
             Text: ="Quản lý trực tiếp"
-            Visible: =If(drp_us_Roles_2.Selected.ID = 1 Or drp_us_Roles_2.Selected.ID = 5 Or drp_us_Roles_2.Selected.ID = 7,true,false)
+            Visible: =If(drp_us_Roles_2.Selected.ID = 1 Or drp_us_Roles_2.Selected.ID = 5,true,false)
             Width: =162
             X: =375
             Y: =If(drp_us_Roles_2.Selected.ID = 1 Or drp_us_Roles_2.Selected.ID = 2 Or drp_us_Roles_2.Selected.ID = 5 Or drp_us_Roles_2.Selected.ID = 7,595,480)
@@ -1733,7 +1733,7 @@
             SearchFields: =["email"]
             SearchItems: =Search(Filter(gblColAllUser,active = 1 And roleID = 2 And userID <> locUser.userID),cbo_us_Manager_2.SearchText,"email")
             SelectMultiple: =false
-            Visible: =If(drp_us_Roles_2.Selected.ID = 1 Or drp_us_Roles_2.Selected.ID = 5 Or drp_us_Roles_2.Selected.ID = 7,true,false)
+            Visible: =If(drp_us_Roles_2.Selected.ID = 1 Or drp_us_Roles_2.Selected.ID = 5,true,false)
             X: =548
             Y: =If(drp_us_Roles_2.Selected.ID = 1 Or drp_us_Roles_2.Selected.ID = 2 Or drp_us_Roles_2.Selected.ID = 5 Or drp_us_Roles_2.Selected.ID = 7,595,480)
             ZIndex: =27
@@ -1985,7 +1985,7 @@
             Align: =Align.Right
             FontWeight: =FontWeight.Semibold
             Text: ="Quản lý trực tiếp"
-            Visible: =If(drp_us_Roles_7.Selected.ID = 1 Or drp_us_Roles_7.Selected.ID = 5 Or drp_us_Roles_7.Selected.ID = 7,true,false)
+            Visible: =If(drp_us_Roles_7.Selected.ID = 1 Or drp_us_Roles_7.Selected.ID = 5,true,false)
             Width: =162
             X: =375
             Y: =If(drp_us_Roles_7.Selected.ID = 1 Or drp_us_Roles_7.Selected.ID = 2 Or drp_us_Roles_7.Selected.ID = 5 Or drp_us_Roles_7.Selected.ID = 7,595,475)
@@ -1999,7 +1999,7 @@
             DisabledFill: =RGBA(255, 255, 255, 1)
             DisplayMode: =DisplayMode.Disabled
             Items: =LookUp(gblColAllUser,active = 1 And userID = LookUp(gblColManagerByUser,userID = locUser.userID).approveUserID)
-            Visible: =If(drp_us_Roles_7.Selected.ID = 1 Or drp_us_Roles_7.Selected.ID = 5 Or drp_us_Roles_7.Selected.ID = 7,true,false)
+            Visible: =If(drp_us_Roles_7.Selected.ID = 1 Or drp_us_Roles_7.Selected.ID = 5,true,false)
             X: =548
             Y: =If(drp_us_Roles_7.Selected.ID = 1 Or drp_us_Roles_7.Selected.ID = 2 Or drp_us_Roles_7.Selected.ID = 5 Or drp_us_Roles_7.Selected.ID = 7,595,475)
             ZIndex: =21
