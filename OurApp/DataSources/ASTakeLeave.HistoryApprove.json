@@ -35,6 +35,7 @@
       "OData__ColorTag": "Color Tag",
       "requestID": "requestID",
       "status": "status",
+      "step": "step",
       "Title": "Title",
       "userID": "userID"
     },

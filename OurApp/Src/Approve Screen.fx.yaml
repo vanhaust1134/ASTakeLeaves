@@ -436,6 +436,7 @@
                             ZIndex: =5
 
                             "Gallery11_8 As gallery.'BrowseLayout_Horizontal_TwoTextOneImageVariant_ver5.0'":
+                                AlignInContainer: =AlignInContainer.Center
                                 DelayItemLoading: =true
                                 Height: |
                                     =30
