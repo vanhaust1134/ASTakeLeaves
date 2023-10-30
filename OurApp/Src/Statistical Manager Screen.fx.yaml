@@ -929,7 +929,7 @@
                         ID: 1,
                         text: "Theo biểu đồ hiện tại"
                     },
-                     {
+                    {
                         ID: 2,
                         text: $"Tất cả trong năm hiện tại ({Year(Today())})"
                     }
@@ -1048,7 +1048,7 @@
                                                     )
                                                     }",
                             JSON(locColReportExportDataMonthFilter, JSONFormat.IncludeBinaryData),
-                            2
+                            1
                         ),
                 
                         //Nếu là filter theo năm

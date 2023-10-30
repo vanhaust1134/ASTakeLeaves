@@ -16158,7 +16158,7 @@
       "Properties": [
         {
           "Category": "Data",
-          "NameMap": "{\"Value\":\"Value\"}",
+          "NameMap": "{\"Value\":\"text\"}",
           "PropertyName": "Items",
           "RuleProviderType": "Unknown"
         },
