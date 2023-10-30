@@ -1399,7 +1399,10 @@
                                 NotificationType.Error,
                                 1500
                             ),
-                            Sum(colTotalListDateRange,Total) > First(colMaxDayLeave).TotalDayLeaveAllow,
+                            Sum(
+                                colTotalListDateRange,
+                                Total
+                            ) > First(colMaxDayLeave).TotalDayLeaveAllow,
                             Notify(
                                 "Tổng ngày nghỉ lớn hơn ngày nghỉ cho phép",
                                 NotificationType.Error,
@@ -1417,7 +1420,35 @@
                                 NotificationType.Error,
                                 1500
                             ),
-                            Collect(colRecordTotalDayLeaveByMonth,AddColumns(Sequence(12,1) As Temp,"TotalLeaveDay",If(Sum(Filter(colTotalListDateRange,Month(Date) = Temp.Value),Total)=0,0,Sum(Filter(colTotalListDateRange,Month(Date) = Temp.Value),Total)),"TotalLeaveDayUnPaidByMonth",If(locTotalDayLeaveNumber = locMaxDayLeaveNumber,Sum(Filter(colTotalListDateRange,Month(Date) = Temp.Value),Total),0)));
+                            Clear(colDayLeft);Clear(colRecordTotalDayLeaveByMonthCalculated);
+                            ClearCollect(
+                                colRecordTotalDayLeaveByMonth,
+                                AddColumns(
+                                    Sequence(
+                                        12,
+                                        1
+                                    ) As Temp,
+                                    "TotalLeaveDay",
+                                    If(
+                                        IsBlank(Sum(
+                                            Filter(
+                                                colTotalListDateRange,
+                                                Month(Date) = Temp.Value
+                                            ),
+                                            Total
+                                        )),
+                                        0,
+                                        Sum(
+                                            Filter(
+                                                colTotalListDateRange,
+                                                Month(Date) = Temp.Value
+                                            ),
+                                            Total
+                                        )
+                                    )
+                                )
+                            );
+                            ForAll(colRecordTotalDayLeaveByMonth As Temp,Collect(colDayLeft,Table({Result:If(Temp.TotalLeaveDay = 0,0,2 - Temp.TotalLeaveDay)}));Collect(colRecordTotalDayLeaveByMonthCalculated,Table({Month:Temp.Value,TotalLeaveDay:Temp.TotalLeaveDay,TotalLeaveUnpaid:Last(colDayLeft).Result})));
                             UpdateContext({locSubmit: true});
                             /*ClearCollect(
                                 colListDateRange,
@@ -1950,16 +1981,32 @@
                             ).userID,
                             handOverContent: txt_rs_HandOverContent.Text,
                             currentApproveLevel: If(
-                                gblRecUser.roleID = 1,
+                                gblRecUser.roleID = 1 And Sum(
+                                    colTotalListDateRange,
+                                    Total
+                                ) <= 12,
                                 1,
+                                gblRecUser.roleID = 1 And Sum(
+                                    colTotalListDateRange,
+                                    Total
+                                ) > 12,
+                                2,
                                 gblRecUser.roleID = 2,
                                 2,
                                 gblRecUser.roleID = 3,
                                 3,
                                 gblRecUser.roleID = 4,
                                 4,
-                                gblRecUser.roleID = 5,
+                                gblRecUser.roleID = 5 And Sum(
+                                    colTotalListDateRange,
+                                    Total
+                                ) <= 12,
                                 1,
+                                gblRecUser.roleID = 5 And Sum(
+                                    colTotalListDateRange,
+                                    Total
+                                ) > 12,
+                                2,
                                 gblRecUser.roleID = 7,
                                 2
                             ),
@@ -2067,15 +2114,16 @@
                 );
                 //Ghi nhận tháng nghỉ
                 ForAll(
-                    Filter(colRecordTotalDayLeaveByMonth,TotalLeaveDay > 0 Or TotalLeaveDayUnPaidByMonth > 0) As Temp,
+                    Filter(colRecordTotalDayLeaveByMonthCalculated,TotalLeaveDay > 0 Or TotalLeaveUnpaid > 0) As Temp,
                     Patch(
                         'ASTakeLeave.RequestCalculatedDays',
                         Defaults('ASTakeLeave.RequestCalculatedDays'),
                         {
                             year: Year(Today()),
                             requestID: gblRequest.ID,
-                            month:If(CountRows(Filter(colTotalListDateRange,Month(Date) = Temp.Value))>1,Temp.Value),
-                            totalDayOffWithPaid:Sum(Filter(colTotalListDateRange,Month(Date) = Temp.Value),Total)
+                            month:Temp.Month,
+                            totalDayOffWithPaid:Temp.TotalLeaveDay,
+                            totalDayOffUnpaid:Temp.TotalLeaveUnpaid
                         }
                     )
                 );
