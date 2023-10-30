@@ -3825,7 +3825,7 @@
       "Properties": [
         {
           "Category": "Data",
-          "NameMap": "{\"Series1\":\"dayOffSum\",\"Series2\":\"dayOffUnPaidSum\",\"Series3\":\"month\",\"Series4\":\"month\",\"Series5\":\"month\",\"Series6\":\"month\",\"Series7\":\"month\",\"Series8\":\"month\",\"Series9\":\"month\",\"Labels\":\"month\"}",
+          "NameMap": "{\"Series1\":\"Value\",\"Series2\":\"Month\",\"Series3\":\"Month\",\"Series4\":\"Month\",\"Series5\":\"Month\",\"Series6\":\"Month\",\"Series7\":\"Month\",\"Series8\":\"Month\",\"Series9\":\"Month\",\"Labels\":\"Month\"}",
           "PropertyName": "Items",
           "RuleProviderType": "Unknown"
         },
@@ -16158,7 +16158,7 @@
       "Properties": [
         {
           "Category": "Data",
-          "NameMap": "{\"Value\":\"text\"}",
+          "NameMap": "{\"Value\":\"Value\"}",
           "PropertyName": "Items",
           "RuleProviderType": "Unknown"
         },

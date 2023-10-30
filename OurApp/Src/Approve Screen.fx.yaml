@@ -1,7 +1,10 @@
 "'Approve Screen' As screen":
     Fill: =RGBA(80,80,80,1)
     OnVisible: |-
-        =//Lấy các cấp phê duyệt của user hiện tại
+        =//Lấy tất cả các user đang quản lý
+        If(IsEmpty(gblColAllUserManaged),ClearCollect(gblColAllUserManaged,Filter('ASTakeLeave.UserRelationship',approveUserID = gblRecUser.userID)));
+        
+        //Lấy các cấp phê duyệt của user hiện tại
         ClearCollect(
             colApproveStepDetailUser,
             Sort(
@@ -34,7 +37,7 @@
                     Filter('ASTakeLeave.LeaveRequest',currentApproveLevel = 1 And status = 1) As Temp,
                     "approveUserID",
                     LookUp(
-                        gblColUserManager,
+                        gblColAllUserManaged,
                         userID = Temp.userID And active = 1 And approveProcessLevel = 1
                     ).approveUserID
                 )
@@ -49,14 +52,14 @@
                     Filter('ASTakeLeave.LeaveRequest',currentApproveLevel = 2 And status = 1) As Temp,
                     "approveUserID",
                     LookUp(
-                        gblColUserManager,
+                        gblColAllUserManaged,
                         userID = Temp.userID And active = 1 And approveProcessLevel = 2
                     ).approveUserID
                 )
             )
         );
         If(
-            //Role giám đốc khối
+            //Role giám đốc điều hành
             gblRecUser.roleID = 4,
             ClearCollect(
                 colLeaveRequestByManager,
@@ -72,7 +75,7 @@
         BorderStyle: =BorderStyle.None
         DisabledFill: =RGBA(241, 244, 250, 1)
         DisplayMode: =DisplayMode.Disabled
-        Height: =767
+        Height: =768
         RadiusBottomLeft: =20
         RadiusBottomRight: =20
         RadiusTopLeft: =20
@@ -244,7 +247,7 @@
 
     ctn_as_MainContent As groupContainer.horizontalAutoLayoutContainer:
         DropShadow: =DropShadow.None
-        Height: =612
+        Height: =613
         LayoutAlignItems: =LayoutAlignItems.Stretch
         LayoutGap: =10
         LayoutMode: =LayoutMode.Auto
@@ -423,8 +426,6 @@
                         Container27_21 As groupContainer.horizontalAutoLayoutContainer:
                             DropShadow: =DropShadow.None
                             LayoutAlignItems: =LayoutAlignItems.Center
-                            LayoutMinHeight: =30
-                            LayoutMinWidth: =150
                             LayoutMode: =LayoutMode.Auto
                             PaddingLeft: =10
                             PaddingRight: =10
@@ -435,13 +436,10 @@
                             ZIndex: =5
 
                             "Gallery11_8 As gallery.'BrowseLayout_Horizontal_TwoTextOneImageVariant_ver5.0'":
-                                AlignInContainer: =AlignInContainer.SetByContainer
                                 DelayItemLoading: =true
                                 Height: |
                                     =30
-                                Items: =[1,2]
-                                LayoutMinHeight: =0
-                                LayoutMinWidth: =0
+                                Items: =AddColumns(Sequence(ThisItem.maxApproveLevel,1),"requestID",ThisItem.ID)
                                 LoadingSpinner: =LoadingSpinner.Data
                                 ShowScrollbar: =false
                                 TemplatePadding: =0
@@ -451,7 +449,7 @@
                                 Rectangle15_8 As rectangle:
                                     BorderColor: =RGBA(255, 255, 255, 1)
                                     BorderThickness: =1
-                                    Fill: =RGBA(204, 231, 246, 1)
+                                    Fill: =If(LookUp('ASTakeLeave.HistoryApprove',requestID = ThisItem.requestID And step = ThisItem.Value).status = "1",Color.Green,LookUp('ASTakeLeave.HistoryApprove',requestID = ThisItem.requestID And step = ThisItem.Value).status = "2",Color.Red,RGBA(204, 231, 246, 1))
                                     Height: =Parent.TemplateHeight
                                     OnSelect: =Select(Parent)
                                     Width: =Parent.TemplateWidth
@@ -664,7 +662,7 @@
                 =//Cập nhật trạng thái yêu cầu thành từ chối
                 Patch('ASTakeLeave.LeaveRequest',LookUp('ASTakeLeave.LeaveRequest',ID = locRequestInfo.ID),{currentApproveLevel:0,status:3});
                 //Ghi nhận lịch sử từ chối yêu cầu
-                Patch('ASTakeLeave.HistoryApprove',Defaults('ASTakeLeave.HistoryApprove'),{requestID:locRequestInfo.ID,userID:gblRecUser.userID,status:2,comment:txt_as_RejectReason.Text});
+                Patch('ASTakeLeave.HistoryApprove',Defaults('ASTakeLeave.HistoryApprove'),{requestID:locRequestInfo.ID,userID:gblRecUser.userID,status:"2",comment:txt_as_RejectReason.Text,step:If(IsEmpty(Filter('ASTakeLeave.HistoryApprove',requestID = locRequestInfo.ID And step = 1)),1,Last(Filter('ASTakeLeave.HistoryApprove',requestID = locRequestInfo.ID)).step + 1)});
                 Refresh('ASTakeLeave.LeaveRequest');
                 //Lấy danh sách yêu cầu theo quản lý của người tạo
                 If(
@@ -676,7 +674,7 @@
                             Filter('ASTakeLeave.LeaveRequest',currentApproveLevel = 1 And status = 1) As Temp,
                             "approveUserID",
                             LookUp(
-                                gblColUserManager,
+                                gblColAllUserManaged,
                                 userID = Temp.userID And active = 1 And approveProcessLevel = 1
                             ).approveUserID
                         )
@@ -691,7 +689,7 @@
                             Filter('ASTakeLeave.LeaveRequest',currentApproveLevel = 2 And status = 1) As Temp,
                             "approveUserID",
                             LookUp(
-                                gblColUserManager,
+                                gblColAllUserManaged,
                                 userID = Temp.userID And active = 1 And approveProcessLevel = 2
                             ).approveUserID
                         )
@@ -832,7 +830,8 @@
                 =//Nếu chưa là bước cuối sẽ cập nhật tới bước tiếp theo, Nếu đã là bước cuối cập nhật yêu cầu với trạng thái hoàn thành
                 If(locRequestInfo.currentApproveLevel = locRequestInfo.maxApproveLevel,Patch('ASTakeLeave.LeaveRequest',LookUp('ASTakeLeave.LeaveRequest',ID = locRequestInfo.ID),{currentApproveLevel:locRequestInfo.currentApproveLevel + 1,status:2}),Patch('ASTakeLeave.LeaveRequest',LookUp('ASTakeLeave.LeaveRequest',ID = locRequestInfo.ID),{currentApproveLevel:locRequestInfo.currentApproveLevel + 1}));
                 //Ghi nhận lịch sử phê duyệt
-                Patch('ASTakeLeave.HistoryApprove',Defaults('ASTakeLeave.HistoryApprove'),{requestID:locRequestInfo.ID,userID:gblRecUser.userID,status:1});
+                Patch('ASTakeLeave.HistoryApprove',Defaults('ASTakeLeave.HistoryApprove'),{requestID:locRequestInfo.ID,userID:gblRecUser.userID,status:"1",
+                            step:If(IsEmpty(Filter('ASTakeLeave.HistoryApprove',requestID = locRequestInfo.ID And step = 1)),1,Last(Filter('ASTakeLeave.HistoryApprove',requestID = locRequestInfo.ID)).step + 1)});
                 Refresh('ASTakeLeave.LeaveRequest');
                 //Lấy danh sách yêu cầu theo quản lý của người tạo
                 If(
@@ -844,7 +843,7 @@
                             Filter('ASTakeLeave.LeaveRequest',currentApproveLevel = 1 And status = 1) As Temp,
                             "approveUserID",
                             LookUp(
-                                gblColUserManager,
+                                gblColAllUserManaged,
                                 userID = Temp.userID And active = 1 And approveProcessLevel = 1
                             ).approveUserID
                         )
@@ -859,7 +858,7 @@
                             Filter('ASTakeLeave.LeaveRequest',currentApproveLevel = 2 And status = 1) As Temp,
                             "approveUserID",
                             LookUp(
-                                gblColUserManager,
+                                gblColAllUserManaged,
                                 userID = Temp.userID And active = 1 And approveProcessLevel = 2
                             ).approveUserID
                         )
@@ -953,20 +952,4 @@
             X: =387
             Y: =159
             ZIndex: =9
-
-    Button8 As button:
-        OnSelect: |-
-            =UpdateContext({locReject:true})
-        Text: ="Button"
-        X: =547
-        Y: =32
-        ZIndex: =9
-
-    Button8_2 As button:
-        OnSelect: |-
-            =UpdateContext({locApprove:true});
-        Text: ="Button"
-        X: =757
-        Y: =32
-        ZIndex: =10
 

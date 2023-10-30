@@ -359,7 +359,7 @@
         BorderStyle: =BorderStyle.None
         DisabledFill: =RGBA(241, 244, 250, 1)
         DisplayMode: =DisplayMode.Disabled
-        Height: =767
+        Height: =768
         RadiusBottomLeft: =20
         RadiusBottomRight: =20
         RadiusTopLeft: =20
@@ -1242,7 +1242,7 @@
                     LayoutMode: =LayoutMode.Auto
                     PaddingLeft: =10
                     PaddingRight: =10
-                    ZIndex: =4
+                    ZIndex: =1
 
                     ctn_rs_HandOver As groupContainer.verticalAutoLayoutContainer:
                         AlignInContainer: =AlignInContainer.SetByContainer
@@ -1308,7 +1308,7 @@
 
                         Attachments_DataCard3 As typedDataCard.attachmentsEditCard:
                             BorderStyle: =BorderStyle.Solid
-                            DataField: ="Đính kèm"
+                            DataField: ="{Attachments}"
                             Default: =ThisItem.Attachments
                             DisplayMode: =Parent.DisplayMode
                             DisplayName: ="Đính kèm"
@@ -1316,7 +1316,7 @@
                             Height: =100
                             Required: =false
                             Update: =DataCardValue2.Attachments
-                            Width: =498
+                            Width: =500
                             X: =0
                             Y: =0
                             ZIndex: =1
@@ -1349,7 +1349,7 @@
                                 PaddingRight: =5
                                 PaddingTop: =5
                                 Tooltip: =Parent.DisplayName
-                                Width: =497
+                                Width: =498
                                 X: =1
                                 Y: =DataCardKey2.Y + DataCardKey2.Height + 5
                                 ZIndex: =2
@@ -1405,7 +1405,7 @@
                                 NotificationType.Error,
                                 1500
                             ),
-                            Collect(colRecordTotalDayLeaveByMonth,AddColumns(Sequence(12,1) As Temp,"TotalLeaveDay",Sum(Filter(colTotalListDateRange,Month(Date) = Temp.Value),Total),"TotalLeaveDayUnPaidByMonth",Sum(Filter(colTotalListDateRange,Month(Date) = Temp.Value),Total)));
+                            Collect(colRecordTotalDayLeaveByMonth,AddColumns(Sequence(12,1) As Temp,"TotalLeaveDay",If(Sum(Filter(colTotalListDateRange,Month(Date) = Temp.Value),Total)=0,0,Sum(Filter(colTotalListDateRange,Month(Date) = Temp.Value),Total)),"TotalLeaveDayUnPaidByMonth",If(locTotalDayLeaveNumber = locMaxDayLeaveNumber,Sum(Filter(colTotalListDateRange,Month(Date) = Temp.Value),Total),0)));
                             UpdateContext({locSubmit: true});
                             /*ClearCollect(
                                 colListDateRange,
@@ -1563,7 +1563,7 @@
                             )*/
                         )
                     Text: ="Tạo"
-                    ZIndex: =5
+                    ZIndex: =2
 
     ctn_rs_Header As groupContainer.horizontalAutoLayoutContainer:
         DropShadow: =DropShadow.None
@@ -1967,7 +1967,7 @@
                                     colTotalListDateRange,
                                     Total
                                 ) > 12,
-                                2,
+                                3,
                                 gblRecUser.roleID = 3 And Sum(
                                     colTotalListDateRange,
                                     Total
@@ -1996,7 +1996,8 @@
                         {
                             requestID: gblRequest.ID,
                             userID: gblRecUser.userID,
-                            status: 2
+                            status: 2,
+                            step:1
                         }
                     ),
                     gblRecUser.roleID = 3,
@@ -2006,7 +2007,8 @@
                         {
                             requestID: gblRequest.ID,
                             userID: gblRecUser.userID,
-                            status: 2
+                            status: 2,
+                            step:1
                         }
                     ),
                     gblRecUser.roleID = 4,
@@ -2016,16 +2018,14 @@
                         {
                             requestID: gblRequest.ID,
                             userID: gblRecUser.userID,
-                            status: 2
+                            status: 2,
+                            step:1
                         }
                     )
                 );
                 //Ghi nhận tháng nghỉ
                 ForAll(
-                    Sequence(
-                        12,
-                        1
-                    ) As Temp,
+                    Filter(colRecordTotalDayLeaveByMonth,TotalLeaveDay > 0 Or TotalLeaveDayUnPaidByMonth > 0) As Temp,
                     Patch(
                         'ASTakeLeave.RequestCalculatedDays',
                         Defaults('ASTakeLeave.RequestCalculatedDays'),
@@ -2081,10 +2081,4 @@
             X: =782
             Y: =443
             ZIndex: =8
-
-    Button10 As button:
-        Text: ="Button"
-        X: =40
-        Y: =40
-        ZIndex: =27
 

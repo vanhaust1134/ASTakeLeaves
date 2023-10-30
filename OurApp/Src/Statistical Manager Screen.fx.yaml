@@ -147,7 +147,7 @@
         BorderStyle: =BorderStyle.None
         DisabledFill: =RGBA(241, 244, 250, 1)
         DisplayMode: =DisplayMode.Disabled
-        Height: =767
+        Height: =768
         RadiusBottomLeft: =20
         RadiusBottomRight: =20
         RadiusTopLeft: =20
@@ -327,7 +327,7 @@
 
     ctn_hs_MainContent_2 As groupContainer.horizontalAutoLayoutContainer:
         DropShadow: =DropShadow.None
-        Height: =618
+        Height: =623
         LayoutGap: =10
         LayoutMode: =LayoutMode.Auto
         PaddingBottom: =10

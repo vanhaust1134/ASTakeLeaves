@@ -25,7 +25,7 @@
         BorderStyle: =BorderStyle.None
         DisabledFill: =RGBA(241, 244, 250, 1)
         DisplayMode: =DisplayMode.Disabled
-        Height: =767
+        Height: =768
         RadiusBottomLeft: =20
         RadiusBottomRight: =20
         RadiusTopLeft: =20
@@ -1555,7 +1555,7 @@
             RadiusTopRight: =5
             Text: ="Sửa"
             Width: =87
-            X: =879
+            X: =880
             Y: =694
             ZIndex: =7
 

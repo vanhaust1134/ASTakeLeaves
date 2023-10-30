@@ -1,7 +1,9 @@
 "'History Approve Screen' As screen":
     Fill: =RGBA(80,80,80,1)
     OnVisible: |-
-        =//Lấy danh sách yêu cầu theo quản lý của người tạo
+        =//Lấy tất cả các user đang quản lý
+        If(IsEmpty(gblColAllUserManaged),ClearCollect(gblColAllUserManaged,Filter('ASTakeLeave.UserRelationship',approveUserID = gblRecUser.userID)));
+        //Lấy danh sách yêu cầu theo quản lý của người tạo
         If(
             //Role trưởng phòng
             gblRecUser.roleID = 2,
@@ -11,7 +13,7 @@
                     Filter('ASTakeLeave.LeaveRequest',status = 2 Or status  = 3) As Temp,
                     "approveUserID",
                     LookUp(
-                        gblColUserManager,
+                        gblColAllUserManaged,
                         userID = Temp.userID And active = 1 And approveProcessLevel = 1 
                     ).approveUserID
                 )
@@ -26,7 +28,7 @@
                     Filter('ASTakeLeave.LeaveRequest',status = 2 Or status  = 3) As Temp,
                     "approveUserID",
                     LookUp(
-                        gblColUserManager,
+                        gblColAllUserManaged,
                         userID = Temp.userID And active = 1 And approveProcessLevel = 2
                     ).approveUserID
                 )
@@ -49,7 +51,7 @@
         BorderStyle: =BorderStyle.None
         DisabledFill: =RGBA(241, 244, 250, 1)
         DisplayMode: =DisplayMode.Disabled
-        Height: =767
+        Height: =768
         RadiusBottomLeft: =20
         RadiusBottomRight: =20
         RadiusTopLeft: =20
@@ -88,6 +90,7 @@
         LayoutMode: =LayoutMode.Auto
         PaddingLeft: =25
         PaddingRight: =25
+        PaddingTop: =1
         Width: =1170
         X: =196
         Y: =145
