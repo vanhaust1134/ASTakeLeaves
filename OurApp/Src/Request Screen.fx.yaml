@@ -1411,7 +1411,7 @@
                                 NotificationType.Error,
                                 1500
                             ),
-                            locShowErrorDate <> "Ngày tạo hợp lệ",
+                            locRequestDayLeaveReverse = false And locShowErrorDate <> "Ngày tạo hợp lệ",
                             Notify(
                                 "Ngày tạo không hợp lệ",
                                 NotificationType.Error,
