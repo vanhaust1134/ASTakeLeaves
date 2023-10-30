@@ -296,6 +296,7 @@
                                 =If(LookUp(gblColWeekDay,active = 1 And sort = ThisItem.WeekDay).status = 1,LookUp(Table({ID:1,Name:"Cả ngày"},{ID:2,Name:"Nửa sáng"},{ID:3,Name:"Nửa chiều"}),ID = ThisItem.Status).Name,LookUp(gblColWeekDay,active = 1 And sort = ThisItem.WeekDay).status = 2,LookUp(Table({ID:1,Name:"Nửa sáng"},{ID:2,Name:"Nửa chiều"}),ID = ThisItem.Status).Name)
                             DisabledColor: =RGBA(0, 0, 0, 1)
                             DisabledFill: =RGBA(255, 255, 255, 1)
+                            DisplayMode: =DisplayMode.Disabled
                             Height: =31
                             Items: |-
                                 =If(LookUp(gblColWeekDay,active = 1 And sort = ThisItem.WeekDay).status = 1,Table({ID:1,Name:"Cả ngày"},{ID:2,Name:"Nửa sáng"},{ID:3,Name:"Nửa chiều"}),LookUp(gblColWeekDay,active = 1 And sort = ThisItem.WeekDay).status = 2,Table({ID:1,Name:"Nửa sáng"},{ID:2,Name:"Nửa chiều"}))
@@ -772,7 +773,7 @@
                     RadiusTopRight: =5
                     Size: =13
                     Text: ="Phê duyệt"
-                    Visible: =If(LookUp(colLeaveRequestByManager,ID = locRequestDetail.ID).approveUserID = gblRecUser.userID,true,false)
+                    Visible: =If(locRequestDetail.status = 1,If(LookUp(colLeaveRequestByManager,ID = locRequestDetail.ID).approveUserID = gblRecUser.userID,true,false),false)
                     Width: =104
                     X: =117
                     Y: =36
@@ -793,7 +794,7 @@
                     RadiusTopRight: =5
                     Size: =13
                     Text: ="Từ chối"
-                    Visible: =If(LookUp(colLeaveRequestByManager,ID = locRequestDetail.ID).approveUserID = gblRecUser.userID,true,false)
+                    Visible: =If(locRequestDetail.status = 1,If(LookUp(colLeaveRequestByManager,ID = locRequestDetail.ID).approveUserID = gblRecUser.userID,true,false),false)
                     Width: =104
                     X: =191
                     Y: =36
@@ -881,7 +882,7 @@
                 LayoutMinHeight: =50
                 LayoutMinWidth: =250
                 LayoutMode: =LayoutMode.Auto
-                Width: =150
+                Width: =300
                 ZIndex: =1
 
                 ctn_rds_CreatedByTitle As groupContainer.horizontalAutoLayoutContainer:
@@ -893,6 +894,11 @@
                     Width: =100
                     ZIndex: =1
 
+                    Label12 As label:
+                        Text: =""
+                        Width: =80
+                        ZIndex: =1
+
                     img_rds_CreatedBy As image:
                         AlignInContainer: =AlignInContainer.Start
                         Height: =30
@@ -900,7 +906,7 @@
                         ImagePosition: =ImagePosition.Fill
                         LayoutMinHeight: =25
                         Width: =30
-                        ZIndex: =1
+                        ZIndex: =2
 
                     lbl_rds_CreatedBy As label:
                         Color: =RGBA(73, 113, 215, 1)
@@ -908,9 +914,10 @@
                         LayoutMinHeight: =35
                         LayoutMinWidth: =50
                         Text: ="Người tạo"
-                        ZIndex: =2
+                        ZIndex: =3
 
                 btn_rds_CreatedBy As button:
+                    AlignInContainer: =AlignInContainer.Stretch
                     BorderStyle: =BorderStyle.None
                     DisabledColor: =RGBA(0, 0, 0, 1)
                     DisabledFill: =RGBA(231, 231, 231, 1)
