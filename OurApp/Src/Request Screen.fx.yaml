@@ -1420,7 +1420,8 @@
                                 NotificationType.Error,
                                 1500
                             ),
-                            Clear(colDayLeft);Clear(colRecordTotalDayLeaveByMonthCalculated);
+                            Clear(colDayLeft);
+                            Clear(colRecordTotalDayLeaveByMonthCalculated);
                             ClearCollect(
                                 colRecordTotalDayLeaveByMonth,
                                 AddColumns(
@@ -1430,13 +1431,15 @@
                                     ) As Temp,
                                     "TotalLeaveDay",
                                     If(
-                                        IsBlank(Sum(
-                                            Filter(
-                                                colTotalListDateRange,
-                                                Month(Date) = Temp.Value
-                                            ),
-                                            Total
-                                        )),
+                                        IsBlank(
+                                            Sum(
+                                                Filter(
+                                                    colTotalListDateRange,
+                                                    Month(Date) = Temp.Value
+                                                ),
+                                                Total
+                                            )
+                                        ),
                                         0,
                                         Sum(
                                             Filter(
@@ -1448,7 +1451,46 @@
                                     )
                                 )
                             );
-                            ForAll(colRecordTotalDayLeaveByMonth As Temp,Collect(colDayLeft,Table({Result:If(Temp.TotalLeaveDay = 0,0,2 - Temp.TotalLeaveDay)}));Collect(colRecordTotalDayLeaveByMonthCalculated,Table({Month:Temp.Value,TotalLeaveDay:Temp.TotalLeaveDay,TotalLeaveUnpaid:Last(colDayLeft).Result})));
+                            ForAll(
+                                Filter(
+                                    colRecordTotalDayLeaveByMonth,
+                                    TotalLeaveDay > 0
+                                ) As Temp,
+                                Collect(
+                                    colDayLeft,
+                                    Table(
+                                        {
+                                            Result: If(
+                                                Temp.Value = First(
+                                                    Filter(
+                                                        colRecordTotalDayLeaveByMonth,
+                                                        TotalLeaveDay > 0
+                                                    )
+                                                ).Value,
+                                                locMaxDayLeaveNumber - Temp.TotalLeaveDay,
+                                                Last(colDayLeft).Result - Temp.TotalLeaveDay
+                                            )
+                                        }
+                                    )
+                                );
+                                Collect(
+                                    colRecordTotalDayLeaveByMonthCalculated,
+                                    Table(
+                                        {
+                                            Month: Temp.Value,
+                                            TotalLeaveDay: Temp.TotalLeaveDay,
+                                            TotalLeaveUnpaid: If(
+                                                Last(colDayLeft).Result < 0,
+                                                Mid(
+                                                    Last(colDayLeft).Result,
+                                                    2
+                                                ),
+                                                0
+                                            )
+                                        }
+                                    )
+                                )
+                            );
                             UpdateContext({locSubmit: true});
                             /*ClearCollect(
                                 colListDateRange,
@@ -2114,7 +2156,7 @@
                 );
                 //Ghi nhận tháng nghỉ
                 ForAll(
-                    Filter(colRecordTotalDayLeaveByMonthCalculated,TotalLeaveDay > 0 Or TotalLeaveUnpaid > 0) As Temp,
+                    Filter(colRecordTotalDayLeaveByMonthCalculated,TotalLeaveDay > 0 Or Value(TotalLeaveUnpaid) > 0) As Temp,
                     Patch(
                         'ASTakeLeave.RequestCalculatedDays',
                         Defaults('ASTakeLeave.RequestCalculatedDays'),
@@ -2123,7 +2165,7 @@
                             requestID: gblRequest.ID,
                             month:Temp.Month,
                             totalDayOffWithPaid:Temp.TotalLeaveDay,
-                            totalDayOffUnpaid:Temp.TotalLeaveUnpaid
+                            totalDayOffUnpaid:Value(Temp.TotalLeaveUnpaid)
                         }
                     )
                 );
