@@ -998,7 +998,7 @@
         drp_ds_LineManager As dropdown:
             BorderColor: =RGBA(116, 116, 116, 1)
             BorderThickness: =1
-            Items: =Filter(gblColAllUser,roleID = 3 Or roleID = 4 And active = 1)
+            Items: =Filter(gblColAllUser,roleID = 3 Or roleID = 4 Or roleID = 7 And active = 1)
             X: =548
             Y: =269
             ZIndex: =16
@@ -1383,9 +1383,9 @@
             DefaultSelectedItems: =LookUp(gblColAllUser,userID = locDivision.directorUserID)
             DisplayFields: =["fullName"]
             InputTextPlaceholder: ="Chọn giám đốc khối"
-            Items: =Filter(gblColAllUser,roleID = 3 Or roleID = 4 And active = 1)
+            Items: =Filter(gblColAllUser,roleID = 3 Or roleID = 4 Or roleID = 7 And active = 1)
             SearchFields: =["email"]
-            SearchItems: =Search(Filter(gblColAllUser,roleID = 3 Or roleID = 4 And active = 1),cbo_ds_LineManager_2.SearchText,"email")
+            SearchItems: =Search(Filter(gblColAllUser,roleID = 3 Or roleID = 4 Or roleID = 7 And active = 1),cbo_ds_LineManager_2.SearchText,"email")
             SelectMultiple: =false
             X: =551
             Y: =271
