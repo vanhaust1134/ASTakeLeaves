@@ -3,7 +3,7 @@ App As appinfo:
     OnStart: |+
         =//Lấy tất cả user và role về
         //role: 1 employee, 2 quản lý trực tiếp, 3 giàm đốc khối, 4 giám đốc điều hành, 5 HR/C&B, 7 admin
-        Collect(
+        ClearCollect(
             gblColAllUser,
             AddColumns(
                 ShowColumns('ASTakeLeave.Users', "ID", "userID", "fullName", "shortName", "email", "phone", "jobTitle", "departmentID", "divisionID", "OData__x0033_65AccountInfo", "active") As temp, 

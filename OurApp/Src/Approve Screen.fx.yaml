@@ -970,3 +970,28 @@
         Y: =32
         ZIndex: =10
 
+    Button12 As button:
+        OnSelect: |-
+            =Switch(
+                gblRecUser.roleID,
+                1, 
+                ClearCollect(gblColUserManager, Filter('ASTakeLeave.UserRelationship', userID = gblRecUser.userID, active = 1)),
+                2,
+                ClearCollect(gblColUserManager, Filter('ASTakeLeave.UserRelationship', userID = gblRecUser.userID, active = 1))
+            );
+            ClearCollect(
+                    colLeaveRequestByManager,
+                    AddColumns(
+                        Filter('ASTakeLeave.LeaveRequest',currentApproveLevel = 1 And status = 1) As Temp,
+                        "approveUserID",
+                        LookUp(
+                            gblColUserManager,
+                            userID = Temp.userID And active = 1 And approveProcessLevel = 1
+                        ).approveUserID
+                    )
+                )
+        Text: ="Button"
+        X: =547
+        Y: =93
+        ZIndex: =11
+
