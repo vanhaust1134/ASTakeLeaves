@@ -991,12 +991,11 @@
                             locColManagerReportDataYear,
                             Filter(
                                 ShowColumns(
-                                    locColReportManagerTotalDayOffInYear, 
-                                    "userID", "email", "maxDayOff_Year", "totalDayOff_Year", "totalDayLeft_Year", "totalDayUnpaid_Year", "year", "active", "departmentID", "divisionID"
+                                    locColReportManagerTotalDayOffInMonth, 
+                                    "userID", "email", "totalDayOff_Month", "totalDayUnpaid_Month", "month", "year", "departmentID", "divisionID"
                                 ), 
                                 year = Dropdown3_5.Selected.Value,
-                                If(locBoolReportManagerFilterDepartmentStatus, departmentID = Dropdown3_4.Selected.ID, true),
-                                active = 1
+                                If(locBoolReportManagerFilterDepartmentStatus, departmentID = Dropdown3_4.Selected.ID, true)
                             )
                         );
                         ClearCollect(
@@ -1005,8 +1004,8 @@
                                 Sequence(12, 1) As temp,
                                 {
                                     month: temp.Value,
-                                    dayOffSum: Sum(Filter(locColManagerReportDataYear, month = temp.Value), totalDayOff_Year),
-                                    dayOffUnPaidSum: Sum(Filter(locColManagerReportDataYear, month = temp.Value), totalDayUnpaid_Year)
+                                    dayOffSum: Sum(Filter(locColManagerReportDataYear, month = temp.Value), totalDayOff_Month),
+                                    dayOffUnPaidSum: Sum(Filter(locColManagerReportDataYear, month = temp.Value), totalDayUnpaid_Month)
                                 }
                             )
                         )
@@ -1026,7 +1025,7 @@
                         locBoolReportManagerFilterTotalStatus || locBoolReportManagerFilterPersonalStatus, //Đang filter tất cả nhân viên hoặc cá nhân
                         Clear(locColReportExportDataMonthFilter);  //Tạo lại data export
                         ForAll(
-                            locColManagerReportData As temp,
+                            locColManagerReportDataMonth As temp,
                             Collect(
                                 locColReportExportDataMonthFilter,
                                 temp,
@@ -1053,17 +1052,19 @@
                         ),
                 
                         //Nếu là filter theo năm
-                        Clear(locColReportExportDataAll);  //Tạo lại data export
+                        Clear(locColReportExportDataYear);  //Tạo lại data export
                         ForAll(
-                            locColManagerReportData As temp,
+                            Filter(locColReportManagerTotalDayOffInYear, year = Dropdown3_5.Selected.Value) As temp,
                             Collect(
-                                locColReportExportDataAll,
+                                locColReportExportDataYear,
                                 temp,
                                 {   
                                     name: LookUp(gblColAllUser, userID = temp.userID).fullName,
                                     jobTitle: LookUp(gblColAllUser, userID = temp.userID).jobTitle,
                                     division: LookUp(gblColDivision, ID = temp.divisionID).name,
-                                    department: LookUp(gblColDepartment, ID = temp.departmentID).name
+                                    department: LookUp(gblColDepartment, ID = temp.departmentID).name,
+                                    maxDayOff_Year: LookUp(locColReportManagerTotalDayOffInYear, userID = temp.userID).maxDayOff_Year,
+                                    totalDayLeft_Year: LookUp(locColReportManagerTotalDayOffInYear, userID = temp.userID).totalDayLeft_Year
                                 }
                             )
                         );
@@ -1077,7 +1078,7 @@
                                                         )}_{Year(Dropdown3_5.Selected.Value)}_{Hour(Now())}{Minute(Now())}{Second(Now()
                                                     )
                                                     }",
-                            JSON(locColReportExportDataAll, JSONFormat.IncludeBinaryData),
+                            JSON(locColReportExportDataYear, JSONFormat.IncludeBinaryData),
                             2
                         )
                     ),
