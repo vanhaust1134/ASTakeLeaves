@@ -14,7 +14,9 @@
       "Office365Outlook"
     ],
     "dependencies": {},
-    "dependents": [],
+    "dependents": [
+      "7d3fb8a6-e0df-418f-a889-984fd6f69e43"
+    ],
     "id": "0eb57bc9-f0aa-4596-a1bf-9585afadffa1"
   },
   "1788df75-50d0-4023-8fc6-21646c5e4d76": {
@@ -156,6 +158,38 @@
     },
     "dependents": [],
     "id": "632857a1-c916-42ab-8d52-741d19a7bbcd"
+  },
+  "7d3fb8a6-e0df-418f-a889-984fd6f69e43": {
+    "connectionRef": {
+      "displayName": "Logic flows",
+      "iconUri": "https://connectoricons-prod.azureedge.net/releases/v1.0.1664/1.0.1664.3477/logicflows/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_logicflows",
+      "parameterHints": {
+        "workflowEntityId": {
+          "value": "2fd9ede1-f676-ee11-8179-000d3aa0d035"
+        },
+        "workflowName": {
+          "value": "c23f2525-893a-4f4d-a87e-ab24fe9f1ee3"
+        }
+      },
+      "parameterHintsV2": {
+        "workflowEntityId": {
+          "value": "2fd9ede1-f676-ee11-8179-000d3aa0d035"
+        },
+        "workflowName": {
+          "value": "c23f2525-893a-4f4d-a87e-ab24fe9f1ee3"
+        }
+      }
+    },
+    "datasets": {},
+    "dataSources": [
+      "ASTakeLeave.SendMail"
+    ],
+    "dependencies": {
+      "shared_office365": "0eb57bc9-f0aa-4596-a1bf-9585afadffa1"
+    },
+    "dependents": [],
+    "id": "7d3fb8a6-e0df-418f-a889-984fd6f69e43"
   },
   "937af40b-402d-4b6c-9c16-aee134bae008": {
     "connectionRef": {

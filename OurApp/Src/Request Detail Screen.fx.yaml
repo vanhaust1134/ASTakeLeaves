@@ -646,7 +646,7 @@
                     lbl_rds_ApproveBy As label:
                         Color: =RGBA(94, 94, 94, 1)
                         OnSelect: =Select(Parent)
-                        Text: =locRequestDetail.reasonDetail
+                        Text: =LookUp(gblColAllUser,userID = ThisItem.userID).fullName & If(ThisItem.status = "1"," đã từ chối"," đã duyệt")
                         Width: =270
                         Wrap: =false
                         X: =98
@@ -708,6 +708,26 @@
                 Width: =1229
                 X: =137
                 ZIndex: =1
+
+                btn_has_Overview_1 As button:
+                    BorderStyle: =BorderStyle.None
+                    Color: =RGBA(94, 94, 94, 1)
+                    Fill: =RGBA(255, 255, 255, 1)
+                    Height: =28
+                    HoverFill: =ColorFade(RGBA(73, 113, 215, 1), -20%)
+                    OnSelect: =Back()
+                    PressedColor: =Color.White
+                    PressedFill: =RGBA(73, 113, 215, 1)
+                    RadiusBottomLeft: =5
+                    RadiusBottomRight: =5
+                    RadiusTopLeft: =5
+                    RadiusTopRight: =5
+                    Size: =13
+                    Text: ="Trở về"
+                    Width: =104
+                    X: =191
+                    Y: =36
+                    ZIndex: =1
 
                 btn_rds_Approve As button:
                     BorderStyle: =BorderStyle.None
@@ -777,7 +797,7 @@
                     Width: =104
                     X: =117
                     Y: =36
-                    ZIndex: =1
+                    ZIndex: =2
 
                 btn_rds_Reject As button:
                     BorderStyle: =BorderStyle.None
@@ -798,7 +818,7 @@
                     Width: =104
                     X: =191
                     Y: =36
-                    ZIndex: =2
+                    ZIndex: =3
 
         ctn_rds_Info As groupContainer.horizontalAutoLayoutContainer:
             AlignInContainer: =AlignInContainer.SetByContainer
@@ -1233,9 +1253,14 @@
             OnSelect: |-
                 =//Cập nhật trạng thái yêu cầu thành từ chối
                 Patch('ASTakeLeave.LeaveRequest',LookUp('ASTakeLeave.LeaveRequest',ID = locRequestDetail.ID),{currentApproveLevel:0,status:3});
+                
                 //Ghi nhận lịch sử từ chối yêu cầu
                 Patch('ASTakeLeave.HistoryApprove',Defaults('ASTakeLeave.HistoryApprove'),{requestID:locRequestDetail.ID,userID:gblRecUser.userID,status:2,comment:txt_as_RejectReason_1.Text,step:If(IsEmpty(Filter('ASTakeLeave.HistoryApprove',requestID = locRequestDetail.ID And step = 1)),1,Last(Filter('ASTakeLeave.HistoryApprove',requestID = locRequestDetail.ID)).step + 1)});
                 Refresh('ASTakeLeave.LeaveRequest');
+                
+                //Gửi mail từ chối yêu cầu
+                'ASTakeLeave.SendMail'.Run(LookUp(gblColAllUser,userID = locRequestDetail.userID).email,"Yêu cầu " & locRequestDetail.reasonDetail & " đã bị từ chối","Yêu cầu " & locRequestDetail.reasonDetail & " nghỉ từ " & locRequestDetail.startDate & " đến " & locRequestDetail.endDate & "<br>" & "Lí do: " & txt_as_RejectReason_1.Text);
+                
                 //Lấy danh sách yêu cầu theo quản lý của người tạo
                 If(
                     //Role trưởng phòng

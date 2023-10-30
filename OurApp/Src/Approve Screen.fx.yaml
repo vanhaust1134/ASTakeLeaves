@@ -389,7 +389,7 @@
                             LayoutMinWidth: =140
                             OnSelect: |-
                                 =Navigate('Request Detail Screen',ScreenTransition.Fade,{locRequestDetail:ThisItem})
-                            Text: =ThisItem.reason
+                            Text: =ThisItem.reasonDetail
                             Wrap: =false
                             ZIndex: =1
 
@@ -399,7 +399,7 @@
                             FontWeight: =FontWeight.Semibold
                             OnSelect: |-
                                 =Navigate('Request Detail Screen',ScreenTransition.Fade,{locRequestDetail:ThisItem})
-                            Text: =ThisItem.startDate & ThisItem.endDate
+                            Text: =Text(ThisItem.startDate,"dd/mm") & " - " & ThisItem.endDate
                             Wrap: =false
                             ZIndex: =2
 
@@ -662,9 +662,14 @@
             OnSelect: |-
                 =//Cập nhật trạng thái yêu cầu thành từ chối
                 Patch('ASTakeLeave.LeaveRequest',LookUp('ASTakeLeave.LeaveRequest',ID = locRequestInfo.ID),{currentApproveLevel:0,status:3});
+                
                 //Ghi nhận lịch sử từ chối yêu cầu
                 Patch('ASTakeLeave.HistoryApprove',Defaults('ASTakeLeave.HistoryApprove'),{requestID:locRequestInfo.ID,userID:gblRecUser.userID,status:"2",comment:txt_as_RejectReason.Text,step:If(IsEmpty(Filter('ASTakeLeave.HistoryApprove',requestID = locRequestInfo.ID And step = 1)),1,Last(Filter('ASTakeLeave.HistoryApprove',requestID = locRequestInfo.ID)).step + 1)});
                 Refresh('ASTakeLeave.LeaveRequest');
+                
+                //Gửi mail từ chối yêu cầu
+                'ASTakeLeave.SendMail'.Run(LookUp(gblColAllUser,userID = locRequestInfo.userID).email,"Yêu cầu " & locRequestInfo.reasonDetail & " đã bị từ chối","Yêu cầu " & locRequestInfo.reasonDetail & " nghỉ từ " & locRequestInfo.startDate & " đến " & locRequestInfo.endDate & "<br>" & "Lí do: " & txt_as_RejectReason.Text);
+                
                 //Lấy danh sách yêu cầu theo quản lý của người tạo
                 If(
                     //Role trưởng phòng
@@ -708,6 +713,7 @@
                         )
                     )
                 );
+                Reset(txt_as_RejectReason);
                 Notify("Từ chối thành công",NotificationType.Success,1500);
                 UpdateContext({locReject:false})
             PressedColor: =RGBA(255,255,255,1)
