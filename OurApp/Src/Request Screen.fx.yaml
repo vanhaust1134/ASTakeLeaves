@@ -1405,6 +1405,12 @@
                                 NotificationType.Error,
                                 1500
                             ),
+                            locRequestDayLeaveReverse = false And dtp_rs_StartDay.SelectedDate < Today(),
+                            Notify(
+                                "Chọn nghỉ phép ngược để tạo yêu cầu trước ngày hiện tại",
+                                NotificationType.Error,
+                                1500
+                            ),
                             Collect(colRecordTotalDayLeaveByMonth,AddColumns(Sequence(12,1) As Temp,"TotalLeaveDay",If(Sum(Filter(colTotalListDateRange,Month(Date) = Temp.Value),Total)=0,0,Sum(Filter(colTotalListDateRange,Month(Date) = Temp.Value),Total)),"TotalLeaveDayUnPaidByMonth",If(locTotalDayLeaveNumber = locMaxDayLeaveNumber,Sum(Filter(colTotalListDateRange,Month(Date) = Temp.Value),Total),0)));
                             UpdateContext({locSubmit: true});
                             /*ClearCollect(
@@ -1943,11 +1949,16 @@
                                 gblRecUser.roleID = 2,
                                 2,
                                 gblRecUser.roleID = 3,
-                                2,
+                                3,
                                 gblRecUser.roleID = 4,
+                                4,
+                                gblRecUser.roleID = 5,
+                                1,
+                                gblRecUser.roleID = 7,
                                 2
                             ),
                             maxApproveLevel: If(
+                                //Role quản lý
                                 gblRecUser.roleID = 2 And Sum(
                                     colTotalListDateRange,
                                     Total
@@ -1958,6 +1969,7 @@
                                     Total
                                 ) >= 12,
                                 3,
+                                //Role nhân viên
                                 gblRecUser.roleID = 1 And Sum(
                                     colTotalListDateRange,
                                     Total
@@ -1968,6 +1980,18 @@
                                     Total
                                 ) > 12,
                                 3,
+                                //Role HR/C&B
+                                gblRecUser.roleID = 5 And Sum(
+                                    colTotalListDateRange,
+                                    Total
+                                ) <= 12,
+                                2,
+                                gblRecUser.roleID = 5 And Sum(
+                                    colTotalListDateRange,
+                                    Total
+                                ) > 12,
+                                3,
+                                //Role giám đốc khối
                                 gblRecUser.roleID = 3 And Sum(
                                     colTotalListDateRange,
                                     Total
@@ -1978,10 +2002,22 @@
                                     Total
                                 ) > 12,
                                 2,
+                                //Role giám đốc điều hành
                                 gblRecUser.roleID = 4,
-                                1
+                                1,
+                                //Role trưởng HR
+                                gblRecUser.roleID = 7 And Sum(
+                                    colTotalListDateRange,
+                                    Total
+                                ) <= 12,
+                                2,
+                                gblRecUser.roleID = 7 And Sum(
+                                    colTotalListDateRange,
+                                    Total
+                                ) > 12,
+                                3
                             ),
-                            status: 1,
+                            status: If(gblRecUser.roleID = 4,2,1),
                             createDayValue: Value(Day(Today()) & Month(Today()) & Year(Today()))
                         },
                         Form2.Updates
@@ -2037,6 +2073,7 @@
                         }
                     )
                 );
+                'ASTakeLeave.SendMail'.Run(drp_rs_HandOver.Selected.Email,gblRecUser.fullName & " đã tạo yêu cầu nghỉ phép và bàn giao công việc","Thời gian tạo yêu cầu " & Now() & "<br>" & "Ngày nghỉ từ " & dtp_rs_StartDay.SelectedDate & " đến " & dtp_rs_FinishDay.SelectedDate & "<br>" & "Nội dung bàn giao công việc: " & txt_rs_HandOverContent.Text);
                 Notify(
                     "Gửi thành công",
                     NotificationType.Success,

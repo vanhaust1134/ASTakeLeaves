@@ -1,0 +1,10 @@
+[
+  {
+    "ApiId": "/providers/microsoft.powerapps/apis/shared_logicflows",
+    "FlowNameId": "a9891b6a-295d-4ff1-809a-ec2452622eb8",
+    "Name": "ASTakeLeave.SendMail",
+    "ServiceKind": "ConnectedWadl",
+    "Type": "ServiceInfo",
+    "WorkflowEntityId": "2fd9ede1-f676-ee11-8179-000d3aa0d035"
+  }
+]

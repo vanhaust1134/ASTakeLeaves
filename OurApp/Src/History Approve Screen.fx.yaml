@@ -272,7 +272,7 @@
                             FontWeight: =FontWeight.Semibold
                             OnSelect: |-
                                 =Navigate('Request Detail Screen',ScreenTransition.Fade,{locRequestDetail:ThisItem})
-                            Text: =ThisItem.reason
+                            Text: =ThisItem.reasonDetail
                             ZIndex: =1
 
                         lbl_has_ItemTime As label:
@@ -281,7 +281,7 @@
                             FontWeight: =FontWeight.Semibold
                             OnSelect: |-
                                 =Navigate('Request Detail Screen',ScreenTransition.Fade,{locRequestDetail:ThisItem})
-                            Text: =ThisItem.startDate & ThisItem.endDate
+                            Text: =Text(ThisItem.startDate,"dd/mm") & " - " & ThisItem.endDate
                             ZIndex: =2
 
                         lbl_has_ItemTimeTotal As label:
@@ -299,7 +299,7 @@
                             FontWeight: =FontWeight.Semibold
                             OnSelect: |-
                                 =Navigate('Request Detail Screen',ScreenTransition.Fade,{locRequestDetail:ThisItem})
-                            Text: =ThisItem.Created
+                            Text: =LookUp(gblColAllUser,active = 1 And userID = ThisItem.userID).fullName
                             ZIndex: =4
 
                         Container17_1 As groupContainer.manualLayoutContainer:
@@ -327,7 +327,7 @@
                                 ZIndex: =1
 
                             shp_has_Status As circle:
-                                Fill: =If(ThisItem.ID <> 3,RGBA(173, 214, 116, 1),RGBA(242, 87, 87, 1))
+                                Fill: =If(ThisItem.status = 2,RGBA(173, 214, 116, 1),ThisItem.status = 3,RGBA(242, 87, 87, 1))
                                 Height: =20
                                 Width: =20
                                 X: =49

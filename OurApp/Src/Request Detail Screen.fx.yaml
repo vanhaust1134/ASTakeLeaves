@@ -296,6 +296,7 @@
                                 =If(LookUp(gblColWeekDay,active = 1 And sort = ThisItem.WeekDay).status = 1,LookUp(Table({ID:1,Name:"Cả ngày"},{ID:2,Name:"Nửa sáng"},{ID:3,Name:"Nửa chiều"}),ID = ThisItem.Status).Name,LookUp(gblColWeekDay,active = 1 And sort = ThisItem.WeekDay).status = 2,LookUp(Table({ID:1,Name:"Nửa sáng"},{ID:2,Name:"Nửa chiều"}),ID = ThisItem.Status).Name)
                             DisabledColor: =RGBA(0, 0, 0, 1)
                             DisabledFill: =RGBA(255, 255, 255, 1)
+                            DisplayMode: =DisplayMode.Disabled
                             Height: =31
                             Items: |-
                                 =If(LookUp(gblColWeekDay,active = 1 And sort = ThisItem.WeekDay).status = 1,Table({ID:1,Name:"Cả ngày"},{ID:2,Name:"Nửa sáng"},{ID:3,Name:"Nửa chiều"}),LookUp(gblColWeekDay,active = 1 And sort = ThisItem.WeekDay).status = 2,Table({ID:1,Name:"Nửa sáng"},{ID:2,Name:"Nửa chiều"}))
@@ -645,7 +646,7 @@
                     lbl_rds_ApproveBy As label:
                         Color: =RGBA(94, 94, 94, 1)
                         OnSelect: =Select(Parent)
-                        Text: =locRequestDetail.reasonDetail
+                        Text: =LookUp(gblColAllUser,userID = ThisItem.userID).fullName & If(ThisItem.status = "1"," đã từ chối"," đã duyệt")
                         Width: =270
                         Wrap: =false
                         X: =98
@@ -707,6 +708,26 @@
                 Width: =1229
                 X: =137
                 ZIndex: =1
+
+                btn_has_Overview_1 As button:
+                    BorderStyle: =BorderStyle.None
+                    Color: =RGBA(94, 94, 94, 1)
+                    Fill: =RGBA(255, 255, 255, 1)
+                    Height: =28
+                    HoverFill: =ColorFade(RGBA(73, 113, 215, 1), -20%)
+                    OnSelect: =Back()
+                    PressedColor: =Color.White
+                    PressedFill: =RGBA(73, 113, 215, 1)
+                    RadiusBottomLeft: =5
+                    RadiusBottomRight: =5
+                    RadiusTopLeft: =5
+                    RadiusTopRight: =5
+                    Size: =13
+                    Text: ="Trở về"
+                    Width: =104
+                    X: =191
+                    Y: =36
+                    ZIndex: =1
 
                 btn_rds_Approve As button:
                     BorderStyle: =BorderStyle.None
@@ -772,11 +793,11 @@
                     RadiusTopRight: =5
                     Size: =13
                     Text: ="Phê duyệt"
-                    Visible: =If(LookUp(colLeaveRequestByManager,ID = locRequestDetail.ID).approveUserID = gblRecUser.userID,true,false)
+                    Visible: =If(locRequestDetail.status = 1,If(LookUp(colLeaveRequestByManager,ID = locRequestDetail.ID).approveUserID = gblRecUser.userID,true,false),false)
                     Width: =104
                     X: =117
                     Y: =36
-                    ZIndex: =1
+                    ZIndex: =2
 
                 btn_rds_Reject As button:
                     BorderStyle: =BorderStyle.None
@@ -793,11 +814,11 @@
                     RadiusTopRight: =5
                     Size: =13
                     Text: ="Từ chối"
-                    Visible: =If(LookUp(colLeaveRequestByManager,ID = locRequestDetail.ID).approveUserID = gblRecUser.userID,true,false)
+                    Visible: =If(locRequestDetail.status = 1,If(LookUp(colLeaveRequestByManager,ID = locRequestDetail.ID).approveUserID = gblRecUser.userID,true,false),false)
                     Width: =104
                     X: =191
                     Y: =36
-                    ZIndex: =2
+                    ZIndex: =3
 
         ctn_rds_Info As groupContainer.horizontalAutoLayoutContainer:
             AlignInContainer: =AlignInContainer.SetByContainer
@@ -881,7 +902,7 @@
                 LayoutMinHeight: =50
                 LayoutMinWidth: =250
                 LayoutMode: =LayoutMode.Auto
-                Width: =150
+                Width: =300
                 ZIndex: =1
 
                 ctn_rds_CreatedByTitle As groupContainer.horizontalAutoLayoutContainer:
@@ -893,6 +914,11 @@
                     Width: =100
                     ZIndex: =1
 
+                    Label12 As label:
+                        Text: =""
+                        Width: =80
+                        ZIndex: =1
+
                     img_rds_CreatedBy As image:
                         AlignInContainer: =AlignInContainer.Start
                         Height: =30
@@ -900,7 +926,7 @@
                         ImagePosition: =ImagePosition.Fill
                         LayoutMinHeight: =25
                         Width: =30
-                        ZIndex: =1
+                        ZIndex: =2
 
                     lbl_rds_CreatedBy As label:
                         Color: =RGBA(73, 113, 215, 1)
@@ -908,9 +934,10 @@
                         LayoutMinHeight: =35
                         LayoutMinWidth: =50
                         Text: ="Người tạo"
-                        ZIndex: =2
+                        ZIndex: =3
 
                 btn_rds_CreatedBy As button:
+                    AlignInContainer: =AlignInContainer.Stretch
                     BorderStyle: =BorderStyle.None
                     DisabledColor: =RGBA(0, 0, 0, 1)
                     DisabledFill: =RGBA(231, 231, 231, 1)
@@ -1226,9 +1253,14 @@
             OnSelect: |-
                 =//Cập nhật trạng thái yêu cầu thành từ chối
                 Patch('ASTakeLeave.LeaveRequest',LookUp('ASTakeLeave.LeaveRequest',ID = locRequestDetail.ID),{currentApproveLevel:0,status:3});
+                
                 //Ghi nhận lịch sử từ chối yêu cầu
                 Patch('ASTakeLeave.HistoryApprove',Defaults('ASTakeLeave.HistoryApprove'),{requestID:locRequestDetail.ID,userID:gblRecUser.userID,status:2,comment:txt_as_RejectReason_1.Text,step:If(IsEmpty(Filter('ASTakeLeave.HistoryApprove',requestID = locRequestDetail.ID And step = 1)),1,Last(Filter('ASTakeLeave.HistoryApprove',requestID = locRequestDetail.ID)).step + 1)});
                 Refresh('ASTakeLeave.LeaveRequest');
+                
+                //Gửi mail từ chối yêu cầu
+                'ASTakeLeave.SendMail'.Run(LookUp(gblColAllUser,userID = locRequestDetail.userID).email,"Yêu cầu " & locRequestDetail.reasonDetail & " đã bị từ chối","Yêu cầu " & locRequestDetail.reasonDetail & " nghỉ từ " & locRequestDetail.startDate & " đến " & locRequestDetail.endDate & "<br>" & "Lí do: " & txt_as_RejectReason_1.Text);
+                
                 //Lấy danh sách yêu cầu theo quản lý của người tạo
                 If(
                     //Role trưởng phòng
