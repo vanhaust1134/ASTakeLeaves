@@ -395,8 +395,7 @@
                 ColumnChart1 As barChart:
                     GridStyle: =GridStyle.All
                     Height: =500
-                    Items: |-
-                        =Table({Month:1,Value:0},{Month:2,Value:0},{Month:3,Value:2},{Month:4,Value:0},{Month:5,Value:0},{Month:6,Value:0},{Month:7,Value:0},{Month:8,Value:10},{Month:9,Value:0},{Month:10,Value:0},{Month:11,Value:0},{Month:12,Value:0})
+                    Items: =locColManagerReportStat
                     X: =40
                     XLabelAngle: =40
                     Y: =70
@@ -886,7 +885,7 @@
             Height: =36
             HoverFill: =ColorFade(Self.Fill, -20%)
             OnSelect: |-
-                =If(Radio1.Selected.Value = "Theo biểu đồ hiện tại",true);
+                =If(Radio1.Selected.ID = 1,true);
                 Notify("Xuất file thành công",NotificationType.Success,1500);
                 UpdateContext({locExport:false})
             PressedColor: =RGBA(255,255,255,1)
@@ -924,7 +923,17 @@
         Radio1 As radio:
             BorderStyle: =BorderStyle.None
             Height: =106
-            Items: =["Theo biểu đồ hiện tại","Tất cả trong năm"]
+            Items: |-
+                =Table(
+                    {
+                        ID: 1,
+                        text: "Theo biểu đồ hiện tại"
+                    },
+                     {
+                        ID: 2,
+                        text: $"Tất cả trong năm hiện tại ({Year(Today())})"
+                    }
+                )
             Width: =608
             X: =375
             Y: =354
@@ -999,4 +1008,50 @@
             X: =40
             Y: =40
             ZIndex: =2
+
+        btn_sms_ExportFile As button:
+            OnSelect: |-
+                =//Xuất file theo lựa chọn của Radio button
+                If(
+                    Radio1.Selected.ID = 1, //Xuất theo lọc của biểu đồ tại
+                    true,
+                
+                    //Xuất tất cả trong năm hiện tại
+                    Clear(locColReportExportData);  //Tạo lại data export
+                    ForAll(
+                        Filter(locColReportManagerTotalDayOffInYear, year = Year(Today())) As temp,
+                        Collect(
+                            locColReportExportData,
+                            temp,
+                            {   
+                                name: LookUp(gblColAllUser, userID = temp.userID).fullName,
+                                jobTitle: LookUp(gblColAllUser, userID = temp.userID).jobTitle,
+                                division: LookUp(gblColDivision, ID = temp.divisionID),
+                                department: LookUp(gblColDepartment, ID = temp.departmentID),
+                                year: Year(Today())
+                            }
+                        )
+                    );
+                    //Sửa lại các tên cột
+                    ClearCollect(
+                        locColReportExportFormatted,
+                        RenameColumns(
+                            ShowColumns(locColReportExportData, "userID", "name", "jobTitle", "division", "department", "year", "maxDayOff_Year", "totalDayOff_Year", "totalDayUnpaid_Year", "totalDayLeft_Year"),
+                            "userID", "Mã nhân viên",
+                            "name", "Họ & Tên",
+                            "jobTitle", "Chức danh",
+                            "division", "Khối",
+                            "department", "Phòng",
+                            "maxDayOff_Year", "Tổng phép",
+                            "totalDayOff_Year", "Đã dùng",
+                            "totalDayUnpaid_Year", "Không lương",
+                            "totalDayLeft_Year", "Còn lại"
+                        )
+                    )
+                
+                )
+            Text: ="Button"
+            X: =40
+            Y: =40
+            ZIndex: =3
 
