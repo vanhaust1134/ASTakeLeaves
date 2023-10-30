@@ -2169,7 +2169,7 @@
                         }
                     )
                 );
-                'ASTakeLeave.SendMail'.Run(drp_rs_HandOver.Selected.Email,gblRecUser.fullName & " đã tạo yêu cầu nghỉ phép và bàn giao công việc","Thời gian tạo yêu cầu " & Now() & "<br>" & "Ngày nghỉ từ " & dtp_rs_StartDay.SelectedDate & " đến " & dtp_rs_FinishDay.SelectedDate & "<br>" & "Nội dung bàn giao công việc: " & txt_rs_HandOverContent.Text);
+                /*'ASTakeLeave.SendMail'.Run(drp_rs_HandOver.Selected.Email,gblRecUser.fullName & " đã tạo yêu cầu nghỉ phép và bàn giao công việc","Thời gian tạo yêu cầu " & Now() & "<br>" & "Ngày nghỉ từ " & dtp_rs_StartDay.SelectedDate & " đến " & dtp_rs_FinishDay.SelectedDate & "<br>" & "Nội dung bàn giao công việc: " & txt_rs_HandOverContent.Text);*/
                 Notify(
                     "Gửi thành công",
                     NotificationType.Success,
