@@ -3,7 +3,7 @@
     "IsComponentScoped": false,
     "IsSampleData": false,
     "IsWritable": true,
-    "Name": "locColManagerReportData",
+    "Name": "locColManagerReportDataYear",
     "Type": "CollectionDataSourceInfo"
   }
 ]
