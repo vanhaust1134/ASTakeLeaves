@@ -209,44 +209,6 @@
     "dependents": [],
     "id": "98055e91-ac19-4c8e-83f4-8c8ae0ad122c"
   },
-  "a3225809-5621-41a0-ba72-76a98bed49e0": {
-    "connectionRef": {
-      "displayName": "Logic flows",
-      "iconUri": "https://connectoricons-prod.azureedge.net/releases/v1.0.1664/1.0.1664.3477/logicflows/icon.png",
-      "id": "/providers/microsoft.powerapps/apis/shared_logicflows",
-      "parameterHints": {
-        "cf341574-441c-4f2a-a3b6-ead8c294cdc6": {
-          "value": "shared_sharepointonline"
-        },
-        "workflowEntityId": {
-          "value": "816fd566-7274-ee11-8179-000d3aa0d035"
-        },
-        "workflowName": {
-          "value": "e0616a3e-929b-41ce-83ea-4e71f8d5755f"
-        }
-      },
-      "parameterHintsV2": {
-        "shared_sharepointonline": {
-          "value": "cf341574-441c-4f2a-a3b6-ead8c294cdc6"
-        },
-        "workflowEntityId": {
-          "value": "816fd566-7274-ee11-8179-000d3aa0d035"
-        },
-        "workflowName": {
-          "value": "e0616a3e-929b-41ce-83ea-4e71f8d5755f"
-        }
-      }
-    },
-    "datasets": {},
-    "dataSources": [
-      "ASTakeLeave.ActionUpdateUser"
-    ],
-    "dependencies": {
-      "shared_sharepointonline": "cf341574-441c-4f2a-a3b6-ead8c294cdc6"
-    },
-    "dependents": [],
-    "id": "a3225809-5621-41a0-ba72-76a98bed49e0"
-  },
   "add04aa2-fa6e-432e-804c-b452cfaf49dc": {
     "connectionRef": {
       "displayName": "SharePoint",
@@ -354,11 +316,49 @@
     "dependents": [
       "1788df75-50d0-4023-8fc6-21646c5e4d76",
       "51d898db-ccf2-4c94-b1ca-7cda1f06927c",
+      "3b92d23d-34b1-4127-b337-d4a00ad0568c",
       "f3d25281-5924-49a4-9da5-f0b76e90abda",
-      "49c30399-0d70-4ad6-8f01-ca577e01b197",
-      "a3225809-5621-41a0-ba72-76a98bed49e0"
+      "632857a1-c916-42ab-8d52-741d19a7bbcd"
     ],
     "id": "cf341574-441c-4f2a-a3b6-ead8c294cdc6"
+  },
+  "eb176140-482a-4d98-83da-b60a9bd52de4": {
+    "connectionRef": {
+      "displayName": "Logic flows",
+      "iconUri": "https://connectoricons-prod.azureedge.net/releases/v1.0.1664/1.0.1664.3477/logicflows/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_logicflows",
+      "parameterHints": {
+        "cf341574-441c-4f2a-a3b6-ead8c294cdc6": {
+          "value": "shared_sharepointonline"
+        },
+        "workflowEntityId": {
+          "value": "816fd566-7274-ee11-8179-000d3aa0d035"
+        },
+        "workflowName": {
+          "value": "e0616a3e-929b-41ce-83ea-4e71f8d5755f"
+        }
+      },
+      "parameterHintsV2": {
+        "shared_sharepointonline": {
+          "value": "cf341574-441c-4f2a-a3b6-ead8c294cdc6"
+        },
+        "workflowEntityId": {
+          "value": "816fd566-7274-ee11-8179-000d3aa0d035"
+        },
+        "workflowName": {
+          "value": "e0616a3e-929b-41ce-83ea-4e71f8d5755f"
+        }
+      }
+    },
+    "datasets": {},
+    "dataSources": [
+      "ASTakeLeave.ActionUpdateUser"
+    ],
+    "dependencies": {
+      "shared_sharepointonline": "cf341574-441c-4f2a-a3b6-ead8c294cdc6"
+    },
+    "dependents": [],
+    "id": "eb176140-482a-4d98-83da-b60a9bd52de4"
   },
   "f3d25281-5924-49a4-9da5-f0b76e90abda": {
     "connectionRef": {
