@@ -14,9 +14,9 @@
                             AddColumns(
                                 Filter('ASTakeLeave.TotalDayOffInYear', userID = temp.userID, active = 1),
                                 "departmentID",
-                                LookUp(gblColAllUser, userID = temp.userID).departmentID,
+                                LookUp(gblColAllUser, userID = temp.userID && active = 1 ).departmentID,
                                 "divisionID",
-                                LookUp(gblColAllUser, userID = temp.userID).divisionID
+                                LookUp(gblColAllUser, userID = temp.userID && active = 1).divisionID
                             )
                         ),
                         Collect(
@@ -24,9 +24,9 @@
                             AddColumns(
                                 Filter('ASTakeLeave.TotalDayOffInMonth', userID = temp.userID),
                                 "departmentID",
-                                LookUp(gblColAllUser, userID = temp.userID).departmentID,
+                                LookUp(gblColAllUser, userID = temp.userID && active = 1).departmentID,
                                 "divisionID",
-                                LookUp(gblColAllUser, userID = temp.userID).divisionID
+                                LookUp(gblColAllUser, userID = temp.userID && active = 1).divisionID
                             )
                         )
                     );
@@ -39,7 +39,7 @@
                 If(
                     gblRecUser.roleID = 3,  //Nếu là giám đốc khối ----------------------------------
                     ForAll(
-                        Filter(gblColAllUser, divisionID = gblRecUser.divisionID) As temp,
+                        Filter(gblColAllUser, divisionID = gblRecUser.divisionID, active = 1) As temp,
                         Concurrent(
                             Collect(
                                 locColReportManagerTotalDayOffInYear,
@@ -76,9 +76,9 @@
                                 AddColumns(
                                     Filter('ASTakeLeave.TotalDayOffInMonth', year = Year(Today()), month <= 6) As temp,
                                     "departmentID",
-                                    LookUp(gblColAllUser, userID = temp.userID).departmentID,
+                                    LookUp(gblColAllUser, userID = temp.userID && active = 1).departmentID,
                                     "divisionID",
-                                    LookUp(gblColAllUser, userID = temp.userID).divisionID
+                                    LookUp(gblColAllUser, userID = temp.userID && active = 1).divisionID
                                 )
                             ),
                             Collect(    
@@ -86,9 +86,9 @@
                                 AddColumns(
                                     Filter('ASTakeLeave.TotalDayOffInMonth', year = Year(Today()), month >= 7) As temp,
                                     "departmentID",
-                                    LookUp(gblColAllUser, userID = temp.userID).departmentID,
+                                    LookUp(gblColAllUser, userID = temp.userID && active = 1).departmentID,
                                     "divisionID",
-                                    LookUp(gblColAllUser, userID = temp.userID).divisionID
+                                    LookUp(gblColAllUser, userID = temp.userID && active = 1).divisionID
                                 )
                             ),
                             Collect(    //Tạo collection chứa các year dữ liệu
@@ -134,6 +134,21 @@
                     }
                 )
             );
+        
+            //Tạo collection cho radio button
+            Collect(
+                locColReportExportRadio,
+                Table(
+                    {
+                        ID: 1,
+                        text: "Theo biểu đồ hiện tại"
+                    },
+                    {
+                        ID: 2,
+                        text: $"Tất cả trong năm hiện tại ({Year(Today())})"
+                    }
+                )
+            )
         );
         
         //Tắt các filter khi vào
@@ -700,9 +715,9 @@
                                             AddColumns(
                                                 Filter('ASTakeLeave.TotalDayOffInMonth', year = Dropdown3_5.Selected.Value, month <= 6) As temp,
                                                 "departmentID",
-                                                LookUp(gblColAllUser, userID = temp.userID).departmentID,
+                                                LookUp(gblColAllUser, userID = temp.userID && active = 1).departmentID,
                                                 "divisionID",
-                                                LookUp(gblColAllUser, userID = temp.userID).divisionID
+                                                LookUp(gblColAllUser, userID = temp.userID && active = 1).divisionID
                                             )
                                         ),
                                         ClearCollect(    
@@ -710,9 +725,9 @@
                                             AddColumns(
                                                 Filter('ASTakeLeave.TotalDayOffInMonth', year = Dropdown3_5.Selected.Value, month >= 7) As temp,
                                                 "departmentID",
-                                                LookUp(gblColAllUser, userID = temp.userID).departmentID,
+                                                LookUp(gblColAllUser, userID = temp.userID && active = 1).departmentID,
                                                 "divisionID",
-                                                LookUp(gblColAllUser, userID = temp.userID).divisionID
+                                                LookUp(gblColAllUser, userID = temp.userID && active = 1).divisionID
                                             )
                                         ),
                                         Collect(    //Tạo collection chứa các year dữ liệu
@@ -923,17 +938,7 @@
         Radio1 As radio:
             BorderStyle: =BorderStyle.None
             Height: =106
-            Items: |-
-                =Table(
-                    {
-                        ID: 1,
-                        text: "Theo biểu đồ hiện tại"
-                    },
-                    {
-                        ID: 2,
-                        text: $"Tất cả trong năm hiện tại ({Year(Today())})"
-                    }
-                )
+            Items: =locColReportExportRadio
             Width: =608
             X: =375
             Y: =354
@@ -1038,7 +1043,7 @@
                             )
                         );
                         //Export bằng flow
-                        'ASTakeLeave.ExportReportFile'.Run(
+                        Launch('ASTakeLeave.ExportReportFile'.Run(
                             $"TongHopNgayNghi_Thang{
                                                     If(                                  
                                                         locBoolReportManagerFilterTotalStatus, 
@@ -1046,10 +1051,10 @@
                                                         Dropdown3_1.Selected.Value
                                                         )}_{Year(Dropdown3_5.Selected.Value)}_{Hour(Now())}{Minute(Now())}{Second(Now()
                                                     )
-                                                    }",
+                                                    }.csv",
                             JSON(locColReportExportDataMonthFilter, JSONFormat.IncludeBinaryData),
                             1
-                        ),
+                        ).link & "?download=1"),
                 
                         //Nếu là filter theo năm
                         Clear(locColReportExportDataYear);  //Tạo lại data export
@@ -1057,7 +1062,11 @@
                             locColReportExportDataYear,
                             AddColumns(
                                 ShowColumns(
-                                    Filter(locColReportManagerTotalDayOffInYear, year = Dropdown3_5.Selected.Value),
+                                    Filter(
+                                        locColReportManagerTotalDayOffInYear, 
+                                        year = Dropdown3_5.Selected.Value,
+                                        If(locBoolReportManagerFilterDepartmentStatus, departmentID = Dropdown3_4.Selected.ID, true)
+                                    ),
                                     "userID", "email", "totalDayOff_Year", "totalDayUnpaid_Year", "maxDayOff_Year", "totalDayLeft_Year", "year", "departmentID", "divisionID"
                                 ) As temp,
                                 "name", LookUp(gblColAllUser, userID = temp.userID).fullName,
@@ -1067,11 +1076,11 @@
                             )
                         );
                         //Export bằng flow
-                        'ASTakeLeave.ExportReportFile'.Run(
-                            $"TongHopNgayNghi_Nam{Year(Dropdown3_5.Selected.Value)}_{Hour(Now())}{Minute(Now())}{Second(Now())}",
+                        Launch('ASTakeLeave.ExportReportFile'.Run(
+                            $"TongHopNgayNghi_Nam{Year(Dropdown3_5.Selected.Value)}_{Hour(Now())}{Minute(Now())}{Second(Now())}.csv",
                             JSON(locColReportExportDataYear, JSONFormat.IncludeBinaryData),
                             2
-                        )
+                        ).link & "?download=1")
                     ),
                 
                     Clear(locColReportExportDataYear);  //Tạo lại data export
@@ -1090,11 +1099,11 @@
                             )
                         );
                         //Export bằng flow
-                        'ASTakeLeave.ExportReportFile'.Run(
-                            $"TongHopNgayNghi_Nam{Year(Today())}_{Hour(Now())}{Minute(Now())}{Second(Now())}",
+                        Launch('ASTakeLeave.ExportReportFile'.Run(
+                            $"TongHopNgayNghi_Nam{Year(Today())}_{Hour(Now())}{Minute(Now())}{Second(Now())}.csv",
                             JSON(locColReportExportDataYear, JSONFormat.IncludeBinaryData),
                             2
-                        )
+                        ).link & "?download=1")
                 );
                 
                 
