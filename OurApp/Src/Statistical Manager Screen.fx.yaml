@@ -668,10 +668,10 @@
                         Items: |-
                             =If(
                                 gblRecUser.roleID = 3,
-                                Filter(gblColDepartment, divisionID = gblRecUser.divisionID),
+                                Filter(gblColDepartment, divisionID = gblRecUser.divisionID, active = 1),
                                 If(
                                     gblRecUser.roleID = 4 || gblRecUser.roleID = 5 || gblRecUser.roleID = 7,
-                                    gblColDepartment
+                                    Filter(gblColDepartment, active = 1)
                                 )
                             
                             )

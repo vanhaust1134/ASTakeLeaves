@@ -9402,7 +9402,7 @@
       "Properties": [
         {
           "Category": "Data",
-          "NameMap": "{\"Value\":\"Value\"}",
+          "NameMap": "{\"Value\":\"name\"}",
           "PropertyName": "Items",
           "RuleProviderType": "Unknown"
         },
