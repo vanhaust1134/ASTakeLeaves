@@ -165,7 +165,6 @@
     ctn_us_Title As groupContainer.verticalAutoLayoutContainer:
         DropShadow: =DropShadow.None
         Height: =41
-        LayoutDirection: =LayoutDirection.Vertical
         LayoutMode: =LayoutMode.Auto
         PaddingLeft: =30
         PaddingRight: =30
@@ -184,6 +183,12 @@
             X: =191
             Y: =101
             ZIndex: =1
+
+        Label13 As label:
+            Align: =Align.Right
+            FillPortions: =1
+            Text: ="Text"
+            ZIndex: =2
 
     ctn_us_Filter As groupContainer.horizontalAutoLayoutContainer:
         DropShadow: =DropShadow.None

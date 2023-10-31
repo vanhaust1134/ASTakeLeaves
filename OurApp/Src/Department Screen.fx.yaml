@@ -925,7 +925,7 @@
                             }
                         )
                     );
-                    Patch('ASTakeLeave.Users',LookUp('ASTakeLeave.Users',userID = drp_ds_LineManager.Selected.userID),{divisionID:gblDivision.ID});
+                    Patch('ASTakeLeave.Users',LookUp('ASTakeLeave.Users',userID = drp_ds_LineManager.Selected.userID And active = 1),{divisionID:gblDivision.ID});
                     //Cập nhật quy trình phê duyệt giám đốc khối
                     'ASTakeLeave.UpdateUserRelationShip'.Run(gblDivision.ID,If(!IsBlank(drp_ds_LineManager.Selected.userID),drp_ds_LineManager.Selected.userID,""));
                 //Lấy tất cả phòng về
@@ -1229,7 +1229,7 @@
                             }
                         )
                     );
-                    Patch('ASTakeLeave.Users',LookUp('ASTakeLeave.Users',userID = cbo_ds_LineManager_2.Selected.userID),{divisionID:gblDivision.ID});
+                    Patch('ASTakeLeave.Users',LookUp('ASTakeLeave.Users',userID = cbo_ds_LineManager_2.Selected.userID And active = 1),{divisionID:gblDivision.ID});
                     //Cập nhật quy trình phê duyệt giám đốc khối
                     'ASTakeLeave.UpdateUserRelationShip'.Run(locDivision.ID,If(!IsBlank(cbo_ds_LineManager_2.Selected.userID),cbo_ds_LineManager_2.Selected.userID,""));
                 Notify(
