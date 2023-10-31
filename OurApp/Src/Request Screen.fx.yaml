@@ -2085,7 +2085,10 @@
                                 ) > 12,
                                 3
                             ),
-                            status: If(gblRecUser.roleID = 4,2,1),
+                            status: If(gblRecUser.roleID = 4,2,gblRecUser.roleID = 3 And Sum(
+                                    colTotalListDateRange,
+                                    Total
+                                ) <= 12,2,1),
                             createDayValue: Value(Day(Today()) & Month(Today()) & Year(Today()))
                         },
                         Form2.Updates
