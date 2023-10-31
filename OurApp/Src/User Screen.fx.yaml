@@ -1235,7 +1235,7 @@
         drp_us_Manager As dropdown:
             BorderColor: =RGBA(116, 116, 116, 1)
             BorderThickness: =1
-            Items: =Filter(gblColAllUser,active = 1 And roleID = 2 Or roleID = 3)
+            Items: =Filter(gblColAllUser,active = 1 And roleID = 2 Or roleID = 3 Or roleID = 7)
             Visible: =If(drp_us_Roles_1.Selected.ID = 1 Or drp_us_Roles_1.Selected.ID = 5,true,false)
             X: =548
             Y: =If(drp_us_Roles_1.Selected.ID = 1 Or drp_us_Roles_1.Selected.ID = 2 Or drp_us_Roles_1.Selected.ID = 7 Or drp_us_Roles_1.Selected.ID = 5,595,471)
@@ -1502,7 +1502,7 @@
                     NotificationType.Success,
                     1500
                 );*/
-                'ASTakeLeave.ActionUpdateUser'.Run(locUser.roleID,locUser.userID);
+                'ASTakeLeave.ActionUpdateUser'.Run(drp_us_Roles_2.Selected.ID,locUser.userID);
                 Reset(cbo_us_Email_2);
                 Reset(drp_us_Roles_2);
                 Reset(cbo_us_Manager_2);
@@ -1729,9 +1729,9 @@
             DefaultSelectedItems: =LookUp(gblColAllUser,active = 1 And userID = LookUp(gblColManagerByUser,userID = locUser.userID).approveUserID)
             DisplayFields: =["fullName"]
             InputTextPlaceholder: ="Chọn quản lý trực tiếp"
-            Items: =Filter(gblColAllUser,active = 1 And roleID = 2 And userID <> locUser.userID)
+            Items: =Filter(gblColAllUser,active = 1 And roleID = 2 Or roleID = 7 Or roleID = 3 And userID <> locUser.userID)
             SearchFields: =["email"]
-            SearchItems: =Search(Filter(gblColAllUser,active = 1 And roleID = 2 And userID <> locUser.userID),cbo_us_Manager_2.SearchText,"email")
+            SearchItems: =Search(Filter(gblColAllUser,active = 1 And roleID = 2 Or roleID = 7 Or roleID = 3 And userID <> locUser.userID),cbo_us_Manager_2.SearchText,"email")
             SelectMultiple: =false
             Visible: =If(drp_us_Roles_2.Selected.ID = 1 Or drp_us_Roles_2.Selected.ID = 5,true,false)
             X: =548
