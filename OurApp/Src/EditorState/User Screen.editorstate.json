@@ -12828,14 +12828,7 @@
         "DisplayMode",
         "ChildTabPriority",
         "LayoutMode",
-        {
-          "AFDDataSourceName": "",
-          "AutoRuleBindingEnabled": false,
-          "AutoRuleBindingString": "",
-          "InvariantPropertyName": "LayoutDirection",
-          "IsLockable": false,
-          "NameMapSourceSchema": "?"
-        },
+        "LayoutDirection",
         "LayoutAlignItems",
         "LayoutJustifyContent",
         "LayoutGap",

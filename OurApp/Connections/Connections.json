@@ -1,4 +1,50 @@
 {
+  "00a12b8f-844b-4caf-8193-37eacce0bc06": {
+    "connectionRef": {
+      "displayName": "Logic flows",
+      "iconUri": "https://connectoricons-prod.azureedge.net/releases/v1.0.1664/1.0.1664.3477/logicflows/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_logicflows",
+      "parameterHints": {
+        "workflowEntityId": {
+          "value": "abf7bf1e-f976-ee11-8179-000d3aa0d035"
+        },
+        "workflowName": {
+          "value": "5e45f99c-d1a3-462f-815f-2b34113d9223"
+        }
+      },
+      "parameterHintsV2": {
+        "workflowEntityId": {
+          "value": "abf7bf1e-f976-ee11-8179-000d3aa0d035"
+        },
+        "workflowName": {
+          "value": "5e45f99c-d1a3-462f-815f-2b34113d9223"
+        }
+      }
+    },
+    "datasets": {},
+    "dataSources": [
+      "ASTakeLeave.ExportReportFile"
+    ],
+    "dependencies": {
+      "shared_sharepointonline": "04e0ad42-7b3b-4f11-b235-8ccd8c494f10"
+    },
+    "dependents": [],
+    "id": "00a12b8f-844b-4caf-8193-37eacce0bc06"
+  },
+  "04e0ad42-7b3b-4f11-b235-8ccd8c494f10": {
+    "connectionRef": {
+      "displayName": "SharePoint",
+      "iconUri": "https://connectoricons-prod.azureedge.net/releases/v1.0.1664/1.0.1664.3477/sharepointonline/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_sharepointonline"
+    },
+    "datasets": {},
+    "dataSources": [],
+    "dependencies": {},
+    "dependents": [
+      "00a12b8f-844b-4caf-8193-37eacce0bc06"
+    ],
+    "id": "04e0ad42-7b3b-4f11-b235-8ccd8c494f10"
+  },
   "0eb57bc9-f0aa-4596-a1bf-9585afadffa1": {
     "appActions": [],
     "connectionRef": {
@@ -177,43 +223,19 @@
     "dependents": [],
     "id": "937af40b-402d-4b6c-9c16-aee134bae008"
   },
-  "a80e120d-0796-4676-8bcb-67f90a520a76": {
+  "add04aa2-fa6e-432e-804c-b452cfaf49dc": {
     "connectionRef": {
-      "displayName": "Logic flows",
-      "iconUri": "https://connectoricons-prod.azureedge.net/releases/v1.0.1664/1.0.1664.3477/logicflows/icon.png",
-      "id": "/providers/microsoft.powerapps/apis/shared_logicflows",
-      "parameterHints": {
-        "d065f958-6fce-4892-b9b1-62434c57ce96": {
-          "value": "shared_sharepointonline"
-        },
-        "workflowEntityId": {
-          "value": "abf7bf1e-f976-ee11-8179-000d3aa0d035"
-        },
-        "workflowName": {
-          "value": "5e45f99c-d1a3-462f-815f-2b34113d9223"
-        }
-      },
-      "parameterHintsV2": {
-        "shared_sharepointonline": {
-          "value": "d065f958-6fce-4892-b9b1-62434c57ce96"
-        },
-        "workflowEntityId": {
-          "value": "abf7bf1e-f976-ee11-8179-000d3aa0d035"
-        },
-        "workflowName": {
-          "value": "5e45f99c-d1a3-462f-815f-2b34113d9223"
-        }
-      }
+      "displayName": "SharePoint",
+      "iconUri": "https://connectoricons-prod.azureedge.net/releases/v1.0.1664/1.0.1664.3477/sharepointonline/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_sharepointonline"
     },
     "datasets": {},
     "dataSources": [
-      "ASTakeLeave.ExportReportFile"
+      "test"
     ],
-    "dependencies": {
-      "shared_sharepointonline": "d065f958-6fce-4892-b9b1-62434c57ce96"
-    },
+    "dependencies": {},
     "dependents": [],
-    "id": "a80e120d-0796-4676-8bcb-67f90a520a76"
+    "id": "add04aa2-fa6e-432e-804c-b452cfaf49dc"
   },
   "cf341574-441c-4f2a-a3b6-ead8c294cdc6": {
     "appActions": [
@@ -309,24 +331,10 @@
       "1788df75-50d0-4023-8fc6-21646c5e4d76",
       "51d898db-ccf2-4c94-b1ca-7cda1f06927c",
       "f3d25281-5924-49a4-9da5-f0b76e90abda",
-      "49c30399-0d70-4ad6-8f01-ca577e01b197",
-      "eb176140-482a-4d98-83da-b60a9bd52de4"
+      "a3225809-5621-41a0-ba72-76a98bed49e0",
+      "49c30399-0d70-4ad6-8f01-ca577e01b197"
     ],
     "id": "cf341574-441c-4f2a-a3b6-ead8c294cdc6"
-  },
-  "d065f958-6fce-4892-b9b1-62434c57ce96": {
-    "connectionRef": {
-      "displayName": "SharePoint",
-      "iconUri": "https://connectoricons-prod.azureedge.net/releases/v1.0.1664/1.0.1664.3477/sharepointonline/icon.png",
-      "id": "/providers/microsoft.powerapps/apis/shared_sharepointonline"
-    },
-    "datasets": {},
-    "dataSources": [],
-    "dependencies": {},
-    "dependents": [
-      "a80e120d-0796-4676-8bcb-67f90a520a76"
-    ],
-    "id": "d065f958-6fce-4892-b9b1-62434c57ce96"
   },
   "eb176140-482a-4d98-83da-b60a9bd52de4": {
     "connectionRef": {
