@@ -540,7 +540,7 @@
                                 RGBA(0, 0, 0, 1)
                             BorderThickness: =1
                             DisabledFill: =RGBA(255, 255, 255, 1)
-                            DisplayMode: =DisplayMode.Disabled
+                            DisplayMode: =DisplayMode.View
                             Height: =105
                             IsInDataCard: =true
                             Items: =locRequestDetail.Attachments
@@ -638,14 +638,14 @@
                         Icon: =If(ThisItem.status = "1",Icon.Check,Icon.Cancel)
                         OnSelect: =Select(Parent)
                         Width: =21
-                        X: =50
+                        X: =49
                         Y: =14
                         ZIndex: =3
 
                     lbl_rds_ApproveBy As label:
                         Color: =RGBA(94, 94, 94, 1)
                         OnSelect: =Select(Parent)
-                        Text: =LookUp(gblColAllUser,userID = ThisItem.userID).fullName & If(ThisItem.status = "1"," đã từ chối"," đã duyệt")
+                        Text: =LookUp(gblColAllUser,userID = ThisItem.userID).fullName & If(ThisItem.status = "2"," đã từ chối"," đã duyệt")
                         Width: =270
                         Wrap: =false
                         X: =98

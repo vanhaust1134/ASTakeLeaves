@@ -356,7 +356,7 @@
                 gal_as_List As gallery.galleryVertical:
                     AlignInContainer: =AlignInContainer.SetByContainer
                     DelayItemLoading: =true
-                    Items: =Filter(colLeaveRequestByManager,approveUserID = gblRecUser.userID)
+                    Items: =Sort(Filter(colLeaveRequestByManager,approveUserID = gblRecUser.userID),ID,SortOrder.Descending)
                     Layout: =Layout.Vertical
                     LayoutMinHeight: =287
                     LayoutMinWidth: =0
