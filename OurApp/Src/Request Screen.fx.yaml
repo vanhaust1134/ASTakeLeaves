@@ -1015,7 +1015,7 @@
                 Label7 As label:
                     Color: =If(locShowErrorDate <> "Ngày tạo hợp lệ",RGBA(255, 0, 0, 1),Color.Green)
                     Height: =25
-                    Text: =If(locRequestDayLeaveReverse = false And dtp_rs_StartDay.SelectedDate < Today(),"Chọn nghỉ phép ngược để tạo yêu cầu trước ngày hiện tại",locShowErrorDate)
+                    Text: =If(locRequestDayLeaveReverse = false And dtp_rs_StartDay.SelectedDate < Today(),"Chọn nghỉ phép ngược để tạo yêu cầu trước ngày hiện tại",locRequestDayLeaveReverse = true And dtp_rs_StartDay.SelectedDate > Today(),"Ngày nghỉ không hợp lệ",locShowErrorDate)
                     ZIndex: =5
 
                 ctn_rs_Division_1 As groupContainer.verticalAutoLayoutContainer:
@@ -1411,6 +1411,12 @@
                             locRequestDayLeaveReverse = false And dtp_rs_StartDay.SelectedDate < Today(),
                             Notify(
                                 "Chọn nghỉ phép ngược để tạo yêu cầu trước ngày hiện tại",
+                                NotificationType.Error,
+                                1500
+                            ),
+                            locRequestDayLeaveReverse = true And dtp_rs_StartDay.SelectedDate > Today(),
+                            Notify(
+                                "Ngày tạo không hợp lệ",
                                 NotificationType.Error,
                                 1500
                             ),
