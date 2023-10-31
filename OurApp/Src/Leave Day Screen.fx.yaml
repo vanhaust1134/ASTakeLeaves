@@ -340,6 +340,7 @@
                         Color: =RGBA(47, 47, 47, 1)
                         FillPortions: =1
                         FontWeight: =FontWeight.Bold
+                        PaddingLeft: =0
                         Text: ="Tổng ngày phép"
                         ZIndex: =3
 
@@ -348,6 +349,7 @@
                         Color: =RGBA(47, 47, 47, 1)
                         FillPortions: =1
                         FontWeight: =FontWeight.Bold
+                        PaddingLeft: =0
                         Text: ="Còn lại"
                         ZIndex: =4
 
@@ -356,6 +358,7 @@
                         Color: =RGBA(47, 47, 47, 1)
                         FillPortions: =1
                         FontWeight: =FontWeight.Bold
+                        PaddingLeft: =0
                         Text: ="Đã dùng"
                         ZIndex: =5
 
@@ -364,6 +367,7 @@
                         Color: =RGBA(47, 47, 47, 1)
                         FillPortions: =1
                         FontWeight: =FontWeight.Bold
+                        PaddingLeft: =0
                         Text: ="Không lương"
                         ZIndex: =6
 
@@ -375,6 +379,11 @@
                         Visible: =false
                         Width: =50
                         ZIndex: =7
+
+                    lbl_lds_space As label:
+                        Text: =""
+                        Width: =36
+                        ZIndex: =8
 
                 gal_lds_List As gallery.galleryVertical:
                     AlignInContainer: =AlignInContainer.SetByContainer
@@ -433,6 +442,7 @@
                             ZIndex: =3
 
                         lbl_lds_ItemTimeTotal As label:
+                            AlignInContainer: =AlignInContainer.Stretch
                             Color: =RGBA(114, 114, 114, 1)
                             FillPortions: =1
                             FontWeight: =FontWeight.Semibold
@@ -461,9 +471,9 @@
                             Image: =Edit
                             ImagePosition: =ImagePosition.Center
                             LayoutMinHeight: =30
-                            OnSelect: =
-                            Visible: =false
-                            Width: =44
+                            OnSelect: |-
+                                =UpdateContext({locBoolShowEditWindow: true});
+                            Width: =36
                             X: =991
                             Y: =2
                             ZIndex: =7
@@ -847,4 +857,381 @@
                     Wrap: =false
                     Y: =DataCardKey1.Y
                     ZIndex: =4
+
+    ctn_lds_EditDayOff As groupContainer.manualLayoutContainer:
+        Fill: =RGBA(0, 0, 0, 0.5)
+        Height: =768
+        RadiusBottomLeft: =20
+        RadiusBottomRight: =20
+        RadiusTopLeft: =20
+        RadiusTopRight: =20
+        Visible: =locBoolShowEditWindow
+        Width: =1366
+        ZIndex: =8
+
+        btn_us_BackGround_5 As button:
+            BorderStyle: =BorderStyle.None
+            DisabledFill: =RGBA(255, 255, 255, 1)
+            DisplayMode: =DisplayMode.Disabled
+            Height: =716
+            RadiusBottomLeft: =5
+            RadiusBottomRight: =5
+            RadiusTopLeft: =5
+            RadiusTopRight: =5
+            Text: =""
+            Width: =608
+            X: =375
+            Y: =27
+            ZIndex: =1
+
+        lbl_us_Title_6 As label:
+            FontWeight: =FontWeight.Bold
+            Text: ="Tạo người dùng"
+            X: =387
+            Y: =32
+            ZIndex: =2
+
+        shp_us_Deco_10 As rectangle:
+            Fill: =RGBA(202, 202, 202, 1)
+            Height: =1
+            Width: =608
+            X: =375
+            Y: =75
+            ZIndex: =3
+
+        ico_us_Cancel_5 As icon.Cancel:
+            Color: =RGBA(149, 149, 149, 1)
+            Height: =29
+            Icon: =Icon.Cancel
+            OnSelect: |-
+                =UpdateContext({locCreateUser:false})
+            Width: =25
+            X: =942
+            Y: =39
+            ZIndex: =4
+
+        lbl_us_Name_13 As label:
+            Align: =Align.Right
+            FontWeight: =FontWeight.Semibold
+            Text: ="Họ tên"
+            X: =387
+            Y: =151
+            ZIndex: =5
+
+        shp_us_Deco_11 As rectangle:
+            Fill: =RGBA(202, 202, 202, 1)
+            Height: =1
+            Width: =608
+            X: =375
+            Y: =679
+            ZIndex: =6
+
+        btn_us_Submit_4 As button:
+            BorderThickness: =1
+            Fill: =RGBA(0, 89, 204, 1)
+            Height: =36
+            HoverFill: =ColorFade(Self.Fill, -20%)
+            OnSelect: |
+                =//Kiểm tra các trường mã nhân viên, họ tên, email, chức danh
+                If(
+                    CountRows(
+                        Filter(
+                            gblColAllUser,
+                            active = 1 And userID = txt_us_Name_4.Text
+                        )
+                    ) = 1,
+                    Notify(
+                        "Trường mã nhân viên bị trùng",
+                        NotificationType.Error,
+                        1500
+                    ),
+                    CountRows(Filter(gblColAllUser,active = 1 And email = cbo_us_Email_1.Selected.Mail)) = 1,
+                    Notify(
+                        "Trường email bị trùng",
+                        NotificationType.Error,
+                        1500
+                    ),
+                    IsBlank(txt_us_Name_4.Text),
+                    Notify(
+                        "Trường mã nhân viên không được để trống",
+                        NotificationType.Error,
+                        1500
+                    ),
+                    IsBlank(txt_us_Name_11.Text),
+                    Notify(
+                        "Trường họ tên nhân viên không được để trống",
+                        NotificationType.Error,
+                        1500
+                    ),
+                    IsBlank(cbo_us_Email_1.Selected.DisplayName),
+                    Notify(
+                        "Trường email không được để trống",
+                        NotificationType.Error,
+                        1500
+                    ),
+                    IsBlank(txt_us_JobTitle_4.Text),
+                    Notify(
+                        "Trường chức danh không được để trống",
+                        NotificationType.Error,
+                        1500
+                    ),
+                    //Tạo nhân viên
+                    Patch(
+                        'ASTakeLeave.Users',
+                        Defaults('ASTakeLeave.Users'),
+                        {
+                            userID: Substitute(txt_us_Name_4.Text," ",""),
+                            fullName: txt_us_Name_11.Text,
+                            email: cbo_us_Email_1.Selected.Mail,
+                            phone: txt_us_Phone_4.Text,
+                            jobTitle: txt_us_JobTitle_4.Text,
+                            divisionID: If(drp_us_Roles_3.Selected.ID = 1 Or drp_us_Roles_3.Selected.ID = 2 Or drp_us_Roles_3.Selected.ID = 5 Or drp_us_Roles_3.Selected.ID = 7,drp_us_Department_4.Selected.ID,Blank()),
+                            departmentID: If(drp_us_Roles_3.Selected.ID = 1 Or drp_us_Roles_3.Selected.ID = 2 Or drp_us_Roles_3.Selected.ID = 5 Or drp_us_Roles_3.Selected.ID = 7,drp_us_Department_2.Selected.ID,Blank()),
+                            '365AccountInfo': {
+                                '@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedUser",
+                                Department: "",
+                                Claims: "i:0#.f|membership|" & cbo_us_Email_1.Selected.Mail,
+                                DisplayName: Office365Users.UserProfileV2(cbo_us_Email_1.Selected.Mail).displayName,
+                                Email: cbo_us_Email_1.Selected.Mail,
+                                JobTitle: "",
+                                Picture: ""
+                            },
+                            active: 1
+                        }
+                    );
+                    //Tạo phân quyền
+                Patch(
+                        'ASTakeLeave.Users_Roles',
+                        Defaults('ASTakeLeave.Users_Roles'),
+                        {
+                            userID: txt_us_Name_4.Text,
+                            roleID: drp_us_Roles_3.Selected.ID,
+                            active: 1
+                        }
+                    );
+                    //Tạo quản lý người dùng
+                Patch(
+                        'ASTakeLeave.UserRelationship',
+                        Defaults('ASTakeLeave.UserRelationship'),
+                        {
+                            approveUserID: If(drp_us_Roles_3.Selected.ID = 1 Or drp_us_Roles_3.Selected.ID = 5,drp_us_Manager_1.Selected.userID,Blank()),
+                            userID: txt_us_Name_4.Text,
+                            approveProcessLevel: 1,
+                            active: 1
+                        }
+                    );
+                    Patch(
+                        'ASTakeLeave.UserRelationship',
+                        Defaults('ASTakeLeave.UserRelationship'),
+                        {
+                            approveUserID: LookUp(gblColDivision,ID = drp_us_Department_4.Selected.ID).directorUserID,
+                            userID: txt_us_Name_4.Text,
+                            approveProcessLevel: 2,
+                            active: 1
+                        }
+                    );
+                    Notify(
+                    "Tạo thành công",
+                    NotificationType.Success,
+                    1500
+                );
+                Reset(txt_us_Name_4);
+                Reset(txt_us_Name_11);
+                Reset(cbo_us_Email_1);
+                Reset(txt_us_Phone_4);
+                Reset(txt_us_JobTitle_4);
+                Reset(drp_us_Department_4);
+                Reset(drp_us_Department_2);
+                Reset(drp_us_Roles_3);
+                //Làm mới bảng người dùng
+                Refresh('ASTakeLeave.Users');
+                Refresh('ASTakeLeave.Users_Roles');
+                Refresh('ASTakeLeave.UserRelationship');
+                //Thêm trường role vào bảng user
+                ClearCollect(
+                    gblColAllUser,
+                    AddColumns(
+                        ShowColumns(
+                            Filter('ASTakeLeave.Users',active = 1),
+                            "ID",
+                            "userID",
+                            "fullName",
+                            "shortName",
+                            "email",
+                            "phone",
+                            "jobTitle",
+                            "departmentID",
+                            "divisionID",
+                            "OData__x0033_65AccountInfo",
+                            "active"
+                        ) As temp,
+                        "roleID",
+                        LookUp(
+                            Filter(
+                                'ASTakeLeave.Users_Roles',
+                                active = 1
+                            ),
+                            userID = temp.userID
+                        ).roleID
+                    )
+                );
+                //Lấy bảng quản lý người dùng
+                ClearCollect(
+                    gblColManagerByUser,
+                    Filter(
+                        'ASTakeLeave.UserRelationship',
+                        active = 1
+                    )
+                );
+                UpdateContext({locCreateUser: false})
+                );
+            PressedColor: =RGBA(255,255,255,1)
+            PressedFill: =Self.Fill
+            RadiusBottomLeft: =5
+            RadiusBottomRight: =5
+            RadiusTopLeft: =5
+            RadiusTopRight: =5
+            Text: ="Tạo"
+            Width: =87
+            X: =879
+            Y: =694
+            ZIndex: =7
+
+        btn_us_Cancel_5 As button:
+            BorderThickness: =1
+            Color: =RGBA(0, 0, 0, 1)
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =36
+            HoverFill: =ColorFade(Self.Fill, -20%)
+            OnSelect: |-
+                =UpdateContext({locBoolShowEditWindow: false});
+            PressedColor: =RGBA(0,0,0,1)
+            PressedFill: =Self.Fill
+            RadiusBottomLeft: =5
+            RadiusBottomRight: =5
+            RadiusTopLeft: =5
+            RadiusTopRight: =5
+            Text: ="Hủy"
+            Width: =87
+            X: =779
+            Y: =694
+            ZIndex: =8
+
+        lbl_us_Email_4 As label:
+            Align: =Align.Right
+            FontWeight: =FontWeight.Semibold
+            Text: ="Email"
+            X: =387
+            Y: =215
+            ZIndex: =9
+
+        lbl_us_Phone_4 As label:
+            Align: =Align.Right
+            FontWeight: =FontWeight.Semibold
+            Text: ="SDT"
+            X: =387
+            Y: =279
+            ZIndex: =10
+
+        lbl_us_JobTitle_5 As label:
+            Align: =Align.Right
+            FontWeight: =FontWeight.Semibold
+            Text: ="Chức danh"
+            X: =387
+            Y: =343
+            ZIndex: =11
+
+        lbl_us_Department_9 As label:
+            Align: =Align.Right
+            FontWeight: =FontWeight.Semibold
+            Text: ="Phòng"
+            Width: =97
+            X: =439
+            Y: =534
+            ZIndex: =12
+
+        lbl_us_Roles_4 As label:
+            Align: =Align.Right
+            FontWeight: =FontWeight.Semibold
+            Text: ="Roles"
+            X: =387
+            Y: =405
+            ZIndex: =13
+
+        txt_us_Name_11 As text:
+            BorderColor: =RGBA(116, 116, 116, 1)
+            BorderThickness: =1
+            Default: =""
+            DisplayMode: =DisplayMode.Disabled
+            HintText: =""
+            Width: =394
+            X: =548
+            Y: =151
+            ZIndex: =14
+
+        txt_us_Phone_4 As text:
+            BorderColor: =RGBA(116, 116, 116, 1)
+            BorderThickness: =1
+            Default: =""
+            Format: =TextFormat.Number
+            HintText: ="Nhập số"
+            Width: =260
+            X: =548
+            Y: =279
+            ZIndex: =16
+
+        txt_us_JobTitle_4 As text:
+            BorderColor: =RGBA(116, 116, 116, 1)
+            BorderThickness: =1
+            Default: =""
+            HintText: ="Nhập chức danh"
+            Width: =260
+            X: =548
+            Y: =343
+            ZIndex: =18
+
+        lbl_us_Name_6 As label:
+            Align: =Align.Right
+            FontWeight: =FontWeight.Semibold
+            Text: ="Mã nhân viên"
+            X: =387
+            Y: =93
+            ZIndex: =22
+
+        txt_us_Name_4 As text:
+            BorderColor: =If(CountRows(Filter(gblColAllUser,active = 1 And userID = txt_us_Name_4.Text)) = 1,Color.Red,RGBA(116, 116, 116, 1))
+            BorderThickness: =1
+            Default: =""
+            DisplayMode: =DisplayMode.Disabled
+            HintText: =""
+            Width: =394
+            X: =548
+            Y: =93
+            ZIndex: =23
+
+        lbl_us_Department_8 As label:
+            Align: =Align.Right
+            FontWeight: =FontWeight.Semibold
+            Text: ="Khối"
+            Width: =97
+            X: =439
+            Y: =470
+            ZIndex: =24
+
+        cbo_us_Email_1 As combobox:
+            BorderColor: =If(CountRows(Filter(gblColAllUser,active = 1 And email = cbo_us_Email_1.Selected.Mail)) = 1,Color.Red,RGBA(116, 116, 116, 1))
+            BorderThickness: =1
+            DisplayFields: =["DisplayName","Mail"]
+            DisplayMode: =DisplayMode.View
+            InputTextPlaceholder: ="Tìm người dùng"
+            Items: |-
+                =Office365Users.SearchUserV2({searchTerm:Self.SearchText}).value
+            SearchFields: =["Mail"]
+            SearchItems: |-
+                =Search(Office365Users.SearchUserV2({searchTerm:Self.SearchText}).value,cbo_us_Email_1.SearchText,"Mail")
+            SelectMultiple: =false
+            Template: =ListItemTemplate.Double
+            X: =551
+            Y: =215
+            ZIndex: =26
 
