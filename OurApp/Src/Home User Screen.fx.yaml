@@ -50,7 +50,8 @@
                                             Day(_nextLastDayInView) &
                                             Month(_nextLastDayInView) &
                                             Year(_nextLastDayInView)
-                                        )
+                                        ),
+                    status = 2
                 )
             );
         
@@ -573,7 +574,8 @@
                                         endDateValue <= Value(Day(_previousLastDayInView) & Month(_previousLastDayInView) & Year(_previousLastDayInView)),
                                         startDateValue >= Value(Day(_previousFirstDayInView) & Month(_previousFirstDayInView) & Year(_previousFirstDayInView)) &&
                                         endDateValue <= Value(Day(_lastDayInView) & Month(_lastDayInView) & Year(_lastDayInView)) 
-                                    ) 
+                                    ),
+                                    status = 2 
                                 )  
                             );
                         
@@ -631,7 +633,8 @@
                                         endDateValue <= Value(Day(_nextLastDayInView) & Month(_nextLastDayInView) & Year(_nextLastDayInView)),
                                         startDateValue >= Value(Day(_firstDayInView) & Month(_firstDayInView) & Year(_firstDayInView)) &&
                                         endDateValue <= Value(Day(_nextLastDayInView) & Month(_nextLastDayInView) & Year(_nextLastDayInView))                
-                                    )
+                                    ),
+                                    status = 2
                                 )  
                             );
                         
