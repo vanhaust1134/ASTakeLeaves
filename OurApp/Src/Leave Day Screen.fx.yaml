@@ -1128,7 +1128,7 @@
         lbl_us_Phone_4 As label:
             Align: =Align.Right
             FontWeight: =FontWeight.Semibold
-            Text: ="SDT"
+            Text: ="Tổng ngày phép"
             X: =387
             Y: =279
             ZIndex: =10
@@ -1136,24 +1136,15 @@
         lbl_us_JobTitle_5 As label:
             Align: =Align.Right
             FontWeight: =FontWeight.Semibold
-            Text: ="Chức danh"
+            Text: ="Đã dùng"
             X: =387
             Y: =343
             ZIndex: =11
 
-        lbl_us_Department_9 As label:
-            Align: =Align.Right
-            FontWeight: =FontWeight.Semibold
-            Text: ="Phòng"
-            Width: =97
-            X: =439
-            Y: =534
-            ZIndex: =12
-
         lbl_us_Roles_4 As label:
             Align: =Align.Right
             FontWeight: =FontWeight.Semibold
-            Text: ="Roles"
+            Text: ="Không lương"
             X: =387
             Y: =405
             ZIndex: =13
@@ -1212,7 +1203,7 @@
         lbl_us_Department_8 As label:
             Align: =Align.Right
             FontWeight: =FontWeight.Semibold
-            Text: ="Khối"
+            Text: ="Còn lại"
             Width: =97
             X: =439
             Y: =470
