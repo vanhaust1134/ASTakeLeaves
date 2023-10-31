@@ -2448,7 +2448,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "Button3_1",
-      "ParentIndex": 1,
+      "ParentIndex": 0,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -2751,7 +2751,7 @@
       "Properties": [
         {
           "Category": "Data",
-          "NameMap": "{\"Series1\":\"totalDayOff_Month\",\"Series2\":\"totalDayUnpaid_Month\",\"Series3\":\"Month\",\"Series4\":\"Month\",\"Series5\":\"Month\",\"Series6\":\"Month\",\"Series7\":\"Month\",\"Series8\":\"Month\",\"Series9\":\"Month\",\"Labels\":\"Month\"}",
+          "NameMap": "{\"Series1\":\"totalDayOff_Month\",\"Series2\":\"totalDayUnpaid_Month\",\"Labels\":\"month\",\"Series3\":\"ID\",\"Series4\":\"active\",\"Series5\":\"month\",\"Series6\":\"year\",\"Series7\":\"year\",\"Series8\":\"year\",\"Series9\":\"year\"}",
           "PropertyName": "Items",
           "RuleProviderType": "Unknown"
         },
@@ -4768,7 +4768,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "ctn_hs_Info2_4",
-      "ParentIndex": 1,
+      "ParentIndex": 0,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -9633,7 +9633,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "img_hs_Avatar_4",
-      "ParentIndex": 0,
+      "ParentIndex": 1,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -14463,7 +14463,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "lbl_hs_Title_3",
-      "ParentIndex": 0,
+      "ParentIndex": 1,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
