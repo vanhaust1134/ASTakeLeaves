@@ -5,6 +5,7 @@
         =//Tạo biến tổng ngày phép và ngày phép còn lại
         UpdateContext({locMaxDayLeaveNumber:LookUp('ASTakeLeave.TotalDayOffInYear',userID = gblRecUser.userID).maxDayOff_Year});
         UpdateContext({locTotalDayLeaveNumber:LookUp('ASTakeLeave.TotalDayOffInYear',userID = gblRecUser.userID).totalDayOff_Year});
+        UpdateContext({locTotalDayLeaveUseful:LookUp('ASTakeLeave.TotalDayOffInYear',userID = gblRecUser.userID).totalDayLeft_Year});
         
         //Tạo collect chứa gồm 2 ngày bắt đầu và kết thúc của kì nghỉ
         ClearCollect(
@@ -1439,7 +1440,7 @@
                                                         TotalLeaveDay > 0
                                                     )
                                                 ).Value,
-                                                locMaxDayLeaveNumber - Temp.TotalLeaveDay,
+                                                locTotalDayLeaveUseful - Temp.TotalLeaveDay,
                                                 Last(colDayLeft).Result - Temp.TotalLeaveDay
                                             )
                                         }

@@ -64,7 +64,7 @@
                 },
                 "region": {
                   "charLength": 16,
-                  "charOffset": 1206,
+                  "charOffset": 1332,
                   "snippet": {
                     "text": "Month(startDate)"
                   }
@@ -104,7 +104,7 @@
                 },
                 "region": {
                   "charLength": 1,
-                  "charOffset": 1223,
+                  "charOffset": 1349,
                   "snippet": {
                     "text": "="
                   }
@@ -144,7 +144,7 @@
                 },
                 "region": {
                   "charLength": 3,
-                  "charOffset": 1202,
+                  "charOffset": 1328,
                   "snippet": {
                     "text": "And"
                   }
@@ -184,7 +184,7 @@
                 },
                 "region": {
                   "charLength": 3,
-                  "charOffset": 1236,
+                  "charOffset": 1362,
                   "snippet": {
                     "text": "And"
                   }
