@@ -5842,7 +5842,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "ctn_hs_Info2_3",
-      "ParentIndex": 0,
+      "ParentIndex": 1,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -9701,14 +9701,7 @@
         "PaddingRight",
         "PaddingBottom",
         "PaddingLeft",
-        {
-          "AFDDataSourceName": "",
-          "AutoRuleBindingEnabled": false,
-          "AutoRuleBindingString": "//Lấy dữ liệu nếu khác năm và tính toán lại\nIf(\n    !(Dropdown3_5.Selected.Value exactin locColReportYear),\n    If(\n        gblRecUser.roleID = 4 || gblRecUser.roleID = 5 || gblRecUser.roleID = 7,    //Nếu là giám đốc, HR, trưởng HR ------------------\n        Concurrent(\n            ClearCollect(    \n                locColReportManagerTotalDayOffInMonthTemp1,  //lấy 6 tháng đầu\n                AddColumns(\n                    Filter('ASTakeLeave.TotalDayOffInMonth', year = Dropdown3_5.Selected.Value, month <= 6) As temp,\n                    \"departmentID\",\n                    LookUp(gblColAllUser, userID = temp.userID).departmentID,\n                    \"divisionID\",\n                    LookUp(gblColAllUser, userID = temp.userID).divisionID\n                )\n            ),\n            ClearCollect(    \n                locColReportManagerTotalDayOffInMonthTemp2,  //lấy 6 tháng sau\n                AddColumns(\n                    Filter('ASTakeLeave.TotalDayOffInMonth', year = Dropdown3_5.Selected.Value, month >= 7) As temp,\n                    \"departmentID\",\n                    LookUp(gblColAllUser, userID = temp.userID).departmentID,\n                    \"divisionID\",\n                    LookUp(gblColAllUser, userID = temp.userID).divisionID\n                )\n            ),\n            Collect(    //Tạo collection chứa các year dữ liệu\n                locColReportYear,\n                {\n                    Value: Year(Dropdown3_5.Selected.Value)\n                }\n            )\n        );\n        //Gộp 2 collection temp\n        Collect(\n            locColReportManagerTotalDayOffInMonth,\n            locColReportManagerTotalDayOffInMonthTemp1,\n            locColReportManagerTotalDayOffInMonthTemp2\n        )  \n    );\n\n    //Chạy lại tính toán\n    Select(btn_sms_CalculateFilter);\n)\n",
-          "InvariantPropertyName": "OnChange",
-          "IsLockable": false,
-          "NameMapSourceSchema": "?"
-        }
+        "OnChange"
       ],
       "DynamicProperties": [
         {
@@ -10910,7 +10903,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "img_hs_Avatar_3",
-      "ParentIndex": 1,
+      "ParentIndex": 0,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -16165,7 +16158,7 @@
       "Properties": [
         {
           "Category": "Data",
-          "NameMap": "{\"Value\":\"text\"}",
+          "NameMap": "{\"Value\":\"Value\"}",
           "PropertyName": "Items",
           "RuleProviderType": "Unknown"
         },

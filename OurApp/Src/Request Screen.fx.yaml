@@ -611,76 +611,7 @@
                         Height: =50
                         IconBackground: =RGBA(73, 113, 215, 1)
                         OnChange: |-
-                            =If(
-                                //Kiểm tra ngày kết thúc nhỏ hơn ngày bắt đầu
-                                dtp_rs_StartDay.SelectedDate > dtp_rs_FinishDay.SelectedDate,
-                                Notify(
-                                    "Ngày kết thúc nhỏ hơn ngày bắt đầu",
-                                    NotificationType.Error,
-                                    1500
-                                );
-                                Reset(dtp_rs_StartDay),
-                                //Cập nhật ngày bắt đâu vào danh sách trạng thái ngày nghỉ
-                                Patch(
-                                    colDateRange,
-                                    LookUp(
-                                        colDateRange,
-                                        ID = 1
-                                    ),
-                                    {
-                                        Date: dtp_rs_StartDay.SelectedDate,
-                                        WeekDay: Weekday(dtp_rs_StartDay.SelectedDate)
-                                    }
-                                );
-                                If(
-                                    locRequestDayLeaveReverse = false,
-                                    If(
-                                //Kiểm tra tổng ngày nghỉ <= 2
-                                        DateDiff(
-                                            dtp_rs_StartDay.SelectedDate,
-                                            dtp_rs_FinishDay.SelectedDate
-                                        ) + 1 <= 2,
-                                        If(
-                                            DateDiff(
-                                                Today(),
-                                                dtp_rs_StartDay.SelectedDate
-                                            ) < 1,
-                                            UpdateContext({locShowErrorDate: "Phải tạo trước ít nhất 1 ngày làm việc"}),
-                                            UpdateContext({locShowErrorDate: "Ngày tạo hợp lệ"})
-                                        ),
-                                //Kiểm tra tổng ngày nghỉ >= 3 và <=4
-                                        DateDiff(
-                                            dtp_rs_StartDay.SelectedDate,
-                                            dtp_rs_FinishDay.SelectedDate
-                                        ) + 1 >= 3 And DateDiff(
-                                            dtp_rs_StartDay.SelectedDate,
-                                            dtp_rs_FinishDay.SelectedDate
-                                        ) + 1 <= 4,
-                                        If(
-                                            DateDiff(
-                                                Today(),
-                                                dtp_rs_StartDay.SelectedDate
-                                            ) + 1 < 7,
-                                            UpdateContext({locShowErrorDate: "Phải tạo trước ít nhất 7 ngày làm việc"}),
-                                            UpdateContext({locShowErrorDate: "Ngày tạo hợp lệ"})
-                                        ),
-                                //Kiểm tra tổng ngày nghỉ >= 5
-                                        DateDiff(
-                                            dtp_rs_StartDay.SelectedDate,
-                                            dtp_rs_FinishDay.SelectedDate
-                                        ) + 1 >= 5,
-                                        If(
-                                            DateDiff(
-                                                Today(),
-                                                dtp_rs_StartDay.SelectedDate
-                                            ) + 1 < 14,
-                                            UpdateContext({locShowErrorDate: "Phải tạo trước ít nhất 14 ngày làm việc"}),
-                                            UpdateContext({locShowErrorDate: "Ngày tạo hợp lệ"})
-                                        )
-                                    )
-                                )
-                            );
-                            //Tính tổng ngày nghỉ
+                            =//Tính tổng ngày nghỉ
                             ClearCollect(
                                 colTotalListDateRange,
                                 AddColumns(
@@ -796,7 +727,64 @@
                                         TimeUnit.Days
                                     )
                                 )
-                            )
+                            );
+                            If(
+                                //Kiểm tra ngày kết thúc nhỏ hơn ngày bắt đầu
+                                dtp_rs_StartDay.SelectedDate > dtp_rs_FinishDay.SelectedDate,
+                                Notify(
+                                    "Ngày kết thúc nhỏ hơn ngày bắt đầu",
+                                    NotificationType.Error,
+                                    1500
+                                );
+                                Reset(dtp_rs_StartDay),
+                                //Cập nhật ngày bắt đâu vào danh sách trạng thái ngày nghỉ
+                                Patch(
+                                    colDateRange,
+                                    LookUp(
+                                        colDateRange,
+                                        ID = 1
+                                    ),
+                                    {
+                                        Date: dtp_rs_StartDay.SelectedDate,
+                                        WeekDay: Weekday(dtp_rs_StartDay.SelectedDate)
+                                    }
+                                );
+                                If(
+                                    locRequestDayLeaveReverse = false,
+                                    If(
+                                //Kiểm tra tổng ngày nghỉ <= 2
+                                        Sum(colTotalListDateRange,Total) <= 2,
+                                        If(
+                                            DateDiff(
+                                                Today(),
+                                                dtp_rs_StartDay.SelectedDate
+                                            ) < 1,
+                                            UpdateContext({locShowErrorDate: "Phải tạo trước ít nhất 1 ngày làm việc"}),
+                                            UpdateContext({locShowErrorDate: "Ngày tạo hợp lệ"})
+                                        ),
+                                //Kiểm tra tổng ngày nghỉ >= 3 và <=4
+                                        Sum(colTotalListDateRange,Total) >= 3 And Sum(colTotalListDateRange,Total) <= 4,
+                                        If(
+                                            DateDiff(
+                                                Today(),
+                                                dtp_rs_StartDay.SelectedDate
+                                            ) + 1 < 7,
+                                            UpdateContext({locShowErrorDate: "Phải tạo trước ít nhất 7 ngày làm việc"}),
+                                            UpdateContext({locShowErrorDate: "Ngày tạo hợp lệ"})
+                                        ),
+                                //Kiểm tra tổng ngày nghỉ >= 5
+                                        Sum(colTotalListDateRange,Total) >= 5,
+                                        If(
+                                            DateDiff(
+                                                Today(),
+                                                dtp_rs_StartDay.SelectedDate
+                                            ) + 1 < 14,
+                                            UpdateContext({locShowErrorDate: "Phải tạo trước ít nhất 14 ngày làm việc"}),
+                                            UpdateContext({locShowErrorDate: "Ngày tạo hợp lệ"})
+                                        )
+                                    )
+                                )
+                            );
                         ZIndex: =3
 
                 ctn_rs_Division As groupContainer.verticalAutoLayoutContainer:
@@ -828,73 +816,7 @@
                         Height: =50
                         IconBackground: =RGBA(73, 113, 215, 1)
                         OnChange: |-
-                            =If(
-                                //Kiểm tra ngày kết thúc nhỏ hơn ngày bắt đầu
-                                dtp_rs_FinishDay.SelectedDate < dtp_rs_StartDay.SelectedDate,
-                                Notify(
-                                    "Ngày kết thúc nhỏ hơn ngày bắt đầu",
-                                    NotificationType.Error,
-                                    1500
-                                );
-                                Reset(dtp_rs_FinishDay),
-                                //Cập nhật ngày bắt đâu vào danh sách trạng thái ngày nghỉ
-                                Patch(
-                                    colDateRange,
-                                    LookUp(
-                                        colDateRange,
-                                        ID = 2
-                                    ),
-                                    {Date: dtp_rs_FinishDay.SelectedDate,WeekDay:Weekday(dtp_rs_FinishDay.SelectedDate)}
-                                );
-                                If(
-                                    locRequestDayLeaveReverse = false,
-                                    If(
-                                //Kiểm tra tổng ngày nghỉ <= 2
-                                        DateDiff(
-                                            dtp_rs_StartDay.SelectedDate,
-                                            dtp_rs_FinishDay.SelectedDate
-                                        ) + 1 <= 2,
-                                        If(
-                                            DateDiff(
-                                                Today(),
-                                                dtp_rs_StartDay.SelectedDate
-                                            ) < 1,
-                                            UpdateContext({locShowErrorDate: "Phải tạo trước ít nhất 1 ngày làm việc"}),
-                                            UpdateContext({locShowErrorDate: "Ngày tạo hợp lệ"})
-                                        ),
-                                //Kiểm tra tổng ngày nghỉ >= 3 và <=4
-                                        DateDiff(
-                                            dtp_rs_StartDay.SelectedDate,
-                                            dtp_rs_FinishDay.SelectedDate
-                                        ) + 1 >= 3 And DateDiff(
-                                            dtp_rs_StartDay.SelectedDate,
-                                            dtp_rs_FinishDay.SelectedDate
-                                        ) + 1 <= 4,
-                                        If(
-                                            DateDiff(
-                                                Today(),
-                                                dtp_rs_StartDay.SelectedDate
-                                            ) + 1 < 7,
-                                            UpdateContext({locShowErrorDate: "Phải tạo trước ít nhất 7 ngày làm việc"}),
-                                            UpdateContext({locShowErrorDate: "Ngày tạo hợp lệ"})
-                                        ),
-                                //Kiểm tra tổng ngày nghỉ >= 5
-                                        DateDiff(
-                                            dtp_rs_StartDay.SelectedDate,
-                                            dtp_rs_FinishDay.SelectedDate
-                                        ) + 1 >= 5,
-                                        If(
-                                            DateDiff(
-                                                Today(),
-                                                dtp_rs_StartDay.SelectedDate
-                                            ) + 1< 14,
-                                            UpdateContext({locShowErrorDate: "Phải tạo trước ít nhất 14 ngày làm việc"}),
-                                            UpdateContext({locShowErrorDate: "Ngày tạo hợp lệ"})
-                                        )
-                                    )
-                                )
-                            );
-                            //Tính tổng ngày nghỉ
+                            =//Tính tổng ngày nghỉ
                             ClearCollect(
                                 colTotalListDateRange,
                                 AddColumns(
@@ -1009,13 +931,67 @@
                                         TimeUnit.Days
                                     )
                                 )
-                            )
+                            );
+                            If(
+                                //Kiểm tra ngày kết thúc nhỏ hơn ngày bắt đầu
+                                dtp_rs_FinishDay.SelectedDate < dtp_rs_StartDay.SelectedDate,
+                                Notify(
+                                    "Ngày kết thúc nhỏ hơn ngày bắt đầu",
+                                    NotificationType.Error,
+                                    1500
+                                );
+                                Reset(dtp_rs_FinishDay),
+                                //Cập nhật ngày bắt đâu vào danh sách trạng thái ngày nghỉ
+                                Patch(
+                                    colDateRange,
+                                    LookUp(
+                                        colDateRange,
+                                        ID = 2
+                                    ),
+                                    {Date: dtp_rs_FinishDay.SelectedDate,WeekDay:Weekday(dtp_rs_FinishDay.SelectedDate)}
+                                );
+                                If(
+                                    locRequestDayLeaveReverse = false,
+                                    If(
+                                //Kiểm tra tổng ngày nghỉ <= 2
+                                        Sum(colTotalListDateRange,Total) <= 2,
+                                        If(
+                                            DateDiff(
+                                                Today(),
+                                                dtp_rs_StartDay.SelectedDate
+                                            ) < 1,
+                                            UpdateContext({locShowErrorDate: "Phải tạo trước ít nhất 1 ngày làm việc"}),
+                                            UpdateContext({locShowErrorDate: "Ngày tạo hợp lệ"})
+                                        ),
+                                //Kiểm tra tổng ngày nghỉ >= 3 và <=4
+                                        Sum(colTotalListDateRange,Total) >= 3 And Sum(colTotalListDateRange,Total) <= 4,
+                                        If(
+                                            DateDiff(
+                                                Today(),
+                                                dtp_rs_StartDay.SelectedDate
+                                            ) + 1 < 7,
+                                            UpdateContext({locShowErrorDate: "Phải tạo trước ít nhất 7 ngày làm việc"}),
+                                            UpdateContext({locShowErrorDate: "Ngày tạo hợp lệ"})
+                                        ),
+                                //Kiểm tra tổng ngày nghỉ >= 5
+                                        Sum(colTotalListDateRange,Total) >= 5,
+                                        If(
+                                            DateDiff(
+                                                Today(),
+                                                dtp_rs_StartDay.SelectedDate
+                                            ) + 1 < 14,
+                                            UpdateContext({locShowErrorDate: "Phải tạo trước ít nhất 14 ngày làm việc"}),
+                                            UpdateContext({locShowErrorDate: "Ngày tạo hợp lệ"})
+                                        )
+                                    )
+                                )
+                            );
                         ZIndex: =2
 
                 Label7 As label:
                     Color: =If(locShowErrorDate <> "Ngày tạo hợp lệ",RGBA(255, 0, 0, 1),Color.Green)
                     Height: =25
-                    Text: =If(locRequestDayLeaveReverse = false And dtp_rs_StartDay.SelectedDate < Today(),"Chọn nghỉ phép ngược để tạo yêu cầu trước ngày hiện tại",locShowErrorDate)
+                    Text: =If(locRequestDayLeaveReverse = false And dtp_rs_StartDay.SelectedDate < Today(),"Chọn nghỉ phép ngược để tạo yêu cầu trước ngày hiện tại",locRequestDayLeaveReverse = true And dtp_rs_StartDay.SelectedDate > Today(),"Ngày nghỉ không hợp lệ",locShowErrorDate)
                     ZIndex: =5
 
                 ctn_rs_Division_1 As groupContainer.verticalAutoLayoutContainer:
@@ -1411,6 +1387,12 @@
                             locRequestDayLeaveReverse = false And dtp_rs_StartDay.SelectedDate < Today(),
                             Notify(
                                 "Chọn nghỉ phép ngược để tạo yêu cầu trước ngày hiện tại",
+                                NotificationType.Error,
+                                1500
+                            ),
+                            locRequestDayLeaveReverse = true And dtp_rs_StartDay.SelectedDate > Today(),
+                            Notify(
+                                "Ngày tạo không hợp lệ",
                                 NotificationType.Error,
                                 1500
                             ),
