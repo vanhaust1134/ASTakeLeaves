@@ -187,7 +187,7 @@
         Label13 As label:
             Align: =Align.Right
             FillPortions: =1
-            Text: ="Text"
+            Text: =CountRows(Filter(gblColAllUser,active = 1)) & " users"
             ZIndex: =2
 
     ctn_us_Filter As groupContainer.horizontalAutoLayoutContainer:

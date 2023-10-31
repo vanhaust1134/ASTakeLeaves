@@ -3045,19 +3045,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'User Screen'.ctn_us_CreateUser.drp_us_Department_1.AccessibleLabel"
+                  "fullyQualifiedName": "'User Screen'.ctn_us_CreateUser.drp_us_Manager.AccessibleLabel"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'User Screen'.ctn_us_CreateUser.drp_us_Department_1.AccessibleLabel",
+                  "fullyQualifiedName": "'User Screen'.ctn_us_CreateUser.drp_us_Manager.AccessibleLabel",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "AccessibleLabel",
                 "module": "User Screen",
-                "type": "'User Screen'.ctn_us_CreateUser.drp_us_Department_1"
+                "type": "'User Screen'.ctn_us_CreateUser.drp_us_Manager"
               }
             }
           ],
@@ -3075,19 +3075,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'User Screen'.ctn_us_CreateUser.drp_us_Manager.AccessibleLabel"
+                  "fullyQualifiedName": "'User Screen'.ctn_us_CreateUser.drp_us_Department_1.AccessibleLabel"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'User Screen'.ctn_us_CreateUser.drp_us_Manager.AccessibleLabel",
+                  "fullyQualifiedName": "'User Screen'.ctn_us_CreateUser.drp_us_Department_1.AccessibleLabel",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "AccessibleLabel",
                 "module": "User Screen",
-                "type": "'User Screen'.ctn_us_CreateUser.drp_us_Manager"
+                "type": "'User Screen'.ctn_us_CreateUser.drp_us_Department_1"
               }
             }
           ],
@@ -3375,19 +3375,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'User Screen'.ctn_us_UpdateUser.cbo_us_Department_2.AccessibleLabel"
+                  "fullyQualifiedName": "'User Screen'.ctn_us_UpdateUser.cbo_us_Manager_2.AccessibleLabel"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'User Screen'.ctn_us_UpdateUser.cbo_us_Department_2.AccessibleLabel",
+                  "fullyQualifiedName": "'User Screen'.ctn_us_UpdateUser.cbo_us_Manager_2.AccessibleLabel",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "AccessibleLabel",
                 "module": "User Screen",
-                "type": "'User Screen'.ctn_us_UpdateUser.cbo_us_Department_2"
+                "type": "'User Screen'.ctn_us_UpdateUser.cbo_us_Manager_2"
               }
             }
           ],
@@ -3405,19 +3405,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'User Screen'.ctn_us_UpdateUser.cbo_us_Manager_2.AccessibleLabel"
+                  "fullyQualifiedName": "'User Screen'.ctn_us_UpdateUser.cbo_us_Department_2.AccessibleLabel"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'User Screen'.ctn_us_UpdateUser.cbo_us_Manager_2.AccessibleLabel",
+                  "fullyQualifiedName": "'User Screen'.ctn_us_UpdateUser.cbo_us_Department_2.AccessibleLabel",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "AccessibleLabel",
                 "module": "User Screen",
-                "type": "'User Screen'.ctn_us_UpdateUser.cbo_us_Manager_2"
+                "type": "'User Screen'.ctn_us_UpdateUser.cbo_us_Department_2"
               }
             }
           ],
@@ -3705,19 +3705,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'User Screen'.ctn_us_DetailUser.drp_us_Department_7.AccessibleLabel"
+                  "fullyQualifiedName": "'User Screen'.ctn_us_DetailUser.drp_us_Roles_8.AccessibleLabel"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'User Screen'.ctn_us_DetailUser.drp_us_Department_7.AccessibleLabel",
+                  "fullyQualifiedName": "'User Screen'.ctn_us_DetailUser.drp_us_Roles_8.AccessibleLabel",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "AccessibleLabel",
                 "module": "User Screen",
-                "type": "'User Screen'.ctn_us_DetailUser.drp_us_Department_7"
+                "type": "'User Screen'.ctn_us_DetailUser.drp_us_Roles_8"
               }
             }
           ],
@@ -3735,19 +3735,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'User Screen'.ctn_us_DetailUser.drp_us_Roles_8.AccessibleLabel"
+                  "fullyQualifiedName": "'User Screen'.ctn_us_DetailUser.drp_us_Department_7.AccessibleLabel"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'User Screen'.ctn_us_DetailUser.drp_us_Roles_8.AccessibleLabel",
+                  "fullyQualifiedName": "'User Screen'.ctn_us_DetailUser.drp_us_Department_7.AccessibleLabel",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "AccessibleLabel",
                 "module": "User Screen",
-                "type": "'User Screen'.ctn_us_DetailUser.drp_us_Roles_8"
+                "type": "'User Screen'.ctn_us_DetailUser.drp_us_Department_7"
               }
             }
           ],

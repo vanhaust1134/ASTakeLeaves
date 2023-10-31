@@ -723,7 +723,7 @@
                                     "Ngày kết thúc nhỏ hơn ngày bắt đầu",
                                     NotificationType.Error,
                                     1500
-                                ),
+                                );
                                 //Cập nhật ngày bắt đâu vào danh sách trạng thái ngày nghỉ
                                 Patch(
                                     colDateRange,
@@ -926,7 +926,7 @@
                                     "Ngày kết thúc nhỏ hơn ngày bắt đầu",
                                     NotificationType.Error,
                                     1500
-                                ),
+                                );
                                 //Cập nhật ngày bắt đâu vào danh sách trạng thái ngày nghỉ
                                 Patch(
                                     colDateRange,
