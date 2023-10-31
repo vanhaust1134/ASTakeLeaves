@@ -723,7 +723,7 @@
                                     "Ngày kết thúc nhỏ hơn ngày bắt đầu",
                                     NotificationType.Error,
                                     1500
-                                );
+                                ));
                                 //Cập nhật ngày bắt đâu vào danh sách trạng thái ngày nghỉ
                                 Patch(
                                     colDateRange,
@@ -770,8 +770,7 @@
                                             UpdateContext({locShowErrorDate: "Ngày tạo hợp lệ"})
                                         )
                                     )
-                                )
-                            );
+                                );
                         ZIndex: =3
 
                 ctn_rs_Division As groupContainer.verticalAutoLayoutContainer:
@@ -926,7 +925,7 @@
                                     "Ngày kết thúc nhỏ hơn ngày bắt đầu",
                                     NotificationType.Error,
                                     1500
-                                );
+                                ));
                                 //Cập nhật ngày bắt đâu vào danh sách trạng thái ngày nghỉ
                                 Patch(
                                     colDateRange,
@@ -970,8 +969,7 @@
                                             UpdateContext({locShowErrorDate: "Ngày tạo hợp lệ"})
                                         )
                                     )
-                                )
-                            );
+                                );
                         ZIndex: =2
 
                 Label7 As label:
