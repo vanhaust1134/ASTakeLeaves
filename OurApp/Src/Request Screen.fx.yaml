@@ -980,6 +980,7 @@
                     Color: =If(locShowErrorDate <> "Ngày tạo hợp lệ",RGBA(255, 0, 0, 1),Color.Green)
                     Height: =25
                     Text: =If(locRequestDayLeaveReverse = false And dtp_rs_StartDay.SelectedDate < Today(),"Chọn nghỉ phép ngược để tạo yêu cầu trước ngày hiện tại",locRequestDayLeaveReverse = true And dtp_rs_StartDay.SelectedDate > Today(),"Ngày nghỉ không hợp lệ",locShowErrorDate)
+                    Visible: =If(IsBlank(Label7.Text),false,true)
                     ZIndex: =5
 
                 ctn_rs_Division_1 As groupContainer.verticalAutoLayoutContainer:
@@ -997,7 +998,7 @@
                     Container3 As groupContainer.horizontalAutoLayoutContainer:
                         DropShadow: =DropShadow.None
                         FillPortions: =0
-                        Height: =40
+                        Height: =50
                         LayoutMinHeight: =100
                         LayoutMinWidth: =250
                         LayoutMode: =LayoutMode.Auto
@@ -1007,6 +1008,7 @@
                             Color: =RGBA(94, 94, 94, 1)
                             FillPortions: =1
                             FontWeight: =FontWeight.Semibold
+                            Height: =50
                             Size: =15
                             Text: |-
                                 ="Tổng: " & Sum(colTotalListDateRange,Total) & " ngày " & If(Sum(colTotalListDateRange,Total) > First(colMaxDayLeave).TotalDayLeaveAllow,"(tổng ngày nghỉ lớn hơn ngày nghỉ cho phép)")
@@ -1255,6 +1257,7 @@
                         Default: =""
                         DisabledColor: =RGBA(0, 0, 0, 1)
                         DisabledFill: =RGBA(255, 255, 255, 1)
+                        DisplayMode: =If(!IsBlank(drp_rs_HandOver.Selected.Email),DisplayMode.Edit,DisplayMode.Disabled)
                         Height: =169
                         HintText: ="Nhập nội dung bàn giao"
                         Mode: =TextMode.MultiLine
