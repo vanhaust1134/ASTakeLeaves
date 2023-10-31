@@ -446,7 +446,7 @@
             FontWeight: =FontWeight.Bold
             Size: =15
             Text: |-
-                ="Được nghỉ tối đa: " & First(colMaxDayLeave).TotalDayLeaveAllow
+                ="Được nghỉ tối đa: " & If(First(colMaxDayLeave).TotalDayLeaveAllow < 0,0)
             ZIndex: =3
 
         lbl_rs_DivisionTitle_1 As label:
