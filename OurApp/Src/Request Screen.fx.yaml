@@ -591,7 +591,7 @@
                         ZIndex: =1
 
                     dtp_rs_StartDay As datepicker:
-                        BorderColor: =RGBA(0, 0, 0, 1)
+                        BorderColor: =If(dtp_rs_StartDay.SelectedDate > dtp_rs_FinishDay.SelectedDate,Color.Red,RGBA(0, 0, 0, 1))
                         BorderThickness: =1
                         DefaultDate: =Today() + 1
                         DisabledColor: =RGBA(0, 0, 0, 1)
@@ -723,8 +723,7 @@
                                     "Ngày kết thúc nhỏ hơn ngày bắt đầu",
                                     NotificationType.Error,
                                     1500
-                                );
-                                Reset(dtp_rs_StartDay),
+                                ),
                                 //Cập nhật ngày bắt đâu vào danh sách trạng thái ngày nghỉ
                                 Patch(
                                     colDateRange,
@@ -796,7 +795,7 @@
                         ZIndex: =1
 
                     dtp_rs_FinishDay As datepicker:
-                        BorderColor: =RGBA(0, 0, 0, 1)
+                        BorderColor: =If(dtp_rs_FinishDay.SelectedDate < dtp_rs_StartDay.SelectedDate,Color.Red,RGBA(0, 0, 0, 1))
                         BorderThickness: =1
                         DefaultDate: =Today() + 1
                         DisabledColor: =RGBA(0, 0, 0, 1)
@@ -927,8 +926,7 @@
                                     "Ngày kết thúc nhỏ hơn ngày bắt đầu",
                                     NotificationType.Error,
                                     1500
-                                );
-                                Reset(dtp_rs_FinishDay),
+                                ),
                                 //Cập nhật ngày bắt đâu vào danh sách trạng thái ngày nghỉ
                                 Patch(
                                     colDateRange,
@@ -1351,6 +1349,18 @@
                     Fill: =RGBA(73, 113, 215, 1)
                     OnSelect: |-
                         =If(
+                            dtp_rs_StartDay.SelectedDate > dtp_rs_FinishDay.SelectedDate,
+                            Notify(
+                                "Ngày bắt đầu không được lớn hơn ngày kết thúc",
+                                NotificationType.Error,
+                                1500
+                            ),
+                            dtp_rs_FinishDay.SelectedDate < dtp_rs_StartDay.SelectedDate,
+                            Notify(
+                                "Ngày kết thúc không được nhỏ hơn ngày bắt đầu",
+                                NotificationType.Error,
+                                1500
+                            ),
                             IsBlank(txt_rs_Detail.Text),
                             Notify(
                                 "Trường chi tiết nghỉ phép không được bỏ trống",
