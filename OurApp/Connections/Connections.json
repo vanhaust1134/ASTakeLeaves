@@ -7,7 +7,8 @@
     },
     "datasets": {},
     "dataSources": [
-      "test"
+      "test",
+      "ASTakeLeave.CommonRelationship"
     ],
     "dependencies": {},
     "dependents": [],

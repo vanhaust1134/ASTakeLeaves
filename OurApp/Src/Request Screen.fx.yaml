@@ -1374,15 +1374,6 @@
                                 NotificationType.Error,
                                 1500
                             ),
-                            Sum(
-                                colTotalListDateRange,
-                                Total
-                            ) > First(colMaxDayLeave).TotalDayLeaveAllow,
-                            Notify(
-                                "Tổng ngày nghỉ lớn hơn ngày nghỉ cho phép",
-                                NotificationType.Error,
-                                1500
-                            ),
                             locRequestDayLeaveReverse = false And dtp_rs_StartDay.SelectedDate < Today(),
                             Notify(
                                 "Chọn nghỉ phép ngược để tạo yêu cầu trước ngày hiện tại",
