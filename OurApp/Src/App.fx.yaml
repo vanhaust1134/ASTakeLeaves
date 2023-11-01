@@ -1,28 +1,8 @@
 App As appinfo:
     BackEnabled: =false
     OnStart: |+
-        =//Lấy tất cả user và role về
-        //role: 1 employee, 2 quản lý trực tiếp, 3 giàm đốc khối, 4 giám đốc điều hành, 5 HR/C&B, 7 admin
-        ClearCollect(
-            gblColAllUser,
-            AddColumns(
-                ShowColumns('ASTakeLeave.Users', "ID", "userID", "fullName", "shortName", "email", "phone", "jobTitle", "departmentID", "divisionID", "OData__x0033_65AccountInfo", "active") As temp, 
-                "roleID", 
-                LookUp(Filter('ASTakeLeave.Users_Roles', active = 1), userID = temp.userID).roleID
-            )
-        );
-        
-        //Start concurrent  ------------------------------------------------------------------
+        =//Start concurrent  ------------------------------------------------------------------
         Concurrent(
-        
-        //Lấy ra userInfo từ acc365
-        ForAll(
-            Filter(gblColAllUser,active = 1) As temp,
-            Collect(
-                gblColAllUser365,
-                temp.OData__x0033_65AccountInfo
-            )
-        ),
         
         //Lấy tất cả phòng về
         Collect(
