@@ -909,6 +909,14 @@
             OnSelect: |-
                 =UpdateContext({locBoolShowEditWindow: false});
                 UpdateContext({locBoolShowEditMonthDayOff: false});
+                //Reset thông tin control
+                Reset(txt_lds_MaxDayOff);
+                Reset(txt_lds_dayOffLeft);
+                Reset(txt_lds_TotalDayOff);
+                Reset(txt_lds_Unpaid);
+                Reset(txt_lds_TotalDayOffMonth);
+                Reset(txt_lds_TotalDayOffUnPaidMonth);
+                Reset(drp_lds_Month);
             Width: =25
             X: =942
             Y: =39
@@ -938,7 +946,14 @@
                         IsBlank(txt_lds_MaxDayOff.Text),
                         IsBlank(txt_lds_TotalDayOff.Text),
                         IsBlank(txt_lds_Unpaid.Text),
-                        IsBlank(txt_lds_dayOffLeft.Text)
+                        IsBlank(txt_lds_dayOffLeft.Text),
+                        If(
+                            locBoolShowEditMonthDayOff,
+                            Or(
+                                IsBlank(txt_lds_TotalDayOffMonth.Text),
+                                IsBlank(txt_lds_TotalDayOffUnPaidMonth.Text)
+                            )
+                        )
                     ),
                     DisplayMode.Disabled,
                     DisplayMode.Edit
@@ -946,17 +961,17 @@
             Fill: =RGBA(0, 89, 204, 1)
             Height: =36
             HoverFill: =ColorFade(Self.Fill, -20%)
-            OnSelect: |-
-                =Concurrent(
-                    //Patch xóa record hiện tại và thêm record mới
-                    Patch(
-                        'ASTakeLeave.TotalDayOffInYear',
-                        LookUp('ASTakeLeave.TotalDayOffInYear', userID = locRecCurrentUserDayOff.userID && active = 1),
-                        {
-                            active: 0
-                        }
-                    ),
+            OnSelect: |
+                =//Patch xóa record hiện tại và thêm record mới
+                Patch(
+                    'ASTakeLeave.TotalDayOffInYear',
+                    LookUp('ASTakeLeave.TotalDayOffInYear', userID = locRecCurrentUserDayOff.userID && active = 1),
+                    {
+                        active: 0
+                    }
+                );
                 
+                Concurrent(
                     //Patch xóa record hiện tại và thêm record mới
                     Patch(
                         'ASTakeLeave.TotalDayOffInYear',
@@ -974,18 +989,51 @@
                 
                     //Patch vào collection hiện tại
                     Patch(
-                        'ASTakeLeave.TotalDayOffInYear',
-                        Defaults('ASTakeLeave.TotalDayOffInYear'),
+                        gblColDayOff,
+                        LookUp(gblColDayOff, userID = locRecCurrentUserDayOff.userID),
                         {
-                            userID: locRecCurrentUserDayOff.userID,
-                            email: locRecCurrentUserDayOff.email,
                             maxDayOff_Year: Value(txt_lds_MaxDayOff.Text),
                             totalDayOff_Year: Value(txt_lds_TotalDayOff.Text),
                             totalDayUnpaid_Year: Value(txt_lds_Unpaid.Text),
-                            totalDayLeft_Year: Value(txt_lds_dayOffLeft.Text),
-                            active: 1
+                            totalDayLeft_Year: Value(txt_lds_dayOffLeft.Text)
                         }
+                    ),
+                
+                    //Nếu có chỉnh sửa phép tháng
+                    If(
+                        locBoolShowEditMonthDayOff,
+                        Patch(
+                            'ASTakeLeave.TotalDayOffInMonth',
+                            Defaults('ASTakeLeave.TotalDayOffInMonth'),
+                            {
+                               totalDayOff_Month: Value(txt_lds_TotalDayOffMonth.Text),
+                               totalDayUnpaid_Month: Value(txt_lds_TotalDayOffUnPaidMonth.Text)
+                            }
+                        )
                     )
+                );
+                
+                //Reset report collection
+                RemoveIf(locColReportManagerTotalDayOffInYear, true);
+                
+                //Đóng windown
+                UpdateContext({locBoolShowEditWindow: false});
+                UpdateContext({locBoolShowEditMonthDayOff: false});
+                
+                //Reset thông tin control
+                Reset(txt_lds_MaxDayOff);
+                Reset(txt_lds_dayOffLeft);
+                Reset(txt_lds_TotalDayOff);
+                Reset(txt_lds_Unpaid);
+                Reset(txt_lds_TotalDayOffMonth);
+                Reset(txt_lds_TotalDayOffUnPaidMonth);
+                Reset(drp_lds_Month);
+                
+                //Thông báo
+                Notify(
+                    "Lưu thông tin chỉnh sửa thành công",
+                    NotificationType.Success,
+                    1000
                 );
             PressedColor: =RGBA(255,255,255,1)
             PressedFill: =Self.Fill
@@ -993,7 +1041,7 @@
             RadiusBottomRight: =5
             RadiusTopLeft: =5
             RadiusTopRight: =5
-            Text: ="Tạo"
+            Text: ="Lưu"
             Width: =87
             X: =879
             Y: =694
@@ -1008,6 +1056,14 @@
             OnSelect: |-
                 =UpdateContext({locBoolShowEditWindow: false});
                 UpdateContext({locBoolShowEditMonthDayOff: false});
+                //Reset thông tin control
+                Reset(txt_lds_MaxDayOff);
+                Reset(txt_lds_dayOffLeft);
+                Reset(txt_lds_TotalDayOff);
+                Reset(txt_lds_Unpaid);
+                Reset(txt_lds_TotalDayOffMonth);
+                Reset(txt_lds_TotalDayOffUnPaidMonth);
+                Reset(drp_lds_Month);
             PressedColor: =RGBA(0,0,0,1)
             PressedFill: =Self.Fill
             RadiusBottomLeft: =5
