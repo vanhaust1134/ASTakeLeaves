@@ -64,13 +64,13 @@
         );
         
         //Lấy thống kê phép cá nhân trong năm
-        If(
-            IsBlank(gblRecPersonalTotalDayOff),
+        //If(
+            //IsBlank(gblRecPersonalTotalDayOff),
             Set(
                 gblRecPersonalTotalDayOff,
                 LookUp('ASTakeLeave.TotalDayOffInYear', userID = gblRecUser.userID && active = 1)
             )
-        );
+        //);
         
         /*If(
             IsEmpty(locColPersonalCalendar),   //Nếu là lần đầu

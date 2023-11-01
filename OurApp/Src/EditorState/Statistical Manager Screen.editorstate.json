@@ -8960,8 +8960,7 @@
         "PaddingBottom",
         "PaddingLeft",
         "Default",
-        "OnChange",
-        "OnSelect"
+        "OnChange"
       ],
       "DynamicProperties": [
         {
@@ -9241,11 +9240,6 @@
         },
         {
           "Category": "Behavior",
-          "PropertyName": "OnSelect",
-          "RuleProviderType": "Unknown"
-        },
-        {
-          "Category": "Behavior",
           "PropertyName": "OnChange",
           "RuleProviderType": "Unknown"
         }
@@ -9339,8 +9333,7 @@
         "PaddingRight",
         "PaddingBottom",
         "PaddingLeft",
-        "OnChange",
-        "OnSelect"
+        "OnChange"
       ],
       "DynamicProperties": [
         {
@@ -9611,11 +9604,6 @@
         {
           "Category": "Design",
           "PropertyName": "PaddingLeft",
-          "RuleProviderType": "Unknown"
-        },
-        {
-          "Category": "Behavior",
-          "PropertyName": "OnSelect",
           "RuleProviderType": "Unknown"
         },
         {
