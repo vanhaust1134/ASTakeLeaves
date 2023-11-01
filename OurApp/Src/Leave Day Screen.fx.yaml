@@ -983,6 +983,7 @@
                             totalDayOff_Year: Value(txt_lds_TotalDayOff.Text),
                             totalDayUnpaid_Year: Value(txt_lds_Unpaid.Text),
                             totalDayLeft_Year: Value(txt_lds_dayOffLeft.Text),
+                            year: locRecCurrentUserDayOff.year,
                             active: 1
                         }
                     ),
@@ -1004,7 +1005,7 @@
                         locBoolShowEditMonthDayOff,
                         Patch(
                             'ASTakeLeave.TotalDayOffInMonth',
-                            Defaults('ASTakeLeave.TotalDayOffInMonth'),
+                            LookUp('ASTakeLeave.TotalDayOffInMonth', userID = locRecCurrentUserDayOff.userID && month = drp_lds_Month.Selected.Value),
                             {
                                totalDayOff_Month: Value(txt_lds_TotalDayOffMonth.Text),
                                totalDayUnpaid_Month: Value(txt_lds_TotalDayOffUnPaidMonth.Text)
