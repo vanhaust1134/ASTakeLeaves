@@ -636,6 +636,7 @@
                         Items: =Sequence(12,1)
                         LayoutMinWidth: =0
                         OnChange: =Select(btn_sms_CalculateFilter);
+                        OnSelect: =Select(btn_sms_CalculateFilter)
                         Width: =200
                         ZIndex: =4
 
@@ -677,6 +678,7 @@
                             )
                         LayoutMinWidth: =0
                         OnChange: =Select(btn_sms_CalculateFilter);
+                        OnSelect: =Select(btn_sms_CalculateFilter);
                         Width: =200
                         ZIndex: =4
 
