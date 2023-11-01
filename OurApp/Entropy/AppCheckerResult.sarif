@@ -10792,6 +10792,36 @@
             {
               "logicalLocations": [
                 {
+                  "fullyQualifiedName": "'Home Manager Screen'.test"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "'Home Manager Screen'.test",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "test",
+                "module": "Home Manager Screen",
+                "type": "'Home Manager Screen'"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "app-UnusedVariables",
+          "ruleIndex": 6
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
                   "fullyQualifiedName": "'Home User Screen'._lastDayOfMonth"
                 }
               ],

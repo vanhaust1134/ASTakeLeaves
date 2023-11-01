@@ -14,6 +14,8 @@
         If(
             IsEmpty(locColCalendarTotalLeave),       //Nếu là lần đầu
         
+            UpdateContext({test: gblRecUser.userID});
+        
             //Tính firstDayInView cho tháng trước và lastDayInView cho tháng sau
             UpdateContext({
                 _previousFirstDayOfMonth:
@@ -890,7 +892,7 @@
                             locColCalendarTotalLeave,
                             Filter(                         //Lấy tất cả các lần phép có khoảng ngày trong view calendar hiện tại
                                 locColTempCalendarDepartmentLeave, 
-                                userID exactin gblColUserBelong[@userID], 
+                                Or(userID exactin gblColUserBelong[@userID], userID = gblRecUser.userID), 
                                 startDateValue >= Value(
                                                         Day(_previousFirstDayInView) &
                                                         Month(_previousFirstDayInView) &
@@ -980,7 +982,7 @@
                             locColCalendarTotalLeave,
                             Filter(                         //Lấy tất cả các lần phép có khoảng ngày trong view calendar hiện tại
                                 locColTempCalendarDepartmentLeave, 
-                                userID exactin gblColUserBelong[@userID], 
+                                Or(userID exactin gblColUserBelong[@userID], userID = gblRecUser.userID), 
                                 Or(
                                     startDateValue >= Value(Day(_nextFirstDayInView) & Month(_nextFirstDayInView) & Year(_nextFirstDayInView)) &&
                                     endDateValue <= Value(Day(_nextLastDayInView) & Month(_nextLastDayInView) & Year(_nextLastDayInView)),
@@ -1057,7 +1059,7 @@
                             locColCalendarTotalLeave,
                             Filter(                         //Lấy tất cả các lần phép có khoảng ngày trong view calendar hiện tại
                                 locColTempCalendarDepartmentLeave, 
-                                userID exactin gblColUserBelong[@userID], 
+                                Or(userID exactin gblColUserBelong[@userID], userID = gblRecUser.userID), 
                                 Or(                         
                                     startDateValue >= Value(Day(_previousFirstDayInView) & Month(_previousFirstDayInView) & Year(_previousFirstDayInView)) &&
                                     endDateValue <= Value(Day(_previousLastDayInView) & Month(_previousLastDayInView) & Year(_previousLastDayInView)),
