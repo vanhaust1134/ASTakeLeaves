@@ -576,7 +576,9 @@
                             Fill: =RGBA(73, 113, 215, 0.3)
                             Height: =36
                             OnSelect: =Select(Parent)
-                            Visible: =Value(lb_hms_CalendarLeaveCount.Text) >= 1
+                            Visible: |-
+                                =//Value(lb_hms_CalendarLeaveCount.Text) >= 1
+                                false
                             Width: =37
                             ZIndex: =5
 

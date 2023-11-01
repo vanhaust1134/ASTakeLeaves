@@ -472,7 +472,9 @@
                             ImagePosition: =ImagePosition.Center
                             LayoutMinHeight: =30
                             OnSelect: |-
-                                =UpdateContext({locBoolShowEditWindow: true});
+                                =UpdateContext({locBoolShowEditWindow: true}); //Mở cửa sổ edit
+                                //Gán biến cho dòng hiện tại
+                                UpdateContext({locRecCurrentUserDayOff: LookUp(gblColDayOff, userID = ThisItem.userID)});
                             Width: =36
                             X: =991
                             Y: =2
@@ -886,7 +888,8 @@
 
         lbl_us_Title_6 As label:
             FontWeight: =FontWeight.Bold
-            Text: ="Tạo người dùng"
+            Text: ="Chỉnh sửa ngày phép"
+            Width: =300
             X: =387
             Y: =32
             ZIndex: =2
@@ -904,7 +907,8 @@
             Height: =29
             Icon: =Icon.Cancel
             OnSelect: |-
-                =UpdateContext({locCreateUser:false})
+                =UpdateContext({locBoolShowEditWindow: false});
+                UpdateContext({locBoolShowEditMonthDayOff: false});
             Width: =25
             X: =942
             Y: =39
@@ -928,162 +932,60 @@
 
         btn_us_Submit_4 As button:
             BorderThickness: =1
+            DisplayMode: |-
+                =If(
+                    Or(
+                        IsBlank(txt_lds_MaxDayOff.Text),
+                        IsBlank(txt_lds_TotalDayOff.Text),
+                        IsBlank(txt_lds_Unpaid.Text),
+                        IsBlank(txt_lds_dayOffLeft.Text)
+                    ),
+                    DisplayMode.Disabled,
+                    DisplayMode.Edit
+                )
             Fill: =RGBA(0, 89, 204, 1)
             Height: =36
             HoverFill: =ColorFade(Self.Fill, -20%)
-            OnSelect: |
-                =//Kiểm tra các trường mã nhân viên, họ tên, email, chức danh
-                If(
-                    CountRows(
-                        Filter(
-                            gblColAllUser,
-                            active = 1 And userID = txt_us_Name_4.Text
-                        )
-                    ) = 1,
-                    Notify(
-                        "Trường mã nhân viên bị trùng",
-                        NotificationType.Error,
-                        1500
-                    ),
-                    CountRows(Filter(gblColAllUser,active = 1 And email = cbo_us_Email_1.Selected.Mail)) = 1,
-                    Notify(
-                        "Trường email bị trùng",
-                        NotificationType.Error,
-                        1500
-                    ),
-                    IsBlank(txt_us_Name_4.Text),
-                    Notify(
-                        "Trường mã nhân viên không được để trống",
-                        NotificationType.Error,
-                        1500
-                    ),
-                    IsBlank(txt_us_Name_11.Text),
-                    Notify(
-                        "Trường họ tên nhân viên không được để trống",
-                        NotificationType.Error,
-                        1500
-                    ),
-                    IsBlank(cbo_us_Email_1.Selected.DisplayName),
-                    Notify(
-                        "Trường email không được để trống",
-                        NotificationType.Error,
-                        1500
-                    ),
-                    IsBlank(txt_us_JobTitle_4.Text),
-                    Notify(
-                        "Trường chức danh không được để trống",
-                        NotificationType.Error,
-                        1500
-                    ),
-                    //Tạo nhân viên
+            OnSelect: |-
+                =Concurrent(
+                    //Patch xóa record hiện tại và thêm record mới
                     Patch(
-                        'ASTakeLeave.Users',
-                        Defaults('ASTakeLeave.Users'),
+                        'ASTakeLeave.TotalDayOffInYear',
+                        LookUp('ASTakeLeave.TotalDayOffInYear', userID = locRecCurrentUserDayOff.userID && active = 1),
                         {
-                            userID: Substitute(txt_us_Name_4.Text," ",""),
-                            fullName: txt_us_Name_11.Text,
-                            email: cbo_us_Email_1.Selected.Mail,
-                            phone: txt_us_Phone_4.Text,
-                            jobTitle: txt_us_JobTitle_4.Text,
-                            divisionID: If(drp_us_Roles_3.Selected.ID = 1 Or drp_us_Roles_3.Selected.ID = 2 Or drp_us_Roles_3.Selected.ID = 5 Or drp_us_Roles_3.Selected.ID = 7,drp_us_Department_4.Selected.ID,Blank()),
-                            departmentID: If(drp_us_Roles_3.Selected.ID = 1 Or drp_us_Roles_3.Selected.ID = 2 Or drp_us_Roles_3.Selected.ID = 5 Or drp_us_Roles_3.Selected.ID = 7,drp_us_Department_2.Selected.ID,Blank()),
-                            '365AccountInfo': {
-                                '@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedUser",
-                                Department: "",
-                                Claims: "i:0#.f|membership|" & cbo_us_Email_1.Selected.Mail,
-                                DisplayName: Office365Users.UserProfileV2(cbo_us_Email_1.Selected.Mail).displayName,
-                                Email: cbo_us_Email_1.Selected.Mail,
-                                JobTitle: "",
-                                Picture: ""
-                            },
-                            active: 1
+                            active: 0
                         }
-                    );
-                    //Tạo phân quyền
-                Patch(
-                        'ASTakeLeave.Users_Roles',
-                        Defaults('ASTakeLeave.Users_Roles'),
-                        {
-                            userID: txt_us_Name_4.Text,
-                            roleID: drp_us_Roles_3.Selected.ID,
-                            active: 1
-                        }
-                    );
-                    //Tạo quản lý người dùng
-                Patch(
-                        'ASTakeLeave.UserRelationship',
-                        Defaults('ASTakeLeave.UserRelationship'),
-                        {
-                            approveUserID: If(drp_us_Roles_3.Selected.ID = 1 Or drp_us_Roles_3.Selected.ID = 5,drp_us_Manager_1.Selected.userID,Blank()),
-                            userID: txt_us_Name_4.Text,
-                            approveProcessLevel: 1,
-                            active: 1
-                        }
-                    );
+                    ),
+                
+                    //Patch xóa record hiện tại và thêm record mới
                     Patch(
-                        'ASTakeLeave.UserRelationship',
-                        Defaults('ASTakeLeave.UserRelationship'),
+                        'ASTakeLeave.TotalDayOffInYear',
+                        Defaults('ASTakeLeave.TotalDayOffInYear'),
                         {
-                            approveUserID: LookUp(gblColDivision,ID = drp_us_Department_4.Selected.ID).directorUserID,
-                            userID: txt_us_Name_4.Text,
-                            approveProcessLevel: 2,
+                            userID: locRecCurrentUserDayOff.userID,
+                            email: locRecCurrentUserDayOff.email,
+                            maxDayOff_Year: Value(txt_lds_MaxDayOff.Text),
+                            totalDayOff_Year: Value(txt_lds_TotalDayOff.Text),
+                            totalDayUnpaid_Year: Value(txt_lds_Unpaid.Text),
+                            totalDayLeft_Year: Value(txt_lds_dayOffLeft.Text),
                             active: 1
                         }
-                    );
-                    Notify(
-                    "Tạo thành công",
-                    NotificationType.Success,
-                    1500
-                );
-                Reset(txt_us_Name_4);
-                Reset(txt_us_Name_11);
-                Reset(cbo_us_Email_1);
-                Reset(txt_us_Phone_4);
-                Reset(txt_us_JobTitle_4);
-                Reset(drp_us_Department_4);
-                Reset(drp_us_Department_2);
-                Reset(drp_us_Roles_3);
-                //Làm mới bảng người dùng
-                Refresh('ASTakeLeave.Users');
-                Refresh('ASTakeLeave.Users_Roles');
-                Refresh('ASTakeLeave.UserRelationship');
-                //Thêm trường role vào bảng user
-                ClearCollect(
-                    gblColAllUser,
-                    AddColumns(
-                        ShowColumns(
-                            Filter('ASTakeLeave.Users',active = 1),
-                            "ID",
-                            "userID",
-                            "fullName",
-                            "shortName",
-                            "email",
-                            "phone",
-                            "jobTitle",
-                            "departmentID",
-                            "divisionID",
-                            "OData__x0033_65AccountInfo",
-                            "active"
-                        ) As temp,
-                        "roleID",
-                        LookUp(
-                            Filter(
-                                'ASTakeLeave.Users_Roles',
-                                active = 1
-                            ),
-                            userID = temp.userID
-                        ).roleID
+                    ),
+                
+                    //Patch vào collection hiện tại
+                    Patch(
+                        'ASTakeLeave.TotalDayOffInYear',
+                        Defaults('ASTakeLeave.TotalDayOffInYear'),
+                        {
+                            userID: locRecCurrentUserDayOff.userID,
+                            email: locRecCurrentUserDayOff.email,
+                            maxDayOff_Year: Value(txt_lds_MaxDayOff.Text),
+                            totalDayOff_Year: Value(txt_lds_TotalDayOff.Text),
+                            totalDayUnpaid_Year: Value(txt_lds_Unpaid.Text),
+                            totalDayLeft_Year: Value(txt_lds_dayOffLeft.Text),
+                            active: 1
+                        }
                     )
-                );
-                //Lấy bảng quản lý người dùng
-                ClearCollect(
-                    gblColManagerByUser,
-                    Filter(
-                        'ASTakeLeave.UserRelationship',
-                        active = 1
-                    )
-                );
-                UpdateContext({locCreateUser: false})
                 );
             PressedColor: =RGBA(255,255,255,1)
             PressedFill: =Self.Fill
@@ -1105,6 +1007,7 @@
             HoverFill: =ColorFade(Self.Fill, -20%)
             OnSelect: |-
                 =UpdateContext({locBoolShowEditWindow: false});
+                UpdateContext({locBoolShowEditMonthDayOff: false});
             PressedColor: =RGBA(0,0,0,1)
             PressedFill: =Self.Fill
             RadiusBottomLeft: =5
@@ -1138,7 +1041,7 @@
             FontWeight: =FontWeight.Semibold
             Text: ="Đã dùng"
             X: =387
-            Y: =343
+            Y: =334
             ZIndex: =11
 
         lbl_us_Roles_4 As label:
@@ -1146,40 +1049,20 @@
             FontWeight: =FontWeight.Semibold
             Text: ="Không lương"
             X: =387
-            Y: =405
+            Y: =386
             ZIndex: =13
 
         txt_us_Name_11 As text:
             BorderColor: =RGBA(116, 116, 116, 1)
             BorderThickness: =1
-            Default: =""
+            Default: =locRecCurrentUserDayOff.userName
+            DisabledColor: =RGBA(0, 0, 0, 1)
             DisplayMode: =DisplayMode.Disabled
             HintText: =""
             Width: =394
             X: =548
             Y: =151
             ZIndex: =14
-
-        txt_us_Phone_4 As text:
-            BorderColor: =RGBA(116, 116, 116, 1)
-            BorderThickness: =1
-            Default: =""
-            Format: =TextFormat.Number
-            HintText: ="Nhập số"
-            Width: =260
-            X: =548
-            Y: =279
-            ZIndex: =16
-
-        txt_us_JobTitle_4 As text:
-            BorderColor: =RGBA(116, 116, 116, 1)
-            BorderThickness: =1
-            Default: =""
-            HintText: ="Nhập chức danh"
-            Width: =260
-            X: =548
-            Y: =343
-            ZIndex: =18
 
         lbl_us_Name_6 As label:
             Align: =Align.Right
@@ -1192,7 +1075,8 @@
         txt_us_Name_4 As text:
             BorderColor: =If(CountRows(Filter(gblColAllUser,active = 1 And userID = txt_us_Name_4.Text)) = 1,Color.Red,RGBA(116, 116, 116, 1))
             BorderThickness: =1
-            Default: =""
+            Default: =locRecCurrentUserDayOff.userID
+            DisabledColor: =RGBA(0, 0, 0, 1)
             DisplayMode: =DisplayMode.Disabled
             HintText: =""
             Width: =394
@@ -1205,8 +1089,8 @@
             FontWeight: =FontWeight.Semibold
             Text: ="Còn lại"
             Width: =97
-            X: =439
-            Y: =470
+            X: =440
+            Y: =437
             ZIndex: =24
 
         cbo_us_Email_1 As combobox:
@@ -1225,4 +1109,174 @@
             X: =551
             Y: =215
             ZIndex: =26
+
+        txt_lds_Unpaid As text:
+            BorderColor: =RGBA(116, 116, 116, 1)
+            BorderThickness: =1
+            Default: =locRecCurrentUserDayOff.totalDayUnpaid_Year
+            Format: =TextFormat.Number
+            HintText: ="Nhập số ngày không lương trong năm"
+            Width: =260
+            X: =549
+            Y: =386
+            ZIndex: =27
+
+        txt_lds_dayOffLeft As text:
+            BorderColor: =RGBA(116, 116, 116, 1)
+            BorderThickness: =1
+            Default: =locRecCurrentUserDayOff.totalDayLeft_Year
+            Format: =TextFormat.Number
+            HintText: ="Nhập số phép còn lại trong năm"
+            Width: =260
+            X: =548
+            Y: =437
+            ZIndex: =28
+
+        txt_lds_TotalDayOff As text:
+            BorderColor: =RGBA(116, 116, 116, 1)
+            BorderThickness: =1
+            Default: =locRecCurrentUserDayOff.totalDayOff_Year
+            Format: =TextFormat.Number
+            HintText: ="Nhập tổng phép đã dùng trong năm"
+            Width: =260
+            X: =548
+            Y: =334
+            ZIndex: =29
+
+        txt_lds_MaxDayOff As text:
+            BorderColor: =RGBA(116, 116, 116, 1)
+            BorderThickness: =1
+            Default: =locRecCurrentUserDayOff.maxDayOff_Year
+            Format: =TextFormat.Number
+            HintText: ="Nhập tổng phép trong năm"
+            Width: =260
+            X: =548
+            Y: =279
+            ZIndex: =30
+
+        lbl_lds_Email As label:
+            Text: =locRecCurrentUserDayOff.email
+            Width: =394
+            X: =548
+            Y: =215
+            ZIndex: =31
+
+        grp_lds_EditDayOffMonth As group:
+            Height: =5
+            Width: =5
+            X: =40
+            Y: =40
+            ZIndex: =39
+
+            lbl_us_Department_9 As label:
+                Align: =Align.Right
+                FontWeight: =FontWeight.Semibold
+                Text: ="Tháng"
+                Visible: =locBoolShowEditMonthDayOff
+                Width: =97
+                X: =440
+                Y: =512
+                ZIndex: =32
+
+            drp_lds_Month As dropdown:
+                Default: =Month(Today())
+                Items: =Sequence(12, 1)
+                Visible: =locBoolShowEditMonthDayOff
+                Width: =261
+                X: =548
+                Y: =512
+                ZIndex: =33
+
+            lbl_us_Department_10 As label:
+                Align: =Align.Right
+                FontWeight: =FontWeight.Semibold
+                Text: ="Đã nghỉ"
+                Visible: =locBoolShowEditMonthDayOff
+                Width: =97
+                X: =440
+                Y: =565
+                ZIndex: =34
+
+            txt_lds_TotalDayOffMonth As text:
+                BorderColor: =RGBA(116, 116, 116, 1)
+                BorderThickness: =1
+                Default: =LookUp('ASTakeLeave.TotalDayOffInMonth', userID = locRecCurrentUserDayOff.userID && month = drp_lds_Month.Selected.Value).totalDayOff_Month
+                Format: =TextFormat.Number
+                HintText: ="Nhập tổng phép đã dùng trong tháng"
+                Visible: =locBoolShowEditMonthDayOff
+                Width: =260
+                X: =548
+                Y: =565
+                ZIndex: =35
+
+            lbl_us_Department_11 As label:
+                Align: =Align.Right
+                FontWeight: =FontWeight.Semibold
+                Text: ="Không lương"
+                Visible: =locBoolShowEditMonthDayOff
+                X: =387
+                Y: =619
+                ZIndex: =36
+
+            txt_lds_TotalDayOffUnPaidMonth As text:
+                BorderColor: =RGBA(116, 116, 116, 1)
+                BorderThickness: =1
+                Default: =LookUp('ASTakeLeave.TotalDayOffInMonth', userID = locRecCurrentUserDayOff.userID && month = drp_lds_Month.Selected.Value).totalDayUnpaid_Month
+                Format: =TextFormat.Number
+                HintText: ="Nhập số ngày không lương trong tháng"
+                Visible: =locBoolShowEditMonthDayOff
+                Width: =260
+                X: =548
+                Y: =619
+                ZIndex: =37
+
+            shp_us_Deco_14 As rectangle:
+                Fill: =RGBA(202, 202, 202, 1)
+                Height: =1
+                Visible: =locBoolShowEditMonthDayOff
+                Width: =608
+                X: =374
+                Y: =492
+                ZIndex: =38
+
+        grp_lds_ButtonShowMonthEdit As group:
+            Height: =5
+            Width: =5
+            X: =40
+            Y: =40
+            ZIndex: =41
+
+            btn_us_Submit_5 As button:
+                Align: =Align.Right
+                BorderThickness: =1
+                Fill: =RGBA(106, 122, 127, 1)
+                HoverFill: =ColorFade(Self.Fill, -20%)
+                OnSelect: |-
+                    =UpdateContext({locBoolShowEditMonthDayOff: true});
+                PaddingRight: =15
+                PressedColor: =RGBA(255,255,255,1)
+                PressedFill: =Self.Fill
+                RadiusBottomLeft: =5
+                RadiusBottomRight: =5
+                RadiusTopLeft: =5
+                RadiusTopRight: =5
+                Size: =12
+                Text: ="Tháng"
+                Visible: =!locBoolShowEditMonthDayOff
+                Width: =101
+                X: =429
+                Y: =512
+                ZIndex: =39
+
+            Icon1 As icon.Edit:
+                Color: =RGBA(255, 255, 255, 1)
+                Height: =36
+                Icon: =Icon.Edit
+                OnSelect: |-
+                    =UpdateContext({locBoolShowEditMonthDayOff: true});
+                Visible: =!locBoolShowEditMonthDayOff
+                Width: =24
+                X: =440
+                Y: =515
+                ZIndex: =40
 
