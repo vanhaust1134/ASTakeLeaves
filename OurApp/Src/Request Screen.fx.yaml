@@ -2046,11 +2046,11 @@
                             ).Status,
                             reason: drp_rs_Reason.Selected.description,
                             reasonDetail: txt_rs_Detail.Text,
-                            handOverUserID: LookUp(
+                            handOverUserID: If(!IsBlank(drp_rs_HandOver.Selected.Email),LookUp(
                                 gblColAllUser,
                                 OData__x0033_65AccountInfo.Email = drp_rs_HandOver.Selected.Email
-                            ).userID,
-                            handOverContent: txt_rs_HandOverContent.Text,
+                            ).userID,"Không"),
+                            handOverContent: If(!IsBlank(drp_rs_HandOver.Selected.Email),txt_rs_HandOverContent.Text,"Không"),
                             currentApproveLevel: If(
                                 gblRecUser.roleID = 1 And Sum(
                                     colTotalListDateRange,
