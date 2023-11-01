@@ -3689,7 +3689,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "btn_us_Cancel_5",
-      "ParentIndex": 29,
+      "ParentIndex": 17,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -4239,14 +4239,7 @@
           "NameMapSourceSchema": "?"
         },
         "HoverColor",
-        {
-          "AFDDataSourceName": "",
-          "AutoRuleBindingEnabled": false,
-          "AutoRuleBindingString": "DisplayMode.Edit",
-          "InvariantPropertyName": "DisplayMode",
-          "IsLockable": false,
-          "NameMapSourceSchema": "?"
-        },
+        "DisplayMode",
         {
           "AFDDataSourceName": "",
           "AutoRuleBindingEnabled": false,
@@ -4359,7 +4352,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "btn_us_Submit_4",
-      "ParentIndex": 30,
+      "ParentIndex": 18,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -5349,7 +5342,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "cbo_us_Email_1",
-      "ParentIndex": 10,
+      "ParentIndex": 9,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -7322,7 +7315,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "ctn_lds_Info2",
-      "ParentIndex": 0,
+      "ParentIndex": 1,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -13000,7 +12993,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "img_lds_Avatar",
-      "ParentIndex": 1,
+      "ParentIndex": 0,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -14963,7 +14956,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "lb_lds_UserName",
-      "ParentIndex": 2,
+      "ParentIndex": 0,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -15626,7 +15619,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "lbl_lds_Division",
-      "ParentIndex": 3,
+      "ParentIndex": 1,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -18294,7 +18287,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "lbl_lds_LeaveDay",
-      "ParentIndex": 5,
+      "ParentIndex": 3,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -18636,7 +18629,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "lbl_lds_LeaveDay_1",
-      "ParentIndex": 6,
+      "ParentIndex": 4,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -18978,7 +18971,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "lbl_lds_LeaveDay_2",
-      "ParentIndex": 7,
+      "ParentIndex": 5,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -19321,7 +19314,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "lbl_lds_LeaveDay_3",
-      "ParentIndex": 0,
+      "ParentIndex": 6,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -19960,7 +19953,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "lbl_lds_space",
-      "ParentIndex": 1,
+      "ParentIndex": 7,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -20309,7 +20302,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "lbl_lds_TimeTotal",
-      "ParentIndex": 4,
+      "ParentIndex": 2,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -21795,7 +21788,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "lbl_us_Department_8",
-      "ParentIndex": 17,
+      "ParentIndex": 15,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -22641,7 +22634,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "lbl_us_JobTitle_5",
-      "ParentIndex": 13,
+      "ParentIndex": 12,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -23469,7 +23462,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "lbl_us_Phone_4",
-      "ParentIndex": 11,
+      "ParentIndex": 10,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -23752,7 +23745,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "lbl_us_Roles_4",
-      "ParentIndex": 15,
+      "ParentIndex": 14,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -24002,14 +23995,7 @@
           "IsLockable": false,
           "NameMapSourceSchema": "?"
         },
-        {
-          "AFDDataSourceName": "",
-          "AutoRuleBindingEnabled": false,
-          "AutoRuleBindingString": "",
-          "InvariantPropertyName": "Width",
-          "IsLockable": false,
-          "NameMapSourceSchema": "?"
-        },
+        "Width",
         "Height",
         "DisplayMode",
         "ZIndex",
@@ -25446,7 +25432,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "shp_us_Deco_11",
-      "ParentIndex": 28,
+      "ParentIndex": 16,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -28372,14 +28358,7 @@
         "BorderStyle",
         "FocusedBorderColor",
         "Color",
-        {
-          "AFDDataSourceName": "",
-          "AutoRuleBindingEnabled": false,
-          "AutoRuleBindingString": "",
-          "InvariantPropertyName": "DisabledColor",
-          "IsLockable": false,
-          "NameMapSourceSchema": "?"
-        },
+        "DisabledColor",
         "PressedColor",
         "HoverColor",
         "Fill",
@@ -28669,14 +28648,7 @@
         "BorderStyle",
         "FocusedBorderColor",
         "Color",
-        {
-          "AFDDataSourceName": "",
-          "AutoRuleBindingEnabled": false,
-          "AutoRuleBindingString": "",
-          "InvariantPropertyName": "DisabledColor",
-          "IsLockable": false,
-          "NameMapSourceSchema": "?"
-        },
+        "DisabledColor",
         "PressedColor",
         "HoverColor",
         "Fill",
