@@ -1,6 +1,6 @@
 "'Approval Process Screen' As screen":
     Fill: =RGBA(80,80,80,1)
-    OnVisible: =Collect(colCheckRequestCompleted,Filter('ASTakeLeave.LeaveRequest',status = 2))
+    OnVisible: =Collect(colCheckRequestCompleted,Filter('ASTakeLeave.LeaveRequest',status = 1))
 
     btn_us_BackGroundScreen_2 As button:
         BorderStyle: =BorderStyle.None

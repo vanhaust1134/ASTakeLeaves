@@ -10084,7 +10084,14 @@
           "NameMapSourceSchema": "?"
         },
         "SelectMultiple",
-        "IsSearchable"
+        {
+          "AFDDataSourceName": "",
+          "AutoRuleBindingEnabled": false,
+          "AutoRuleBindingString": "",
+          "InvariantPropertyName": "IsSearchable",
+          "IsLockable": false,
+          "NameMapSourceSchema": "?"
+        }
       ],
       "DynamicProperties": [
         {
