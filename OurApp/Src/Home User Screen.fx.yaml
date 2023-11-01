@@ -36,6 +36,8 @@
                 DateAdd(_nextFirstDayInView, 41, TimeUnit.Days)
             });
         
+            UpdateContext({test: gblRecUser.userID});
+        
             Collect(
                 locColPersonalLeave,
                 Filter(                         //Lấy tất cả các lần phép có khoảng ngày trong view calendar hiện tại
@@ -61,8 +63,6 @@
                     firstDayInView: _firstDayInView
                 }
             );
-        
-            UpdateContext({test: "đã chạy lần đầu"});
         );
         
         //Lấy thống kê phép cá nhân trong năm
