@@ -9,7 +9,8 @@
     "dataSources": [
       "test",
       "ASTakeLeave.CommonRelationship",
-      "ASTakeLeave.RequestCalculatedDays"
+      "ASTakeLeave.RequestCalculatedDays",
+      "ASTakeLeave.TotalDayOffInYear"
     ],
     "dependencies": {},
     "dependents": [],
