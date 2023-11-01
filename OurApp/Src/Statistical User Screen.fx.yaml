@@ -291,6 +291,7 @@
                 ColumnChart1_1 As barChart:
                     GridStyle: =GridStyle.All
                     Height: =500
+                    ItemColorSet: =[RGBA(49, 130, 93, 1),Color.Red, RGBA(94,193,108,1), RGBA(246,199,144,1), RGBA(247,199,114,1), RGBA(247,180,91,1), RGBA(246,143,100,1), RGBA(212,96,104,1), RGBA(148, 110, 176, 1), RGBA(118, 154, 204, 1), RGBA(96, 197, 234, 1)]
                     Items: =Filter(locColReportPersonalTotalDayOffInMonth, year = Dropdown3_6.Selected.Value)
                     X: =40
                     XLabelAngle: =40
@@ -301,7 +302,7 @@
                     FillPortions: =1
                     Height: =80
                     ItemColorSet: =ColumnChart1_1.ItemColorSet
-                    Items: =ColumnChart1_1.SeriesLabels
+                    Items: =["Tổng đã nghỉ", "Tổng không lương"]
                     Width: =320
                     X: =80
                     Y: =480

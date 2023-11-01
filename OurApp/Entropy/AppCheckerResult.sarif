@@ -3414,19 +3414,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'User Screen'.ctn_us_CreateUser.drp_us_Department_1.AccessibleLabel"
+                  "fullyQualifiedName": "'User Screen'.ctn_us_CreateUser.drp_us_Manager.AccessibleLabel"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'User Screen'.ctn_us_CreateUser.drp_us_Department_1.AccessibleLabel",
+                  "fullyQualifiedName": "'User Screen'.ctn_us_CreateUser.drp_us_Manager.AccessibleLabel",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "AccessibleLabel",
                 "module": "User Screen",
-                "type": "'User Screen'.ctn_us_CreateUser.drp_us_Department_1"
+                "type": "'User Screen'.ctn_us_CreateUser.drp_us_Manager"
               }
             }
           ],
@@ -3444,19 +3444,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "'User Screen'.ctn_us_CreateUser.drp_us_Manager.AccessibleLabel"
+                  "fullyQualifiedName": "'User Screen'.ctn_us_CreateUser.drp_us_Department_1.AccessibleLabel"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "'User Screen'.ctn_us_CreateUser.drp_us_Manager.AccessibleLabel",
+                  "fullyQualifiedName": "'User Screen'.ctn_us_CreateUser.drp_us_Department_1.AccessibleLabel",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "AccessibleLabel",
                 "module": "User Screen",
-                "type": "'User Screen'.ctn_us_CreateUser.drp_us_Manager"
+                "type": "'User Screen'.ctn_us_CreateUser.drp_us_Department_1"
               }
             }
           ],
