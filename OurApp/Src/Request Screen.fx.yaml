@@ -1156,7 +1156,8 @@
                                                                 ) And Status = 3
                                                             )
                                                         ) = 1,
-                                                        0.5,1
+                                                        0.5,
+                                                        1
                                                     ),
                                                     0.5
                                                 )
@@ -1169,7 +1170,62 @@
                                             TimeUnit.Days
                                         )
                                     )
-                                )
+                                );
+                                If(
+                                    //Kiểm tra ngày kết thúc nhỏ hơn ngày bắt đầu
+                                    dtp_rs_StartDay.SelectedDate > dtp_rs_FinishDay.SelectedDate,
+                                    Notify(
+                                        "Ngày kết thúc nhỏ hơn ngày bắt đầu",
+                                        NotificationType.Error,
+                                        1500
+                                    ));
+                                    //Cập nhật ngày bắt đâu vào danh sách trạng thái ngày nghỉ
+                                    Patch(
+                                        colDateRange,
+                                        LookUp(
+                                            colDateRange,
+                                            ID = 1
+                                        ),
+                                        {
+                                            Date: dtp_rs_StartDay.SelectedDate,
+                                            WeekDay: Weekday(dtp_rs_StartDay.SelectedDate)
+                                        }
+                                    );
+                                    If(
+                                        locRequestDayLeaveReverse = false,
+                                        If(
+                                    //Kiểm tra tổng ngày nghỉ <= 2
+                                            Sum(colTotalListDateRange,Total) <= 2,
+                                            If(
+                                                DateDiff(
+                                                    Today(),
+                                                    dtp_rs_StartDay.SelectedDate
+                                                ) < 1,
+                                                UpdateContext({locShowErrorDate: "Phải tạo trước ít nhất 1 ngày làm việc"}),
+                                                UpdateContext({locShowErrorDate: "Ngày tạo hợp lệ"})
+                                            ),
+                                    //Kiểm tra tổng ngày nghỉ >= 3 và <=4
+                                            Sum(colTotalListDateRange,Total) > 2 And Sum(colTotalListDateRange,Total) <= 4,
+                                            If(
+                                                DateDiff(
+                                                    Today(),
+                                                    dtp_rs_StartDay.SelectedDate
+                                                ) < 7,
+                                                UpdateContext({locShowErrorDate: "Phải tạo trước ít nhất 7 ngày làm việc"}),
+                                                UpdateContext({locShowErrorDate: "Ngày tạo hợp lệ"})
+                                            ),
+                                    //Kiểm tra tổng ngày nghỉ >= 5
+                                            Sum(colTotalListDateRange,Total) > 4,
+                                            If(
+                                                DateDiff(
+                                                    Today(),
+                                                    dtp_rs_StartDay.SelectedDate
+                                                ) < 14,
+                                                UpdateContext({locShowErrorDate: "Phải tạo trước ít nhất 14 ngày làm việc"}),
+                                                UpdateContext({locShowErrorDate: "Ngày tạo hợp lệ"})
+                                            )
+                                        )
+                                    );
                             OnSelect: =Select(Parent)
                             PaddingBottom: =5
                             PaddingLeft: =5
