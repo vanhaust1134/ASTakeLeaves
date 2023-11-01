@@ -60,7 +60,9 @@
                 {
                     firstDayInView: _firstDayInView
                 }
-            )
+            );
+        
+            UpdateContext({test: "đã chạy lần đầu"});
         );
         
         //Lấy thống kê phép cá nhân trong năm
@@ -256,7 +258,7 @@
             Height: =Parent.Height
             Icon: =Icon.Sync
             OnSelect: =Navigate('Home Manager Screen')
-            Visible: =gblRecUser.roleID <> 1 || gblRecUser.roleID <> 5 || gblRecUser.roleID <> 6
+            Visible: =gblRecUser.roleID <> 1 && gblRecUser.roleID <> 5 && gblRecUser.roleID <> 6
             Width: =30
             X: =506
             Y: =92
@@ -528,7 +530,7 @@
                     PaddingRight: =10
                     RadiusBottomLeft: =0
                     RadiusBottomRight: =0
-                    Text: =$"Tháng {locNumCurrentMonth} năm {Year(_firstDayOfMonth)}"
+                    Text: =$"Tháng {locNumCurrentMonth} năm {Year(_firstDayOfMonth)}" & test
                     ZIndex: =1
 
                 img_hs_PreviousMonth As image:
