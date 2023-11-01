@@ -3,9 +3,9 @@
     OnHidden: =
     OnVisible: |
         =//Tạo biến tổng ngày phép và ngày phép còn lại
-        UpdateContext({locMaxDayLeaveNumber:LookUp('ASTakeLeave.TotalDayOffInYear',userID = gblRecUser.userID).maxDayOff_Year});
-        UpdateContext({locTotalDayLeaveNumber:LookUp('ASTakeLeave.TotalDayOffInYear',userID = gblRecUser.userID).totalDayOff_Year});
-        UpdateContext({locTotalDayLeaveUseful:LookUp('ASTakeLeave.TotalDayOffInYear',userID = gblRecUser.userID).totalDayLeft_Year});
+        UpdateContext({locMaxDayLeaveNumber:LookUp('ASTakeLeave.TotalDayOffInYear',userID = gblRecUser.userID And active = 1).maxDayOff_Year});
+        UpdateContext({locTotalDayLeaveNumber:LookUp('ASTakeLeave.TotalDayOffInYear',userID = gblRecUser.userID And active = 1).totalDayOff_Year});
+        UpdateContext({locTotalDayLeaveUseful:LookUp('ASTakeLeave.TotalDayOffInYear',userID = gblRecUser.userID And active = 1).totalDayLeft_Year});
         
         //Tạo collect chứa gồm 2 ngày bắt đầu và kết thúc của kì nghỉ
         ClearCollect(
@@ -37,7 +37,7 @@
                 "LeaveDays",
                 LookUp(
                     'ASTakeLeave.TotalDayOffInYear',
-                    userID = gblRecUser.userID
+                    userID = gblRecUser.userID And active = 1
                 ).maxDayOff_Year / 12,
                 "Status",
                 If(CountRows(Filter('ASTakeLeave.LeaveRequest',userID = gblRecUser.userID And Month(startDate) = Temp.Value And status = 2)) = 1,1,0)
@@ -1364,16 +1364,7 @@
                                     colDayLeft,
                                     Table(
                                         {
-                                            Result: If(
-                                                Temp.Value = First(
-                                                    Filter(
-                                                        colRecordTotalDayLeaveByMonth,
-                                                        TotalLeaveDay > 0
-                                                    )
-                                                ).Value,
-                                                locTotalDayLeaveUseful - Temp.TotalLeaveDay,
-                                                Last(colDayLeft).Result - Temp.TotalLeaveDay
-                                            )
+                                            Result: locTotalDayLeaveUseful - Temp.TotalLeaveDay
                                         }
                                     )
                                 );
@@ -1884,30 +1875,23 @@
                                 colTotalListDateRange,
                                 Total
                             ),
-                            totalDayUnpaid: /*If(
+                            totalDayUnpaid: If(
                                 LookUp(
                                     'ASTakeLeave.TotalDayOffInYear',
-                                    userID = gblRecUser.userID
+                                    userID = gblRecUser.userID And active = 1
                                 ).totalDayOff_Year + Sum(
                                     colTotalListDateRange,
                                     Total
                                 ) > LookUp(
                                     'ASTakeLeave.TotalDayOffInYear',
-                                    userID = gblRecUser.userID
+                                    userID = gblRecUser.userID And active = 1
                                 ).maxDayOff_Year,
-                                (LookUp(
-                                    'ASTakeLeave.TotalDayOffInYear',
-                                    userID = gblRecUser.userID
-                                ).totalDayOff_Year + Sum(
+                                locTotalDayLeaveUseful - Sum(
                                     colTotalListDateRange,
                                     Total
-                                )) - LookUp(
-                                    'ASTakeLeave.TotalDayOffInYear',
-                                    userID = gblRecUser.userID
-                                ).maxDayOff_Year,
+                                ),
                                 0
-                            )*/
-                            Sum(Filter(colRecordTotalDayLeaveByMonthCalculated,TotalLeaveDay > 0 Or Value(TotalLeaveUnpaid) > 0),TotalLeaveUnpaid),
+                            ),
                             startDate: dtp_rs_StartDay.SelectedDate,
                             endDate: dtp_rs_FinishDay.SelectedDate,
                             startDateValue: Value(Day(dtp_rs_StartDay.SelectedDate) & Month(dtp_rs_StartDay.SelectedDate) & Year(dtp_rs_StartDay.SelectedDate)),

@@ -9,7 +9,7 @@
         ));
         
         //Thêm trường phòng ban và tên người dùng vào bảng ngày phép
-        ClearCollect(gblColDayOff,AddColumns('ASTakeLeave.TotalDayOffInYear' As Temp,"userName",LookUp(gblColAllUser,active = 1 And userID = Temp.userID).fullName,"deparmentName",LookUp(gblColAllUser,active = 1 And userID = Temp.userID).departmentID));
+        ClearCollect(gblColDayOff,AddColumns(Filter('ASTakeLeave.TotalDayOffInYear',active = 1) As Temp,"userName",LookUp(gblColAllUser,active = 1 And userID = Temp.userID).fullName,"deparmentName",LookUp(gblColAllUser,active = 1 And userID = Temp.userID).departmentID));
 
     btn_lds_BackGroundScreen As button:
         BorderStyle: =BorderStyle.None
