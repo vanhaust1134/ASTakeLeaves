@@ -947,7 +947,7 @@
                   </tr>
                   <tr>
                     <td style=width:100px><b>Nhân viên bàn giao</b></td>
-                    <td>" & LookUp(gblColAllUser,userID = locRequestInfo.handOverUserID).fullName &"</td>
+                    <td>" & If(IsBlank(LookUp(gblColAllUser,userID = locRequestInfo.handOverUserID).fullName),"Không",LookUp(gblColAllUser,userID = locRequestInfo.handOverUserID).fullName) &"</td>
                   </tr>
                   <tr>
                     <td style=width:100px><b>Công việc bàn giao</b></td>

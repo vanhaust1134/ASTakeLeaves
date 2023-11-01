@@ -1979,7 +1979,7 @@
                                     colTotalListDateRange,
                                     Total
                                 ) > 12,
-                                3,
+                                2,
                                 //Role HR/C&B
                                 gblRecUser.roleID = 5 And Sum(
                                     colTotalListDateRange,
@@ -1990,7 +1990,7 @@
                                     colTotalListDateRange,
                                     Total
                                 ) > 12,
-                                3,
+                                2,
                                 //Role giám đốc khối
                                 gblRecUser.roleID = 3 And Sum(
                                     colTotalListDateRange,
