@@ -10,6 +10,41 @@
         UpdateContext({locNumCurrentMonth: Month(_firstDayOfMonth)});
         Set(gblMenuFunctionSelected,1);
         
+        //Lấy thông tin user hiện tại
+        If(
+            IsBlank(gblRecUser),    //Chạy lần đầu
+            Set(
+                gblRecUser,
+                LookUp(Filter(gblColAllUser, active = 1), email = User().Email)
+            );
+        
+            Concurrent(
+                //Lấy các cấp phê duyệt của user
+                Switch(
+                    gblRecUser.roleID,
+                    1, 
+                    Collect(gblColUserManager, Filter('ASTakeLeave.UserRelationship', userID = gblRecUser.userID, active = 1)),
+                    2,
+                    Collect(gblColUserManager, Filter('ASTakeLeave.UserRelationship', userID = gblRecUser.userID, active = 1))
+                ),
+        
+                //Lấy danh sách user quản lý theo role (Chỉ role manager và HR manager)
+                If(
+                    gblRecUser.roleID = 2 || gblRecUser.roleID = 7,
+                    Collect(
+                        gblColUserBelong,
+                        AddColumns(
+                            Filter(
+                                'ASTakeLeave.UserRelationship', approveUserID = gblRecUser.userID, approveProcessLevel = 1, active = 1
+                            ) As temp,
+                            "email",
+                            LookUp(gblColAllUser, userID = temp.userID).email
+                        )
+                    )
+                )
+            );
+        );
+        
         //Lấy tất cả ngày phép trong 3 tháng xuống (trước 1 tháng, hiện tại, sau 1 tháng)
         If(
             IsEmpty(locColCalendarTotalLeave),       //Nếu là lần đầu
