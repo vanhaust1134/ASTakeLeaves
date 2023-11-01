@@ -1,34 +1,8 @@
 App As appinfo:
     BackEnabled: =false
     OnStart: |+
-        =//Lấy tất cả user và role về
-        //role: 1 employee, 2 quản lý trực tiếp, 3 giàm đốc khối, 4 giám đốc điều hành, 5 HR/C&B, 7 admin
-        ClearCollect(
-            gblColAllUser,
-            AddColumns(
-                ShowColumns('ASTakeLeave.Users', "ID", "userID", "fullName", "shortName", "email", "phone", "jobTitle", "departmentID", "divisionID", "OData__x0033_65AccountInfo", "active") As temp, 
-                "roleID", 
-                LookUp(Filter('ASTakeLeave.Users_Roles', active = 1), userID = temp.userID).roleID
-            )
-        );
-        
-        //Lấy thông tin user hiện tại
-        Set(
-            gblRecUser,
-            LookUp(Filter(gblColAllUser, active = 1), email = User().Email)
-        );
-        
-        //Start concurrent  ------------------------------------------------------------------
+        =//Start concurrent  ------------------------------------------------------------------
         Concurrent(
-        
-        //Lấy ra userInfo từ acc365
-        ForAll(
-            Filter(gblColAllUser,active = 1) As temp,
-            Collect(
-                gblColAllUser365,
-                temp.OData__x0033_65AccountInfo
-            )
-        ),
         
         //Lấy tất cả phòng về
         Collect(
@@ -42,31 +16,8 @@ App As appinfo:
             ShowColumns('ASTakeLeave.Division', "ID", "name", "directorUserID", "active")
         ),
         
-        //Lấy các cấp phê duyệt của user
-        Switch(
-            gblRecUser.roleID,
-            1, 
-            Collect(gblColUserManager, Filter('ASTakeLeave.UserRelationship', userID = gblRecUser.userID, active = 1)),
-            2,
-            Collect(gblColUserManager, Filter('ASTakeLeave.UserRelationship', userID = gblRecUser.userID, active = 1))
-        ),
         //Lấy các cấp phê duyệt cấp cao
         Collect(gblColManagerHighLevel,Filter('ASTakeLeave.CommonRelationship',active = 1));
-        
-        //Lấy danh sách user quản lý theo role (Chỉ role manager và HR manager)
-        If(
-            gblRecUser.roleID = 2 || gblRecUser.roleID = 7,
-            Collect(
-                gblColUserBelong,
-                AddColumns(
-                    Filter(
-                        'ASTakeLeave.UserRelationship', approveUserID = gblRecUser.userID, approveProcessLevel = 1, active = 1
-                    ) As temp,
-                    "email",
-                    LookUp(gblColAllUser, userID = temp.userID).email
-                )
-            )
-        ),
         
         //Lấy bảng lịch làm việc
         Collect(gblColWeekDay,'ASTakeLeave.WeekDay'),
