@@ -1,6 +1,6 @@
 "'Home User Screen' As screen":
     Fill: =RGBA(80,80,80,1)
-    OnVisible: |
+    OnVisible: |-
         =//Calendar setting, default của powerapps
         //UpdateContext({_dateSelected: Today()});
         UpdateContext({_firstDayOfMonth: DateAdd(Today(), 1 - Day(Today()), TimeUnit.Days)});
@@ -13,6 +13,8 @@
         //Lấy thông tin user hiện tại
         If(
             IsBlank(gblRecUser),    //Chạy lần đầu
+        
+            UpdateContext({locLoading: true}); //Show loading
             
             //Lấy tất cả user và role về
             //role: 1 employee, 2 quản lý trực tiếp, 3 giàm đốc khối, 4 giám đốc điều hành, 5 HR/C&B, 7 admin
@@ -127,8 +129,10 @@
             Set(
                 gblRecPersonalTotalDayOff,
                 LookUp('ASTakeLeave.TotalDayOffInYear', userID = gblRecUser.userID && active = 1)
-            )
+            );
         //);
+        
+        
         
         /*If(
             IsEmpty(locColPersonalCalendar),   //Nếu là lần đầu
@@ -143,6 +147,8 @@
                 )
             )
         );*/
+        
+        UpdateContext({locLoading: false}); //End loading
 
     btn_hs_BackGroundScreen As button:
         BorderStyle: =BorderStyle.None
@@ -1049,4 +1055,50 @@
                     Text: =User().Email
                     Wrap: =false
                     ZIndex: =2
+
+    ctn_hus_Loading As groupContainer.manualLayoutContainer:
+        Height: =Parent.Height
+        RadiusBottomLeft: =0
+        RadiusBottomRight: =0
+        RadiusTopLeft: =0
+        RadiusTopRight: =0
+        Visible: =locLoading
+        Width: =Parent.Width
+        ZIndex: =25
+
+        Button8_2 As button:
+            BorderThickness: =0
+            DisabledBorderColor: =RGBA(255, 255, 255, 1)
+            DisabledFill: =RGBA(255, 255, 255, 1)
+            DisplayMode: =DisplayMode.Disabled
+            FocusedBorderThickness: =0
+            Height: =Parent.Height
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Text: =""
+            Visible: =Parent.Visible
+            Width: =Parent.Width
+            X: =Parent.X
+            Y: =Parent.Y
+            ZIndex: =1
+
+        Image6_1 As image:
+            Height: =133
+            Image: =AS_Loading
+            Visible: =Parent.Visible
+            Width: =143
+            X: =611
+            Y: =195
+            ZIndex: =2
+
+        Label14_1 As label:
+            Align: =Align.Center
+            Text: ="Đang tải dữ liệu..."
+            Visible: =Parent.Visible
+            Width: =200
+            X: =583
+            Y: =364
+            ZIndex: =3
 

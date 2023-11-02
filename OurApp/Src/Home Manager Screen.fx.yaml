@@ -13,6 +13,8 @@
         //Lấy thông tin user hiện tại
         If(
             IsBlank(gblRecUser),    //Chạy lần đầu
+        
+            UpdateContext({locLoading: true});      //Show loading
             
             //Lấy tất cả user và role về
             //role: 1 employee, 2 quản lý trực tiếp, 3 giàm đốc khối, 4 giám đốc điều hành, 5 HR/C&B, 7 admin
@@ -992,7 +994,6 @@
                                 locColCalendarTotalLeave,
                                 Filter(                         //Lấy tất cả các lần phép có khoảng ngày trong view calendar hiện tại
                                     'ASTakeLeave.LeaveRequest', 
-                                    divisionID = gblRecUser.divisionID,
                                     startDateValue >= Value(
                                                             Day(_previousFirstDayInView) &
                                                             Month(_previousFirstDayInView) &
@@ -1009,6 +1010,8 @@
                 
                         )
                     );
+                
+                UpdateContext({locLoading: false});      //End loading
             Text: ="Button"
             X: =40
             Y: =23
@@ -1074,7 +1077,6 @@
                                 locColCalendarTotalLeave,
                                 Filter(                         //Lấy tất cả các lần phép có khoảng ngày trong view calendar hiện tại
                                     'ASTakeLeave.LeaveRequest', 
-                                    divisionID = gblRecUser.divisionID,
                                     Or(
                                         startDateValue >= Value(Day(_nextFirstDayInView) & Month(_nextFirstDayInView) & Year(_nextFirstDayInView)) &&
                                         endDateValue <= Value(Day(_nextLastDayInView) & Month(_nextLastDayInView) & Year(_nextLastDayInView)),
@@ -1151,7 +1153,6 @@
                                 locColCalendarTotalLeave,
                                 Filter(                         //Lấy tất cả các lần phép có khoảng ngày trong view calendar hiện tại
                                     'ASTakeLeave.LeaveRequest', 
-                                    divisionID = gblRecUser.divisionID,
                                     Or(                         
                                         startDateValue >= Value(Day(_previousFirstDayInView) & Month(_previousFirstDayInView) & Year(_previousFirstDayInView)) &&
                                         endDateValue <= Value(Day(_previousLastDayInView) & Month(_previousLastDayInView) & Year(_previousLastDayInView)),
@@ -1167,5 +1168,51 @@
             Text: ="Button"
             X: =80
             Y: =23
+            ZIndex: =3
+
+    ctn_hms_Loading As groupContainer.manualLayoutContainer:
+        Height: =Parent.Height
+        RadiusBottomLeft: =0
+        RadiusBottomRight: =0
+        RadiusTopLeft: =0
+        RadiusTopRight: =0
+        Visible: =locLoading
+        Width: =Parent.Width
+        ZIndex: =26
+
+        Button8 As button:
+            BorderThickness: =0
+            DisabledBorderColor: =RGBA(255, 255, 255, 1)
+            DisabledFill: =RGBA(255, 255, 255, 1)
+            DisplayMode: =DisplayMode.Disabled
+            FocusedBorderThickness: =0
+            Height: =Parent.Height
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Text: =""
+            Visible: =Parent.Visible
+            Width: =Parent.Width
+            X: =Parent.X
+            Y: =Parent.Y
+            ZIndex: =1
+
+        Image6 As image:
+            Height: =133
+            Image: =AS_Loading
+            Visible: =Parent.Visible
+            Width: =143
+            X: =611
+            Y: =195
+            ZIndex: =2
+
+        Label14 As label:
+            Align: =Align.Center
+            Text: ="Đang tải dữ liệu..."
+            Visible: =Parent.Visible
+            Width: =200
+            X: =583
+            Y: =364
             ZIndex: =3
 

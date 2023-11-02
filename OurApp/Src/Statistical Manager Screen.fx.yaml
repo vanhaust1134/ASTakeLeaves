@@ -4,6 +4,9 @@
         =//Lấy ngày phép trong tất cả các năm theo phân quyền
         If(
             IsEmpty(locColReportManagerTotalDayOffInYear),  //Chỉ lấy lần đầu
+        
+            UpdateContext({locLoading: true});  //show loading
+        
             If(
                 gblRecUser.roleID = 2,  //Nếu là Manager -----------------------
                 ForAll(
@@ -69,7 +72,12 @@
                         Concurrent(
                             Collect(
                                 locColReportManagerTotalDayOffInYear,
-                                Filter('ASTakeLeave.TotalDayOffInYear', active = 1)
+                                AddColumns(Filter('ASTakeLeave.TotalDayOffInYear', active = 1) As temp,
+                                    "departmentID",
+                                    LookUp(gblColAllUser, userID = temp.userID && active = 1).departmentID,
+                                    "divisionID",
+                                    LookUp(gblColAllUser, userID = temp.userID && active = 1).divisionID
+                                )
                             ),
                             Collect(    
                                 locColReportManagerTotalDayOffInMonthTemp1,  //lấy 6 tháng đầu
@@ -338,7 +346,16 @@
             RadiusTopLeft: =5
             RadiusTopRight: =5
             Text: ="Xuất file"
+            Visible: =!locBoolGeneratingFile
             ZIndex: =2
+
+        Label15 As label:
+            Align: =Align.Center
+            Color: =RGBA(124, 124, 124, 1)
+            FontWeight: =FontWeight.Semibold
+            Text: ="Đang tạo file..."
+            Visible: =locBoolGeneratingFile
+            ZIndex: =3
 
     ctn_hs_MainContent_2 As groupContainer.horizontalAutoLayoutContainer:
         DropShadow: =DropShadow.None
@@ -364,7 +381,7 @@
             LayoutMode: =LayoutMode.Auto
             PaddingLeft: =5
             PaddingRight: =5
-            ZIndex: =1
+            ZIndex: =2
 
             Container6_2 As groupContainer.horizontalAutoLayoutContainer:
                 DropShadow: =DropShadow.None
@@ -447,7 +464,7 @@
             RadiusBottomRight: =10
             RadiusTopLeft: =10
             RadiusTopRight: =10
-            ZIndex: =2
+            ZIndex: =3
 
             lbl_hs_Statistical_4 As label:
                 Color: =RGBA(124, 124, 124, 1)
@@ -1020,7 +1037,10 @@
                             )
                         )
                        
-                    )
+                    );
+                
+                
+                UpdateContext({locLoading: false});  //end loading
             Text: ="Button"
             X: =40
             Y: =40
@@ -1028,7 +1048,10 @@
 
         btn_sms_ExportFile As button:
             OnSelect: |-
-                =//Xuất file theo lựa chọn của Radio button
+                =//Show loading
+                UpdateContext({locBoolGeneratingFile: true});
+                
+                //Xuất file theo lựa chọn của Radio button
                 If(
                     Radio1.Selected.ID = 1, //Xuất theo lọc của biểu đồ tại
                     If(
@@ -1111,6 +1134,8 @@
                         ).link & "?download=1")
                 );
                 
+                //end loading
+                UpdateContext({locBoolGeneratingFile: false});
                 
                 /*
                 //Sửa lại các tên cột
@@ -1133,5 +1158,52 @@
             Text: ="Button"
             X: =40
             Y: =40
+            ZIndex: =3
+
+    ctn_sms_Loading As groupContainer.manualLayoutContainer:
+        Height: =ctn_hs_MainContent_2.Height
+        RadiusBottomLeft: =0
+        RadiusBottomRight: =0
+        RadiusTopLeft: =0
+        RadiusTopRight: =0
+        Visible: =locLoading
+        Width: =ctn_hs_MainContent_2.Width
+        X: =ctn_hs_MainContent_2.X
+        Y: =ctn_hs_MainContent_2.Y
+        ZIndex: =27
+
+        Button8_3 As button:
+            BorderThickness: =0
+            DisabledBorderColor: =RGBA(255, 255, 255, 1)
+            DisabledFill: =RGBA(255, 255, 255, 1)
+            DisplayMode: =DisplayMode.Disabled
+            FocusedBorderThickness: =0
+            Height: =Parent.Height - 10
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Text: =""
+            Visible: =Parent.Visible
+            Width: =Parent.Width
+            Y: =10
+            ZIndex: =1
+
+        Image6_2 As image:
+            Height: =133
+            Image: =AS_Loading
+            Visible: =Parent.Visible
+            Width: =143
+            X: =Parent.X + Parent.Width / 2 - ctn_hs_Navigate_2.Width -  Self.Width / 2 - 30
+            Y: =195
+            ZIndex: =2
+
+        Label14_2 As label:
+            Align: =Align.Center
+            Text: ="Đang tải dữ liệu..."
+            Visible: =Parent.Visible
+            Width: =200
+            X: =Parent.X + Parent.Width / 2 - ctn_hs_Navigate_2.Width -  Self.Width / 2 - 30
+            Y: =Parent.Y + Parent.Height / 2 - ctn_hs_Title_2.Height - ctn_hs_Header_2.Height - Self.Height / 2 + 30
             ZIndex: =3
 
