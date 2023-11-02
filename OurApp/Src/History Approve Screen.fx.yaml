@@ -15,7 +15,7 @@
                     LookUp(
                         gblColAllUserManaged,
                         userID = Temp.userID And active = 1 And approveProcessLevel = 1 
-                    ).approveUserID
+                    ).approveUserID,"roleID",LookUp(gblColAllUser,userID = Temp.userID).roleID
                 )
             )
         );
@@ -30,7 +30,7 @@
                     LookUp(
                         gblColAllUserManaged,
                         userID = Temp.userID And active = 1 And approveProcessLevel = 2
-                    ).approveUserID
+                    ).approveUserID,"roleID",LookUp(gblColAllUser,userID = Temp.userID).roleID
                 )
             )
         );
@@ -42,7 +42,7 @@
                 AddColumns(
                     Filter('ASTakeLeave.LeaveRequest',status = 2 Or status  = 3) As Temp,
                     "approveUserID",
-                    gblRecUser.userID
+                    gblRecUser.userID,"roleID",LookUp(gblColAllUser,userID = Temp.userID).roleID
                 )
             )
         );
