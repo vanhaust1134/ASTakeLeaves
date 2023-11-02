@@ -440,7 +440,7 @@
                                 DelayItemLoading: =true
                                 Height: |
                                     =30
-                                Items: =AddColumns(Sequence(ThisItem.maxApproveLevel,1),"requestID",ThisItem.ID,"currentApproveID",ThisItem.currentApproveLevel,"roleID",ThisItem.roleID,"leaveDay",ThisItem.totalLeaveDays)
+                                Items: =AddColumns(Sequence(ThisItem.maxApproveLevel,1),"requestID",ThisItem.ID,"currentApproveID",ThisItem.currentApproveLevel,"roleID",ThisItem.roleID,"leaveDay",ThisItem.totalDayOff)
                                 LoadingSpinner: =LoadingSpinner.Data
                                 ShowScrollbar: =false
                                 TemplatePadding: =0
