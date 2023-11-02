@@ -440,7 +440,7 @@
                                 DelayItemLoading: =true
                                 Height: |
                                     =30
-                                Items: =AddColumns(Sequence(ThisItem.maxApproveLevel,1),"requestID",ThisItem.ID,"currentApproveID",ThisItem.currentApproveLevel,"roleID",ThisItem.roleID,"leaveDay",ThisItem.totalLeaveDays)
+                                Items: =AddColumns(Sequence(ThisItem.maxApproveLevel,1),"requestID",ThisItem.ID,"currentApproveID",ThisItem.currentApproveLevel,"roleID",ThisItem.roleID,"leaveDay",ThisItem.totalDayOff)
                                 LoadingSpinner: =LoadingSpinner.Data
                                 ShowScrollbar: =false
                                 TemplatePadding: =0
@@ -450,7 +450,45 @@
                                 Rectangle15_8 As rectangle:
                                     BorderColor: =RGBA(255, 255, 255, 1)
                                     BorderThickness: =1
-                                    Fill: =If(ThisItem.roleID = 2 And ThisItem.Value < 2,Color.Green,ThisItem.roleID = 3 And ThisItem.Value < 3,Color.Green,ThisItem.roleID = 1 And ThisItem.leaveDay > 12 And ThisItem.Value < 2,Color.Green,If(LookUp('ASTakeLeave.HistoryApprove',requestID = ThisItem.requestID And step = ThisItem.Value).status = "1",Color.Green,LookUp('ASTakeLeave.HistoryApprove',requestID = ThisItem.requestID And step = ThisItem.Value).status = "2",Color.Red,RGBA(204, 231, 246, 1)))
+                                    Fill: |-
+                                        =If(
+                                            ThisItem.roleID = 2 And ThisItem.Value < 2 Or LookUp(
+                                                    'ASTakeLeave.HistoryApprove',
+                                                    requestID = ThisItem.requestID And step = ThisItem.Value - 1
+                                                ).status = "1",
+                                            Color.Green,
+                                            ThisItem.roleID = 3 And ThisItem.Value < 3 And Or(LookUp(
+                                                    'ASTakeLeave.HistoryApprove',
+                                                    requestID = ThisItem.requestID And step = ThisItem.Value - 1
+                                                ).status = "1",LookUp(
+                                                    'ASTakeLeave.HistoryApprove',
+                                                    requestID = ThisItem.requestID And step = ThisItem.Value - 2
+                                                ).status = "1"),
+                                            Color.Green,
+                                            ThisItem.roleID = 1 And ThisItem.leaveDay > 12 And ThisItem.Value < 2 Or LookUp(
+                                                    'ASTakeLeave.HistoryApprove',
+                                                    requestID = ThisItem.requestID And step = ThisItem.Value - 1
+                                                ).status = "1",
+                                            Color.Green,
+                                            If(
+                                                LookUp(
+                                                    'ASTakeLeave.HistoryApprove',
+                                                    requestID = ThisItem.requestID And step = ThisItem.Value
+                                                ).status = "1",
+                                                Color.Green,
+                                                LookUp(
+                                                    'ASTakeLeave.HistoryApprove',
+                                                    requestID = ThisItem.requestID And step = ThisItem.Value
+                                                ).status = "2",
+                                                Color.Red,
+                                                RGBA(
+                                                    204,
+                                                    231,
+                                                    246,
+                                                    1
+                                                )
+                                            )
+                                        )
                                     Height: =Parent.TemplateHeight
                                     OnSelect: =Select(Parent)
                                     Width: =Parent.TemplateWidth
@@ -682,7 +720,7 @@
                             LookUp(
                                 gblColAllUserManaged,
                                 userID = Temp.userID And active = 1 And approveProcessLevel = 1
-                            ).approveUserID
+                            ).approveUserID,"roleID",LookUp(gblColAllUser,userID = Temp.userID).roleID
                         )
                     )
                 );
@@ -697,7 +735,7 @@
                             LookUp(
                                 gblColAllUserManaged,
                                 userID = Temp.userID And active = 1 And approveProcessLevel = 2
-                            ).approveUserID
+                            ).approveUserID,"roleID",LookUp(gblColAllUser,userID = Temp.userID).roleID
                         )
                     )
                 );
@@ -709,7 +747,7 @@
                         AddColumns(
                             Filter('ASTakeLeave.LeaveRequest',currentApproveLevel = 3 And status = 1) As Temp,
                             "approveUserID",
-                            gblRecUser.userID
+                            gblRecUser.userID,"roleID",LookUp(gblColAllUser,userID = Temp.userID).roleID
                         )
                     )
                 );
@@ -852,7 +890,7 @@
                             LookUp(
                                 gblColAllUserManaged,
                                 userID = Temp.userID And active = 1 And approveProcessLevel = 1
-                            ).approveUserID
+                            ).approveUserID,"roleID",LookUp(gblColAllUser,userID = Temp.userID).roleID
                         )
                     )
                 );
@@ -867,7 +905,7 @@
                             LookUp(
                                 gblColAllUserManaged,
                                 userID = Temp.userID And active = 1 And approveProcessLevel = 2
-                            ).approveUserID
+                            ).approveUserID,"roleID",LookUp(gblColAllUser,userID = Temp.userID).roleID
                         )
                     )
                 );
@@ -879,7 +917,7 @@
                         AddColumns(
                             Filter('ASTakeLeave.LeaveRequest',currentApproveLevel = 3 And status = 1) As Temp,
                             "approveUserID",
-                            gblRecUser.userID
+                            gblRecUser.userID,"roleID",LookUp(gblColAllUser,userID = Temp.userID).roleID
                         )
                     )
                 );
