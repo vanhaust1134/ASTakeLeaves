@@ -1038,10 +1038,10 @@
 
                 btn_rds_Status As button:
                     BorderStyle: =BorderStyle.None
-                    Color: =If(locRequestDetail.status = 2,RGBA(201, 232, 155, 1),RGBA(255, 255, 255, 1))
+                    Color: =
                     DisabledBorderColor: =RGBA(0, 0, 0, 0)
                     DisabledColor: =RGBA(0, 0, 0, 1)
-                    DisabledFill: =
+                    DisabledFill: =If(locRequestDetail.status = 2,RGBA(201, 232, 155, 1),locRequestDetail.status = 3,RGBA(255, 255, 255, 1),Color.White)
                     DisplayMode: =DisplayMode.Disabled
                     Fill: =RGBA(255, 184, 174, 1)
                     FillPortions: =1
@@ -1053,7 +1053,7 @@
                     RadiusTopLeft: =20
                     RadiusTopRight: =20
                     Size: =13
-                    Text: =If(locRequestDetail.status = 2,"✓ Đã duyệt","☓ Từ chối")
+                    Text: =If(locRequestDetail.status = 1,"Đang chờ duyệt",locRequestDetail.status = 2,"✓ Đã duyệt","☓ Từ chối")
                     Width: =140
                     ZIndex: =3
 
