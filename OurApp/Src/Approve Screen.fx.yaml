@@ -199,6 +199,25 @@
                     X: =-5
                     ZIndex: =3
 
+                Button10_10 As button:
+                    Color: =RGBA(255, 0, 0, 1)
+                    Fill: =RGBA(180, 214, 250, 1)
+                    Height: =30
+                    PaddingBottom: =0
+                    PaddingLeft: =0
+                    PaddingRight: =0
+                    PaddingTop: =0
+                    RadiusBottomLeft: =50
+                    RadiusBottomRight: =50
+                    RadiusTopLeft: =50
+                    RadiusTopRight: =50
+                    Text: =gblNumRequestWaitingApprove & 5
+                    Visible: =ThisItem.Title = "Phê duyệt" && gblNumRequestWaitingApprove >= 0
+                    Width: =30
+                    X: =156
+                    Y: =9
+                    ZIndex: =4
+
             btn_Exit_1 As button:
                 AlignInContainer: =AlignInContainer.Center
                 BorderColor: =RGBA(73, 113, 215, 1)
@@ -752,6 +771,10 @@
                     )
                 );
                 Reset(txt_as_RejectReason);
+                
+                //Xóa bớt 1 khỏi list cần phê duyệt
+                Set(gblNumRequestWaitingApprove, gblNumRequestWaitingApprove - 1);
+                
                 Notify("Từ chối thành công",NotificationType.Success,1500);
                 UpdateContext({locReject:false})
             PressedColor: =RGBA(255,255,255,1)
@@ -921,6 +944,9 @@
                         )
                     )
                 );
+                //Xóa bớt 1 khỏi list cần phê duyệt
+                Set(gblNumRequestWaitingApprove, gblNumRequestWaitingApprove - 1);
+                
                 Notify("Duyệt thành công",NotificationType.Success,1500);
                 UpdateContext({locApprove:false})
             PressedColor: =RGBA(255,255,255,1)
