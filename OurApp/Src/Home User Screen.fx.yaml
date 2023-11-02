@@ -586,7 +586,7 @@
                     PaddingRight: =10
                     RadiusBottomLeft: =0
                     RadiusBottomRight: =0
-                    Text: =$"Tháng {locNumCurrentMonth} năm {Year(_firstDayOfMonth)} " & test
+                    Text: =$"Tháng {locNumCurrentMonth} năm {Year(_firstDayOfMonth)} "
                     ZIndex: =1
 
                 img_hs_PreviousMonth As image:

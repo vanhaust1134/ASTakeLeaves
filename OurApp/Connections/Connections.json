@@ -11,7 +11,8 @@
       "ASTakeLeave.CommonRelationship",
       "ASTakeLeave.RequestCalculatedDays",
       "ASTakeLeave.TotalDayOffInYear",
-      "ASTakeLeave.LeaveRequest"
+      "ASTakeLeave.LeaveRequest",
+      "ASTakeLeave.UserRelationship"
     ],
     "dependencies": {},
     "dependents": [],
