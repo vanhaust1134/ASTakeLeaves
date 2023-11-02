@@ -1364,7 +1364,7 @@
                                     colDayLeft,
                                     Table(
                                         {
-                                            Result: locTotalDayLeaveUseful - Temp.TotalLeaveDay
+                                            Result: If(locTotalDayLeaveUseful = 0,locMaxDayLeaveNumber - Temp.TotalLeaveDay,locTotalDayLeaveUseful - Temp.TotalLeaveDay)
                                         }
                                     )
                                 );
