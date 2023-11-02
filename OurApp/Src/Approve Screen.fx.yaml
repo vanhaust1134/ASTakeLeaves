@@ -450,7 +450,7 @@
                                 Rectangle15_8 As rectangle:
                                     BorderColor: =RGBA(255, 255, 255, 1)
                                     BorderThickness: =1
-                                    Fill: =If(ThisItem.roleID = 2 And ThisItem.Value < 2,RGBA(204, 231, 246, 1),ThisItem.roleID = 3 And ThisItem.Value < 3,RGBA(204, 231, 246, 1),ThisItem.roleID = 1 And ThisItem.leaveDay > 12 And ThisItem.Value < 2,RGBA(204, 231, 246, 1),If(LookUp('ASTakeLeave.HistoryApprove',requestID = ThisItem.requestID And step = ThisItem.Value).status = "1",Color.Green,LookUp('ASTakeLeave.HistoryApprove',requestID = ThisItem.requestID And step = ThisItem.Value).status = "2",Color.Red,RGBA(204, 231, 246, 1)))
+                                    Fill: =If(ThisItem.roleID = 2 And ThisItem.Value < 2,Color.Green,ThisItem.roleID = 3 And ThisItem.Value < 3,Color.Green,ThisItem.roleID = 1 And ThisItem.leaveDay > 12 And ThisItem.Value < 2,Color.Green,If(LookUp('ASTakeLeave.HistoryApprove',requestID = ThisItem.requestID And step = ThisItem.Value).status = "1",Color.Green,LookUp('ASTakeLeave.HistoryApprove',requestID = ThisItem.requestID And step = ThisItem.Value).status = "2",Color.Red,RGBA(204, 231, 246, 1)))
                                     Height: =Parent.TemplateHeight
                                     OnSelect: =Select(Parent)
                                     Width: =Parent.TemplateWidth
