@@ -4314,7 +4314,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "ctn_hs_Info2_1",
-      "ParentIndex": 1,
+      "ParentIndex": 0,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -5055,7 +5055,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "ctn_rs_Detail",
-      "ParentIndex": 1,
+      "ParentIndex": 2,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -5305,7 +5305,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "ctn_rs_Division",
-      "ParentIndex": 3,
+      "ParentIndex": 4,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -6634,7 +6634,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "ctn_rs_Function",
-      "ParentIndex": 2,
+      "ParentIndex": 3,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -8067,7 +8067,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "ctn_rs_Reason",
-      "ParentIndex": 0,
+      "ParentIndex": 1,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -12832,7 +12832,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "img_hs_Avatar_1",
-      "ParentIndex": 0,
+      "ParentIndex": 1,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -13587,7 +13587,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "Label7",
-      "ParentIndex": 4,
+      "ParentIndex": 0,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -16462,7 +16462,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "lbl_rs_DivisionTitle_1",
-      "ParentIndex": 3,
+      "ParentIndex": 2,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -17160,7 +17160,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "lbl_rs_DivisionTitle_3",
-      "ParentIndex": 2,
+      "ParentIndex": 1,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -19821,7 +19821,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "Toggle3",
-      "ParentIndex": 1,
+      "ParentIndex": 3,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
