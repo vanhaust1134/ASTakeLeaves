@@ -46,19 +46,19 @@
                         Concurrent(
                             Collect(
                                 locColReportManagerTotalDayOffInYear,
-                                Filter('ASTakeLeave.TotalDayOffInYear', userID = temp.userID, active = 1),
-                                {
-                                    departmentID: temp.departmentID,
-                                    divisionID: temp.divisionID
-                                }
+                                AddColumns(
+                                    Filter('ASTakeLeave.TotalDayOffInYear', userID = temp.userID, active = 1),
+                                    "departmentID", temp.departmentID,
+                                    "divisionID", temp.divisionID
+                                )
                             ),
                             Collect(
                                 locColReportManagerTotalDayOffInMonth,
-                                Filter('ASTakeLeave.TotalDayOffInMonth', userID = temp.userID, year = Year(Today())),
-                                {
-                                    departmentID: temp.departmentID,
-                                    divisionID: temp.divisionID
-                                }
+                                AddColumns(
+                                    Filter('ASTakeLeave.TotalDayOffInMonth', userID = temp.userID, year = Year(Today())),
+                                    "departmentID", temp.departmentID,
+                                    "divisionID", temp.divisionID
+                                )
                             )
                         )
                     );
@@ -308,8 +308,8 @@
                     RadiusBottomRight: =50
                     RadiusTopLeft: =50
                     RadiusTopRight: =50
-                    Text: =gblNumRequestWaitingApprove & 5
-                    Visible: =ThisItem.Title = "Phê duyệt" && gblNumRequestWaitingApprove >= 0
+                    Text: =gblNumRequestWaitingApprove
+                    Visible: =ThisItem.Title = "Phê duyệt" && gblNumRequestWaitingApprove >= 1
                     Width: =30
                     X: =156
                     Y: =9
@@ -1076,18 +1076,16 @@
                     If(
                         locBoolReportManagerFilterTotalStatus || locBoolReportManagerFilterPersonalStatus, //Đang filter tất cả nhân viên hoặc cá nhân
                         Clear(locColReportExportDataMonthFilter);  //Tạo lại data export
-                        ForAll(
-                            locColManagerReportDataMonth As temp,
-                            Collect(
-                                locColReportExportDataMonthFilter,
-                                temp,
-                                {   
-                                    name: LookUp(gblColAllUser, userID = temp.userID).fullName,
-                                    jobTitle: LookUp(gblColAllUser, userID = temp.userID).jobTitle,
-                                    division: LookUp(gblColDivision, ID = temp.divisionID).name,
-                                    department: LookUp(gblColDepartment, ID = temp.departmentID).name
-                                }
+                        Collect(
+                            locColReportExportDataMonthFilter,
+                            AddColumns(
+                                locColManagerReportDataMonth As temp,
+                                "name", LookUp(gblColAllUser, userID = temp.userID).fullName,
+                                "jobTitle", LookUp(gblColAllUser, userID = temp.userID).jobTitle,
+                                "division", LookUp(gblColDivision, ID = temp.divisionID).name,
+                                "department", LookUp(gblColDepartment, ID = temp.departmentID).name
                             )
+                            
                         );
                         //Export bằng flow
                         Launch('ASTakeLeave.ExportReportFile'.Run(
@@ -1096,7 +1094,7 @@
                                                         locBoolReportManagerFilterTotalStatus, 
                                                         Dropdown3_3.Selected.Value, 
                                                         Dropdown3_1.Selected.Value
-                                                        )}_{Year(Dropdown3_5.Selected.Value)}_{Hour(Now())}{Minute(Now())}{Second(Now()
+                                                        )}_{Dropdown3_5.Selected.Value}_{Hour(Now())}{Minute(Now())}{Second(Now()
                                                     )
                                                     }.csv",
                             JSON(locColReportExportDataMonthFilter, JSONFormat.IncludeBinaryData),
@@ -1124,7 +1122,7 @@
                         );
                         //Export bằng flow
                         Launch('ASTakeLeave.ExportReportFile'.Run(
-                            $"TongHopNgayNghi_Nam{Year(Dropdown3_5.Selected.Value)}_{Hour(Now())}{Minute(Now())}{Second(Now())}.csv",
+                            $"TongHopNgayNghi_Nam_{Dropdown3_5.Selected.Value}_{Hour(Now())}{Minute(Now())}{Second(Now())}.csv",
                             JSON(locColReportExportDataYear, JSONFormat.IncludeBinaryData),
                             2
                         ).link & "?download=1")
@@ -1147,7 +1145,7 @@
                         );
                         //Export bằng flow
                         Launch('ASTakeLeave.ExportReportFile'.Run(
-                            $"TongHopNgayNghi_Nam{Year(Today())}_{Hour(Now())}{Minute(Now())}{Second(Now())}.csv",
+                            $"TongHopNgayNghi_Nam_{Year(Today())}_{Hour(Now())}{Minute(Now())}{Second(Now())}.csv",
                             JSON(locColReportExportDataYear, JSONFormat.IncludeBinaryData),
                             2
                         ).link & "?download=1")
