@@ -440,7 +440,7 @@
                                 DelayItemLoading: =true
                                 Height: |
                                     =30
-                                Items: =AddColumns(Sequence(ThisItem.maxApproveLevel,1),"requestID",ThisItem.ID)
+                                Items: =AddColumns(Sequence(ThisItem.maxApproveLevel,1),"requestID",ThisItem.ID,"currentApproveID",ThisItem.currentApproveLevel)
                                 LoadingSpinner: =LoadingSpinner.Data
                                 ShowScrollbar: =false
                                 TemplatePadding: =0
@@ -450,7 +450,7 @@
                                 Rectangle15_8 As rectangle:
                                     BorderColor: =RGBA(255, 255, 255, 1)
                                     BorderThickness: =1
-                                    Fill: =If(LookUp('ASTakeLeave.HistoryApprove',requestID = ThisItem.requestID And step = ThisItem.Value).status = "1",Color.Green,LookUp('ASTakeLeave.HistoryApprove',requestID = ThisItem.requestID And step = ThisItem.Value).status = "2",Color.Red,RGBA(204, 231, 246, 1))
+                                    Fill: =If(ThisItem.currentApproveID = 2 And ThisItem.Value = 1,RGBA(204, 231, 246, 1),If(LookUp('ASTakeLeave.HistoryApprove',requestID = ThisItem.requestID And step = ThisItem.Value).status = "1",Color.Green,LookUp('ASTakeLeave.HistoryApprove',requestID = ThisItem.requestID And step = ThisItem.Value).status = "2",Color.Red,RGBA(204, 231, 246, 1)))
                                     Height: =Parent.TemplateHeight
                                     OnSelect: =Select(Parent)
                                     Width: =Parent.TemplateWidth

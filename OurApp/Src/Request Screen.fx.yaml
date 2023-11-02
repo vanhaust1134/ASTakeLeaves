@@ -1886,10 +1886,13 @@
                                     'ASTakeLeave.TotalDayOffInYear',
                                     userID = gblRecUser.userID And active = 1
                                 ).maxDayOff_Year,
-                                locTotalDayLeaveUseful - Sum(
+                                If(locTotalDayLeaveUseful = 0,locMaxDayLeaveNumber - Sum(
                                     colTotalListDateRange,
                                     Total
-                                ),
+                                ),locTotalDayLeaveUseful - Sum(
+                                    colTotalListDateRange,
+                                    Total
+                                )),
                                 0
                             ),
                             startDate: dtp_rs_StartDay.SelectedDate,
@@ -1963,7 +1966,7 @@
                                     colTotalListDateRange,
                                     Total
                                 ) > 12,
-                                2,
+                                3,
                                 //Role HR/C&B
                                 gblRecUser.roleID = 5 And Sum(
                                     colTotalListDateRange,
@@ -1974,7 +1977,7 @@
                                     colTotalListDateRange,
                                     Total
                                 ) > 12,
-                                2,
+                                3,
                                 //Role giám đốc khối
                                 gblRecUser.roleID = 3 And Sum(
                                     colTotalListDateRange,
@@ -1985,7 +1988,7 @@
                                     colTotalListDateRange,
                                     Total
                                 ) > 12,
-                                2,
+                                3,
                                 //Role giám đốc điều hành
                                 gblRecUser.roleID = 4,
                                 1,
