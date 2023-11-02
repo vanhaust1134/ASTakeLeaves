@@ -1016,7 +1016,6 @@
                 ZIndex: =3
 
                 ctn_rds_StatusTitle As groupContainer.horizontalAutoLayoutContainer:
-                    AlignInContainer: =AlignInContainer.Start
                     DropShadow: =DropShadow.None
                     LayoutAlignItems: =LayoutAlignItems.Stretch
                     LayoutMinHeight: =35
@@ -1039,20 +1038,22 @@
 
                 btn_rds_Status As button:
                     BorderStyle: =BorderStyle.None
+                    Color: =If(locRequestDetail.status = 1,RGBA(201, 232, 155, 1),RGBA(255, 255, 255, 1))
+                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
                     DisabledColor: =RGBA(0, 0, 0, 1)
-                    DisabledFill: =RGBA(201, 232, 155, 1)
+                    DisabledFill: =
                     DisplayMode: =DisplayMode.Disabled
-                    Fill: =RGBA(152, 208, 70, 1)
+                    Fill: =RGBA(255, 184, 174, 1)
                     FillPortions: =1
                     Height: =20
                     LayoutMinHeight: =20
-                    OnSelect: =If(locRequestDetail.status = 1,"Đã duyệt","Từ chối")
+                    OnSelect: =
                     RadiusBottomLeft: =20
                     RadiusBottomRight: =20
                     RadiusTopLeft: =20
                     RadiusTopRight: =20
                     Size: =13
-                    Text: ="✓ Đã duyệt"
+                    Text: =If(locRequestDetail.status = 1,"✓ Đã duyệt","☓ Từ chối")
                     Width: =140
                     ZIndex: =3
 
