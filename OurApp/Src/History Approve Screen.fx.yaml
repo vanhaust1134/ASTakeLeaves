@@ -574,8 +574,8 @@
                     RadiusBottomRight: =50
                     RadiusTopLeft: =50
                     RadiusTopRight: =50
-                    Text: =gblNumRequestWaitingApprove & 5
-                    Visible: =ThisItem.Title = "Phê duyệt" && gblNumRequestWaitingApprove >= 0
+                    Text: =gblNumRequestWaitingApprove
+                    Visible: =ThisItem.Title = "Phê duyệt" && gblNumRequestWaitingApprove >= 1
                     Width: =30
                     X: =156
                     Y: =9

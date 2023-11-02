@@ -11131,7 +11131,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "img_hs_MenuImage_1",
-      "ParentIndex": 3,
+      "ParentIndex": 2,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -16591,7 +16591,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "lbl_hs_MenuTitle_1",
-      "ParentIndex": 4,
+      "ParentIndex": 3,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
