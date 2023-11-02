@@ -13,6 +13,8 @@
         //Lấy thông tin user hiện tại
         If(
             IsBlank(gblRecUser),    //Chạy lần đầu
+        
+            UpdateContext({locLoading: true});      //Show loading
             
             //Lấy tất cả user và role về
             //role: 1 employee, 2 quản lý trực tiếp, 3 giàm đốc khối, 4 giám đốc điều hành, 5 HR/C&B, 7 admin
@@ -186,7 +188,78 @@
                 Fill: =RGBA(255, 255, 255, 1)
                 Height: =652
                 Items: |-
-                    =If(gblRecUser.roleID = 1,Table({ID:1,Image:Home,Title:"Trang chủ",Navigate:'Home User Screen'},{ID:2,Image:Analytics,Title:"Báo cáo",Navigate:'Statistical User Screen'}),Or(gblRecUser.roleID = 2,gblRecUser.roleID = 3,gblRecUser.roleID = 4),Table({ID:1,Image:Home,Title:"Trang chủ",Navigate:'Home Manager Screen'},{ID:2,Image:'Admin Settings Male',Title:"Phê duyệt",Navigate:'Approve Screen'},{ID:3,Image:Analytics,Title:"Báo cáo",Navigate:'Statistical Manager Screen'}),gblRecUser.roleID = 5 Or gblRecUser.roleID = 7,Table({ID:1,Image:Home,Title:"Trang chủ",Navigate:'Home Manager Screen'},{ID:2,Image:'Data Recovery',Title:"Thiết lập",Navigate:'Leave Day Screen'},{ID:3,Image:Analytics,Title:"Báo cáo",Navigate:'Statistical Manager Screen'}),gblRecUser.roleID = 6,Table({ID:1,Image:'Data Recovery',Title:"Thiết lập",Navigate:'User Screen'}))
+                    =If(
+                        gblRecUser.roleID = 1,
+                        Table(
+                            {
+                                ID: 1,
+                                Image: Home,
+                                Title: "Trang chủ",
+                                Navigate: 'Home User Screen'
+                            },
+                            {
+                                ID: 2,
+                                Image: Analytics,
+                                Title: "Báo cáo",
+                                Navigate: 'Statistical User Screen'
+                            }
+                        ),
+                        Or(
+                            gblRecUser.roleID = 2,
+                            gblRecUser.roleID = 3,
+                            gblRecUser.roleID = 4
+                        ),
+                        Table(
+                            {
+                                ID: 1,
+                                Image: Home,
+                                Title: "Trang chủ",
+                                Navigate: 'Home Manager Screen'
+                            },
+                            {
+                                ID: 2,
+                                Image: 'Admin Settings Male',
+                                Title: "Phê duyệt",
+                                Navigate: 'Approve Screen'
+                            },
+                            {
+                                ID: 3,
+                                Image: Analytics,
+                                Title: "Báo cáo",
+                                Navigate: 'Statistical Manager Screen'
+                            }
+                        ),
+                        gblRecUser.roleID = 5 Or gblRecUser.roleID = 7,
+                        Table(
+                            {
+                                ID: 1,
+                                Image: Home,
+                                Title: "Trang chủ",
+                                Navigate: 'Home Manager Screen'
+                            },
+                            {
+                                ID: 2,
+                                Image: 'Data Recovery',
+                                Title: "Thiết lập",
+                                Navigate: 'Leave Day Screen'
+                            },
+                            {
+                                ID: 3,
+                                Image: Analytics,
+                                Title: "Báo cáo",
+                                Navigate: 'Statistical Manager Screen'
+                            }
+                        ),
+                        gblRecUser.roleID = 6,
+                        Table(
+                            {
+                                ID: 1,
+                                Image: 'Data Recovery',
+                                Title: "Thiết lập",
+                                Navigate: 'User Screen'
+                            }
+                        )
+                    )
                 Layout: =Layout.Vertical
                 LayoutMinHeight: =287
                 LayoutMinWidth: =0
@@ -236,6 +309,25 @@
                     Width: =195
                     X: =-5
                     ZIndex: =3
+
+                Button10 As button:
+                    Color: =RGBA(255, 0, 0, 1)
+                    Fill: =RGBA(180, 214, 250, 1)
+                    Height: =30
+                    PaddingBottom: =0
+                    PaddingLeft: =0
+                    PaddingRight: =0
+                    PaddingTop: =0
+                    RadiusBottomLeft: =50
+                    RadiusBottomRight: =50
+                    RadiusTopLeft: =50
+                    RadiusTopRight: =50
+                    Text: =gblNumRequestWaitingApprove & 5
+                    Visible: =ThisItem.Title = "Phê duyệt" && gblNumRequestWaitingApprove >= 0
+                    Width: =30
+                    X: =156
+                    Y: =9
+                    ZIndex: =4
 
             btn_Exit_10 As button:
                 AlignInContainer: =AlignInContainer.Center
@@ -942,8 +1034,7 @@
                                                         Day(_nextLastDayInView) &
                                                         Month(_nextLastDayInView) &
                                                         Year(_nextLastDayInView)
-                                                    ),
-                                status = 2
+                                                    )
                             )
                         );
                         
@@ -963,6 +1054,24 @@
                                                         Year(_nextLastDayInView)
                                                     ),
                                 status = 2
+                            )
+                        );
+                
+                        Collect(
+                            locColRequestWaitingApproveDepartment,
+                            Filter(                         //Lấy tất cả các phép cần phê duyệt hiện tại trong phòng
+                                'ASTakeLeave.LeaveRequest', 
+                                departmentID = gblRecUser.departmentID, 
+                                currentApproveLevel = 1,
+                                status = 1
+                            )
+                        );
+                
+                        Collect(
+                            gblColRequestWaitingApprove,
+                            Filter(                         //Lấy tất cả các phép cần phê duyệt hiện tại theo quản lý trực tiếp
+                                locColRequestWaitingApproveDepartment, 
+                                Or(userID exactin gblColUserBelong[@userID], userID = gblRecUser.userID)
                             )
                         ),
                 
@@ -985,6 +1094,16 @@
                                                         ),
                                 status = 2
                                 )
+                            );
+                            
+                            Collect(
+                                gblColRequestWaitingApprove,
+                                Filter(                         //Lấy tất cả các phép cần phê duyệt hiện tại
+                                    'ASTakeLeave.LeaveRequest', 
+                                    divisionID = gblRecUser.divisionID,
+                                    currentApproveLevel = 2,
+                                    status = 1
+                                )
                             ),
                 
                             //Các role còn lại lấy tất cả
@@ -992,7 +1111,6 @@
                                 locColCalendarTotalLeave,
                                 Filter(                         //Lấy tất cả các lần phép có khoảng ngày trong view calendar hiện tại
                                     'ASTakeLeave.LeaveRequest', 
-                                    divisionID = gblRecUser.divisionID,
                                     startDateValue >= Value(
                                                             Day(_previousFirstDayInView) &
                                                             Month(_previousFirstDayInView) &
@@ -1005,10 +1123,25 @@
                                                         ),
                                 status = 2
                                 )
+                            );
+                
+                            Collect(
+                                gblColRequestWaitingApprove,
+                                Filter(                         //Lấy tất cả các phép cần phê duyệt hiện tại
+                                    'ASTakeLeave.LeaveRequest', 
+                                    currentApproveLevel = 3,
+                                    status = 1
+                                )
                             )
                 
                         )
                     );
+                
+                    //Set biến chứ số phép cần phê duyệt
+                    Set(gblNumRequestWaitingApprove, CountRows(gblColRequestWaitingApprove));
+                    
+                
+                UpdateContext({locLoading: false});      //End loading
             Text: ="Button"
             X: =40
             Y: =23
@@ -1074,7 +1207,6 @@
                                 locColCalendarTotalLeave,
                                 Filter(                         //Lấy tất cả các lần phép có khoảng ngày trong view calendar hiện tại
                                     'ASTakeLeave.LeaveRequest', 
-                                    divisionID = gblRecUser.divisionID,
                                     Or(
                                         startDateValue >= Value(Day(_nextFirstDayInView) & Month(_nextFirstDayInView) & Year(_nextFirstDayInView)) &&
                                         endDateValue <= Value(Day(_nextLastDayInView) & Month(_nextLastDayInView) & Year(_nextLastDayInView)),
@@ -1151,7 +1283,6 @@
                                 locColCalendarTotalLeave,
                                 Filter(                         //Lấy tất cả các lần phép có khoảng ngày trong view calendar hiện tại
                                     'ASTakeLeave.LeaveRequest', 
-                                    divisionID = gblRecUser.divisionID,
                                     Or(                         
                                         startDateValue >= Value(Day(_previousFirstDayInView) & Month(_previousFirstDayInView) & Year(_previousFirstDayInView)) &&
                                         endDateValue <= Value(Day(_previousLastDayInView) & Month(_previousLastDayInView) & Year(_previousLastDayInView)),
@@ -1167,5 +1298,51 @@
             Text: ="Button"
             X: =80
             Y: =23
+            ZIndex: =3
+
+    ctn_hms_Loading As groupContainer.manualLayoutContainer:
+        Height: =Parent.Height
+        RadiusBottomLeft: =0
+        RadiusBottomRight: =0
+        RadiusTopLeft: =0
+        RadiusTopRight: =0
+        Visible: =locLoading
+        Width: =Parent.Width
+        ZIndex: =26
+
+        Button8 As button:
+            BorderThickness: =0
+            DisabledBorderColor: =RGBA(255, 255, 255, 1)
+            DisabledFill: =RGBA(255, 255, 255, 1)
+            DisplayMode: =DisplayMode.Disabled
+            FocusedBorderThickness: =0
+            Height: =Parent.Height
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Text: =""
+            Visible: =Parent.Visible
+            Width: =Parent.Width
+            X: =Parent.X
+            Y: =Parent.Y
+            ZIndex: =1
+
+        Image6 As image:
+            Height: =133
+            Image: =AS_Loading
+            Visible: =Parent.Visible
+            Width: =143
+            X: =611
+            Y: =195
+            ZIndex: =2
+
+        Label14 As label:
+            Align: =Align.Center
+            Text: ="Đang tải dữ liệu..."
+            Visible: =Parent.Visible
+            Width: =200
+            X: =583
+            Y: =364
             ZIndex: =3
 
