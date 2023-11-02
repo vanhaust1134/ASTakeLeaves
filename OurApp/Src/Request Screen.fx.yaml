@@ -1886,13 +1886,13 @@
                                     'ASTakeLeave.TotalDayOffInYear',
                                     userID = gblRecUser.userID And active = 1
                                 ).maxDayOff_Year,
-                                If(locTotalDayLeaveUseful = 0,locMaxDayLeaveNumber - Sum(
+                                If(locTotalDayLeaveUseful = 0,Value(Mid(locMaxDayLeaveNumber - Sum(
                                     colTotalListDateRange,
                                     Total
-                                ),locTotalDayLeaveUseful - Sum(
+                                ),2)),Value(Mid(locTotalDayLeaveUseful - Sum(
                                     colTotalListDateRange,
                                     Total
-                                )),
+                                ),2))),
                                 0
                             ),
                             startDate: dtp_rs_StartDay.SelectedDate,

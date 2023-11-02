@@ -11,10 +11,13 @@
       "ASTakeLeave.CommonRelationship",
       "ASTakeLeave.RequestCalculatedDays",
       "ASTakeLeave.TotalDayOffInYear",
-      "ASTakeLeave.LeaveRequest"
+      "ASTakeLeave.LeaveRequest",
+      "ASTakeLeave.UserRelationship"
     ],
     "dependencies": {},
-    "dependents": [],
+    "dependents": [
+      "2358de91-dd96-4e49-aaf4-bb5f32a9d55b"
+    ],
     "id": "04e0ad42-7b3b-4f11-b235-8ccd8c494f10"
   },
   "0eb57bc9-f0aa-4596-a1bf-9585afadffa1": {
@@ -392,7 +395,6 @@
     "dependents": [
       "1788df75-50d0-4023-8fc6-21646c5e4d76",
       "51d898db-ccf2-4c94-b1ca-7cda1f06927c",
-      "f3d25281-5924-49a4-9da5-f0b76e90abda",
       "49c30399-0d70-4ad6-8f01-ca577e01b197",
       "eb176140-482a-4d98-83da-b60a9bd52de4"
     ],
