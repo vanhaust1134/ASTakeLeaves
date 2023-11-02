@@ -471,23 +471,11 @@
                                     BorderThickness: =1
                                     Fill: |-
                                         =If(
-                                            ThisItem.roleID = 2 And ThisItem.Value < 2 Or LookUp(
-                                                    'ASTakeLeave.HistoryApprove',
-                                                    requestID = ThisItem.requestID And step = ThisItem.Value - 1
-                                                ).status = "1",
+                                            ThisItem.roleID = 2 And ThisItem.Value < 2,
                                             Color.Green,
-                                            ThisItem.roleID = 3 And ThisItem.Value < 3 And Or(LookUp(
-                                                    'ASTakeLeave.HistoryApprove',
-                                                    requestID = ThisItem.requestID And step = ThisItem.Value - 1
-                                                ).status = "1",LookUp(
-                                                    'ASTakeLeave.HistoryApprove',
-                                                    requestID = ThisItem.requestID And step = ThisItem.Value - 2
-                                                ).status = "1"),
+                                            ThisItem.roleID = 3 And ThisItem.Value < 3,
                                             Color.Green,
-                                            ThisItem.roleID = 1 And ThisItem.leaveDay > 12 And ThisItem.Value < 2 Or LookUp(
-                                                    'ASTakeLeave.HistoryApprove',
-                                                    requestID = ThisItem.requestID And step = ThisItem.Value - 1
-                                                ).status = "1",
+                                            ThisItem.roleID = 1 And ThisItem.leaveDay > 12 And ThisItem.Value < 2,
                                             Color.Green,
                                             If(
                                                 LookUp(
@@ -1006,6 +994,10 @@
                     <td>" & locRequestInfo.totalDayOff & " ngày" &"</td>
                   </tr>
                   <tr>
+                    <td style=width:100px><b>Ngày không phép</b></td>
+                    <td>" & locRequestInfo.totalDayUnpaid & " ngày" &"</td>
+                  </tr>
+                  <tr>
                     <td style=width:100px><b>Người tạo</b></td>
                     <td>" & LookUp(gblColAllUser,userID = locRequestInfo.userID).fullName &"</td>
                   </tr>
@@ -1023,4 +1015,15 @@
             X: =387
             Y: =159
             ZIndex: =9
+
+    Label16 As label:
+        Align: =Align.Center
+        FontWeight: =FontWeight.Bold
+        Height: =56
+        Text: ="Hiện chưa có yêu cầu nào"
+        Visible: =If(IsEmpty(gal_as_List.AllItems),true,false)
+        Width: =462
+        X: =528
+        Y: =433
+        ZIndex: =9
 
