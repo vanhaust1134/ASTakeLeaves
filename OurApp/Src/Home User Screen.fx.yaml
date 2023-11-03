@@ -1,7 +1,7 @@
 "'Home User Screen' As screen":
     Fill: =RGBA(80,80,80,1)
     OnVisible: |-
-        =If(gblRecUser.roleID = 6,Select(Button11));
+        =
         //Calendar setting, default của powerapps
         //UpdateContext({_dateSelected: Today()});
         UpdateContext({_firstDayOfMonth: DateAdd(Today(), 1 - Day(Today()), TimeUnit.Days)});
@@ -14,7 +14,7 @@
         //Lấy thông tin user hiện tại
         If(
             IsBlank(gblRecUser),    //Chạy lần đầu
-        
+            
             UpdateContext({locLoading: true}); //Show loading
             
             //Lấy tất cả user và role về
