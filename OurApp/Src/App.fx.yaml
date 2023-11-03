@@ -36,18 +36,16 @@ App As appinfo:
                     email = User().Email And active = 1
                 ).userID And active = 1
             ).roleID = 6,
+            'Home User Screen',
+            LookUp(
+                'ASTakeLeave.Users_Roles',
+                userID = LookUp(
+                    'ASTakeLeave.Users',
+                    email = User().Email And active = 1
+                ).userID And active = 1
+            ).roleID = 1,
             'User Screen',
-            If(
-                LookUp(
-                    'ASTakeLeave.Users_Roles',
-                    userID = LookUp(
-                        'ASTakeLeave.Users',
-                        email = User().Email And active = 1
-                    ).userID And active = 1
-                ).roleID = 1,
-                'Home User Screen',
-                'Home Manager Screen'
-            )
+            'Home Manager Screen'
         )
     Theme: =PowerAppsTheme
 
