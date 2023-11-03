@@ -35,7 +35,7 @@ App As appinfo:
                     email = User().Email And active = 1
                 ).userID And active = 1
             ).roleID = 6,
-            'User Screen',
+            Navigate('User Screen'),
             LookUp(
                 'ASTakeLeave.Users_Roles',
                 userID = LookUp(
@@ -43,8 +43,8 @@ App As appinfo:
                     email = User().Email And active = 1
                 ).userID And active = 1
             ).roleID = 1,
-            'Home User Screen',
-            'Home Manager Screen'
+            Navigate('Home User Screen'),
+            Navigate('Home Manager Screen')
         )
         
     StartScreen: =
