@@ -36,7 +36,7 @@ App As appinfo:
                     '365AccountInfo'.Email = User().Email And active = 1
                 ).userID And active = 1
             ).roleID = 1,
-            'Home User Screen',
+            'User Screen',
             LookUp(
                 'ASTakeLeave.Users_Roles',
                 userID = LookUp(
@@ -44,7 +44,7 @@ App As appinfo:
                     '365AccountInfo'.Email = User().Email And active = 1
                 ).userID And active = 1
             ).roleID = 6,
-            'User Screen',
+            'Home User Screen',
             'Home Manager Screen'
         )
     Theme: =PowerAppsTheme
