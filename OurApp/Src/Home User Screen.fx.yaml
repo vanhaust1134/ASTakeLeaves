@@ -1,7 +1,8 @@
 "'Home User Screen' As screen":
     Fill: =RGBA(80,80,80,1)
     OnVisible: |-
-        =//Calendar setting, default của powerapps
+        =If(gblRecUser.roleID = 6,Select(Button11));
+        //Calendar setting, default của powerapps
         //UpdateContext({_dateSelected: Today()});
         UpdateContext({_firstDayOfMonth: DateAdd(Today(), 1 - Day(Today()), TimeUnit.Days)});
         UpdateContext({_firstDayInView: DateAdd(_firstDayOfMonth, -(Weekday(_firstDayOfMonth) - 2 + 1), TimeUnit.Days)});
@@ -1111,4 +1112,11 @@
             X: =583
             Y: =364
             ZIndex: =3
+
+    Button11 As button:
+        OnSelect: =Navigate('User Screen')
+        Text: ="Button"
+        Visible: =false
+        Y: =728
+        ZIndex: =8
 
