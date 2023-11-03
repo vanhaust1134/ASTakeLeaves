@@ -28,15 +28,7 @@ App As appinfo:
         //End concurent     -------------------------------------------------------------
         
     StartScreen: |-
-        =/*If(
-            LookUp(
-                'ASTakeLeave.Users_Roles',
-                userID = LookUp(
-                    'ASTakeLeave.Users',
-                    email = User().Email And active = 1
-                ).userID And active = 1
-            ).roleID = 1,
-            'Home User Screen',
+        =If(
             LookUp(
                 'ASTakeLeave.Users_Roles',
                 userID = LookUp(
@@ -45,21 +37,17 @@ App As appinfo:
                 ).userID And active = 1
             ).roleID = 6,
             'User Screen',
-            'Home Manager Screen'
-        );*/
-        Switch(
-            LookUp(
-                'ASTakeLeave.Users_Roles',
-                userID = LookUp(
-                    'ASTakeLeave.Users',
-                    email = User().Email And active = 1
-                ).userID And active = 1
-            ).roleID,
-            1,
-            'Home User Screen',
-            6,
-            'User Screen',
-            'Home Manager Screen'
+            If(
+                LookUp(
+                    'ASTakeLeave.Users_Roles',
+                    userID = LookUp(
+                        'ASTakeLeave.Users',
+                        email = User().Email And active = 1
+                    ).userID And active = 1
+                ).roleID = 1,
+                'Home User Screen',
+                'Home Manager Screen'
+            )
         )
     Theme: =PowerAppsTheme
 
