@@ -28,7 +28,7 @@ App As appinfo:
         //End concurent     -------------------------------------------------------------
         
     StartScreen: |-
-        =If(
+        =/*If(
             LookUp(
                 'ASTakeLeave.Users_Roles',
                 userID = LookUp(
@@ -46,7 +46,14 @@ App As appinfo:
             ).roleID = 6,
             'User Screen',
             'Home Manager Screen'
-        )
+        );*/
+        Switch(LookUp(
+                'ASTakeLeave.Users_Roles',
+                userID = LookUp(
+                    'ASTakeLeave.Users',
+                    email = User().Email And active = 1
+                ).userID And active = 1
+            ).roleID,1,'Home User Screen',6,'User Screen','Home Manager Screen')
     Theme: =PowerAppsTheme
 
     Host As hostControl.DefaultHostControlVariant:

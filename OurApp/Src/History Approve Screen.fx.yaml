@@ -595,3 +595,14 @@
                 Y: =682
                 ZIndex: =2
 
+    Label16_3 As label:
+        Align: =Align.Center
+        FontWeight: =FontWeight.Bold
+        Height: =56
+        Text: ="Hiện chưa có yêu cầu nào"
+        Visible: =If(IsEmpty(gal_has_List.AllItems),true,false)
+        Width: =462
+        X: =530
+        Y: =454
+        ZIndex: =26
+

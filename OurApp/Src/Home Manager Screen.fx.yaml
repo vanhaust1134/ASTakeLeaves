@@ -798,7 +798,6 @@
                     BorderThickness: =1
                     DelayItemLoading: =true
                     Fill: =RGBA(255, 255, 255, 1)
-                    FillPortions: =0
                     Height: =230
                     Items: |-
                         =If(
@@ -1345,4 +1344,15 @@
             X: =583
             Y: =364
             ZIndex: =3
+
+    Label16_2 As label:
+        Align: =Align.Center
+        FontWeight: =FontWeight.Semibold
+        Height: =56
+        Text: ="Không có yêu cầu"
+        Visible: =If(IsEmpty(gal_hs_List_2.AllItems),true,false)
+        Width: =252
+        X: =1080
+        Y: =435
+        ZIndex: =27
 

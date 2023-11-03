@@ -1276,6 +1276,7 @@
 
                 btn_rs_Submit As button:
                     AlignInContainer: =AlignInContainer.End
+                    DisplayMode: =If(CountRows(Filter('ASTakeLeave.LeaveRequest',status = 1 And userID = gblRecUser.ID)) = 1,DisplayMode.Disabled,DisplayMode.Edit)
                     Fill: =RGBA(73, 113, 215, 1)
                     OnSelect: |-
                         =If(
@@ -1364,7 +1365,8 @@
                                     colDayLeft,
                                     Table(
                                         {
-                                            Result: If(locTotalDayLeaveUseful = 0,locMaxDayLeaveNumber - Temp.TotalLeaveDay,locTotalDayLeaveUseful - Temp.TotalLeaveDay)
+                                            Result: If(IsBlank(Last(colDayLeft).ResultDayNotUnpaid),If(locTotalDayLeaveUseful = 0,locMaxDayLeaveNumber - Temp.TotalLeaveDay,locTotalDayLeaveUseful - Temp.TotalLeaveDay,2),Last(colDayLeft).ResultDayNotUnpaid < 0,Value(Mid(Last(colDayLeft).ResultDayNotUnpaid,2)) + Temp.TotalLeaveDay,Last(colDayLeft).ResultDayNotUnpaid > 0,Last(colDayLeft).ResultDayNotUnpaid - Temp.TotalLeaveDay),
+                                            ResultDayNotUnpaid:If(locTotalDayLeaveUseful = 0,locMaxDayLeaveNumber - Temp.TotalLeaveDay,locTotalDayLeaveUseful - Temp.TotalLeaveDay,2)
                                         }
                                     )
                                 );
@@ -1374,18 +1376,12 @@
                                         {
                                             Month: Temp.Value,
                                             TotalLeaveDay: Temp.TotalLeaveDay,
-                                            TotalLeaveUnpaid: If(
-                                                Last(colDayLeft).Result < 0,
-                                                Mid(
-                                                    Last(colDayLeft).Result,
-                                                    2
-                                                ),
-                                                0
-                                            )
+                                            TotalLeaveUnpaid: If(Last(colDayLeft).Result<0,Mid(Last(colDayLeft).Result,2),0)
                                         }
                                     )
                                 )
                             );
+                            Patch(colRecordTotalDayLeaveByMonthCalculated,LookUp(colRecordTotalDayLeaveByMonthCalculated,Month = 12),{TotalLeaveUnpaid:Last(colRecordTotalDayLeaveByMonthCalculated).TotalLeaveUnpaid + (Sum(colTotalListDateRange,Total) - Sum(colRecordTotalDayLeaveByMonthCalculated,TotalLeaveDay))});
                             UpdateContext({locSubmit: true});
                             /*ClearCollect(
                                 colListDateRange,
@@ -2032,9 +2028,24 @@
                         Form2.Updates
                     )
                 );
+                Concurrent(
                 //Nếu người tạo là quản lý, giám đốc hoặc giám đốc điều hành thì yêu cầu tự động phê duyệt tại bước này (ghi nhận lịch sử)
                 If(
-                    gblRecUser.roleID = 2,
+                    Or(gblRecUser.roleID = 1 Or gblRecUser.roleID = 5) And Sum(
+                                colTotalListDateRange,
+                                Total
+                            ) > 12,
+                    Patch(
+                        'ASTakeLeave.HistoryApprove',
+                        Defaults('ASTakeLeave.HistoryApprove'),
+                        {
+                            requestID: gblRequest.ID,
+                            userID: gblRecUser.userID,
+                            status: 1,
+                            step:1
+                        }
+                    ),
+                    gblRecUser.roleID = 2 Or  gblRecUser.roleID = 7,
                     Patch(
                         'ASTakeLeave.HistoryApprove',
                         Defaults('ASTakeLeave.HistoryApprove'),
@@ -2055,6 +2066,16 @@
                             status: 1,
                             step:1
                         }
+                    );
+                    Patch(
+                        'ASTakeLeave.HistoryApprove',
+                        Defaults('ASTakeLeave.HistoryApprove'),
+                        {
+                            requestID: gblRequest.ID,
+                            userID: gblRecUser.userID,
+                            status: 1,
+                            step:2
+                        }
                     ),
                     gblRecUser.roleID = 4,
                     Patch(
@@ -2066,8 +2087,28 @@
                             status: 1,
                             step:1
                         }
+                    );
+                    Patch(
+                        'ASTakeLeave.HistoryApprove',
+                        Defaults('ASTakeLeave.HistoryApprove'),
+                        {
+                            requestID: gblRequest.ID,
+                            userID: gblRecUser.userID,
+                            status: 1,
+                            step:2
+                        }
+                    );
+                    Patch(
+                        'ASTakeLeave.HistoryApprove',
+                        Defaults('ASTakeLeave.HistoryApprove'),
+                        {
+                            requestID: gblRequest.ID,
+                            userID: gblRecUser.userID,
+                            status: 1,
+                            step:3
+                        }
                     )
-                );
+                ),
                 //Ghi nhận tháng nghỉ
                 ForAll(
                     Filter(colRecordTotalDayLeaveByMonthCalculated,TotalLeaveDay > 0 Or Value(TotalLeaveUnpaid) > 0) As Temp,
@@ -2082,7 +2123,7 @@
                             totalDayOffUnpaid:Value(Temp.TotalLeaveUnpaid)
                         }
                     )
-                );
+                ));
                 /*'ASTakeLeave.SendMail'.Run(drp_rs_HandOver.Selected.Email,gblRecUser.fullName & " đã tạo yêu cầu nghỉ phép và bàn giao công việc","Thời gian tạo yêu cầu " & Now() & "<br>" & "Ngày nghỉ từ " & dtp_rs_StartDay.SelectedDate & " đến " & dtp_rs_FinishDay.SelectedDate & "<br>" & "Nội dung bàn giao công việc: " & txt_rs_HandOverContent.Text);*/
                 Notify(
                     "Gửi thành công",
