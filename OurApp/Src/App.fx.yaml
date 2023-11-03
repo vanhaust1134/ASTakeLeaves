@@ -1,6 +1,6 @@
 App As appinfo:
     BackEnabled: =false
-    OnStart: |
+    OnStart: |+
         =//Start concurrent  ------------------------------------------------------------------
         Concurrent(
         
@@ -26,14 +26,8 @@ App As appinfo:
         
         );
         //End concurent     -------------------------------------------------------------
-        Switch(LookUp(
-                'ASTakeLeave.Users_Roles',
-                userID = LookUp(
-                    'ASTakeLeave.Users',
-                    email = User().Email And active = 1
-                ).userID And active = 1
-            ).roleID,1,'Home User Screen',6,'User Screen','Home Manager Screen')
-    StartScreen: |
+        
+    StartScreen: |-
         =/*If(
             LookUp(
                 'ASTakeLeave.Users_Roles',
@@ -53,6 +47,20 @@ App As appinfo:
             'User Screen',
             'Home Manager Screen'
         );*/
+        Switch(
+            LookUp(
+                'ASTakeLeave.Users_Roles',
+                userID = LookUp(
+                    'ASTakeLeave.Users',
+                    email = User().Email And active = 1
+                ).userID And active = 1
+            ).roleID,
+            1,
+            'Home User Screen',
+            6,
+            'User Screen',
+            'Home Manager Screen'
+        )
     Theme: =PowerAppsTheme
 
     Host As hostControl.DefaultHostControlVariant:
