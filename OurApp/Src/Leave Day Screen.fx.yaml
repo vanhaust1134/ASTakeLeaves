@@ -407,7 +407,7 @@
                 gal_lds_List As gallery.galleryVertical:
                     AlignInContainer: =AlignInContainer.SetByContainer
                     DelayItemLoading: =true
-                    Items: =Search(Filter(gblColDayOff, (deparmentName = drp_lds_Employee.Selected.ID || If(IsBlank(drp_lds_Employee.Selected.ID),true,false))),txt_lds_Search.Text,"userName")
+                    Items: =Search(Filter(gblColDayOff, (deparmentName = drp_lds_Employee.Selected.ID || If(IsBlank(drp_lds_Employee.Selected.ID),true,false)) And year = Year(Today()) ),txt_lds_Search.Text,"userName")
                     Layout: =Layout.Vertical
                     LayoutMinHeight: =287
                     LayoutMinWidth: =0
@@ -782,7 +782,7 @@
             ZIndex: =8
 
         Form1 As form:
-            DataSource: =test
+            DataSource: ='ASTakeLeave.TotalDayOffInYear'
             DefaultMode: =FormMode.New
             Height: =252
             Width: =591
