@@ -177,7 +177,7 @@
         RadiusTopLeft: =20
         RadiusTopRight: =0
         Width: =196
-        ZIndex: =18
+        ZIndex: =2
 
         ctn_HeaderMenu As groupContainer.horizontalAutoLayoutContainer:
             AlignInContainer: =AlignInContainer.SetByContainer
@@ -303,7 +303,7 @@
         Width: =1170
         X: =196
         Y: =104
-        ZIndex: =20
+        ZIndex: =3
 
         lbl_hs_Title As label:
             Color: =RGBA(43, 54, 74, 1)
@@ -338,7 +338,7 @@
         Width: =1170
         X: =196
         Y: =145
-        ZIndex: =23
+        ZIndex: =4
 
         ctn_hs_Statistical As groupContainer.verticalAutoLayoutContainer:
             DropShadow: =DropShadow.None
@@ -946,7 +946,7 @@
         LayoutMode: =LayoutMode.Auto
         Width: =1170
         X: =196
-        ZIndex: =24
+        ZIndex: =5
 
         ctn_hs_Tab As groupContainer.horizontalAutoLayoutContainer:
             AlignInContainer: =AlignInContainer.SetByContainer
@@ -1055,6 +1055,17 @@
                     Wrap: =false
                     ZIndex: =2
 
+    Label16_1 As label:
+        Align: =Align.Center
+        FontWeight: =FontWeight.Semibold
+        Height: =56
+        Text: ="Không có yêu cầu"
+        Visible: =If(IsEmpty(gal_hs_List_1.AllItems),true,false)
+        Width: =252
+        X: =230
+        Y: =555
+        ZIndex: =6
+
     ctn_hus_Loading As groupContainer.manualLayoutContainer:
         Height: =Parent.Height
         RadiusBottomLeft: =0
@@ -1063,7 +1074,7 @@
         RadiusTopRight: =0
         Visible: =locLoading
         Width: =Parent.Width
-        ZIndex: =25
+        ZIndex: =7
 
         Button8_2 As button:
             BorderThickness: =0
@@ -1100,15 +1111,4 @@
             X: =583
             Y: =364
             ZIndex: =3
-
-    Label16_1 As label:
-        Align: =Align.Center
-        FontWeight: =FontWeight.Semibold
-        Height: =56
-        Text: ="Không có yêu cầu"
-        Visible: =If(IsEmpty(gal_hs_List_1.AllItems),true,false)
-        Width: =252
-        X: =230
-        Y: =555
-        ZIndex: =26
 

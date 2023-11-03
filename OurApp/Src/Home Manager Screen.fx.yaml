@@ -136,7 +136,7 @@
         RadiusTopLeft: =20
         RadiusTopRight: =0
         Width: =196
-        ZIndex: =18
+        ZIndex: =2
 
         ctn_HeaderMenu_2 As groupContainer.horizontalAutoLayoutContainer:
             AlignInContainer: =AlignInContainer.SetByContainer
@@ -352,7 +352,7 @@
         Width: =1170
         X: =196
         Y: =104
-        ZIndex: =20
+        ZIndex: =3
 
         lbl_hs_Title_1 As label:
             Color: =RGBA(43, 54, 74, 1)
@@ -387,7 +387,7 @@
         Width: =1170
         X: =196
         Y: =145
-        ZIndex: =23
+        ZIndex: =4
 
         ctn_hs_List_1 As groupContainer.verticalAutoLayoutContainer:
             DropShadow: =DropShadow.None
@@ -895,7 +895,7 @@
         LayoutMode: =LayoutMode.Auto
         Width: =1170
         X: =196
-        ZIndex: =24
+        ZIndex: =5
 
         ctn_hs_Tab_1 As groupContainer.horizontalAutoLayoutContainer:
             AlignInContainer: =AlignInContainer.SetByContainer
@@ -1010,7 +1010,7 @@
         Width: =270
         X: =548
         Y: =20
-        ZIndex: =25
+        ZIndex: =6
 
         btn_hms_CreateCalendarLeaveCollection As button:
             OnSelect: |
@@ -1299,6 +1299,17 @@
             Y: =23
             ZIndex: =3
 
+    Label16_2 As label:
+        Align: =Align.Center
+        FontWeight: =FontWeight.Semibold
+        Height: =56
+        Text: ="Không có yêu cầu"
+        Visible: =If(IsEmpty(gal_hs_List_2.AllItems),true,false)
+        Width: =252
+        X: =1080
+        Y: =435
+        ZIndex: =7
+
     ctn_hms_Loading As groupContainer.manualLayoutContainer:
         Height: =Parent.Height
         RadiusBottomLeft: =0
@@ -1307,7 +1318,7 @@
         RadiusTopRight: =0
         Visible: =locLoading
         Width: =Parent.Width
-        ZIndex: =26
+        ZIndex: =8
 
         Button8 As button:
             BorderThickness: =0
@@ -1344,15 +1355,4 @@
             X: =583
             Y: =364
             ZIndex: =3
-
-    Label16_2 As label:
-        Align: =Align.Center
-        FontWeight: =FontWeight.Semibold
-        Height: =56
-        Text: ="Không có yêu cầu"
-        Visible: =If(IsEmpty(gal_hs_List_2.AllItems),true,false)
-        Width: =252
-        X: =1080
-        Y: =435
-        ZIndex: =27
 
