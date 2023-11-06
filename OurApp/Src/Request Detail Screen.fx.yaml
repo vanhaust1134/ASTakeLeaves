@@ -130,7 +130,7 @@
                         Color: =RGBA(94, 94, 94, 1)
                         FontWeight: =FontWeight.Semibold
                         Size: =15
-                        Text: ="Các lí do nghỉ"
+                        Text: ="Lí do nghỉ"
                         ZIndex: =1
 
                     drp_rds_Reason As dropdown:
