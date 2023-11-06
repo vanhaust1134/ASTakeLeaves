@@ -6134,7 +6134,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "ctn_hs_Info2_2",
-      "ParentIndex": 0,
+      "ParentIndex": 1,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -9461,7 +9461,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "ico_hms_ChangeToPersonalHome",
-      "ParentIndex": 0,
+      "ParentIndex": 1,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -10760,7 +10760,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "img_hs_Avatar_2",
-      "ParentIndex": 1,
+      "ParentIndex": 0,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -12781,7 +12781,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "lbl_hs_ItemCreatedBy_2",
-      "ParentIndex": 0,
+      "ParentIndex": 2,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -13149,7 +13149,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "lbl_hs_ItemReason_2",
-      "ParentIndex": 2,
+      "ParentIndex": 1,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -13517,7 +13517,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "lbl_hs_ItemTime_2",
-      "ParentIndex": 1,
+      "ParentIndex": 0,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -17413,7 +17413,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "lbl_hs_Title_1",
-      "ParentIndex": 1,
+      "ParentIndex": 0,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
