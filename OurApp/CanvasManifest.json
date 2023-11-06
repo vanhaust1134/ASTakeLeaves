@@ -51,6 +51,7 @@
       "enableruntimepolicies": true,
       "enablesaveloadcleardataonweb": true,
       "enableupdateifdelegation": false,
+      "enhancedgalleryinitialization": false,
       "errorhandling": true,
       "expandedsavedatasupport": true,
       "exportimportcomponents2": true,

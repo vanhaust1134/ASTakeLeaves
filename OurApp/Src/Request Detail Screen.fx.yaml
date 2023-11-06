@@ -140,7 +140,7 @@
                         DisabledFill: =RGBA(255, 255, 255, 1)
                         DisplayMode: =DisplayMode.Disabled
                         Height: =50
-                        Items: =[locRequestDetail.reasonDetail]
+                        Items: =[locRequestDetail.reason]
                         ZIndex: =2
 
                 ctn_rds_Detail As groupContainer.verticalAutoLayoutContainer:
@@ -167,7 +167,7 @@
                     txt_rds_Detail As text:
                         BorderColor: =RGBA(0, 0, 0, 1)
                         BorderThickness: =1
-                        Default: =locRequestDetail.reason
+                        Default: =locRequestDetail.reasonDetail
                         DisabledColor: =RGBA(0, 0, 0, 1)
                         DisabledFill: =RGBA(255, 255, 255, 1)
                         DisplayMode: =DisplayMode.Disabled
