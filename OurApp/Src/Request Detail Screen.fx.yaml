@@ -19,7 +19,7 @@
                     WeekDay: Weekday(locRequestDetail.endDate)
                 }
             )
-        ),DateDiff(locRequestDetail.startDate,locRequestDetail.endDate),ClearCollect(
+        ),ClearCollect(
             colDateRangeDetail,
             Table(
                 {
