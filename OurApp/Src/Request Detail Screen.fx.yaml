@@ -2,6 +2,7 @@
     Fill: =RGBA(80,80,80,1)
     OnVisible: |-
         =//Tạo collect chứa gồm 2 ngày bắt đầu và kết thúc của kì nghỉ
+        If(DateDiff(locRequestDetail.startDate,locRequestDetail.endDate) > 1,
         ClearCollect(
             colDateRangeDetail,
             Table(
@@ -18,7 +19,17 @@
                     WeekDay: Weekday(locRequestDetail.endDate)
                 }
             )
-        );
+        ),DateDiff(locRequestDetail.startDate,locRequestDetail.endDate),ClearCollect(
+            colDateRangeDetail,
+            Table(
+                {
+                    ID: 1,
+                    Date: locRequestDetail.startDate,
+                    Status: locRequestDetail.startDateType,
+                    WeekDay: Weekday(locRequestDetail.startDate)
+                }
+            )
+        ));
 
     btn_rds_BackGroundScreen As button:
         BorderStyle: =BorderStyle.None
