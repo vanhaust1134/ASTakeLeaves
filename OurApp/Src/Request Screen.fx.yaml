@@ -138,7 +138,7 @@
                                             TimeUnit.Days
                                         ) And Status = 2
                                     )
-                                ) = 1,
+                                ) >= 1,
                                 0.5,
                                 CountRows(
                                     Filter(
@@ -149,7 +149,7 @@
                                             TimeUnit.Days
                                         ) And Status = 3
                                     )
-                                ) = 1,
+                                ) >= 1,
                                 0.5,1
                             ),
                             0.5
@@ -628,7 +628,7 @@
                                                                 TimeUnit.Days
                                                             ) And Status = 2
                                                         )
-                                                    ) = 1,
+                                                    ) >= 1,
                                                     0.5,
                                                     CountRows(
                                                         Filter(
@@ -639,7 +639,7 @@
                                                                 TimeUnit.Days
                                                             ) And Status = 3
                                                         )
-                                                    ) = 1,
+                                                    ) >= 1,
                                                     0.5,
                                                     1
                                                 ),
@@ -800,7 +800,7 @@
                                                                 TimeUnit.Days
                                                             ) And Status = 2
                                                         )
-                                                    ) = 1,
+                                                    ) >= 1,
                                                     0.5,
                                                     CountRows(
                                                         Filter(
@@ -811,7 +811,7 @@
                                                                 TimeUnit.Days
                                                             ) And Status = 3
                                                         )
-                                                    ) = 1,
+                                                    ) >= 1,
                                                     0.5,1
                                                 ),
                                                 0.5
@@ -960,7 +960,7 @@
                             Items: |-
                                 =If(LookUp(gblColWeekDay,active = 1 And sort = ThisItem.WeekDay).status = 1,Table({ID:1,Name:"Cả ngày"},{ID:2,Name:"Nửa sáng"},{ID:3,Name:"Nửa chiều"}),LookUp(gblColWeekDay,active = 1 And sort = ThisItem.WeekDay).status = 2,Table({ID:2,Name:"Nửa sáng"},{ID:3,Name:"Nửa chiều"}))
                             OnChange: |-
-                                =Patch(colDateRange,LookUp(colDateRange,ID = ThisItem.ID),{Status:Dropdown1.Selected.ID});
+                                =If(dtp_rs_StartDay.SelectedDate = dtp_rs_FinishDay.SelectedDate,Patch(colDateRange,LookUp(colDateRange,ID = ThisItem.ID),{Status:Dropdown1.Selected.ID});Patch(colDateRange,LookUp(colDateRange,ID = ThisItem.ID + 1),{Status:Dropdown1.Selected.ID}),Patch(colDateRange,LookUp(colDateRange,ID = ThisItem.ID),{Status:Dropdown1.Selected.ID}));
                                 //Tính tổng ngày nghỉ
                                 ClearCollect(
                                     colTotalListDateRange,
@@ -1020,7 +1020,7 @@
                                                                     TimeUnit.Days
                                                                 ) And Status = 2
                                                             )
-                                                        ) = 1,
+                                                        ) >= 1,
                                                         0.5,
                                                         CountRows(
                                                             Filter(
@@ -1031,7 +1031,7 @@
                                                                     TimeUnit.Days
                                                                 ) And Status = 3
                                                             )
-                                                        ) = 1,
+                                                        ) >= 1,
                                                         0.5,
                                                         1
                                                     ),
