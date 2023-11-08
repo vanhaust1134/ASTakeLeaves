@@ -9461,7 +9461,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "ico_hms_ChangeToPersonalHome",
-      "ParentIndex": 0,
+      "ParentIndex": 1,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -17413,7 +17413,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "lbl_hs_Title_1",
-      "ParentIndex": 1,
+      "ParentIndex": 0,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {

@@ -1137,7 +1137,7 @@
                     );
                 
                     //Set biến chứ số phép cần phê duyệt
-                    Set(gblNumRequestWaitingApprove, CountRows(gblColRequestWaitingApprove));
+                    If(IsBlank(gblNumRequestWaitingApprove),Set(gblNumRequestWaitingApprove, CountRows(gblColRequestWaitingApprove)));
                     
                 
                 UpdateContext({locLoading: false});      //End loading
