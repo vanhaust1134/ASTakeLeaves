@@ -679,7 +679,7 @@
                     lbl_rds_ApproveBy As label:
                         Color: =RGBA(94, 94, 94, 1)
                         OnSelect: =Select(Parent)
-                        Text: =LookUp(gblColAllUser,userID = ThisItem.userID).fullName & If(ThisItem.status = "2"," đã từ chối"," đã duyệt")
+                        Text: =If(IsBlank(LookUp(gblColAllUser,userID = ThisItem.userID).fullName),"Hệ thống",LookUp(gblColAllUser,userID = ThisItem.userID).fullName) & If(ThisItem.status = "2"," đã từ chối"," đã duyệt")
                         Width: =270
                         Wrap: =false
                         X: =98
