@@ -59,6 +59,21 @@
             )
         );
         If(
+            //Role trưởng HR
+            gblRecUser.roleID = 7,
+            ClearCollect(
+                colLeaveRequestByManager,
+                AddColumns(
+                    Filter('ASTakeLeave.LeaveRequest',currentApproveLevel = 2 And status = 1) As Temp,
+                    "approveUserID",
+                    LookUp(
+                        gblColAllUserManaged,
+                        userID = Temp.userID And active = 1 And approveProcessLevel = 1
+                    ).approveUserID,"roleID",LookUp(gblColAllUser,userID = Temp.userID).roleID
+                )
+            )
+        );
+        If(
             //Role giám đốc điều hành
             gblRecUser.roleID = 4,
             ClearCollect(
